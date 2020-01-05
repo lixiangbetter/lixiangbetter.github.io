@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>OLTP和OLAP</title>
+    <url>/2020/01/05/OLTP%E5%92%8COLAP/</url>
+    <content><![CDATA[<p>1 OLTP和OLAP</p>
+<p>online transaction processing，联机事务处理。业务类系统主要供基层人员使用，进行一线业务操作，通常被称为联机事务处理。</p>
+<p>online analytical processing，联机分析处理。数据分析的目标是探索并挖掘数据的价值，作为企业高层进行决策的参考。</p>
+<p>从功能层面上来看，OLTP负责基本业务的正常运转，业务数据积累所产生的价值信息被OLAP所呈现，根据OLAP所产生的价值信息不断优化基本业务。</p>
+<p>2 OLTP</p>
+<p>OLTP负责基本业务的正常运转，因此使用基本的关系型数据库就可以了。比如Mysql。</p>
+<p>3 OLAP</p>
+<p>基本业务生成的数据越来越多，目前流行的是分布式的处理方案，即sql on hadoop。比如百度的关系数据仓储Palo。</p>
+<p>MPP架构的数据仓储是典型的OLAP应用。</p>
+<p>4 MPP</p>
+<p>massively parallel processing，大规模并行处理。比如非共享数据库集群。</p>
+<p>图示</p>
+<p><img src="/2020/01/05/OLTP和OLAP/2018072122222525.png" alt="图片找不到"></p>
+<p>图片转载：<a href="https://blog.csdn.net/qq_33414271/article/details/81149966" target="_blank" rel="noopener">https://blog.csdn.net/qq_33414271/article/details/81149966</a></p>
+]]></content>
+      <categories>
+        <category>bigdata</category>
+      </categories>
+      <tags>
+        <tag>biodata</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浅谈四层和七层负载均衡</title>
+    <url>/2020/01/05/%E6%B5%85%E8%B0%88%E5%9B%9B%E5%B1%82%E5%92%8C%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
+    <content><![CDATA[<h4 id="浅谈四层和七层负载"><a href="#浅谈四层和七层负载" class="headerlink" title="浅谈四层和七层负载"></a>浅谈四层和七层负载</h4><p>111关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<p>用一句话来说，<strong>四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的</strong>。</p>
+</blockquote>
+<p>也就是说，四层负载均衡是<strong>基于IP+端口</strong>的负载均衡，七层负载均衡是<strong>基于URL</strong>等应用层信息的负载均衡。</p>
+<p>同理，还有基于MAC地址的二层负载均衡和基于IP地址的三层负载均衡。</p>
+<blockquote>
+<ul>
+<li><strong>二层负载均衡(mac)</strong><br> 一般是用<code>虚拟mac地址</code>方式,外部对虚拟MAC地址请求,负载均衡接收后分配后端实际的MAC地址响应。</li>
+<li><strong>三层负载均衡(ip)</strong><br> 一般采用<code>虚拟IP地址</code>方式,外部对虚拟的ip地址请求,负载均衡接收后分配后端实际的IP地址响应。</li>
+<li><strong>四层负载均衡(tcp)</strong><br> 用<code>虚拟ip+port</code>接收请求,再转发到对应的真实机器。</li>
+<li><strong>七层负载均衡(http)</strong><br> 用<code>虚拟的url或主机名</code>接收请求,再转向相应的处理服务器。</li>
+</ul>
+</blockquote>
+<p>在实际应用中,比较常见的就是四层负载及七层负载。这里也重点说下这两种负载。</p>
+<p>  所谓的四到七层负载均衡，就是在对后台的服务器进行负载均衡时，<strong>依据四层的信息或七层的信息来决定怎么样转发流量</strong>。 比如四层的负载均衡，就是通过发布三层的IP地址（VIP），然后加四层的端口号，来决定哪些流量需要做负载均衡，对需要处理的流量进行NAT处理，转发至后台服务器，并记录下这个TCP或者UDP的流量是由哪台服务器处理的，后续这个连接的所有流量都同样转发到同一台服务器处理。七层的负载均衡，就是在四层的基础上（没有四层是绝对不可能有七层的），再考虑应用层的特征，比如同一个Web服务器的负载均衡，除了根据VIP加80端口辨别是否需要处理的流量，还可根据七层的URL、浏览器类别、语言来决定是否要进行负载均衡。举个例子，如果你的Web服务器分成两组，一组是中文语言的，一组是英文语言的，那么七层负载均衡就可以当用户来访问你的域名时，自动辨别用户语言，然后选择对应的语言服务器组进行负载均衡处理。</p>
+<hr>
+<h3 id="具体区别"><a href="#具体区别" class="headerlink" title="具体区别"></a>具体区别</h3><p>负载均衡器通常称为<strong>四层交换机</strong>或<strong>七层交换机</strong>。那么四层和七层两者到底区别在哪里？</p>
+<h5 id="1-技术原理区别"><a href="#1-技术原理区别" class="headerlink" title="1. 技术原理区别"></a>1. 技术原理区别</h5><ul>
+<li>所谓<strong>四层负载均衡</strong>，也就是主要通过报文中的目标地址和端口，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</li>
+</ul>
+<p>  以常见的TCP为例，负载均衡设备在接收到第一个来自客户端的SYN 请求时，即通过上述方式选择一个最佳的服务器，并对报文中目标IP地址进行修改(改为后端服务器IP），直接转发给该服务器。TCP的连接建立，即<strong>三次握手是客户端和服务器直接建立的，负载均衡设备只是起到一个类似路由器的转发动作</strong>。在某些部署情况下，为保证服务器回包可以正确返回给负载均衡设备，在转发报文的同时可能还会对报文原来的源地址进行修改。</p>
+<p><img src="/2020/01/05/浅谈四层和七层负载均衡/1038472-618c1fc22f893b96.jpg" alt="图片找不到"></p>
+<p>四层和七层交换机原理</p>
+<ul>
+<li>所谓<strong>七层负载均衡</strong>，也称为“内容交换”，也就是主要通过报文中的真正有意义的应用层内容，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</li>
+</ul>
+<p>  以常见的TCP为例，负载均衡设备如果要根据真正的应用层内容再选择服务器，只能先代理最终的服务器和客户端建立连接(三次握手)后，才可能接受到客户端发送的真正应用层内容的报文，然后再根据该报文中的特定字段，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。<strong>负载均衡设备在这种情况下，更类似于一个代理服务器</strong>。负载均衡和前端的客户端以及后端的服务器会分别建立TCP连接。所以从这个技术原理上来看，七层负载均衡明显的对负载均衡设备的要求更高，处理七层的能力也必然会低于四层模式的部署方式。</p>
+<h5 id="2-应用场景区别"><a href="#2-应用场景区别" class="headerlink" title="2.应用场景区别"></a>2.应用场景区别</h5><p>  七层因为可以代理任意修改和处理用户的请求，所以可以使整个应用更加智能化和安全，代价就是设计和配置会更复杂。所以是否有必要使用七层负载均衡是一个需要权衡的问题。</p>
+<p>  现在的7层负载均衡，主要还是着重于应用HTTP协议，所以其应用范围主要是众多的网站或者内部信息平台等基于B/S开发的系统。 4层负载均衡则对应其他TCP应用，例如基于C/S开发的ERP等系统。</p>
+<p>链接：<a href="https://www.jianshu.com/p/04518b017c90" target="_blank" rel="noopener">https://www.jianshu.com/p/04518b017c90</a></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>负载均衡</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>storm创建drpc远程客户端</title>
+    <url>/2019/12/11/storm%E5%88%9B%E5%BB%BAdrpc%E8%BF%9C%E7%A8%8B%E5%AE%A2%E6%88%B7%E7%AB%AF/</url>
+    <content><![CDATA[<h2 id="创建DRPC远程客户端"><a href="#创建DRPC远程客户端" class="headerlink" title="创建DRPC远程客户端"></a>创建DRPC远程客户端</h2><p>DRPCClient创建方法如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//conf map, drpc server, port no, timeout for the call</span></span><br><span class="line"><span class="keyword">new</span> DRPCClient(conf, <span class="string">"192.168.0.217"</span>, <span class="number">3772</span>, <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>conf如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Config conf = <span class="keyword">new</span> Config();</span><br><span class="line">conf.setDebug(<span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这将产生下列这个错误：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java.lang.NullPointerException</span><br><span class="line">java.lang.RuntimeException: java.lang.NullPointerException</span><br><span class="line">at backtype.storm.security.auth.AuthUtils.GetTransportPlugin(AuthUtils.java:<span class="number">230</span>)</span><br><span class="line">at backtype.storm.security.auth.ThriftClient.reconnect(ThriftClient.java:<span class="number">91</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如何添加下列这句话：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">conf.put(<span class="string">"storm.thrift.transport"</span>, <span class="string">"backtype.storm.security.auth.SimpleTransportPlugin"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这将继续报这个错误：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Don<span class="string">'t know how to convert null to int</span></span><br><span class="line"><span class="string">java.lang.IllegalArgumentException: Don'</span>t know how to convert <span class="keyword">null</span> to <span class="keyword">int</span></span><br><span class="line">at backtype.storm.utils.Utils.getInt(Utils.java:<span class="number">420</span>)</span><br><span class="line">at backtype.storm.security.auth.ThriftClient.reconnect(ThriftClient.java:<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在storm0.10之后就已经做了改进，使用map来传递配置参数。</p>
+<p>正确做法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Config conf = <span class="keyword">new</span> Config();</span><br><span class="line">Map defaultConfig = Utils.readDefaultConfig();</span><br><span class="line"></span><br><span class="line">defaultConfig.put(<span class="string">"storm.thrift.transport"</span>,<span class="string">"org.apache.storm.security.auth.SimpleTransportPlugin"</span>);</span><br><span class="line">defaultConfig.put(Config.STORM_EXHIBITOR_RETRY_TIMES, <span class="number">3</span>);</span><br><span class="line">defaultConfig.put(Config.STORM_EXHIBITOR_RETRY_INTERVAL, <span class="number">10</span>);</span><br><span class="line">defaultConfig.put(Config.STORM_EXHIBITOR_RETRY_INTERVAL_CEILING, <span class="number">20</span>);</span><br><span class="line">defaultConfig.put(Config.DRPC_MAX_BUFFER_SIZE, <span class="number">1048576</span>);</span><br><span class="line"></span><br><span class="line">conf.putAll(defaultConfig);</span><br><span class="line"></span><br><span class="line">DRPCClient drpcClient = <span class="keyword">new</span> DRPCClient(conf,<span class="string">"localhost"</span>, <span class="number">3772</span>,<span class="number">5000</span>);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>bigdata</category>
+      </categories>
+      <tags>
+        <tag>storm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>研一前的暑假，深度学习初体验</title>
+    <url>/2019/08/10/%E7%A0%94%E4%B8%80%E5%89%8D%E7%9A%84%E6%9A%91%E5%81%87%EF%BC%8C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%88%9D%E4%BD%93%E9%AA%8C/</url>
+    <content><![CDATA[<h1 id="选导师"><a href="#选导师" class="headerlink" title="选导师"></a>选导师</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;在五月二十七号左右，再次来到一所新的城市，即将在这里度过我研究生的三年，之所以来这么早，是因为希望研究生阶段，能够跟着一个研究方向，自己比较感兴趣的导师。找的第一个导师比较偏学术一些，而我又希望自己在研究生阶段能够有一定的项目经历，所以在经过思考后，我和老师表明了我的想法，老师也表示理解，和我推荐了其他的导师。在找导师的过程中，发现比较热门的导师的特点有以下几点。在校刚来的几位导师中，比较年轻的导师无论能力还是学术都比较强，所有也很快就定下了人选。在来之前，自己也大致确立了方向，大数据。学校有个大数据院，看了相关的介绍，这一方向在校长的带领下，是发展的非常不错的。但是对于我看似来的早，实际上并不早的人来说，是轮不到我了。。此处省略一万字吧。最终找到了我现在的导师，导师管理的公司主要是做图像识别。也就属于当前的计算机视觉方向，被分配在公司的算法组，所以也就不得不走向了研究深度学习的方向。</p>
+<h1 id="做事情"><a href="#做事情" class="headerlink" title="做事情"></a>做事情</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;在简单的熟悉了公司之后，由于初来公司，并没有分配什么很具体的工作，所以自己在没事的时候，我选择继续考研之后做的事情，那就是学习springboot. 由于在公司里，没有很具体的工作，每天自己看视频自学，一个视频教程边看自己边跟着实践，也很快就完成了。 就这样，看了springboot企业微信点餐，springcloud升级企业微信点餐两个教程。就在这个时候，公司有准备让我写一些简单的接口。这时候随着对微服务的了解之后，我发现我对这个概念非常感兴趣。所以我不断去深入了解这一块的知识。</p>
+<h1 id="深度学习相关"><a href="#深度学习相关" class="headerlink" title="深度学习相关"></a>深度学习相关</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;在机器学习中，我们通常使用梯度下降来更新模型参数从而求解。损失函数关于模型参数的梯度指向一个可以降低损失函数值的方向，我们不断地沿着梯度的方向更新模型从而最小化损失函数。</p>
+<h2 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;线性回归输出是一个连续值，因此适用于回归问题。回归问题在实际中很常见，如预测房屋价格、气温、销售额等连续值的问题。与回归问题不同，分类问题中模型的最终输出是一个离散值。我们所说的图像分类、垃圾邮件识别、疾病检测等输出为离散值的问题都属于分类问题的范畴。softmax回归则适用于分类问题。</p>
+<h3 id="线性回归的基本要素"><a href="#线性回归的基本要素" class="headerlink" title="线性回归的基本要素"></a>线性回归的基本要素</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;我们以一个简单的房屋价格预测作为例子来解释线性回归的基本要素。这个应用的目标是预测一栋房子的售出价格（元）。我们知道这个价格取决于很多因素，如房屋状况、地段、市场行情等。为了简单起见，这里我们假设价格只取决于房屋状况的两个因素，即面积（平方米）和房龄（年）。接下来我们希望探索价格与这两个因素的具体关系。</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;设房屋的面积为x1，房龄为x2，售出价格为y。我们需要建立基于输入x1和x2来计算输出y的表达式，也就是模型（model）。顾名思义，线性回归假设输出与各个输入之间是线性关系：<br>&nbsp;&nbsp;&nbsp;&nbsp;y^=x1w1+x2w2+b,<br>&nbsp;&nbsp;&nbsp;&nbsp;其中w1和w2是权重（weight），b是偏差（bias），且均为标量。它们是线性回归模型的参数（parameter）。模型输出ˆy是线性回归对真实价格y的预测或估计。我们通常允许它们之间有一定误差。</p>
+<h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;接下来我们需要通过数据来寻找特定的模型参数值，使模型在数据上的误差尽可能小。这个过程叫作模型训练（model training）。下面我们介绍模型训练所涉及的3个要素。</p>
+<h4 id="训练数据"><a href="#训练数据" class="headerlink" title="训练数据"></a>训练数据</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;我们通常收集一系列的真实数据，例如多栋房屋的真实售出价格和它们对应的面积和房龄。我们希望在这个数据上面寻找模型参数来使模型的预测价格与真实价格的误差最小。在机器学习术语里，该数据集被称为训练数据集（training data set）或训练集（training set），一栋房屋被称为一个样本（sample），其真实售出价格叫作标签（label），用来预测标签的两个因素叫作特征（feature）。特征用来表征样本的特点。<br>&nbsp;&nbsp;&nbsp;&nbsp;假设我们采集的样本数为n，索引为i的样本的特征为x(i)1和x(i)2，标签为y(i)。对于索引为i的房屋，线性回归模型的房屋价格预测表达式为<br>&nbsp;&nbsp;&nbsp;&nbsp;y(i)=x1(i)w1+x2(i)w2+b.</p>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;在模型训练中，我们需要衡量价格预测值与真实值之间的误差。通常我们会选取一个非负数作为误差，且数值越小表示误差越小。一个常用的选择是平方函数。<br>    给定训练数据集，这个误差只与模型参数相关，因此我们将它记为以模型参数为参数的函数。在机器学习里，将衡量误差的函数称为损失函数（loss function）。<br>&nbsp;&nbsp;&nbsp;&nbsp;通常，我们用训练数据集中所有样本误差的平均来衡量模型预测的质量.<br>&nbsp;&nbsp;&nbsp;&nbsp;在模型训练中，我们希望找出一组模型参数，记为w∗1,w∗2,b∗，来使训练样本平均损失最小.</p>
+<h4 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;当模型和损失函数形式较为简单时，上面的误差最小化问题的解可以直接用公式表达出来。这类解叫作解析解（analytical solution）。本节使用的线性回归和平方误差刚好属于这个范畴。然而，大多数深度学习模型并没有解析解，只能通过优化算法有限次迭代模型参数来尽可能降低损失函数的值。这类解叫作数值解（numerical solution）。<br>&nbsp;&nbsp;&nbsp;&nbsp;在求数值解的优化算法中，小批量随机梯度下降（mini-batch stochastic gradient descent）在深度学习中被广泛使用。它的算法很简单：先选取一组模型参数的初始值，如随机选取；接下来对参数进行多次迭代，使每次迭代都可能降低损失函数的值。在每次迭代中，先随机均匀采样一个由固定数目训练数据样本所组成的小批量（mini-batch）β，然后求小批量中数据样本的平均损失有关模型参数的导数（梯度），最后用此结果与预先设定的一个正数的乘积作为模型参数在本次迭代的减小量。<br>&nbsp;&nbsp;&nbsp;&nbsp;在迭代的过程中，β代表每个小批量中的样本个数（批量大小，batch size），η称作学习率（learning rate）并取正数。需要强调的是，这里的批量大小和学习率的值是人为设定的，并不是通过模型训练学出的，因此叫作超参数（hyperparameter）。我们通常所说的“调参”指的正是调节超参数，例如通过反复试错来找到超参数合适的值。</p>
+<h3 id="模型预测"><a href="#模型预测" class="headerlink" title="模型预测"></a>模型预测</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;模型训练完成后，我们将模型参数w1, w2, b在优化算法停止时的值分别记作w<sub>1</sub>, w<sub>2</sub>, b。注意，这里我们得到的并不一定是最小化损失函数的最优解w*<sub>1</sub>, w*<sub>2</sub>，b*，而是对最优解的一个近似。然后，我们就可以使用学出的线性回归模型x1w1+ x2w2 + b来估算训练数据集以外任意一栋面积（平方米）为x1、房龄（年）为x2的房屋的价格了。这里的估算也叫作模型预测、模型推断或模型测试。</p>
+]]></content>
+      <categories>
+        <category>计算机视觉</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>深度学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/03/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
