@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="浅谈四层和七层负载111关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。 概述 用一句话来说，四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的。  也就是说，四层负载均衡是基于IP+端口的负载均衡，七层负载均衡是基于URL等应用层信息的负载均衡。 同理，还有基于MAC地址的二层负载">
+<meta name="description" content="浅谈四层和七层负载关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。 概述 用一句话来说，四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的。  也就是说，四层负载均衡是基于IP+端口的负载均衡，七层负载均衡是基于URL等应用层信息的负载均衡。 同理，还有基于MAC地址的二层负载均衡和">
 <meta name="keywords" content="负载均衡">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈四层和七层负载均衡">
 <meta property="og:url" content="http://yoursite.com/2020/01/05/浅谈四层和七层负载均衡/index.html">
 <meta property="og:site_name" content="Thinking">
-<meta property="og:description" content="浅谈四层和七层负载111关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。 概述 用一句话来说，四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的。  也就是说，四层负载均衡是基于IP+端口的负载均衡，七层负载均衡是基于URL等应用层信息的负载均衡。 同理，还有基于MAC地址的二层负载">
+<meta property="og:description" content="浅谈四层和七层负载关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。 概述 用一句话来说，四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的。  也就是说，四层负载均衡是基于IP+端口的负载均衡，七层负载均衡是基于URL等应用层信息的负载均衡。 同理，还有基于MAC地址的二层负载均衡和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2020/01/05/浅谈四层和七层负载均衡/1038472-618c1fc22f893b96.jpg">
-<meta property="og:updated_time" content="2020-01-05T06:31:23.175Z">
+<meta property="og:image" content="http://yoursite.com/2020/01/05/浅谈四层和七层负载均衡/lx/Documents/myblog/source/_posts/%E6%B5%85%E8%B0%88%E5%9B%9B%E5%B1%82%E5%92%8C%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1038472-618c1fc22f893b96.jpg">
+<meta property="og:updated_time" content="2020-01-12T06:54:50.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈四层和七层负载均衡">
-<meta name="twitter:description" content="浅谈四层和七层负载111关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。 概述 用一句话来说，四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的。  也就是说，四层负载均衡是基于IP+端口的负载均衡，七层负载均衡是基于URL等应用层信息的负载均衡。 同理，还有基于MAC地址的二层负载">
-<meta name="twitter:image" content="http://yoursite.com/2020/01/05/浅谈四层和七层负载均衡/1038472-618c1fc22f893b96.jpg">
+<meta name="twitter:description" content="浅谈四层和七层负载关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。 概述 用一句话来说，四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的。  也就是说，四层负载均衡是基于IP+端口的负载均衡，七层负载均衡是基于URL等应用层信息的负载均衡。 同理，还有基于MAC地址的二层负载均衡和">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/05/浅谈四层和七层负载均衡/lx/Documents/myblog/source/_posts/%E6%B5%85%E8%B0%88%E5%9B%9B%E5%B1%82%E5%92%8C%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1038472-618c1fc22f893b96.jpg">
 
 
 
@@ -391,7 +391,7 @@
       
 
       
-        <h4 id="浅谈四层和七层负载"><a href="#浅谈四层和七层负载" class="headerlink" title="浅谈四层和七层负载"></a>浅谈四层和七层负载</h4><p>111关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。</p>
+        <h4 id="浅谈四层和七层负载"><a href="#浅谈四层和七层负载" class="headerlink" title="浅谈四层和七层负载"></a>浅谈四层和七层负载</h4><p>关于负载均衡，经常听到四层负载均衡和七层负载均衡的说法，他们之间有什么关系和区别呢，今天就简单总结概括下。</p>
 <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>用一句话来说，<strong>四层负载均衡就是工作在计算机网络OSI七层分层的第四层（传输层）的，七层负载军和则是工作在第七层（应用层）的</strong>。</p>
 </blockquote>
@@ -412,8 +412,7 @@
 <h5 id="1-技术原理区别"><a href="#1-技术原理区别" class="headerlink" title="1. 技术原理区别"></a>1. 技术原理区别</h5><ul>
 <li>所谓<strong>四层负载均衡</strong>，也就是主要通过报文中的目标地址和端口，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</li>
 </ul>
-<p>  以常见的TCP为例，负载均衡设备在接收到第一个来自客户端的SYN 请求时，即通过上述方式选择一个最佳的服务器，并对报文中目标IP地址进行修改(改为后端服务器IP），直接转发给该服务器。TCP的连接建立，即<strong>三次握手是客户端和服务器直接建立的，负载均衡设备只是起到一个类似路由器的转发动作</strong>。在某些部署情况下，为保证服务器回包可以正确返回给负载均衡设备，在转发报文的同时可能还会对报文原来的源地址进行修改。</p>
-<p><img src="/2020/01/05/浅谈四层和七层负载均衡/1038472-618c1fc22f893b96.jpg" alt="图片找不到"></p>
+<p>  以常见的TCP为例，负载均衡设备在接收到第一个来自客户端的SYN 请求时，即通过上述方式选择一个最佳的服务器，并对报文中目标IP地址进行修改(改为后端服务器IP），直接转发给该服务器。TCP的连接建立，即<strong>三次握手是客户端和服务器直接建立的，负载均衡设备只是起到一个类似路由器的转发动作</strong>。在某些部署情况下，为保证服务器回包可以正确返回给负载均衡设备，在转发报文的同时可能还会对报文原来的源地址进行修改。<br><img src="/2020/01/05/浅谈四层和七层负载均衡/lx/Documents/myblog/source/_posts/%E6%B5%85%E8%B0%88%E5%9B%9B%E5%B1%82%E5%92%8C%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1038472-618c1fc22f893b96.jpg" alt="not found"></p>
 <p>四层和七层交换机原理</p>
 <ul>
 <li>所谓<strong>七层负载均衡</strong>，也称为“内容交换”，也就是主要通过报文中的真正有意义的应用层内容，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</li>
@@ -421,7 +420,7 @@
 <p>  以常见的TCP为例，负载均衡设备如果要根据真正的应用层内容再选择服务器，只能先代理最终的服务器和客户端建立连接(三次握手)后，才可能接受到客户端发送的真正应用层内容的报文，然后再根据该报文中的特定字段，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。<strong>负载均衡设备在这种情况下，更类似于一个代理服务器</strong>。负载均衡和前端的客户端以及后端的服务器会分别建立TCP连接。所以从这个技术原理上来看，七层负载均衡明显的对负载均衡设备的要求更高，处理七层的能力也必然会低于四层模式的部署方式。</p>
 <h5 id="2-应用场景区别"><a href="#2-应用场景区别" class="headerlink" title="2.应用场景区别"></a>2.应用场景区别</h5><p>  七层因为可以代理任意修改和处理用户的请求，所以可以使整个应用更加智能化和安全，代价就是设计和配置会更复杂。所以是否有必要使用七层负载均衡是一个需要权衡的问题。</p>
 <p>  现在的7层负载均衡，主要还是着重于应用HTTP协议，所以其应用范围主要是众多的网站或者内部信息平台等基于B/S开发的系统。 4层负载均衡则对应其他TCP应用，例如基于C/S开发的ERP等系统。</p>
-<p>链接：<a href="https://www.jianshu.com/p/04518b017c90" target="_blank" rel="noopener">https://www.jianshu.com/p/04518b017c90</a></p>
+<p>原文链接：<a href="https://www.jianshu.com/p/04518b017c90" target="_blank" rel="noopener">https://www.jianshu.com/p/04518b017c90</a></p>
 
       
     </div>
@@ -452,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/11/storm创建drpc远程客户端/" rel="next" title="storm创建drpc远程客户端">
-                <i class="fa fa-chevron-left"></i> storm创建drpc远程客户端
+              <a href="/2019/12/11/storm创建drpc远程客户端/" rel="next" title="storm创建DRPC远程客户端">
+                <i class="fa fa-chevron-left"></i> storm创建DRPC远程客户端
               </a>
             
           </div>
@@ -548,7 +547,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -570,7 +569,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
