@@ -28,7 +28,7 @@
 </ul>
 <h4 id="常用的集合类有哪些？"><a href="#常用的集合类有哪些？" class="headerlink" title="常用的集合类有哪些？"></a>常用的集合类有哪些？</h4><p>Map接口和Collection接口是所有集合框架的父接口：</p>
 <p>Collection接口的子接口包括：Set接口和List接口<br>Map接口的实现类主要有：HashMap、TreeMap、Hashtable、ConcurrentHashMap以及Properties等<br>Set接口的实现类主要有：HashSet、TreeSet、LinkedHashSet等<br>List接口的实现类主要有：ArrayList、LinkedList、Stack以及Vector等</p>
-<h4 id="List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？"><a href="#List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？" class="headerlink" title="List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？"></a>List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？</h4><p><img src="/2020/06/20/java集合笔记/lx/Documents/myblog/source/_posts/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg" alt="图片找不到"> </p>
+<h4 id="List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？"><a href="#List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？" class="headerlink" title="List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？"></a>List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？</h4><p><img src="%5Bhttps://github.com/lixiangbetter/lixiangbetter.github.io/blob/master/2020/06/20/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg%5D(https://github.com/lixiangbetter/lixiangbetter.github.io/blob/master/2020/06/20/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg)" alt="图片找不到"> </p>
 <h4 id="集合框架底层数据结构"><a href="#集合框架底层数据结构" class="headerlink" title="集合框架底层数据结构"></a>集合框架底层数据结构</h4><p>Collection</p>
 <ol>
 <li>List</li>
@@ -307,7 +307,7 @@ o</code></pre><p>})    </p>
 <p>MPP架构的数据仓储是典型的OLAP应用。</p>
 <p>4 MPP</p>
 <p>massively parallel processing，大规模并行处理。比如非共享数据库集群。</p>
-<p>图示<br><img src="/2020/01/05/OLTP和OLAP/lx/Documents/myblog/source/_posts/OLTP%E5%92%8COLAP/2018072122222525.png" alt="not found"></p>
+<p>图示<br><img src="/Users/lx/Documents/myblog/source/_posts/OLTP%E5%92%8COLAP/2018072122222525.png" alt="not found"></p>
 <p>图片转载：<a href="https://blog.csdn.net/qq_33414271/article/details/81149966" target="_blank" rel="noopener">https://blog.csdn.net/qq_33414271/article/details/81149966</a></p>
 ]]></content>
       <categories>
@@ -341,7 +341,7 @@ o</code></pre><p>})    </p>
 <h5 id="1-技术原理区别"><a href="#1-技术原理区别" class="headerlink" title="1. 技术原理区别"></a>1. 技术原理区别</h5><ul>
 <li>所谓<strong>四层负载均衡</strong>，也就是主要通过报文中的目标地址和端口，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</li>
 </ul>
-<p>  以常见的TCP为例，负载均衡设备在接收到第一个来自客户端的SYN 请求时，即通过上述方式选择一个最佳的服务器，并对报文中目标IP地址进行修改(改为后端服务器IP），直接转发给该服务器。TCP的连接建立，即<strong>三次握手是客户端和服务器直接建立的，负载均衡设备只是起到一个类似路由器的转发动作</strong>。在某些部署情况下，为保证服务器回包可以正确返回给负载均衡设备，在转发报文的同时可能还会对报文原来的源地址进行修改。<br><img src="/2020/01/05/浅谈四层和七层负载均衡/lx/Documents/myblog/source/_posts/%E6%B5%85%E8%B0%88%E5%9B%9B%E5%B1%82%E5%92%8C%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1038472-618c1fc22f893b96.jpg" alt="not found"></p>
+<p>  以常见的TCP为例，负载均衡设备在接收到第一个来自客户端的SYN 请求时，即通过上述方式选择一个最佳的服务器，并对报文中目标IP地址进行修改(改为后端服务器IP），直接转发给该服务器。TCP的连接建立，即<strong>三次握手是客户端和服务器直接建立的，负载均衡设备只是起到一个类似路由器的转发动作</strong>。在某些部署情况下，为保证服务器回包可以正确返回给负载均衡设备，在转发报文的同时可能还会对报文原来的源地址进行修改。<br><img src="/Users/lx/Documents/myblog/source/_posts/%E6%B5%85%E8%B0%88%E5%9B%9B%E5%B1%82%E5%92%8C%E4%B8%83%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1038472-618c1fc22f893b96.jpg" alt="not found"></p>
 <p>四层和七层交换机原理</p>
 <ul>
 <li>所谓<strong>七层负载均衡</strong>，也称为“内容交换”，也就是主要通过报文中的真正有意义的应用层内容，再加上负载均衡设备设置的服务器选择方式，决定最终选择的内部服务器。</li>
