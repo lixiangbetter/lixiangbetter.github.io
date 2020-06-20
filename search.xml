@@ -28,7 +28,7 @@
 </ul>
 <h4 id="常用的集合类有哪些？"><a href="#常用的集合类有哪些？" class="headerlink" title="常用的集合类有哪些？"></a>常用的集合类有哪些？</h4><p>Map接口和Collection接口是所有集合框架的父接口：</p>
 <p>Collection接口的子接口包括：Set接口和List接口<br>Map接口的实现类主要有：HashMap、TreeMap、Hashtable、ConcurrentHashMap以及Properties等<br>Set接口的实现类主要有：HashSet、TreeSet、LinkedHashSet等<br>List接口的实现类主要有：ArrayList、LinkedList、Stack以及Vector等</p>
-<h4 id="List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？"><a href="#List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？" class="headerlink" title="List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？"></a>List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？</h4><p><img src="%5Bhttps://github.com/lixiangbetter/lixiangbetter.github.io/blob/master/2020/06/20/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg%5D(https://github.com/lixiangbetter/lixiangbetter.github.io/blob/master/2020/06/20/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg)" alt="图片找不到"> </p>
+<h4 id="List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？"><a href="#List，Set，Map三者的区别？List、Set、Map-是否继承自-Collection-接口？List、Map、Set-三个接口存取元素时，各有什么特点？" class="headerlink" title="List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？"></a>List，Set，Map三者的区别？List、Set、Map 是否继承自 Collection 接口？List、Map、Set 三个接口存取元素时，各有什么特点？</h4><p><img src="https://lixiangbetter.github.io/2020/06/20/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg" alt="https://lixiangbetter.github.io/2020/06/20/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg"></p>
 <h4 id="集合框架底层数据结构"><a href="#集合框架底层数据结构" class="headerlink" title="集合框架底层数据结构"></a>集合框架底层数据结构</h4><p>Collection</p>
 <ol>
 <li>List</li>
@@ -307,7 +307,7 @@ o</code></pre><p>})    </p>
 <p>MPP架构的数据仓储是典型的OLAP应用。</p>
 <p>4 MPP</p>
 <p>massively parallel processing，大规模并行处理。比如非共享数据库集群。</p>
-<p>图示<br><img src="/Users/lx/Documents/myblog/source/_posts/OLTP%E5%92%8COLAP/2018072122222525.png" alt="not found"></p>
+<p>图示<br><img src="https://lixiangbetter.github.io/2020/01/05/OLTP%E5%92%8COLAP/2018072122222525.png" alt="not found"></p>
 <p>图片转载：<a href="https://blog.csdn.net/qq_33414271/article/details/81149966" target="_blank" rel="noopener">https://blog.csdn.net/qq_33414271/article/details/81149966</a></p>
 ]]></content>
       <categories>
