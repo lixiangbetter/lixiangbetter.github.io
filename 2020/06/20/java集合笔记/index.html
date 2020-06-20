@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="[toc] java集合笔记集合概述什么是集合集合框架：用于存储数据的容器。 集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。 接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。 实现：集合接口的具体实现，是重用性很高的数据结构。 算">
+<meta name="description" content="java集合笔记集合概述什么是集合集合框架：用于存储数据的容器。 集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。 接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。 实现：集合接口的具体实现，是重用性很高的数据结构。 算法：在一个实">
 <meta name="keywords" content="Collections">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java集合笔记">
 <meta property="og:url" content="http://yoursite.com/2020/06/20/java集合笔记/index.html">
 <meta property="og:site_name" content="Thinking">
-<meta property="og:description" content="[toc] java集合笔记集合概述什么是集合集合框架：用于存储数据的容器。 集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。 接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。 实现：集合接口的具体实现，是重用性很高的数据结构。 算">
+<meta property="og:description" content="java集合笔记集合概述什么是集合集合框架：用于存储数据的容器。 集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。 接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。 实现：集合接口的具体实现，是重用性很高的数据结构。 算法：在一个实">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2020/06/20/java集合笔记/lx/Documents/myblog/source/_posts/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg">
-<meta property="og:updated_time" content="2020-06-20T01:01:21.736Z">
+<meta property="og:updated_time" content="2020-06-20T01:04:33.476Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java集合笔记">
-<meta name="twitter:description" content="[toc] java集合笔记集合概述什么是集合集合框架：用于存储数据的容器。 集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。 接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。 实现：集合接口的具体实现，是重用性很高的数据结构。 算">
+<meta name="twitter:description" content="java集合笔记集合概述什么是集合集合框架：用于存储数据的容器。 集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。 接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。 实现：集合接口的具体实现，是重用性很高的数据结构。 算法：在一个实">
 <meta name="twitter:image" content="http://yoursite.com/2020/06/20/java集合笔记/lx/Documents/myblog/source/_posts/java%E9%9B%86%E5%90%88%E7%AC%94%E8%AE%B0/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL290aGVyLzE0MDgxODMvMjAxOTExLzE0MDgxODMtMjAxOTExMTkxODQxNDk1NTktMTU3MTU5NTY2OC5qcGc.jpeg">
 
 
@@ -391,8 +391,7 @@
       
 
       
-        <p>[toc]</p>
-<h1 id="java集合笔记"><a href="#java集合笔记" class="headerlink" title="java集合笔记"></a>java集合笔记</h1><h2 id="集合概述"><a href="#集合概述" class="headerlink" title="集合概述"></a>集合概述</h2><h4 id="什么是集合"><a href="#什么是集合" class="headerlink" title="什么是集合"></a>什么是集合</h4><p>集合框架：用于存储数据的容器。</p>
+        <h1 id="java集合笔记"><a href="#java集合笔记" class="headerlink" title="java集合笔记"></a>java集合笔记</h1><h2 id="集合概述"><a href="#集合概述" class="headerlink" title="集合概述"></a>集合概述</h2><h4 id="什么是集合"><a href="#什么是集合" class="headerlink" title="什么是集合"></a>什么是集合</h4><p>集合框架：用于存储数据的容器。</p>
 <p>集合框架是为表示和操作集合而规定的一种统一的标准的体系结构。<br>任何集合框架都包含三大块内容：对外的接口、接口的实现和对集合运算的算法。</p>
 <p>接口：表示集合的抽象数据类型。接口允许我们操作集合时不必关注具体实现，从而达到“多态”。在面向对象编程语言中，接口通常用来形成规范。</p>
 <p>实现：集合接口的具体实现，是重用性很高的数据结构。</p>
