@@ -3,8 +3,7 @@
   <entry>
     <title>JVM笔记</title>
     <url>/2020/06/29/JVM%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="JVM笔记"><a href="#JVM笔记" class="headerlink" title="JVM笔记"></a>JVM笔记</h1><h2 id="Java内存区域"><a href="#Java内存区域" class="headerlink" title="Java内存区域"></a>Java内存区域</h2><p>111</p>
-<h3 id="说一下-JVM-的主要组成部分及其作用？"><a href="#说一下-JVM-的主要组成部分及其作用？" class="headerlink" title="说一下 JVM 的主要组成部分及其作用？"></a>说一下 JVM 的主要组成部分及其作用？</h3><p>JVM包含两个子系统和两个组件，两个子系统为Class loader(类装载)、Execution engine(执行引擎)；两个组件为Runtime data area(运行时数据区)、Native Interface(本地接口)。</p>
+    <content><![CDATA[<h1 id="JVM笔记"><a href="#JVM笔记" class="headerlink" title="JVM笔记"></a>JVM笔记</h1><h2 id="Java内存区域"><a href="#Java内存区域" class="headerlink" title="Java内存区域"></a>Java内存区域</h2><h3 id="说一下-JVM-的主要组成部分及其作用？"><a href="#说一下-JVM-的主要组成部分及其作用？" class="headerlink" title="说一下 JVM 的主要组成部分及其作用？"></a>说一下 JVM 的主要组成部分及其作用？</h3><p>JVM包含两个子系统和两个组件，两个子系统为Class loader(类装载)、Execution engine(执行引擎)；两个组件为Runtime data area(运行时数据区)、Native Interface(本地接口)。</p>
 <p>Class loader(类装载)：根据给定的全限定名类名(如：java.lang.Object)来装载class文件到Runtime data area中的method area。</p>
 <p>Execution engine（执行引擎）：执行classes中的指令。</p>
 <p>Native Interface(本地接口)：与native libraries交互，是其它编程语言交互的接口。</p>
