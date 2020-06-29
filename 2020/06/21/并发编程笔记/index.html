@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="并发编程笔记基础知识并发编程的优缺点为什么要使用并发编程（并发编程的优点） 充分利用多核CPU的计算能力：通过并发编程的形式可以将多核CPU的计算能力发挥到极致，性能得到提升 方便进行业务拆分，提升系统并发能力和性能：在特殊的业务场景下，先天的就适合于并发编程。现在的系统动不动就要求百万级甚至千万级的并发量，而多线程并发编程正是开发高并发系统的基础，利用好多线程机制可以大大提高系统整体的并发能力以">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxNy8xMi8xNS8xNjA1OWNjOTFlZThlZmIz.jpeg">
-<meta property="og:image" content="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3Njc4NGNkMzJi.jpeg">
-<meta property="og:image" content="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3NjEyOTVlNzY2.jpeg">
-<meta property="og:updated_time" content="2020-06-29T08:24:11.326Z">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxNy8xMi8xNS8xNjA1OWNjOTFlZThlZmIz.jpeg">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3Njc4NGNkMzJi.jpeg">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3NjEyOTVlNzY2.jpeg">
+<meta property="og:updated_time" content="2020-06-29T09:45:03.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发编程笔记">
 <meta name="twitter:description" content="并发编程笔记基础知识并发编程的优缺点为什么要使用并发编程（并发编程的优点） 充分利用多核CPU的计算能力：通过并发编程的形式可以将多核CPU的计算能力发挥到极致，性能得到提升 方便进行业务拆分，提升系统并发能力和性能：在特殊的业务场景下，先天的就适合于并发编程。现在的系统动不动就要求百万级甚至千万级的并发量，而多线程并发编程正是开发高并发系统的基础，利用好多线程机制可以大大提高系统整体的并发能力以">
-<meta name="twitter:image" content="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxNy8xMi8xNS8xNjA1OWNjOTFlZThlZmIz.jpeg">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxNy8xMi8xNS8xNjA1OWNjOTFlZThlZmIz.jpeg">
 
 
 
@@ -499,7 +499,7 @@
 <h4 id="什么是-Callable-和-Future"><a href="#什么是-Callable-和-Future" class="headerlink" title="什么是 Callable 和 Future?"></a>什么是 Callable 和 Future?</h4><p>Callable 接口类似于 Runnable，从名字就可以看出来了，但是 Runnable 不会返回结果，并且无法抛出返回结果的异常，而 Callable 功能更强大一些，被线程执行后，可以返回值，这个返回值可以被 Future 拿到，也就是说，Future 可以拿到异步执行任务的返回值。</p>
 <p>Future 接口表示异步任务，是一个可能还没有完成的异步任务的结果。所以说 Callable用于产生结果，Future 用于获取结果。</p>
 <h4 id="什么是-FutureTask"><a href="#什么是-FutureTask" class="headerlink" title="什么是 FutureTask"></a>什么是 FutureTask</h4><p>FutureTask 表示一个异步运算的任务。FutureTask 里面可以传入一个 Callable 的具体实现类，可以对这个异步运算的任务的结果进行等待获取、判断是否已经完成、取消任务等操作。只有当运算完成的时候结果才能取回，如果运算尚未完成 get 方法将会阻塞。一个 FutureTask 对象可以对调用了 Callable 和 Runnable 的对象进行包装，由于 FutureTask 也是Runnable 接口的实现类，所以 FutureTask 也可以放入线程池中。</p>
-<h3 id="线程的状态和基本操作"><a href="#线程的状态和基本操作" class="headerlink" title="线程的状态和基本操作"></a>线程的状态和基本操作</h3><h4 id="说说线程的生命周期及五种基本状态？"><a href="#说说线程的生命周期及五种基本状态？" class="headerlink" title="说说线程的生命周期及五种基本状态？"></a>说说线程的生命周期及五种基本状态？</h4><p><img src="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxNy8xMi8xNS8xNjA1OWNjOTFlZThlZmIz.jpeg" alt="not found"></p>
+<h3 id="线程的状态和基本操作"><a href="#线程的状态和基本操作" class="headerlink" title="线程的状态和基本操作"></a>线程的状态和基本操作</h3><h4 id="说说线程的生命周期及五种基本状态？"><a href="#说说线程的生命周期及五种基本状态？" class="headerlink" title="说说线程的生命周期及五种基本状态？"></a>说说线程的生命周期及五种基本状态？</h4><p><img src="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxNy8xMi8xNS8xNjA1OWNjOTFlZThlZmIz.jpeg" alt="not found"></p>
 <ol>
 <li><p>新建(new)：新创建了一个线程对象。</p>
 </li>
@@ -745,7 +745,7 @@
 <h3 id="AQS-AbstractQueuedSynchronizer-详解与源码分析"><a href="#AQS-AbstractQueuedSynchronizer-详解与源码分析" class="headerlink" title="AQS(AbstractQueuedSynchronizer)详解与源码分析"></a>AQS(AbstractQueuedSynchronizer)详解与源码分析</h3><h4 id="AQS-介绍"><a href="#AQS-介绍" class="headerlink" title="AQS 介绍"></a>AQS 介绍</h4><p>AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效地构造出应用广泛的大量的同步器，比如我们提到的ReentrantLock，Semaphore，其他的诸如ReentrantReadWriteLock，SynchronousQueue，FutureTask等等皆是基于AQS的。当然，我们自己也能利用AQS非常轻松容易地构造出符合我们自己需求的同步器。</p>
 <h4 id="AQS-原理分析"><a href="#AQS-原理分析" class="headerlink" title="AQS 原理分析"></a>AQS 原理分析</h4><p>AQS 原理概览</p>
 <p>AQS核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，这个机制AQS是用CLH队列锁实现的，即将暂时获取不到锁的线程加入到队列中。</p>
-<p><img src="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3Njc4NGNkMzJi.jpeg" alt></p>
+<p><img src="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3Njc4NGNkMzJi.jpeg" alt></p>
 <p><strong>AQS 对资源的共享方式</strong></p>
 <p>AQS定义两种资源共享方式</p>
 <ul>
@@ -849,7 +849,7 @@
 <li>handler ：线程池任务队列超过 maxinumPoolSize 之后的拒绝策略</li>
 </ul>
 <h4 id="ThreadPoolExecutor饱和策略"><a href="#ThreadPoolExecutor饱和策略" class="headerlink" title="ThreadPoolExecutor饱和策略"></a>ThreadPoolExecutor饱和策略</h4><p>线程池实现原理</p>
-<p><img src="https://lixiangbetter.github.io/2020/06/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3NjEyOTVlNzY2.jpeg" alt></p>
+<p><img src="https://lixiangbetter.github.io/2020/06/21/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%AC%94%E8%AE%B0/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAxOS8xMS8yNS8xNmVhMDQ3NjEyOTVlNzY2.jpeg" alt></p>
 <h3 id="线程池之ScheduledThreadPoolExecutor详解"><a href="#线程池之ScheduledThreadPoolExecutor详解" class="headerlink" title="线程池之ScheduledThreadPoolExecutor详解"></a>线程池之ScheduledThreadPoolExecutor详解</h3><h3 id="FutureTask详解"><a href="#FutureTask详解" class="headerlink" title="FutureTask详解"></a>FutureTask详解</h3><h2 id="原子操作类"><a href="#原子操作类" class="headerlink" title="原子操作类"></a>原子操作类</h2><h4 id="什么是原子操作？在-Java-Concurrency-API-中有哪些原子类-atomic-classes-？"><a href="#什么是原子操作？在-Java-Concurrency-API-中有哪些原子类-atomic-classes-？" class="headerlink" title="什么是原子操作？在 Java Concurrency API 中有哪些原子类(atomic classes)？"></a>什么是原子操作？在 Java Concurrency API 中有哪些原子类(atomic classes)？</h4><p>原子操作（atomic operation）意为”不可被中断的一个或一系列操作” 。</p>
 <p>在 Java 中可以通过锁和循环 CAS 的方式来实现原子操作。 </p>
 <p>原子类：AtomicBoolean，AtomicInteger，AtomicLong，AtomicReference</p>
@@ -915,6 +915,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/29/JVM笔记/" rel="prev" title="JVM笔记">
+                JVM笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -998,7 +1002,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1020,7 +1024,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
