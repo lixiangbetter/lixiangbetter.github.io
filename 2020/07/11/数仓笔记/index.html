@@ -88,7 +88,7 @@
 <meta property="og:description" content="数仓笔记1.维表和宽表的考查（主要考察维表的使用及维度退化手法）维表数据一般根据ods层数据加工生成，在设计宽表的时候，可以适当的用一些维度退化手法，将维度退化到事实表中，减少事实表和维表的关联 2.数仓表命名规范每个公司都会有点差别 ODS ods.库名_表名_df/di/da/dz CDM(dwd/dws) dwd.主题_内容_df 3.拉链表的使用场景1.数据量比较大 2.表中的部分字段会被">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/07/11/%E6%95%B0%E4%BB%93%E7%AC%94%E8%AE%B0/20200630165353204.png">
-<meta property="og:updated_time" content="2020-07-12T01:22:38.715Z">
+<meta property="og:updated_time" content="2020-07-12T08:32:24.242Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数仓笔记">
 <meta name="twitter:description" content="数仓笔记1.维表和宽表的考查（主要考察维表的使用及维度退化手法）维表数据一般根据ods层数据加工生成，在设计宽表的时候，可以适当的用一些维度退化手法，将维度退化到事实表中，减少事实表和维表的关联 2.数仓表命名规范每个公司都会有点差别 ODS ods.库名_表名_df/di/da/dz CDM(dwd/dws) dwd.主题_内容_df 3.拉链表的使用场景1.数据量比较大 2.表中的部分字段会被">
@@ -483,6 +483,84 @@
 <p>Anchor模型</p>
 <p>我司用的是维度建模</p>
 <h2 id="31-有没有实际工作中碰到的sql调优的例子，举例说明"><a href="#31-有没有实际工作中碰到的sql调优的例子，举例说明" class="headerlink" title="31.有没有实际工作中碰到的sql调优的例子，举例说明"></a>31.有没有实际工作中碰到的sql调优的例子，举例说明</h2><p>见博客hive调优</p>
+<h2 id="32-你觉得数据仓库应该如何搭建，数据规范和标准如何落地"><a href="#32-你觉得数据仓库应该如何搭建，数据规范和标准如何落地" class="headerlink" title="32.你觉得数据仓库应该如何搭建，数据规范和标准如何落地"></a>32.你觉得数据仓库应该如何搭建，数据规范和标准如何落地</h2><h2 id="33-如何保证你们公司的数据质量"><a href="#33-如何保证你们公司的数据质量" class="headerlink" title="33.如何保证你们公司的数据质量"></a>33.如何保证你们公司的数据质量</h2><p><strong>如何提升数据质量</strong></p>
+<p>1.事前定义数据的监控规则</p>
+<ul>
+<li>提炼规则：梳理对应指标、确定对象（多表、单表、字段）、通过影响程度确定资产等级、质量规则制定</li>
+</ul>
+<p>2.事中监控和控制数据生产过程</p>
+<ul>
+<li>质量监控和工作流无缝对接</li>
+<li>支持定时调度</li>
+<li>强弱规则控制ETL流程</li>
+<li>对脏数据进行清洗</li>
+</ul>
+<p>3.事后分析和问题跟踪</p>
+<ul>
+<li>邮件短信报警并及时跟踪处理</li>
+<li>稽核报告查询</li>
+<li>数据质量报告的概览、历史趋势、异常查询、数据质量表覆盖率</li>
+<li>异常评估、严重程度、影响范围、问题分类</li>
+</ul>
+<h2 id="34-对元数据的理解，元数据管理的意义及应用场景有哪些"><a href="#34-对元数据的理解，元数据管理的意义及应用场景有哪些" class="headerlink" title="34.对元数据的理解，元数据管理的意义及应用场景有哪些"></a>34.对元数据的理解，元数据管理的意义及应用场景有哪些</h2><ul>
+<li>元数据主要记录数据仓库中模型的定义、各层级间的映射关系、监控数据仓库的数据状态及 ETL 的任务运行状态。在数据仓库系统中，元数据可以帮助数据仓库管理员和开发人员非常方便地找到他们所关心的数据，用于指导其进行数据管理和开发工作，可以极大的提升工作的效率。</li>
+<li>元数据有重要的应用价值，是数据管理、数据内容、数据应用的基础，在数据管理方面为集团数据提供在计算、存储、成本、质量、安全、模型等治理领域上的数据支持。例如在计算上可以利用元数据查找超长运行节点，对这些节点进行专项治理，保障基线产出时间。在数据内容方面为集团数据进行数据域、数据主题、业务属性等的提取和分析提供数据素材。例如可以利用元数据构建知识图谱，给数据打标签，清楚地知道现在有哪些数据。在数据应用方面打通产品及应用链路，保障产品数据准确、及时产出。例如打通DP和应用数据，明确数据产等级，更有效地保障产品数据。</li>
+<li>数据的真正价值在于数据驱动决策，通过数据指导运营。通过数据驱动的方法，我们能够判断趋势 ，从而展开有效行动，帮助自己发现问题，推动创新或解决方案的产生。这就是数据化运营。同样，对于元数据，可以用于指导数据相关人员进行日常工作，实现数据化“运营”。 比如对于数据使用者，可以通过元数据让其快速找到所需要的数据；对于ETL 工程师，可以通过元数据指导其进行模型设计、任务优化和任务下线等各种日常ETL 工作；对于运维工程师，可以通过元数据指导其进行整个集群的存储、计算和系统优化等运维工作。</li>
+</ul>
+<h2 id="35-如何判别模型的好坏，模型设计的原则有哪些"><a href="#35-如何判别模型的好坏，模型设计的原则有哪些" class="headerlink" title="35.如何判别模型的好坏，模型设计的原则有哪些"></a>35.如何判别模型的好坏，模型设计的原则有哪些</h2><p>基本原则：</p>
+<ul>
+<li><p>高内聚和低耦合</p>
+<p>一个逻辑或者物理模型由哪些记录和字段组成，应该遵循最基本的软件设计方法论的高内聚和低耦合原则，主要从数据业务特性和访问特性两个角度来考虑：将业务相近或者相关，粒度相同的数据设计为一个逻辑或者物理模型，将高概率同时访问的数据放一起，将低概率同时访问的数据分开存储</p>
+</li>
+<li><p>核心模型与扩展模型分离<br>建立核心模型与扩展模型体系，核心模型包括的字段支持常用的核心业务，扩展模型包括的字段支持个性化或少量应用的需要，不能让扩展模型的字段过度侵入核心模型，以免破坏核心模型架构简洁性与可维护性</p>
+</li>
+<li><p>公共处理逻辑下沉及单一<br>越是底层共用的处理逻辑越应该放在数据调度依赖的底层进行封装与实现，不要让共用的处理逻辑暴露给应用层实现，不要让公共逻辑多处同时存在</p>
+</li>
+<li><p>成本与性能平衡<br>适当的数据冗余可换取查询和刷新性能，不宜过度数据冗余和数据复制</p>
+</li>
+<li><p>数据可回滚<br>处理逻辑不变，在不同时间多次运行数据结果确定不变</p>
+</li>
+<li><p>一致性<br>具有相同含义的字段在不同的表中的命名必须相同，必须使用规范定义中的名称</p>
+</li>
+<li><p>命名清晰,可理解<br>表命名需清晰，一致，表名需易于消费者理解和使用</p>
+</li>
+</ul>
+<h2 id="36-对于数据中台的理解，和数据仓库，数据湖的区别"><a href="#36-对于数据中台的理解，和数据仓库，数据湖的区别" class="headerlink" title="36.对于数据中台的理解，和数据仓库，数据湖的区别"></a>36.对于数据中台的理解，和数据仓库，数据湖的区别</h2><p><strong>数据仓库(Data Warehouse)</strong>是一个面向主题的（Subject Oriented）、集成的（Integrated）、相对稳定的（Non-Volatile）、反映历史变化的（Time Variant）数据集合，用于支持管理决策和信息的全局共享。</p>
+<p><strong>数据湖（Data Lake）是一个存储企业的各种各样原始数据的大型仓库，其中的数据可供存取、处理、分析及传输。</strong></p>
+<p><strong>数据中台</strong>是一个承接技术，引领业务，构建规范定义的、全域可连接萃取的、智慧的数据处理平台，建设目标是为了高效满足前台数据分析和应用的需求。数据中台距离业务更近，能更快速的相应业务和应用开发的需求，可追溯，更精准。</p>
+<p>数据湖、数据仓库更多地是面向不同对象的不同形态的数据资产，而数据中台更多强调的是服务于前台，实现逻辑、标签、算法、模型的复用沉淀。</p>
+<p>数据中台像一个“数据工厂”，涵盖了数据湖、数据仓库等存储组件，随着数据中台的发展，未来很有可能数据湖和数据仓库的概念会被弱化。</p>
+<h2 id="37-对于数据仓库的理解，数据仓库主要为解决什么问题"><a href="#37-对于数据仓库的理解，数据仓库主要为解决什么问题" class="headerlink" title="37.对于数据仓库的理解，数据仓库主要为解决什么问题"></a>37.对于数据仓库的理解，数据仓库主要为解决什么问题</h2><p><strong>（1）数据仓库能够为业务部门提供准确、及时的的报表。</strong></p>
+<p><strong>（2）数据仓库可以赋予管理人员更强大的分析能力。</strong></p>
+<p><strong>（3）数据仓库是进行数据挖掘、知识发现的基础。</strong></p>
+<h2 id="38-数据仓库模型的理解，数据仓库分层设计的好处是什么"><a href="#38-数据仓库模型的理解，数据仓库分层设计的好处是什么" class="headerlink" title="38.数据仓库模型的理解，数据仓库分层设计的好处是什么"></a>38.数据仓库模型的理解，数据仓库分层设计的好处是什么</h2><ul>
+<li>清晰数据结构：每一个数据分层都有它的作用域，这样我们在使用表的时候能更方便地定位和理解。</li>
+<li>数据血缘追踪：简单来讲可以这样理解，我们最终给业务呈现的是一张能直接使用的张业务表，但是它的来源有很多，如果有一张来源表出问题了，我们希望能够快速准确地定位到问题，并清楚它的危害范围。</li>
+<li>减少重复开发：规范数据分层，开发一些通用的中间层数据，能够减少极大的重复计算。</li>
+<li>把复杂问题简单化：将一个复杂的任务分解成多个步骤来完成，每一层只处理单一的步骤，比较简单和容易理解。而且便于维护数据的准确性，当数据出现问题之后，可以不用修复所有的数据，只需要从有问题的步骤开始修复。</li>
+</ul>
+<h2 id="39-数仓主题划分的标准和依据"><a href="#39-数仓主题划分的标准和依据" class="headerlink" title="39.数仓主题划分的标准和依据"></a>39.数仓主题划分的标准和依据</h2><p><strong>关于主题：</strong></p>
+<p>数据仓库中的数据是面向主题组织的，主题是在较高层次上将企业信息系统中的数据进行综合、归类和分析利用的一个抽象概念，每一个主题基本对应一个宏观的分析领域。如财务分析就是一个分析领域，因此这个数据仓库应用的主题就为“财务分析”。</p>
+<p><strong>关于主题域：</strong></p>
+<p>主题域通常是联系较为紧密的数据主题的集合。可以根据业务的关注点，将这些数据主题划分到不同的主题域(也说是对某个主题进行分析后确定的主题的边界。)</p>
+<p><strong>关于主题域的划分：</strong></p>
+<p>主题域的确定必须由最终用户和数据仓库的设计人员共同完成的， 而在划分主题域时，大家的切入点不同可能会造成一些争论、重构等的现象，考虑的点可能会是下方的某些方面：</p>
+<ol>
+<li>按照业务或业务过程划分：比如一个靠销售广告位置的门户网站主题域可能会有广告域，客户域等，而广告域可能就会有广告的库存，销售分析、内部投放分析等主题；</li>
+<li>根据需求方划分：比如需求方为财务部，就可以设定对应的财务主题域，而财务主题域里面可能就会有员工工资分析，投资回报比分析等主题；</li>
+<li>按照功能或应用划分：比如微信中的朋友圈数据域、群聊数据域等，而朋友圈数据域可能就会有用户动态信息主题、广告主题等；</li>
+<li>按照部门划分：比如可能会有运营域、技术域等，运营域中可能会有工资支出分析、活动宣传效果分析等主题；</li>
+</ol>
+<h2 id="40-缓慢变化维如何处理，几种方式"><a href="#40-缓慢变化维如何处理，几种方式" class="headerlink" title="40.缓慢变化维如何处理，几种方式"></a>40.缓慢变化维如何处理，几种方式</h2><p>缓慢变化维：</p>
+<p>数据仓库的重要特点之一是反映历史变化，所以如何处理维度的变化是维度设计的重要工作之一。缓慢变化维的提出是因为在现实世界中，维度的属性并不是静态的，它会随着时间的流逝发生缓慢的变化，与数据增长较为快速的事实表相比，维度变化相对缓慢。</p>
+<p>在一些情况下，保留历史数据没有什么分析价值，而在另一些情况下,保留历史数据是非常重要的，在kimball理论中，有三种处理缓慢变化维的方式</p>
+<p><strong>1.重写纬度值</strong></p>
+<p>采用此种方式，不保留历史数据，始终取最新数据</p>
+<p><strong>2.插入新的维度行</strong></p>
+<p>插人新的维度行。采用此种方式，保留历史数据，</p>
+<p>维度值变化前的事实和过去的维度值关联，维度值变化后的事实和当前的维度值关联</p>
+<p><strong>3.添加维度列</strong></p>
+<p>采用第二种处理方式不能将变化前后记录的事实归一为变化前的维度或者归一为变化后的维度。比如根据业务需求，需要将4月份的交易金额全部统计到类目2上，采用第二种处理方式无法实现。针对此问题，采用第三种处理方式，保留历史数据，可以使用任何一个属性列</p>
 
       
     </div>
@@ -674,7 +752,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数仓笔记"><span class="nav-number">1.</span> <span class="nav-text">数仓笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-维表和宽表的考查（主要考察维表的使用及维度退化手法）"><span class="nav-number">1.1.</span> <span class="nav-text">1.维表和宽表的考查（主要考察维表的使用及维度退化手法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数仓表命名规范"><span class="nav-number">1.2.</span> <span class="nav-text">2.数仓表命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-拉链表的使用场景"><span class="nav-number">1.3.</span> <span class="nav-text">3.拉链表的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一亿条数据查的很慢-怎么查快一点"><span class="nav-number">1.4.</span> <span class="nav-text">4.一亿条数据查的很慢,怎么查快一点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-有什么维表"><span class="nav-number">1.5.</span> <span class="nav-text">5.有什么维表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-数据源都有哪些"><span class="nav-number">1.6.</span> <span class="nav-text">6.数据源都有哪些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-你们最大的表是什么表-数据量多少"><span class="nav-number">1.7.</span> <span class="nav-text">7.你们最大的表是什么表,数据量多少</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-数仓架构体系"><span class="nav-number">1.8.</span> <span class="nav-text">8.数仓架构体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-数据平台是怎样的，用到了阿里的那一套吗？"><span class="nav-number">1.9.</span> <span class="nav-text">9.数据平台是怎样的，用到了阿里的那一套吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-你了解的调度系统有那些？，你们公司用的是哪种调度系统"><span class="nav-number">1.10.</span> <span class="nav-text">10.你了解的调度系统有那些？，你们公司用的是哪种调度系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-你们公司数仓底层是怎么抽数据的？"><span class="nav-number">1.11.</span> <span class="nav-text">11.你们公司数仓底层是怎么抽数据的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-为什么datax抽数据要比sqoop-快？"><span class="nav-number">1.12.</span> <span class="nav-text">12.为什么datax抽数据要比sqoop 快？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-埋点数据你们是怎样接入的"><span class="nav-number">1.13.</span> <span class="nav-text">13.埋点数据你们是怎样接入的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-如果你们业务库的表有更新，你们数仓怎么处理的？"><span class="nav-number">1.14.</span> <span class="nav-text">14.如果你们业务库的表有更新，你们数仓怎么处理的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-能独立搭建数仓吗"><span class="nav-number">1.15.</span> <span class="nav-text">15.能独立搭建数仓吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-搭建过CDH-集群吗"><span class="nav-number">1.16.</span> <span class="nav-text">16.搭建过CDH 集群吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-说一下你们公司的大数据平台架构？你有参与吗？"><span class="nav-number">1.17.</span> <span class="nav-text">17.说一下你们公司的大数据平台架构？你有参与吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-介绍一下你自己的项目和所用的技术"><span class="nav-number">1.18.</span> <span class="nav-text">18.介绍一下你自己的项目和所用的技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-对目前的流和批处理的认识？就是谈谈自己的感受"><span class="nav-number">1.19.</span> <span class="nav-text">19.对目前的流和批处理的认识？就是谈谈自己的感受</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-你了解那些OLAP-引擎，MPP-知道一些吗？clickHouse-了解一些吗？你自己做过测试性能吗？"><span class="nav-number">1.20.</span> <span class="nav-text">20.你了解那些OLAP 引擎，MPP 知道一些吗？clickHouse 了解一些吗？你自己做过测试性能吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-Kylin-有了解吗？介绍一下原理"><span class="nav-number">1.21.</span> <span class="nav-text">21.Kylin 有了解吗？介绍一下原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-datax-源码有改造过吗"><span class="nav-number">1.22.</span> <span class="nav-text">22.datax 源码有改造过吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-你们数仓的APP-层是怎么对外提供服务的？"><span class="nav-number">1.23.</span> <span class="nav-text">23.你们数仓的APP 层是怎么对外提供服务的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-数据接入进来，你们是怎样规划的，有考虑数据的膨胀问题吗"><span class="nav-number">1.24.</span> <span class="nav-text">24.数据接入进来，你们是怎样规划的，有考虑数据的膨胀问题吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25-简述拉链表，流水表以及快照表的含义和特点"><span class="nav-number">1.25.</span> <span class="nav-text">25.简述拉链表，流水表以及快照表的含义和特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#26-全量表-df-增量表-di-追加表-da-，拉链表-dz-的区别及使用场景"><span class="nav-number">1.26.</span> <span class="nav-text">26.全量表(df),增量表(di),追加表(da)，拉链表(dz)的区别及使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-你们公司的数仓分层，每一层是怎么处理数据的"><span class="nav-number">1.27.</span> <span class="nav-text">27.你们公司的数仓分层，每一层是怎么处理数据的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#28-什么是事实表，什么是维表"><span class="nav-number">1.28.</span> <span class="nav-text">28.什么是事实表，什么是维表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29-星型模型和雪花模型"><span class="nav-number">1.29.</span> <span class="nav-text">29.星型模型和雪花模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-数据建模一般有哪几种方式，你们公司是用哪种方式进行数据建模的"><span class="nav-number">1.30.</span> <span class="nav-text">30.数据建模一般有哪几种方式，你们公司是用哪种方式进行数据建模的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#31-有没有实际工作中碰到的sql调优的例子，举例说明"><span class="nav-number">1.31.</span> <span class="nav-text">31.有没有实际工作中碰到的sql调优的例子，举例说明</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数仓笔记"><span class="nav-number">1.</span> <span class="nav-text">数仓笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-维表和宽表的考查（主要考察维表的使用及维度退化手法）"><span class="nav-number">1.1.</span> <span class="nav-text">1.维表和宽表的考查（主要考察维表的使用及维度退化手法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数仓表命名规范"><span class="nav-number">1.2.</span> <span class="nav-text">2.数仓表命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-拉链表的使用场景"><span class="nav-number">1.3.</span> <span class="nav-text">3.拉链表的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一亿条数据查的很慢-怎么查快一点"><span class="nav-number">1.4.</span> <span class="nav-text">4.一亿条数据查的很慢,怎么查快一点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-有什么维表"><span class="nav-number">1.5.</span> <span class="nav-text">5.有什么维表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-数据源都有哪些"><span class="nav-number">1.6.</span> <span class="nav-text">6.数据源都有哪些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-你们最大的表是什么表-数据量多少"><span class="nav-number">1.7.</span> <span class="nav-text">7.你们最大的表是什么表,数据量多少</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-数仓架构体系"><span class="nav-number">1.8.</span> <span class="nav-text">8.数仓架构体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-数据平台是怎样的，用到了阿里的那一套吗？"><span class="nav-number">1.9.</span> <span class="nav-text">9.数据平台是怎样的，用到了阿里的那一套吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-你了解的调度系统有那些？，你们公司用的是哪种调度系统"><span class="nav-number">1.10.</span> <span class="nav-text">10.你了解的调度系统有那些？，你们公司用的是哪种调度系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-你们公司数仓底层是怎么抽数据的？"><span class="nav-number">1.11.</span> <span class="nav-text">11.你们公司数仓底层是怎么抽数据的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-为什么datax抽数据要比sqoop-快？"><span class="nav-number">1.12.</span> <span class="nav-text">12.为什么datax抽数据要比sqoop 快？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-埋点数据你们是怎样接入的"><span class="nav-number">1.13.</span> <span class="nav-text">13.埋点数据你们是怎样接入的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-如果你们业务库的表有更新，你们数仓怎么处理的？"><span class="nav-number">1.14.</span> <span class="nav-text">14.如果你们业务库的表有更新，你们数仓怎么处理的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-能独立搭建数仓吗"><span class="nav-number">1.15.</span> <span class="nav-text">15.能独立搭建数仓吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-搭建过CDH-集群吗"><span class="nav-number">1.16.</span> <span class="nav-text">16.搭建过CDH 集群吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-说一下你们公司的大数据平台架构？你有参与吗？"><span class="nav-number">1.17.</span> <span class="nav-text">17.说一下你们公司的大数据平台架构？你有参与吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-介绍一下你自己的项目和所用的技术"><span class="nav-number">1.18.</span> <span class="nav-text">18.介绍一下你自己的项目和所用的技术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-对目前的流和批处理的认识？就是谈谈自己的感受"><span class="nav-number">1.19.</span> <span class="nav-text">19.对目前的流和批处理的认识？就是谈谈自己的感受</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-你了解那些OLAP-引擎，MPP-知道一些吗？clickHouse-了解一些吗？你自己做过测试性能吗？"><span class="nav-number">1.20.</span> <span class="nav-text">20.你了解那些OLAP 引擎，MPP 知道一些吗？clickHouse 了解一些吗？你自己做过测试性能吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-Kylin-有了解吗？介绍一下原理"><span class="nav-number">1.21.</span> <span class="nav-text">21.Kylin 有了解吗？介绍一下原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-datax-源码有改造过吗"><span class="nav-number">1.22.</span> <span class="nav-text">22.datax 源码有改造过吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-你们数仓的APP-层是怎么对外提供服务的？"><span class="nav-number">1.23.</span> <span class="nav-text">23.你们数仓的APP 层是怎么对外提供服务的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-数据接入进来，你们是怎样规划的，有考虑数据的膨胀问题吗"><span class="nav-number">1.24.</span> <span class="nav-text">24.数据接入进来，你们是怎样规划的，有考虑数据的膨胀问题吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25-简述拉链表，流水表以及快照表的含义和特点"><span class="nav-number">1.25.</span> <span class="nav-text">25.简述拉链表，流水表以及快照表的含义和特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#26-全量表-df-增量表-di-追加表-da-，拉链表-dz-的区别及使用场景"><span class="nav-number">1.26.</span> <span class="nav-text">26.全量表(df),增量表(di),追加表(da)，拉链表(dz)的区别及使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-你们公司的数仓分层，每一层是怎么处理数据的"><span class="nav-number">1.27.</span> <span class="nav-text">27.你们公司的数仓分层，每一层是怎么处理数据的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#28-什么是事实表，什么是维表"><span class="nav-number">1.28.</span> <span class="nav-text">28.什么是事实表，什么是维表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#29-星型模型和雪花模型"><span class="nav-number">1.29.</span> <span class="nav-text">29.星型模型和雪花模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#30-数据建模一般有哪几种方式，你们公司是用哪种方式进行数据建模的"><span class="nav-number">1.30.</span> <span class="nav-text">30.数据建模一般有哪几种方式，你们公司是用哪种方式进行数据建模的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#31-有没有实际工作中碰到的sql调优的例子，举例说明"><span class="nav-number">1.31.</span> <span class="nav-text">31.有没有实际工作中碰到的sql调优的例子，举例说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#32-你觉得数据仓库应该如何搭建，数据规范和标准如何落地"><span class="nav-number">1.32.</span> <span class="nav-text">32.你觉得数据仓库应该如何搭建，数据规范和标准如何落地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#33-如何保证你们公司的数据质量"><span class="nav-number">1.33.</span> <span class="nav-text">33.如何保证你们公司的数据质量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#34-对元数据的理解，元数据管理的意义及应用场景有哪些"><span class="nav-number">1.34.</span> <span class="nav-text">34.对元数据的理解，元数据管理的意义及应用场景有哪些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#35-如何判别模型的好坏，模型设计的原则有哪些"><span class="nav-number">1.35.</span> <span class="nav-text">35.如何判别模型的好坏，模型设计的原则有哪些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#36-对于数据中台的理解，和数据仓库，数据湖的区别"><span class="nav-number">1.36.</span> <span class="nav-text">36.对于数据中台的理解，和数据仓库，数据湖的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#37-对于数据仓库的理解，数据仓库主要为解决什么问题"><span class="nav-number">1.37.</span> <span class="nav-text">37.对于数据仓库的理解，数据仓库主要为解决什么问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#38-数据仓库模型的理解，数据仓库分层设计的好处是什么"><span class="nav-number">1.38.</span> <span class="nav-text">38.数据仓库模型的理解，数据仓库分层设计的好处是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#39-数仓主题划分的标准和依据"><span class="nav-number">1.39.</span> <span class="nav-text">39.数仓主题划分的标准和依据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#40-缓慢变化维如何处理，几种方式"><span class="nav-number">1.40.</span> <span class="nav-text">40.缓慢变化维如何处理，几种方式</span></a></li></ol></li></ol></div>
             
 
           </div>
