@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>flume、sqoop笔记</title>
+    <url>/2020/07/12/flume%E3%80%81sqoop%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="flume、sqoop笔记"><a href="#flume、sqoop笔记" class="headerlink" title="flume、sqoop笔记"></a>flume、sqoop笔记</h1><h2 id="1-什么是flume"><a href="#1-什么是flume" class="headerlink" title="1.什么是flume"></a>1.什么是flume</h2><p>a.Flume是一个分布式、可靠、和高可用的海量日志采集、聚合和传输的系统。</p>
+<p>b.Flume可以采集文件，socket数据包等各种形式源数据，又可以将采集到的数据输出到HDFS、hbase、hive、kafka等众多外部存储系统中</p>
+<p>c.一般的采集需求，通过对flume的简单配置即可实现</p>
+<p>d.Flume针对特殊场景也具备良好的自定义扩展能力，因此，flume可以适用于大部分的日常数据采集场景</p>
+<h2 id="2-flume运行机制"><a href="#2-flume运行机制" class="headerlink" title="2.flume运行机制"></a>2.flume运行机制</h2><ol>
+<li>Flume分布式系统中最核心的角色是agent，flume采集系统就是由一个个agent所连接起来形成</li>
+<li>每一个agent相当于一个数据传递员，内部有三个组件：<ul>
+<li>Source：采集源，用于跟数据源对接，以获取数据</li>
+<li>Sink：下沉地，采集数据的传送目的，用于往下一级agent传递数据或者往最终存储系统传递数据</li>
+<li>Channel：angent内部的数据传输通道，用于从source将数据传递到sink</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://lixiangbetter.github.io/2020/07/12/flume%E3%80%81sqoop%E7%AC%94%E8%AE%B0/20200409122907293.png" alt></p>
+]]></content>
+      <categories>
+        <category>bigdata</category>
+      </categories>
+      <tags>
+        <tag>flume sqoop</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hive调优</title>
     <url>/2020/07/12/hive%E8%B0%83%E4%BC%98/</url>
     <content><![CDATA[<h1 id="hive调优"><a href="#hive调优" class="headerlink" title="hive调优"></a>hive调优</h1><p> HIVE调优是一个很大的课题，涉及到hive本身的调优，hive底层的mapreduce计算引擎的调优，sql的调优，数据倾斜调优，小文件问题的调优，数据压缩的调优等</p>
