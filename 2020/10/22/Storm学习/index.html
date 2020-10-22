@@ -87,10 +87,16 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="Storm学习1.导学VMware Fusion    Mac上搭建：为了给大家演示如何使用我们的OOTB环境    Hadoop环境：虚拟机，我是远程登录    Mac        那么就不需要使用我们的OOTB环境        VMware Fusion+OOTB Window：VMwarehadoop/hadooproot用户的密码是什么？修改配置文件，是需要root权限的，怎么办？">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-22T02:33:30.768Z">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/A.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/B.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/C.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/D.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/E.png">
+<meta property="og:updated_time" content="2020-10-22T02:57:05.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Storm学习">
 <meta name="twitter:description" content="Storm学习1.导学VMware Fusion    Mac上搭建：为了给大家演示如何使用我们的OOTB环境    Hadoop环境：虚拟机，我是远程登录    Mac        那么就不需要使用我们的OOTB环境        VMware Fusion+OOTB Window：VMwarehadoop/hadooproot用户的密码是什么？修改配置文件，是需要root权限的，怎么办？">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/A.png">
 
 
 
@@ -410,6 +416,8 @@
 <h2 id="3-Storm核心概念"><a href="#3-Storm核心概念" class="headerlink" title="3.Storm核心概念"></a>3.Storm核心概念</h2><p>核心概念<br>    Topologies<br>        拓扑，将整个流程串起来<br>    Streams<br>        流，数据流，水流<br>    Spouts<br>        产生数据/水的东西<br>    Bolts<br>        处理数据/水的东西    水壶/水桶<br>    Tuple<br>        数据/水    </p>
 <p>制约中国互联网发展的最大瓶颈是什么？ 后厂村路<br>13号线：回龙观==&gt;龙泽==&gt;西二旗</p>
 <p>Storm核心概念总结<br>    Topology： 计算拓扑，由spout和bolt组成的<br>    Stream：消息流，抽象概念，没有边界的tuple构成<br>    Tuple：消息/数据  传递的基本单元<br>    Spout：消息流的源头，Topology的消息生产者<br>    Bolt：消息处理单元，可以做过滤、聚合、查询/写数据库的操作</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/A.png" alt></p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/B.png" alt></p>
 <h2 id="4-Storm编程"><a href="#4-Storm编程" class="headerlink" title="4.Storm编程"></a>4.Storm编程</h2><p>搭建开发环境<br>    jdk: 1.8<br>        windows: exe<br>        linux/mac(dmg): tar …..   把jdk指定到系统环境变量(~/.bash_profile)<br>            export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home<br>            export PATH=$JAVA_HOME/bin:$PATH</p>
 <pre><code>        source ~/.bash_profile
         echo $JAVA_HOME
@@ -467,6 +475,7 @@ public abstract class BaseComponent implements IComponent</code></pre><p>IBolt�
 <p>词频统计<br>    需求：读取指定目录的数据，并实现单词计数功能<br>    实现方案：<br>        Spout来读取指定目录的数据，作为后续Bolt处理的input<br>        使用一个Bolt把input的数据，切割开，我们按照逗号进行分割<br>        使用一个Bolt来进行最终的单词的次数统计操作<br>        并输出<br>    拓扑设计： DataSourceSpout ==&gt; SplitBolt ==&gt; CountBolt    </p>
 <p>Storm编程注意事项</p>
 <p>1) Exception in thread “main” java.lang.IllegalArgumentException: Spout has already been declared for id DataSourceSpout<br>2) org.apache.storm.generated.InvalidTopologyException: null<br>3) topology的名称不是重复： local似乎没问题， 等我们到集群测试的时候再来验证这个问题</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/C.png" alt></p>
 <h2 id="5-Storm周边框架使用"><a href="#5-Storm周边框架使用" class="headerlink" title="5.Storm周边框架使用"></a>5.Storm周边框架使用</h2><p>环境前置说明：<br>    通过我们的客户端(终端，CRT，XShell)<br>    ssh hadoop@hadoop000<br>    ssh <a href="mailto:hadoop@192.168.199.102" target="_blank" rel="noopener">hadoop@192.168.199.102</a></p>
 <pre><code>远程服务器的用户名是hadoop，密码也是hadoop
 有没有提供root权限，sudo command
@@ -522,6 +531,7 @@ hadoop000(192.168.199.102)是远程服务器的hostname
 <p>kafka-console-producer.sh –broker-list hadoop000:9093,hadoop000:9094,hadoop000:9095 –topic my-replicated-topic<br>kafka-console-consumer.sh –zookeeper hadoop000:2181 –topic my-replicated-topic</p>
 <p>kafka-topics.sh –describe –zookeeper hadoop000:2181 –topic my-replicated-topic</p>
 <h2 id="6-Storm架构及部署"><a href="#6-Storm架构及部署" class="headerlink" title="6.Storm架构及部署"></a>6.Storm架构及部署</h2><p>Storm架构<br>    类似于Hadoop的架构，主从(Master/Slave)<br>    Nimbus: 主<br>        集群的主节点，负责任务(task)的指派和分发、资源的分配<br>    Supervisor: 从<br>        可以启动多个Worker，具体几个呢？可以通过配置来指定<br>        一个Topo可以运行在多个Worker之上，也可以通过配置来指定<br>        集群的从节点，(负责干活的)，负责执行任务的具体部分<br>        启动和停止自己管理的Worker进程<br>    无状态，在他们上面的信息(元数据)会存储在ZK中<br>    Worker: 运行具体组件逻辑(Spout/Bolt)的进程<br>    =====================分割线===================<br>    task：<br>        Spout和Bolt<br>        Worker中每一个Spout和Bolt的线程称为一个Task<br>    executor： spout和bolt可能会共享一个线程</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/D.png" alt></p>
 <p>Storm部署的前置条件<br>    jdk7+<br>    python2.6.6+</p>
 <p>我们课程使用的Storm版本是：1.1.1</p>
 <p>Storm部署<br>    下载<br>    解压到<del>/app<br>    添加到系统环境变量:</del>/.bash_profile<br>        export STORM_HOME=/home/hadoop/app/apache-storm-1.1.1<br>        export PATH=$STORM_HOME/bin:$PATH<br>    使其生效: source ~/.bash_profile</p>
@@ -585,7 +595,8 @@ task是最终运行spout或者bolt代码的最小执行单元
     每个executor启动一个task                ?</code></pre><p>Total slots:4<br>Executors: 3 ????  spout + bolt = 2  why 3?<br>    acker 导致的</p>
 <h2 id="8-分组策略"><a href="#8-分组策略" class="headerlink" title="8.分组策略"></a>8.分组策略</h2><p>A stream grouping defines how that stream should be partitioned among the bolt’s tasks</p>
 <p>storm jar /home/had/lib/storm-1.0.jar com.imooc.bigdata.ClusterSumShuffleGroupingStormTopology</p>
-<h2 id="9-Storm可靠性"><a href="#9-Storm可靠性" class="headerlink" title="9.Storm可靠性"></a>9.Storm可靠性</h2>
+<h2 id="9-Storm可靠性"><a href="#9-Storm可靠性" class="headerlink" title="9.Storm可靠性"></a>9.Storm可靠性</h2><p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/E.png" alt></p>
+
       
     </div>
     
