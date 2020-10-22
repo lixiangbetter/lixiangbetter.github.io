@@ -91,8 +91,9 @@
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/10/21/hadoop%E5%9F%BA%E7%A1%80/HDFS%E5%86%99%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B.png">
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/10/21/hadoop%E5%9F%BA%E7%A1%80/Combiner.png">
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/10/21/hadoop%E5%9F%BA%E7%A1%80/Partitioner.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/21/hadoop%E5%9F%BA%E7%A1%80/Hive%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84.png">
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/10/21/hadoop%E5%9F%BA%E7%A1%80/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84.png">
-<meta property="og:updated_time" content="2020-10-21T13:12:01.328Z">
+<meta property="og:updated_time" content="2020-10-22T01:15:49.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hadoop基础">
 <meta name="twitter:description" content="hadoop基础1.大数据概述大数据带来的技术变革    技术驱动：数据量大        存储：文件存储 ==&amp;gt; 分布式存储        计算：单机    ==&amp;gt; 分布式计算        网络：万兆        DB： RDBMS  ==&amp;gt; NoSQL(HBase/Redis….) 大数据技术概念    单机：CPU Memory Disk    分布式并行计算/处理 船">
@@ -581,7 +582,9 @@ chmod 600 authorized_keys</code></pre><p>Hadoop(HDFS)安装<br>    下载<br>   
   &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;
   &lt;value&gt;root&lt;/value&gt;
 &lt;/property&gt;
-&lt;/configuration&gt;</code></pre><p>DDL：Hive Data Definition Language<br>    create、delete、alter…</p>
+&lt;/configuration&gt;</code></pre><p>Hive部署架构图</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/21/hadoop%E5%9F%BA%E7%A1%80/Hive%E9%83%A8%E7%BD%B2%E6%9E%B6%E6%9E%84.png" alt></p>
+<p>DDL：Hive Data Definition Language<br>    create、delete、alter…</p>
 <p>Hive数据抽象/结构<br>    database     HDFS一个目录<br>        table    HDFS一个目录<br>            data  文件<br>            partition 分区表  HDFS一个目录<br>                data  文件<br>                bucket  分桶   HDFS一个文件</p>
 <pre><code>CREATE (DATABASE|SCHEMA) [IF NOT EXISTS] database_name
   [COMMENT database_comment]
@@ -720,6 +723,10 @@ select deptno, avg(sal) avg_sal from emp group by deptno having avg_sal&gt;2000;
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/10/22/Storm学习/" rel="prev" title="Storm学习">
+                Storm学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -802,7 +809,7 @@ select deptno, avg(sal) avg_sal from emp group by deptno having avg_sal&gt;2000;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -824,7 +831,7 @@ select deptno, avg(sal) avg_sal from emp group by deptno having avg_sal&gt;2000;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
