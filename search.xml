@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>dubbo学习</title>
+    <url>/2021/01/04/dubbo%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h1 id="Dubbo学习"><a href="#Dubbo学习" class="headerlink" title="Dubbo学习"></a>Dubbo学习</h1><h2 id="可选注册中心"><a href="#可选注册中心" class="headerlink" title="可选注册中心"></a>可选注册中心</h2><p>Multicast、zookeeper、nacos、redis、simple</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>使用dubbo框架，dubbo-api,dubbo-client,dubbo-consumer完成一个完整的api调用。</p>
+<p>Dubbo中注入service是@Reference</p>
+<h2 id="Dubbo-Admin"><a href="#Dubbo-Admin" class="headerlink" title="Dubbo-Admin"></a>Dubbo-Admin</h2><p>服务治理可视化</p>
+<p>基本功能：</p>
+<p>​    条件路由</p>
+<p>​    标签路由</p>
+<p>​    黑白名单</p>
+<p>​    服务权重</p>
+<p>​    负载均衡</p>
+<p>​    服务测试</p>
+]]></content>
+      <categories>
+        <category>back_end</category>
+      </categories>
+      <tags>
+        <tag>dubbo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>人工智能基础</title>
     <url>/2020/11/23/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<h1 id="人工智能基础"><a href="#人工智能基础" class="headerlink" title="人工智能基础"></a>人工智能基础</h1><h2 id="python基础教程"><a href="#python基础教程" class="headerlink" title="python基础教程"></a>python基础教程</h2><h3 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出"></a>输入输出</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="string">"hello world"</span>)</span><br><span class="line">print(<span class="string">"hello"</span>,<span class="string">"world"</span>)</span><br><span class="line">print(<span class="string">"hello,i'm %s,%d years old!"</span>%(<span class="string">'tom'</span>,<span class="number">20</span>))  <span class="comment"># 字符串 整数</span></span><br><span class="line">print(<span class="string">"%2d"</span>%<span class="number">3</span>)	<span class="comment"># 整数</span></span><br><span class="line">print(<span class="string">"%02d"</span>%<span class="number">3</span>)	<span class="comment"># 两位整数</span></span><br><span class="line">print(<span class="string">"%.2f"</span>%<span class="number">3.1415926</span>)</span><br><span class="line">print(<span class="string">"%.2f%%"</span>%<span class="number">25</span>) <span class="comment"># 百分数</span></span><br><span class="line">str = <span class="string">"i'm &#123;0&#125;,&#123;1&#125; years old"</span>.format(<span class="string">"tom"</span>,<span class="number">20</span>) <span class="comment"># 按索引</span></span><br></pre></td></tr></table></figure>
