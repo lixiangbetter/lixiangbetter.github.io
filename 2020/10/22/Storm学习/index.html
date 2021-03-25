@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Storm,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Storm学习1.导学VMware Fusion    Mac上搭建：为了给大家演示如何使用我们的OOTB环境    Hadoop环境：虚拟机，我是远程登录    Mac        那么就不需要使用我们的OOTB环境        VMware Fusion+OOTB Window：VMwarehadoop/hadooproot用户的密码是什么？修改配置文件，是需要root权限的，怎么办？">
+<meta name="keywords" content="Storm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Storm学习">
+<meta property="og:url" content="http://yoursite.com/2020/10/22/Storm学习/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="Storm学习1.导学VMware Fusion    Mac上搭建：为了给大家演示如何使用我们的OOTB环境    Hadoop环境：虚拟机，我是远程登录    Mac        那么就不需要使用我们的OOTB环境        VMware Fusion+OOTB Window：VMwarehadoop/hadooproot用户的密码是什么？修改配置文件，是需要root权限的，怎么办？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/A.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/B.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/C.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/D.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/E.png">
+<meta property="og:updated_time" content="2020-10-22T02:57:05.410Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Storm学习">
+<meta name="twitter:description" content="Storm学习1.导学VMware Fusion    Mac上搭建：为了给大家演示如何使用我们的OOTB环境    Hadoop环境：虚拟机，我是远程登录    Mac        那么就不需要使用我们的OOTB环境        VMware Fusion+OOTB Window：VMwarehadoop/hadooproot用户的密码是什么？修改配置文件，是需要root权限的，怎么办？">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/A.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/22/Storm学习/">
+
+
+
+
+
+  <title>Storm学习 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/22/Storm学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Storm学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-22T09:22:08+08:00">
+                2020-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Storm学习"><a href="#Storm学习" class="headerlink" title="Storm学习"></a>Storm学习</h1><h2 id="1-导学"><a href="#1-导学" class="headerlink" title="1.导学"></a>1.导学</h2><p>VMware Fusion<br>    Mac上搭建：为了给大家演示如何使用我们的OOTB环境<br>    Hadoop环境：虚拟机，我是远程登录<br>    Mac<br>        那么就不需要使用我们的OOTB环境<br>        VMware Fusion+OOTB</p>
+<pre><code>Window：VMware</code></pre><p>hadoop/hadoop<br>root用户的密码是什么？<br>修改配置文件，是需要root权限的，怎么办？<br>    sudo command</p>
+<p>只有一个地方需要修改：ip地址<br>/etc/hosts<br>    192.168.199.128 hadoop000<br>    192.168.199.128 localhost</p>
+<h2 id="2-初识实时流处理Storm"><a href="#2-初识实时流处理Storm" class="headerlink" title="2.初识实时流处理Storm"></a>2.初识实时流处理Storm</h2><p>Apache Storm is a free and open source distributed realtime computation system<br>    免费<br>    开源<br>    分布式<br>    实时计算系统</p>
+<p>Storm makes it easy to reliably process unbounded streams of data<br>    unbounded: 无界<br>    bounded: Hadoop/Spark SQL   离线(input …. output)</p>
+<p>Storm has many use cases:<br>    realtime analytics,<br>    online machine learning,<br>    continuous computation,<br>    distributed RPC,<br>    ETL, and more. </p>
+<p>Storm特点<br>    fast：a million tuples processed per second per node<br>    scalable,<br>    fault-tolerant,<br>    guarantees your data will be processed<br>    and is easy to set up and operate.</p>
+<p>小结：Strom能实现高频数据和大规模数据的实时处理</p>
+<p>Storm产生于BackType(被Twitter收购)公司</p>
+<p>#…#</p>
+<p>需求：大数据的实时处理</p>
+<p>自己来实现实时系统，要考虑的因素：</p>
+<p>1) 健壮性<br>2) 扩展性/分布式<br>3) 如何使得数据不丢失，不重复<br>4) 高性能、低延时</p>
+<p>Storm开源<br>    2011.9<br>    Apache<br>    Clojure Java</p>
+<p>Storm技术网站</p>
+<p>1) 官网： storm.apache.org<br>2) GitHub: github.com/apache/storm<br>3) wiki: <a href="https://en.wikipedia.org/wiki/Storm_(event_processor)" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Storm_(event_processor)</a></p>
+<p>Storm vs Hadoop<br>    数据源/处理领域<br>    处理过程<br>        Hadoop: Map  Reduce<br>        Storm:  Spout  Bolt<br>    进程是否结束<br>    处理速度<br>    使用场景    </p>
+<p>发展趋势<br>    1) 社区的发展、活跃度<br>    2) 企业的需求<br>    3) 大数据相关的大会， Storm主题的数量上升<br>    4) 互联网  JStorm</p>
+<h2 id="3-Storm核心概念"><a href="#3-Storm核心概念" class="headerlink" title="3.Storm核心概念"></a>3.Storm核心概念</h2><p>核心概念<br>    Topologies<br>        拓扑，将整个流程串起来<br>    Streams<br>        流，数据流，水流<br>    Spouts<br>        产生数据/水的东西<br>    Bolts<br>        处理数据/水的东西    水壶/水桶<br>    Tuple<br>        数据/水    </p>
+<p>制约中国互联网发展的最大瓶颈是什么？ 后厂村路<br>13号线：回龙观==&gt;龙泽==&gt;西二旗</p>
+<p>Storm核心概念总结<br>    Topology： 计算拓扑，由spout和bolt组成的<br>    Stream：消息流，抽象概念，没有边界的tuple构成<br>    Tuple：消息/数据  传递的基本单元<br>    Spout：消息流的源头，Topology的消息生产者<br>    Bolt：消息处理单元，可以做过滤、聚合、查询/写数据库的操作</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/A.png" alt></p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/B.png" alt></p>
+<h2 id="4-Storm编程"><a href="#4-Storm编程" class="headerlink" title="4.Storm编程"></a>4.Storm编程</h2><p>搭建开发环境<br>    jdk: 1.8<br>        windows: exe<br>        linux/mac(dmg): tar …..   把jdk指定到系统环境变量(~/.bash_profile)<br>            export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home<br>            export PATH=$JAVA_HOME/bin:$PATH</p>
+<pre><code>        source ~/.bash_profile
+        echo $JAVA_HOME
+        java -version
+IDEA: 
+Maven: 3.3+
+    windows/linux/mac 下载安装包
+    tar .... -C ~/app
+
+    把maven指定到系统环境变量(~/.bash_profile)
+    export MAVEN_HOME=/Users/rocky/app/apache-maven-3.3.9
+    export PATH=$MAVEN_HOME/bin:$PATH
+    source ~/.bash_profile
+    echo $JAVA_HOME
+    mvn -v
+
+    调整maven依赖下载的jar所在位置： $MAVEN_HOME/conf/setting.xml
+    &lt;localRepository&gt;/Users/rocky/maven_repos&lt;/localRepository&gt;
+
+在pom.xml中添加storm的maven依赖
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.storm&lt;/groupId&gt;
+      &lt;artifactId&gt;storm-core&lt;/artifactId&gt;
+      &lt;version&gt;1.1.1&lt;/version&gt;
+    &lt;/dependency&gt;</code></pre><p>ISpout<br>    概述<br>        核心接口(interface)，负责将数据发送到topology中去处理<br>        Storm会跟踪Spout发出去的tuple的DAG<br>        ack/fail<br>        tuple: message id<br>        ack/fail/nextTuple是在同一个线程中执行的，所以不用考虑线程安全方面</p>
+<pre><code>核心方法
+    open： 初始化操作
+    close： 资源释放操作
+    nextTuple： 发送数据   core api
+    ack： tuple处理成功，storm会反馈给spout一个成功消息
+    fail：tuple处理失败，storm会发送一个消息给spout，处理失败
+
+实现类
+    public abstract class BaseRichSpout extends BaseComponent implements IRichSpout {
+    public interface IRichSpout extends ISpout, IComponent 
+    DRPCSpout
+    ShellSpout</code></pre><p>IComponent接口<br>    概述：<br>        public interface IComponent extends Serializable<br>        为topology中所有可能的组件提供公用的方法</p>
+<pre><code>    void declareOutputFields(OutputFieldsDeclarer declarer);
+    用于声明当前Spout/Bolt发送的tuple的名称
+    使用OutputFieldsDeclarer配合使用
+
+
+实现类：
+public abstract class BaseComponent implements IComponent</code></pre><p>IBolt接口<br>    概述<br>        职责：接收tuple处理，并进行相应的处理(filter/join/….)<br>        hold住tuple再处理<br>        IBolt会在一个运行的机器上创建，使用Java序列化它，然后提交到主节点(nimbus)上去执行<br>        nimbus会启动worker来反序列化，调用prepare方法，然后才开始处理tuple处理</p>
+<pre><code>方法
+    prepare：初始化
+    execute：处理一个tuple暑假，tuple对象中包含了元数据信息
+    cleanup：shutdown之前的资源清理操作
+
+
+实现类：
+    public abstract class BaseRichBolt extends BaseComponent implements IRichBolt {
+    public interface IRichBolt extends IBolt, IComponent 
+    RichShellBolt</code></pre><p>求和案例<br>    需求：1 + 2 + 3 + ….   = ???<br>    实现方案：<br>        Spout发送数字作为input<br>        使用Bolt来处理业务逻辑：求和<br>        将结果输出到控制台<br>    拓扑设计： DataSourceSpout  –&gt; SumBolt    </p>
+<p>词频统计<br>    需求：读取指定目录的数据，并实现单词计数功能<br>    实现方案：<br>        Spout来读取指定目录的数据，作为后续Bolt处理的input<br>        使用一个Bolt把input的数据，切割开，我们按照逗号进行分割<br>        使用一个Bolt来进行最终的单词的次数统计操作<br>        并输出<br>    拓扑设计： DataSourceSpout ==&gt; SplitBolt ==&gt; CountBolt    </p>
+<p>Storm编程注意事项</p>
+<p>1) Exception in thread “main” java.lang.IllegalArgumentException: Spout has already been declared for id DataSourceSpout<br>2) org.apache.storm.generated.InvalidTopologyException: null<br>3) topology的名称不是重复： local似乎没问题， 等我们到集群测试的时候再来验证这个问题</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/C.png" alt></p>
+<h2 id="5-Storm周边框架使用"><a href="#5-Storm周边框架使用" class="headerlink" title="5.Storm周边框架使用"></a>5.Storm周边框架使用</h2><p>环境前置说明：<br>    通过我们的客户端(终端，CRT，XShell)<br>    ssh hadoop@hadoop000<br>    ssh <a href="mailto:hadoop@192.168.199.102" target="_blank" rel="noopener">hadoop@192.168.199.102</a></p>
+<pre><code>远程服务器的用户名是hadoop，密码也是hadoop
+有没有提供root权限，sudo command
+
+hadoop000(192.168.199.102)是远程服务器的hostname
+
+如果你想在本地通过ssh hadoop@hadoop000远程登录，
+那么你本地的hosts肯定要添加ip和hostname的映射
+
+192.168.199.102  hadoop000</code></pre><p>JDK的安装<br>    将所有的软件都安装到~/app<br>        tar -zxvf jdk-8u91-linux-x64.tar.gz -C ~/app/</p>
+<pre><code>建议将jdk的bin目录配置到系统环境变量中： ~/.bash_profile
+    export JAVA_HOME=/home/hadoop/app/jdk1.8.0_91
+    export PATH=$JAVA_HOME/bin:$PATH
+
+让系统环境变量生效
+    source ~/.bash_profile
+
+验证
+    java -version</code></pre><p>ZooKeeper安装<br>    下载ZK的安装包：<a href="http://archive.cloudera.com/cdh5/cdh/5/" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/cdh/5/</a><br>    解压：tar -zxvf zookeeper-3.4.5-cdh5.7.0.tar.gz -C ~/app/<br>    建议ZK_HOME/bin添加到系统环境变量: ~/.bash_profile<br>        export ZK_HOME=/home/hadoop/app/zookeeper-3.4.5-cdh5.7.0<br>        export PATH=$ZK_HOME/bin:$PATH<br>    让系统环境变量生效<br>        source ~/.bash_profile<br>    修改ZK的配置： $ZK_HOME/conf/zoo.cfg<br>        dataDir=/home/hadoop/app/tmp/zookeeper<br>    启动zk: $ZK_HOME/bin/<br>        zkServer.sh start<br>    验证: jps<br>        多了一个QuorumPeerMain进程，就表示zk启动成功了</p>
+<p>ELK:<br>    <a href="http://www.elastic.co" target="_blank" rel="noopener">www.elastic.co</a></p>
+<p>Kafka概述<br>    和消息系统类似</p>
+<pre><code>消息中间件：生产者和消费者
+
+妈妈：生产者
+你：消费者
+馒头：数据流、消息
+
+    正常情况下： 生产一个  消费一个
+    其他情况：  
+        一直生产，你吃到某一个馒头时，你卡主(机器故障)， 馒头就丢失了
+        一直生产，做馒头速度快，你吃来不及，馒头也就丢失了
+
+    拿个碗/篮子，馒头做好以后先放到篮子里，你要吃的时候去篮子里面取出来吃
+
+篮子/框： Kafka
+    当篮子满了，馒头就装不下了，咋办？ 
+    多准备几个篮子 === Kafka的扩容</code></pre><p>Kafka架构<br>    producer：生产者，就是生产馒头(老妈)<br>    consumer：消费者，就是吃馒头的(你)<br>    broker：篮子<br>    topic：主题，给馒头带一个标签，topica的馒头是给你吃的，topicb的馒头是给你弟弟吃</p>
+<p>单节点单broker的部署及使用</p>
+<p>$KAFKA_HOME/config/server.properties<br>broker.id=0<br>listeners<br>host.name<br>log.dirs<br>zookeeper.connect</p>
+<p>启动Kafka<br>kafka-server-start.sh<br>USAGE: /home/hadoop/app/kafka_2.11-0.9.0.0/bin/kafka-server-start.sh [-daemon] server.properties [–override property=value]*</p>
+<p>kafka-server-start.sh $KAFKA_HOME/config/server.properties</p>
+<p>创建topic: zk<br>kafka-topics.sh –create –zookeeper hadoop000:2181 –replication-factor 1 –partitions 1 –topic hello_topic</p>
+<p>查看所有topic<br>kafka-topics.sh –list –zookeeper hadoop000:2181</p>
+<p>发送消息: broker<br>kafka-console-producer.sh –broker-list hadoop000:9092 –topic hello_topic</p>
+<p>消费消息: zk<br>kafka-console-consumer.sh –zookeeper hadoop000:2181 –topic hello_topic –from-beginning</p>
+<p>–from-beginning的使用</p>
+<p>查看所有topic的详细信息：kafka-topics.sh –describe –zookeeper hadoop000:2181<br>查看指定topic的详细信息：kafka-topics.sh –describe –zookeeper hadoop000:2181 –topic hello_topic</p>
+<p>单节点多broker<br>server-1.properties<br>    log.dirs=/home/hadoop/app/tmp/kafka-logs-1<br>    listeners=PLAINTEXT://:9093<br>    broker.id=1</p>
+<p>server-2.properties<br>    log.dirs=/home/hadoop/app/tmp/kafka-logs-2<br>    listeners=PLAINTEXT://:9094<br>    broker.id=2</p>
+<p>server-3.properties<br>    log.dirs=/home/hadoop/app/tmp/kafka-logs-3<br>    listeners=PLAINTEXT://:9095<br>    broker.id=3</p>
+<p>kafka-server-start.sh -daemon $KAFKA_HOME/config/server-1.properties &amp;<br>kafka-server-start.sh -daemon $KAFKA_HOME/config/server-2.properties &amp;<br>kafka-server-start.sh -daemon $KAFKA_HOME/config/server-3.properties &amp;</p>
+<p>kafka-topics.sh –create –zookeeper hadoop000:2181 –replication-factor 3 –partitions 1 –topic my-replicated-topic</p>
+<p>kafka-console-producer.sh –broker-list hadoop000:9093,hadoop000:9094,hadoop000:9095 –topic my-replicated-topic<br>kafka-console-consumer.sh –zookeeper hadoop000:2181 –topic my-replicated-topic</p>
+<p>kafka-topics.sh –describe –zookeeper hadoop000:2181 –topic my-replicated-topic</p>
+<h2 id="6-Storm架构及部署"><a href="#6-Storm架构及部署" class="headerlink" title="6.Storm架构及部署"></a>6.Storm架构及部署</h2><p>Storm架构<br>    类似于Hadoop的架构，主从(Master/Slave)<br>    Nimbus: 主<br>        集群的主节点，负责任务(task)的指派和分发、资源的分配<br>    Supervisor: 从<br>        可以启动多个Worker，具体几个呢？可以通过配置来指定<br>        一个Topo可以运行在多个Worker之上，也可以通过配置来指定<br>        集群的从节点，(负责干活的)，负责执行任务的具体部分<br>        启动和停止自己管理的Worker进程<br>    无状态，在他们上面的信息(元数据)会存储在ZK中<br>    Worker: 运行具体组件逻辑(Spout/Bolt)的进程<br>    =====================分割线===================<br>    task：<br>        Spout和Bolt<br>        Worker中每一个Spout和Bolt的线程称为一个Task<br>    executor： spout和bolt可能会共享一个线程</p>
+<p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/D.png" alt></p>
+<p>Storm部署的前置条件<br>    jdk7+<br>    python2.6.6+</p>
+<p>我们课程使用的Storm版本是：1.1.1</p>
+<p>Storm部署<br>    下载<br>    解压到<del>/app<br>    添加到系统环境变量:</del>/.bash_profile<br>        export STORM_HOME=/home/hadoop/app/apache-storm-1.1.1<br>        export PATH=$STORM_HOME/bin:$PATH<br>    使其生效: source ~/.bash_profile</p>
+<pre><code>目录结构
+    bin
+    examples
+    conf
+    lib</code></pre><p>Storm启动<br>    $STORM_HOME/bin/storm   如何使用  执行storm就能看到很多详细的命令<br>        dev-zookeeper  启动zk<br>            storm dev-zookeeper  前台启动<br>            nohup sh storm dev-zookeeper &amp;<br>            jps ： dev_zookeeper<br>        nimbus  启动主节点<br>            nohup sh storm nimbus &amp;<br>        supervisor 启动从节点<br>            nohup sh storm supervisor &amp;<br>        ui  启动UI界面<br>            nohup sh storm ui &amp;<br>        logviewer 启动日志查看服务<br>            nohup sh storm logviewer &amp;</p>
+<p>注意事项<br>    1) 为什么是4个slot<br>    2) 为什么有2个Nimbus</p>
+<p>Storm如何运行我们自己开发的应用程序呢?<br>    Syntax: storm jar topology-jar-path class args0 args1 args2</p>
+<p>storm jar /home/hadoop/lib/storm-1.0.jar com.imooc.bigdata.ClusterSumStormTopology</p>
+<p>问题: 3个executor，那么页面就看到spout1个和bolt1个，那么还有一个去哪了？</p>
+<p>如何修改将跑在本地的storm app改成运行在集群上的<br>StormSubmitter.submitTopology(topoName,new Config(), builder.createTopology());</p>
+<p>storm 其他命令的使用</p>
+<pre><code>list
+        Syntax: storm list
+        List the running topologies and their statuses.
+
+如何停止作业
+    kill
+        Syntax: storm kill topology-name [-w wait-time-secs]
+
+如何停止集群
+    hadoop： stop-all.sh
+    kill -9 pid,pid....</code></pre><p>Storm集群的部署规划<br>    hadoop000   192.168.199.102<br>    hadoop001   192.168.199.247<br>    hadoop002   192.168.199.138 </p>
+<pre><code>每台机器的host映射：/etc/hosts
+    192.168.199.102 hadoop000
+    192.168.199.247 hadoop001
+    192.168.199.138 hadoop002
+
+
+hadoop000: zk nimbus  supervisor
+hadoop001: zk           supervisor
+hadoop002: zk         supervisor</code></pre><p>安装包的分发: 从hadoop000机器做为出发点<br>    scp  xxxx  hadoop@hadoop001:<del>/software<br>    scp  xxxx  hadoop@hadoop002:</del>/software</p>
+<p>jdk的安装<br>    解压<br>    配置到系统环境变量<br>    验证</p>
+<p>ZK分布式环境的安装<br>server.1=hadoop000:2888:3888<br>server.2=hadoop001:2888:3888<br>server.3=hadoop002:2888:3888</p>
+<p>hadoop000的dataDir目录: myid的值1<br>hadoop001的dataDir目录: myid的值2<br>hadoop002的dataDir目录: myid的值3</p>
+<p>在每个节点上启动zk: zkServer.sh start<br>在每个节点上查看当前机器zk的状态: zkServer.sh status</p>
+<p>Storm集群<br>    $STORM_HOME/conf/storm.yaml<br>        storm.zookeeper.servers:<br>             - “hadoop000”<br>             - “hadoop001”<br>             - “hadoop002”</p>
+<pre><code>storm.local.dir: &quot;/home/hadoop/app/tmp/storm&quot;
+
+supervisor.slots.ports:
+     - 6700
+     - 6701
+     - 6702
+     - 6703</code></pre><p>启动<br>    hadoop000: nimbus  supervisor(ui,logviewer)<br>    hadoop001: supervisor(logviewer)<br>    hadoop002: supervisor(logviewer)</p>
+<p>nimbus  启动主节点<br>    nohup sh storm nimbus &amp;<br>supervisor 启动从节点<br>    nohup sh storm supervisor &amp;<br>ui  启动UI界面<br>    nohup sh storm ui &amp;<br>logviewer 启动日志查看服务<br>    nohup sh storm logviewer &amp;</p>
+<p>启动完所有的进程之后，查看<br>[hadoop@hadoop000 bin]$ jps<br>7424 QuorumPeerMain<br>8164 Supervisor<br>7769 nimbus<br>8380 logviewer<br>7949 core</p>
+<p>[hadoop@hadoop001 bin]$ jps<br>3142 logviewer<br>2760 QuorumPeerMain<br>2971 Supervisor</p>
+<p>[hadoop@hadoop002 bin]$ jps<br>3106 logviewer<br>2925 Supervisor<br>2719 QuorumPeerMain</p>
+<p>storm jar /home/hadoop/lib/storm-1.0.jar com.imooc.bigdata.ClusterSumStormTopology</p>
+<p>目录树<br>    storm.local.dir<br>        nimbus/inbox:stormjar-….jar<br>        supervisor/stormdist<br>            ClusterSumStormTopology-1-1511599690<br>            │   │       ├── stormcode.ser<br>            │   │       ├── stormconf.ser<br>            │   │       └── stormjar.jar</p>
+<h2 id="7-并行度"><a href="#7-并行度" class="headerlink" title="7.并行度"></a>7.并行度</h2><p>并行度<br>    一个worker进程执行的是一个topo的子集<br>    一个worker进程会启动1..n个executor线程来执行一个topo的component<br>    一个运行的topo就是由集群中多台物理机上的多个worker进程组成</p>
+<pre><code>executor是一个被worker进程启动的单独线程，每个executor只会运行1个topo的一个component
+task是最终运行spout或者bolt代码的最小执行单元
+
+默认：
+    一个supervisor节点最多启动4个worker进程  ?
+    每一个topo默认占用一个worker进程         ?
+    每个worker进程会启动一个executor        ?
+    每个executor启动一个task                ?</code></pre><p>Total slots:4<br>Executors: 3 ????  spout + bolt = 2  why 3?<br>    acker 导致的</p>
+<h2 id="8-分组策略"><a href="#8-分组策略" class="headerlink" title="8.分组策略"></a>8.分组策略</h2><p>A stream grouping defines how that stream should be partitioned among the bolt’s tasks</p>
+<p>storm jar /home/had/lib/storm-1.0.jar com.imooc.bigdata.ClusterSumShuffleGroupingStormTopology</p>
+<h2 id="9-Storm可靠性"><a href="#9-Storm可靠性" class="headerlink" title="9.Storm可靠性"></a>9.Storm可靠性</h2><p><img src="https://lixiangbetter.github.io/2020/10/22/Storm%E5%AD%A6%E4%B9%A0/E.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Storm/" rel="tag"># Storm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/21/hadoop基础/" rel="next" title="hadoop基础">
+                <i class="fa fa-chevron-left"></i> hadoop基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/05/读写分离、分库分表/" rel="prev" title="读写分离、分库分表">
+                读写分离、分库分表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Storm学习"><span class="nav-number">1.</span> <span class="nav-text">Storm学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-导学"><span class="nav-number">1.1.</span> <span class="nav-text">1.导学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-初识实时流处理Storm"><span class="nav-number">1.2.</span> <span class="nav-text">2.初识实时流处理Storm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Storm核心概念"><span class="nav-number">1.3.</span> <span class="nav-text">3.Storm核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Storm编程"><span class="nav-number">1.4.</span> <span class="nav-text">4.Storm编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Storm周边框架使用"><span class="nav-number">1.5.</span> <span class="nav-text">5.Storm周边框架使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Storm架构及部署"><span class="nav-number">1.6.</span> <span class="nav-text">6.Storm架构及部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-并行度"><span class="nav-number">1.7.</span> <span class="nav-text">7.并行度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-分组策略"><span class="nav-number">1.8.</span> <span class="nav-text">8.分组策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-Storm可靠性"><span class="nav-number">1.9.</span> <span class="nav-text">9.Storm可靠性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

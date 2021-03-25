@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="面试题随笔-21-3-24spark rdd介绍一下RDD：Spark的核心概念是RDD (resilient distributed dataset)，指的是一个只读的，可分区的分布式数据集，这个数据集的全部或部分可以缓存在内存中，在多次计算间重用。  为什么会产生RDD? 传统的mapreduce虽然具有自动容错、平衡负载和可拓展性的优点，但是其最大的缺点是采用非循环式的数据流模型，使得在迭代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题随笔-21&#x2F;3&#x2F;24">
+<meta property="og:url" content="http://yoursite.com/2021/03/24/面试题随笔-21-3-24/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="面试题随笔-21-3-24spark rdd介绍一下RDD：Spark的核心概念是RDD (resilient distributed dataset)，指的是一个只读的，可分区的分布式数据集，这个数据集的全部或部分可以缓存在内存中，在多次计算间重用。  为什么会产生RDD? 传统的mapreduce虽然具有自动容错、平衡负载和可拓展性的优点，但是其最大的缺点是采用非循环式的数据流模型，使得在迭代">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-24T12:21:39.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题随笔-21&#x2F;3&#x2F;24">
+<meta name="twitter:description" content="面试题随笔-21-3-24spark rdd介绍一下RDD：Spark的核心概念是RDD (resilient distributed dataset)，指的是一个只读的，可分区的分布式数据集，这个数据集的全部或部分可以缓存在内存中，在多次计算间重用。  为什么会产生RDD? 传统的mapreduce虽然具有自动容错、平衡负载和可拓展性的优点，但是其最大的缺点是采用非循环式的数据流模型，使得在迭代">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/24/面试题随笔-21-3-24/">
+
+
+
+
+
+  <title>面试题随笔-21/3/24 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/24/面试题随笔-21-3-24/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题随笔-21/3/24</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-24T16:02:28+08:00">
+                2021-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="面试题随笔-21-3-24"><a href="#面试题随笔-21-3-24" class="headerlink" title="面试题随笔-21-3-24"></a>面试题随笔-21-3-24</h2><h3 id="spark-rdd介绍一下"><a href="#spark-rdd介绍一下" class="headerlink" title="spark rdd介绍一下"></a>spark rdd介绍一下</h3><p>RDD：Spark的核心概念是RDD (resilient distributed dataset)，指的是一个只读的，可分区的分布式数据集，这个数据集的全部或部分可以缓存在内存中，在多次计算间重用。</p>
+<ul>
+<li>为什么会产生RDD?<ul>
+<li>传统的mapreduce虽然具有自动容错、平衡负载和可拓展性的优点，但是其最大的缺点是采用非循环式的数据流模型，使得在迭代计算时要进行大量的磁盘IO操作。RDD正是解决这一缺点的抽象方法。</li>
+<li>RDD的具体描述RDD(弹性数据集)是Spark提供的最重要的抽象的概念，它是一种有容错机制的特殊集合，可以分布在集群的节点上，以函数式编操作集合的方式，进行各种并行操作。可以将RDD理解为一个具有容错机制的特殊集合，它提供了一种只读、只能有已存在的RDD变换而来的共享内存，然后将所有数据都加载到内存中，方便进行多次重用。a.他是分布式的，可以分布在多台机器上，进行计算。<ul>
+<li>他是弹性的，计算过程中内存不够时它会和磁盘进行数据交换。</li>
+<li>这些限制可以极大的降低自动容错开销</li>
+<li>实质是一种更为通用的迭代并行计算框架，用户可以显示的控制计算的中间结果，然后将其自由运用于之后的计算。</li>
+</ul>
+</li>
+<li>RDD的容错机制实现分布式数据集容错方法有两种：数据检查点和记录更新。</li>
+<li>RDD采用记录更新的方式：记录所有更新点的成本很高。所以，RDD只支持粗颗粒变换，即只记录单个块上执行的单个操作，然后创建某个RDD的变换序列(血统)存储下来;变换序列指，每个RDD都包含了他是如何由其他RDD变换过来的以及如何重建某一块数据的信息。因此RDD的容错机制又称“血统”容错。</li>
+<li>要实现这种“血统”容错机制，最大的难题就是如何表达父RDD和子RDD之间的依赖关系。实际上依赖关系可以分两种，窄依赖和宽依赖：窄依赖：子RDD中的每个数据块只依赖于父RDD中对应的有限个固定的数据块;宽依赖：子RDD中的一个数据块可以依赖于父RDD中的所有数据块。例如：map变换，子RDD中的数据块只依赖于父RDD中对应的一个数据块;groupByKey变换，子RDD中的数据块会依赖于多有父RDD中的数据块，因为一个key可能错在于父RDD的任何一个数据块中.</li>
+<li>将依赖关系分类的两个特性：第一，窄依赖可以在某个计算节点上直接通过计算父RDD的某块数据计算得到子RDD对应的某块数据;宽依赖则要等到父RDD所有数据都计算完成之后，并且父RDD的计算结果进行hash并传到对应节点上之后才能计算子RDD。第二，数据丢失时，对于窄依赖只需要重新计算丢失的那一块数据来恢复;对于宽依赖则要将祖先RDD中的所有数据块全部重新计算来恢复。所以在长“血统”链特别是有宽依赖的时候，需要在适当的时机设置数据检查点。也是这两个特性要求对于不同依赖关系要采取不同的任务调度机制和容错恢复机制。</li>
+</ul>
+</li>
+<li>RDD在Spark中的地位及作用<ul>
+<li>为什么会有Spark?因为传统的并行计算模型无法有效的解决迭代计算(iterative)和交互式计算(interactive);而Spark的使命便是解决这两个问题，这也是他存在的价值和理由。</li>
+<li>Spark如何解决迭代计算?其主要实现思想就是RDD，把所有计算的数据保存在分布式的内存中。迭代计算通常情况下都是对同一个数据集做反复的迭代计算，数据在内存中将大大提升IO操作。这也是Spark涉及的核心：内存计算。</li>
+<li>Spark如何实现交互式计算?因为Spark是用scala语言实现的，Spark和scala能够紧密的集成，所以Spark可以完美的运用scala的解释器，使得其中的scala可以向操作本地集合对象一样轻松操作分布式数据集。</li>
+<li>Spark和RDD的关系?可以理解为：RDD是一种具有容错性基于内存的集群计算抽象方法，Spark则是这个抽象方法的实现。</li>
+</ul>
+</li>
+<li>如何操作RDD?<ul>
+<li>如何获取RDD<br>a.从共享的文件系统获取，(如：HDFS)；<br>b.通过已存在的RDD转换；<br>c.将已存在scala集合(只要是Seq对象)并行化，通过调用SparkContext的parallelize方法实现；<br>d.改变现有RDD的持久性;RDD是懒散，短暂的。(RDD的固化：cache缓存至内存 save保存到分布式文件系统)</li>
+<li>操作RDD的两个动作<br>a.Actions：对数据集计算后返回一个数值value给驱动程序;例如：Reduce将数据集的所有元素用某个函数聚合后，将最终结果返回给程序。<br>b.Transformation：根据数据集创建一个新的数据集，计算后返回一个新RDD;例如：Map将数据的每个元素经过某个函数计算后，返回一个姓的分布式数据集。</li>
+</ul>
+</li>
+</ul>
+<h3 id="数组求topk"><a href="#数组求topk" class="headerlink" title="数组求topk"></a>数组求topk</h3><ul>
+<li>小根堆</li>
+<li>快排 （需要内存足够）</li>
+</ul>
+<h3 id="二叉树后序遍历"><a href="#二叉树后序遍历" class="headerlink" title="二叉树后序遍历"></a>二叉树后序遍历</h3><p>先序 ==&gt;（左右交换） 逆后序 ==&gt;（再逆序） 后序</p>
+<h3 id="MapReduce介绍一下"><a href="#MapReduce介绍一下" class="headerlink" title="MapReduce介绍一下"></a>MapReduce介绍一下</h3><p>MapReduce是一种计算模型，该模型可以将大型数据处理任务分解成很多单个的、可以在服务器集群中并行执行的任务，而这些任务的计算结果可以合并在一起来计算最终的结果。简而言之，Hadoop Mapreduce是一个易于编程并且能在大型集群（上千节点）快速地并行得处理大量数据的软件框架，以可靠，容错的方式部署在商用机器上。</p>
+<p>MapReduce这个术语来自两个基本的数据转换操作：map过程和reduce过程。</p>
+<p>一、map</p>
+<p>map操作会将集合中的元素从一种形式转化成另一种形式，在这种情况下，输入的键值对会被转换成零到多个键值对输出。其中输入和输出的键必须完全不同，而输入和输出的值则可能完全不同。</p>
+<p>二、reduce</p>
+<p>某个键的所有键值对都会被分发到同一个reduce操作中。确切的说，这个键和这个键所对应的所有值都会被传递给同一个Reducer。reduce过程的目的是将值的集合转换成一个值（例如求和或者求平均），或者转换成另一个集合。这个Reducer最终会产生一个键值对。需要说明的是，如果job不需要reduce过程的话，那么reduce过程也是可以不用的。</p>
+<h3 id="mapreduce中间有个combine是干嘛的，有什么好处，有什么使用限制吗？"><a href="#mapreduce中间有个combine是干嘛的，有什么好处，有什么使用限制吗？" class="headerlink" title="mapreduce中间有个combine是干嘛的，有什么好处，有什么使用限制吗？"></a>mapreduce中间有个combine是干嘛的，有什么好处，有什么使用限制吗？</h3><p>combiner是reduce的实现，在map端运行计算任务，减少map端的输出数据。</p>
+<p>作用就是优化。</p>
+<p>但是combiner的使用场景是mapreduce的map输出结果和reduce输入输出一样。</p>
+<p>partition的默认实现是hashpartition，是map端将数据按照reduce个数取余，进行分区，不同的reduce来copy自己的数据。</p>
+<p>partition的作用是将数据分到不同的reduce进行计算，加快计算效果。</p>
+<h3 id="编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？"><a href="#编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？" class="headerlink" title="编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？"></a>编写MapReduce作业时，如何做到在Reduce阶段，先对<em>key</em>排序，再对<em>value</em>排序？</h3><p>该问题通常称为“二次排序”，最常用的方法是将value放到key中，实现一个组合Key，然后自定义key排序规则（为key实现一个WritableComparable）。</p>
+<h3 id="如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中）-（2）两个表均是大表"><a href="#如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中）-（2）两个表均是大表" class="headerlink" title="如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中） （2）两个表均是大表"></a>如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中） （2）两个表均是大表</h3><p>map join：<br>map side join 是针对一下场景进行的优化。两个待连接的表中，有一个表非常大，而另一个非常小，以至于小表可以直接存放到内存中。这样，我们可以将小表复制多份，让每一个map task内存中存在一份（比如放在hash table中），然后只扫描大表：对于大表中的每一条记录key/value，在hash table中查找是否具有相同key的记录，入股有，则连接后输出即可。<br>场景：MapJoin 适用于有一份数据较小的连接情况。<br>做法：直接将较小的数据加载到内存中，按照连接的关键字建立索引，大份数据作为MapTask的输入数据对 map()方法的每次输入都去内存当中直接去匹配连接。然后把连接结果按 key 输出，这种方法要使用 hadoop中的 DistributedCache 把小份数据分布到各个计算节点，每个 maptask 执行任务的节点都需要加载该数据到内存，并且按连接关键字建立索引。</p>
+<p>reduce side join是一种最简单的join方式，其主要思想如下：</p>
+<p>在map阶段，map函数同时读取两个文件File1和File2，为了区分两种来源的key/value数据对，对每条数据打一个标签（tag）,比如：tag=0表示来自文件File1，tag=2表示来自文件File2。即：map阶段的主要任务是对不同文件中的数据打标签。</p>
+<p>在reduce阶段，reduce函数获取key相同的来自File1和File2文件的value list， 然后对于同一个key，对File1和File2中的数据进行join（笛卡尔乘积）。即：reduce阶段进行实际的连接操作。</p>
+<p>SemiJoin，也叫半连接，是从分布式数据库中借鉴过来的方法。它的产生动机是：对于reduce side join，跨机器的数据传输量非常大，这成了join操作的一个瓶颈，如果能够在map端过滤掉不会参加join操作的数据，则可以大大节省网络IO。</p>
+<p>实现方法很简单：选取一个小表，假设是File1，将其参与join的key抽取出来，保存到文件File3中，File3文件一般很小，可以放到内存中。在map阶段，使用DistributedCache将File3复制到各个TaskTracker上，然后将File2中不在File3中的key对应的记录过滤掉，剩下的reduce阶段的工作与reduce side join相同。</p>
+<h3 id="当面试的时候问到，MapReduce-架构设计、Yarn架构设计、Yarn的工作流程、MapReduce-job-提交到-Yarn的工作流程-（面试题为同一题），其实都是同一个问题。"><a href="#当面试的时候问到，MapReduce-架构设计、Yarn架构设计、Yarn的工作流程、MapReduce-job-提交到-Yarn的工作流程-（面试题为同一题），其实都是同一个问题。" class="headerlink" title="当面试的时候问到，MapReduce 架构设计、Yarn架构设计、Yarn的工作流程、MapReduce job 提交到 Yarn的工作流程 （面试题为同一题），其实都是同一个问题。"></a>当面试的时候问到，MapReduce 架构设计、Yarn架构设计、Yarn的工作流程、MapReduce job 提交到 Yarn的工作流程 （面试题为同一题），其实都是同一个问题。</h3><p>1.用户向yarn提交应用程序（job），其中包括application Master程序，启动application Master命令等</p>
+<p>2.RM为该job分配了一个容器，并于对应的NM通信，要求它在这个容器中启动job的MR application Master程序<br>3.启动程序之后，application Master首先向ApplicationsManager注册，用户就可以直接在web界面上查看job的整个运行状态和日志<br>4.applicationMaster向Resource Scheduler采用轮询的方式通过RPC协议去申请和领取资源列表</p>
+<p>5.一旦applicationMaster申请到资源后，便与对应的NM节点通信，要求启动任务</p>
+<p>6.NM为任务task设置好运行环境（环境变量，jar），将任务的启动命令写在一个脚本文件中，并通过脚本文件【启动任务<br>7.各个task通过RPC协议向applicationMaster汇报自己的状态和进度，以让applicationMaster随时掌握各个任务的运行状态，从而可以在任务运行时重新启动任务，则web界面可以实时查看job当前运行状态。<br>8.job运行完成后，applicationMaster向RM注销自己并关闭自己</p>
+<h3 id="如何使用MapReduce实现全排序（即数据全局key有序）？-你给出的算法可能要求仅启动一个Reduce-Task，那么如何对算法改进，可以同时启动多个Reduce-Task提高排序效率。"><a href="#如何使用MapReduce实现全排序（即数据全局key有序）？-你给出的算法可能要求仅启动一个Reduce-Task，那么如何对算法改进，可以同时启动多个Reduce-Task提高排序效率。" class="headerlink" title="如何使用MapReduce实现全排序（即数据全局key有序）？ 你给出的算法可能要求仅启动一个Reduce Task，那么如何对算法改进，可以同时启动多个Reduce Task提高排序效率。"></a>如何使用MapReduce实现全排序（即数据全局key有序）？ 你给出的算法可能要求仅启动一个Reduce Task，那么如何对算法改进，可以同时启动多个Reduce Task提高排序效率。</h3><ul>
+<li><p>使用一个reduce实现全局排序<br>我们知道，MapReduce默认情况下只保证同一个分区中的key是有序的，不能保证全局有序。如果我们将所有的数据都用一个reduce来处理，就可以实现全局有序。<br>缺点：此方法的缺点也很明显，所有数据发送到一个reduce进行排序，不但不能充分利用集群的分布式资源，在数据量很大的情况下，很容易出现OOM的情况，效率也很低</p>
+</li>
+<li><p>自定义分区函数实现全局排序</p>
+<pre><code>MapReduce默认的分区函数为HashPartitioner，其具体的实现原理是计算map的输出key的hashCode值，然后用该值对reduce个数取余，不同的余数对应不同的reduce，余数相同的key将会被发送到同一个reduce中。</code></pre><p>如果我们能够实现一个分区函数，使得<br>所以的key &lt; 1000的数据都发送到reduce0；<br>所有1000 &lt; key &lt; 10000的数据都发送到reduce1；<br>……<br>其余的key都发送到reduceN;</p>
+<pre><code>这样就实现了reduce0的数据一定全部小于reduce1的数据，reduce1的数据全部小于reduce2的数据，……，同时每个reduce中数据是局部有序的，这样就实现了全局有序</code></pre><p>缺点：该方法的难点在于我们必须手动找到各个reduce的分界点，且尽量是的分散到每个reduce的数据均衡。如果想增加或减少reduce个数，必须再次寻找分界点，非常不灵活。</p>
+</li>
+<li><p>使用TotalOrderPartitioner实现全局排序</p>
+<pre><code>MapReduce内部包含一个TotalOrderPartitoner的分区实现类，主要解决全排序问题。其原理和方法2类似，根据key的分界点将不同的key发送到不同的reduce中，区别在于方法2需要人工寻找分界点，而该方法是有程序计算得到。</code></pre><p>数据抽样</p>
+<pre><code>为了寻找到合适的key分界点，我们需要对数据的整体分布有所了解；如果数据量很大，我们就不可能对所有数据进行分析然后选出N-1的分界点（假设reduce个数为N），最适合的方式就是通过数据抽样，对抽样的数据进行分析从而选出合适的分割点。MapReduce提供了三种抽样方法：</code></pre><p>SplitSampler：从n个split中选择前m条记录取样（不适合有序数据）<br>RandomSampler：随机取样（通用采样器）<br>IntervalSampler：从n个split中按照一定间隔取样（通常适用于有序数据）</p>
+<pre><code>三种抽样方法都通过getSample(InputFormat inf, Job job)函数返回抽样得到的key数组，除了IntervalSampler方法返回的抽样key是有序的，其他都是无序的</code></pre><p>获取到抽样的key之后就可以对其进行排序，然后选择N-1个分界点，最后将这些key的分界点存储到指定的HDFS文件中。</p>
+</li>
+</ul>
+<h3 id="mapreduce优化"><a href="#mapreduce优化" class="headerlink" title="mapreduce优化"></a>mapreduce优化</h3><p><strong>1）数据输入小文件处理：</strong></p>
+<p>（1）合并小文件：对小文件进行归档（har）、自定义 inputformat 将小文件存储成</p>
+<p>sequenceFile 文件。</p>
+<p>（2）采用 ConbinFileInputFormat 来作为输入，解决输入端大量小文件场景。</p>
+<p>（3）对于大量小文件 Job，可以开启 JVM 重用。 </p>
+<p><strong>2）map 阶段</strong></p>
+<p>（1）增大环形缓冲区大小。由 100m 扩大到 200m </p>
+<p>（2）增大环形缓冲区溢写的比例。由 80%扩大到 90% </p>
+<p>（3）减少对溢写文件的 merge 次数。 </p>
+<p>（4）不影响实际业务的前提下，采用 combiner 提前合并，减少 I/O。 </p>
+<p><strong>3）reduce 阶段</strong></p>
+<p>（1）合理设置 map 和 reduce 数：两个都不能设置太少，也不能设置太多。太少，会</p>
+<p>导致 task 等待，延长处理时间；太多，会导致 map、reduce 任务间竞争资源，造成处理</p>
+<p>超时等错误。</p>
+<p>（2）设置 map、reduce 共存：调整 slowstart.completedmaps 参数，使 map 运行到一</p>
+<p>定程度后，reduce 也开始运行，减少 reduce 的等待时间。</p>
+<p>（3）规避使用 reduce，因为 Reduce 在用于连接数据集的时候将会产生大量的网络消耗。</p>
+<p>（4）增加每个 reduce 去 map 中拿数据的并行数</p>
+<p>（5）集群性能可以的前提下，增大 reduce 端存储数据内存的大小。</p>
+<p><strong>4）IO 传输</strong></p>
+<p>（1）采用数据压缩的方式，减少网络 IO 的的时间。安装 Snappy 和 LZOP 压缩编码器。 </p>
+<p>（2）使用 SequenceFile 二进制文件</p>
+<p><strong>5）整体</strong></p>
+<p>（1）MapTask 默认内存大小为 1G，可以增加 MapTask 内存大小为 4-5g</p>
+<p>（2）ReduceTask 默认内存大小为 1G，可以增加 ReduceTask 内存大小为 4-5g</p>
+<p>（3）可以增加 MapTask 的 cpu 核数，增加 ReduceTask 的 cpu 核数</p>
+<p>（4）增加每个 container 的 cpu 核数和内存大小</p>
+<p>（5）调整每个 Map Task 和 Reduce Task 最大重试次数</p>
+<h3 id="Hadoop-MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？"><a href="#Hadoop-MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？" class="headerlink" title="Hadoop MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？"></a>Hadoop MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？</h3><p>MapReduce将资源划分成map slot和reduce slot，其中map slot供map task使用，reduce slot供reduce slot使用，这种模型存在以下几个问题：</p>
+<p>（1）slot之间不能共享，导致资源利用率低（比如map slot空闲而reduce slot紧缺时，Reduce Task不能使用空闲的map slot）。</p>
+<p>（2）slot数目静态配置，不能动态修改 </p>
+<p>（3）slot这种划分资源方式粒度过大，导致集群资源利用情况不好精细化控制，比如一个map task可能无法充分利用一个map slot对应的资源。</p>
+<p>hadoop2.0已经采用基于真实资源需求量的资源管理方案</p>
+<h3 id="解释什么是Capacity-Scheduler？"><a href="#解释什么是Capacity-Scheduler？" class="headerlink" title="解释什么是Capacity Scheduler？"></a>解释什么是Capacity Scheduler？</h3><p>答：Capacity Scheduler是Hadoop自带的一个多租户多队列作业调度器，它按照队列组织作业和用户，以达到多用户共享集群的目的。</p>
+<h3 id="Hadoop-2-0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）"><a href="#Hadoop-2-0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）" class="headerlink" title="Hadoop 2.0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）"></a>Hadoop 2.0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）</h3><p>答：YARN是Yet Another Resource Negotiator的简称，是Hadoop 2.0新引入的资源管理系统，负责集群中资源的统一管理和调度，它允许用户在其上运行各类计算框架，而不仅仅限于MapReduce一种。</p>
+<h3 id="YARN和MapReduce有什么关系？"><a href="#YARN和MapReduce有什么关系？" class="headerlink" title="YARN和MapReduce有什么关系？"></a>YARN和MapReduce有什么关系？</h3><p>答：MapReduce是一种两阶段计算框架，它由资源管理和任务调度两部分组成，其中资源管理部分是通用的模块，不仅MapReduce需要，其他计算框架，比如Spark等也需要这种模块，于是Hadoop 2.0将资源管理部分独立出来，创建了YARN这一分支。YARN出现后，多个计算框架运行在一个集群中共享资源成为可能。YARN可看做一个“云操作系统”，而MapReduce可看做运行在该操作系统上的“应用程序”。</p>
+<h3 id="hdfs小文件过多会怎么样"><a href="#hdfs小文件过多会怎么样" class="headerlink" title="hdfs小文件过多会怎么样"></a>hdfs小文件过多会怎么样</h3><ul>
+<li><p>先说对小文件的定义，一般来说小于等于30M的文件，都叫小文件。在HDFS中，通常NN维护一个文件的名称，目录结构等大约是250字节。现实中，HDFS的小文件如果不做任何操作增长会很快，现在假设NN节点的内存为4G，差不多42亿字节，现在在HDFS上有一亿个小文件，那么需要250乘一亿大约是250亿字节，这样会将NN撑爆。小文件到达一定数目，就会将NN节点撑爆。就算NN能够存储，对于hive，spark计算时，小文件意味着需要更多的task和资源，同样也会将节点弄挂掉。</p>
+</li>
+<li><p>解决方案</p>
+<p>生产上首先需要设置小文件的阈值，到达这个值对小文件进行合并。对于这个合并，一种是在HDFS存储之前就进行合并，还有一种就是计算完之后根据业务周期来进行合并。后一种需要在计算时额外对小文件进行调整。</p>
+</li>
+</ul>
+<h3 id="spark中job，stage，task之间的关系"><a href="#spark中job，stage，task之间的关系" class="headerlink" title="spark中job，stage，task之间的关系"></a>spark中job，stage，task之间的关系</h3><ul>
+<li><p>什么是job</p>
+<p>Job简单讲就是提交给spark的任务。</p>
+</li>
+<li><p>什么是stage</p>
+<p>Stage是每一个job处理过程要分为的几个阶段。</p>
+</li>
+<li><p>什么是task</p>
+<p>Task是每一个job处理过程要分几为几次任务。Task是任务运行的最小单位。最终是要以task为单位运行在executor中。</p>
+</li>
+<li><p>Job和stage和task之间有什么关系</p>
+<p>Job &lt;—&gt; 一个或多个stage &lt;—&gt; 一个或多个task</p>
+</li>
+<li><p>一个stage的task的数量是有谁来决定的？</p>
+<p>是由输入文件的切片个数来决定的。在HDFS中不大于128m的文件算一个切片（默认128m）。通过算子修改了某一个rdd的分区数量，task数量也会同步修改。</p>
+</li>
+<li><p>一个job任务的task数量是由谁来决定的？</p>
+<p>一个job任务可以有一个或多个stage，一个stage又可以有一个或多个task。所以一个job的task数量是  （多个stage的task数量）的总和。</p>
+</li>
+<li><p>每一个stage中的task最大的并行度？</p>
+<p>并行度：是指指令并行执行的最大条数。在指令流水中，同时执行多条指令称为指令并行。</p>
+<p>理论上：每一个stage下有多少的分区，就有多少的task，task的数量就是我们任务的最大的并行度。（一般情况下，我们一个task运行的时候，使用一个cores）</p>
+<p>实际上：最大的并行度，取决于我们的application任务运行时使用的executor拥有的cores的数量。</p>
+</li>
+<li><p>如果我们的task数量超过这个cores的总数怎么办？</p>
+<p>–num-executors 2 –executor-memory 512m –executor-cores 2</p>
+<p>当前stage有200个task，先执行cores个数量的task，然后等待cpu资源空闲后，继续执行剩下的task。</p>
+</li>
+<li><p>spark执行时读条中的内容讲解</p>
+<p>Stage60：当前的stage编号</p>
+<p>(105+2)/200：200：当前stage的task的数量；105：已完成的task数量；4：等待执行的task数量。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/05/应用监控与调优/" rel="next" title="应用监控与调优">
+                <i class="fa fa-chevron-left"></i> 应用监控与调优
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/24/面试题随笔-21-3-25/" rel="prev" title="面试题随笔-21/3/25">
+                面试题随笔-21/3/25 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题随笔-21-3-24"><span class="nav-number">1.</span> <span class="nav-text">面试题随笔-21-3-24</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-rdd介绍一下"><span class="nav-number">1.1.</span> <span class="nav-text">spark rdd介绍一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组求topk"><span class="nav-number">1.2.</span> <span class="nav-text">数组求topk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树后序遍历"><span class="nav-number">1.3.</span> <span class="nav-text">二叉树后序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapReduce介绍一下"><span class="nav-number">1.4.</span> <span class="nav-text">MapReduce介绍一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapreduce中间有个combine是干嘛的，有什么好处，有什么使用限制吗？"><span class="nav-number">1.5.</span> <span class="nav-text">mapreduce中间有个combine是干嘛的，有什么好处，有什么使用限制吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？"><span class="nav-number">1.6.</span> <span class="nav-text">编写MapReduce作业时，如何做到在Reduce阶段，先对key排序，再对value排序？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中）-（2）两个表均是大表"><span class="nav-number">1.7.</span> <span class="nav-text">如何使用MapReduce实现两表join，可考虑以下几种情况：（1）一个表大，一个表小（可放到内存中） （2）两个表均是大表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当面试的时候问到，MapReduce-架构设计、Yarn架构设计、Yarn的工作流程、MapReduce-job-提交到-Yarn的工作流程-（面试题为同一题），其实都是同一个问题。"><span class="nav-number">1.8.</span> <span class="nav-text">当面试的时候问到，MapReduce 架构设计、Yarn架构设计、Yarn的工作流程、MapReduce job 提交到 Yarn的工作流程 （面试题为同一题），其实都是同一个问题。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用MapReduce实现全排序（即数据全局key有序）？-你给出的算法可能要求仅启动一个Reduce-Task，那么如何对算法改进，可以同时启动多个Reduce-Task提高排序效率。"><span class="nav-number">1.9.</span> <span class="nav-text">如何使用MapReduce实现全排序（即数据全局key有序）？ 你给出的算法可能要求仅启动一个Reduce Task，那么如何对算法改进，可以同时启动多个Reduce Task提高排序效率。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapreduce优化"><span class="nav-number">1.10.</span> <span class="nav-text">mapreduce优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop-MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？"><span class="nav-number">1.11.</span> <span class="nav-text">Hadoop MapReduce中资源管理模型是怎样的，有什么缺点，如何改进？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解释什么是Capacity-Scheduler？"><span class="nav-number">1.12.</span> <span class="nav-text">解释什么是Capacity Scheduler？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hadoop-2-0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）"><span class="nav-number">1.13.</span> <span class="nav-text">Hadoop 2.0中YARN是什么？（最近部分明年毕业的同学找工作过程遇到了关于YARN的笔试题，比如今天的EMC笔试题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#YARN和MapReduce有什么关系？"><span class="nav-number">1.14.</span> <span class="nav-text">YARN和MapReduce有什么关系？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hdfs小文件过多会怎么样"><span class="nav-number">1.15.</span> <span class="nav-text">hdfs小文件过多会怎么样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark中job，stage，task之间的关系"><span class="nav-number">1.16.</span> <span class="nav-text">spark中job，stage，task之间的关系</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
