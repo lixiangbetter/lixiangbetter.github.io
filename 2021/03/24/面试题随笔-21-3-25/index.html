@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="面试题,">
 
 
 
@@ -79,17 +79,22 @@
 
 
 
-<meta name="description" content="dreamer">
+<meta name="description" content="面试题随笔-21-3-25DAGscheduler干了什么活 对每个job划分stage 决定任务运行的首选位置（preferred locations） 面向stage进行任务调度 跟踪stage的输出 需要时重新提交stage  tcp四次挥手介绍一下 为什么会有第二次、第三次、第四次？ 请画出三次握手和四次挥手的示意图 为什么连接的时候是三次握手？ 什么是半连接队列？ ISN(Initial">
+<meta name="keywords" content="面试题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试题随笔-21&#x2F;3&#x2F;25">
 <meta property="og:url" content="http://yoursite.com/2021/03/24/面试题随笔-21-3-25/index.html">
 <meta property="og:site_name" content="Thinking">
-<meta property="og:description" content="dreamer">
+<meta property="og:description" content="面试题随笔-21-3-25DAGscheduler干了什么活 对每个job划分stage 决定任务运行的首选位置（preferred locations） 面向stage进行任务调度 跟踪stage的输出 需要时重新提交stage  tcp四次挥手介绍一下 为什么会有第二次、第三次、第四次？ 请画出三次握手和四次挥手的示意图 为什么连接的时候是三次握手？ 什么是半连接队列？ ISN(Initial">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-24T08:06:14.974Z">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/v2-2d184b41c05347fda86c5fc52ab8b9b3_1440w.jpeg">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/20200720171238287.jpeg">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/20200809162028289.png">
+<meta property="og:updated_time" content="2021-03-25T14:09:42.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;3&#x2F;25">
-<meta name="twitter:description" content="dreamer">
+<meta name="twitter:description" content="面试题随笔-21-3-25DAGscheduler干了什么活 对每个job划分stage 决定任务运行的首选位置（preferred locations） 面向stage进行任务调度 跟踪stage的输出 需要时重新提交stage  tcp四次挥手介绍一下 为什么会有第二次、第三次、第四次？ 请画出三次握手和四次挥手的示意图 为什么连接的时候是三次握手？ 什么是半连接队列？ ISN(Initial">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/v2-2d184b41c05347fda86c5fc52ab8b9b3_1440w.jpeg">
 
 
 
@@ -334,6 +339,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -366,7 +393,276 @@
       
 
       
-        
+        <h2 id="面试题随笔-21-3-25"><a href="#面试题随笔-21-3-25" class="headerlink" title="面试题随笔-21-3-25"></a>面试题随笔-21-3-25</h2><h3 id="DAGscheduler干了什么活"><a href="#DAGscheduler干了什么活" class="headerlink" title="DAGscheduler干了什么活"></a>DAGscheduler干了什么活</h3><ul>
+<li>对每个job划分stage</li>
+<li>决定任务运行的首选位置（preferred locations）</li>
+<li>面向stage进行任务调度</li>
+<li>跟踪stage的输出</li>
+<li>需要时重新提交stage</li>
+</ul>
+<h3 id="tcp四次挥手介绍一下-为什么会有第二次、第三次、第四次？"><a href="#tcp四次挥手介绍一下-为什么会有第二次、第三次、第四次？" class="headerlink" title="tcp四次挥手介绍一下 为什么会有第二次、第三次、第四次？"></a>tcp四次挥手介绍一下 为什么会有第二次、第三次、第四次？</h3><ul>
+<li>请画出三次握手和四次挥手的示意图</li>
+<li>为什么连接的时候是三次握手？</li>
+<li>什么是半连接队列？</li>
+<li>ISN(Initial Sequence Number)是固定的吗？</li>
+<li>三次握手过程中可以携带数据吗？</li>
+<li>如果第三次握手丢失了，客户端服务端会如何处理？</li>
+<li>SYN攻击是什么？</li>
+<li>挥手为什么需要四次？</li>
+<li>四次挥手释放连接时，等待2MSL的意义?</li>
+</ul>
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>三次握手（Three-way Handshake）其实就是指建立一个TCP连接时，需要客户端和服务器总共发送3个包。进行三次握手的主要作用就是为了确认双方的接收能力和发送能力是否正常、指定自己的初始化序列号为后面的可靠性传送做准备。实质上其实就是连接服务器指定端口，建立TCP连接，并同步连接双方的序列号和确认号，交换TCP窗口大小信息。</p>
+<p>刚开始客户端处于 Closed 的状态，服务端处于 Listen 状态。<br>进行三次握手：</p>
+<p>第一次握手：客户端给服务端发一个 SYN 报文，并指明客户端的初始化序列号 ISN。此时客户端处于 SYN_SENT 状态。</p>
+<p>首部的同步位SYN=1，初始序号seq=x，SYN=1的报文段不能携带数据，但要消耗掉一个序号。</p>
+<p>第二次握手：服务器收到客户端的 SYN 报文之后，会以自己的 SYN 报文作为应答，并且也是指定了自己的初始化序列号 ISN(s)。同时会把客户端的 ISN + 1 作为ACK 的值，表示自己已经收到了客户端的 SYN，此时服务器处于 SYN_RCVD 的状态。</p>
+<p>在确认报文段中SYN=1，ACK=1，确认号ack=x+1，初始序号seq=y。</p>
+<p>第三次握手：客户端收到 SYN 报文之后，会发送一个 ACK 报文，当然，也是一样把服务器的 ISN + 1 作为 ACK 的值，表示已经收到了服务端的 SYN 报文，此时客户端处于 ESTABLISHED 状态。服务器收到 ACK 报文之后，也处于 ESTABLISHED 状态，此时，双方已建立起了连接。</p>
+<p>确认报文段ACK=1，确认号ack=y+1，序号seq=x+1（初始为seq=x，第二个报文段所以要+1），ACK报文段可以携带数据，不携带数据则不消耗序号。</p>
+<p>发送第一个SYN的一端将执行主动打开（active open），接收这个SYN并发回下一个SYN的另一端执行被动打开（passive open）。</p>
+<p>在socket编程中，客户端执行connect()时，将触发三次握手。</p>
+<h3 id="为什么需要三次握手，两次不行吗？"><a href="#为什么需要三次握手，两次不行吗？" class="headerlink" title="为什么需要三次握手，两次不行吗？"></a>为什么需要三次握手，两次不行吗？</h3><p>弄清这个问题，我们需要先弄明白三次握手的目的是什么，能不能只用两次握手来达到同样的目的。</p>
+<p>第一次握手：客户端发送网络包，服务端收到了。<br>这样服务端就能得出结论：客户端的发送能力、服务端的接收能力是正常的。<br>第二次握手：服务端发包，客户端收到了。<br>这样客户端就能得出结论：服务端的接收、发送能力，客户端的接收、发送能力是正常的。不过此时服务器并不能确认客户端的接收能力是否正常。<br>第三次握手：客户端发包，服务端收到了。<br>这样服务端就能得出结论：客户端的接收、发送能力正常，服务器自己的发送、接收能力也正常。<br>因此，需要三次握手才能确认双方的接收与发送能力是否正常。</p>
+<h3 id="什么是半连接队列？"><a href="#什么是半连接队列？" class="headerlink" title="什么是半连接队列？"></a>什么是半连接队列？</h3><p>服务器第一次收到客户端的 SYN 之后，就会处于 SYN_RCVD 状态，此时双方还没有完全建立其连接，服务器会把此种状态下请求连接放在一个队列里，我们把这种队列称之为半连接队列。</p>
+<p>当然还有一个全连接队列，就是已经完成三次握手，建立起连接的就会放在全连接队列中。如果队列满了就有可能会出现丢包现象。</p>
+<p>这里在补充一点关于SYN-ACK 重传次数的问题：<br>服务器发送完SYN-ACK包，如果未收到客户确认包，服务器进行首次重传，等待一段时间仍未收到客户确认包，进行第二次重传。如果重传次数超过系统规定的最大重传次数，系统将该连接信息从半连接队列中删除。<br>注意，每次重传等待的时间不一定相同，一般会是指数增长，例如间隔时间为 1s，2s，4s，8s…</p>
+<h3 id="ISN-Initial-Sequence-Number-是固定的吗？"><a href="#ISN-Initial-Sequence-Number-是固定的吗？" class="headerlink" title="ISN(Initial Sequence Number)是固定的吗？"></a>ISN(Initial Sequence Number)是固定的吗？</h3><p>当一端为建立连接而发送它的SYN时，它为连接选择一个初始序号。<strong>ISN随时间而变化</strong>，因此每个连接都将具有不同的ISN。ISN可以看作是一个32比特的计数器，每4ms加1 。这样选择序号的目的在于防止在网络中被延迟的分组在以后又被传送，而导致某个连接的一方对它做错误的解释。</p>
+<p>三次握手的其中一个重要功能是客户端和服务端交换 ISN(Initial Sequence Number)，以便让对方知道接下来接收数据的时候如何按序列号组装数据。如果 ISN 是固定的，攻击者很容易猜出后续的确认号，因此 ISN 是动态生成的。</p>
+<h3 id="三次握手过程中可以携带数据吗？"><a href="#三次握手过程中可以携带数据吗？" class="headerlink" title="三次握手过程中可以携带数据吗？"></a>三次握手过程中可以携带数据吗？</h3><p>其实第三次握手的时候，是可以携带数据的。但是，第一次、第二次握手不可以携带数据</p>
+<p>为什么这样呢?大家可以想一个问题，假如第一次握手可以携带数据的话，如果有人要恶意攻击服务器，那他每次都在第一次握手中的 SYN 报文中放入大量的数据。因为攻击者根本就不理服务器的接收、发送能力是否正常，然后疯狂着重复发 SYN 报文的话，这会让服务器花费很多时间、内存空间来接收这些报文。</p>
+<p>也就是说，第一次握手不可以放数据，其中一个简单的原因就是会让服务器更加容易受到攻击了。而对于第三次的话，此时客户端已经处于 ESTABLISHED 状态。对于客户端来说，他已经建立起连接了，并且也已经知道服务器的接收、发送能力是正常的了，所以能携带数据也没啥毛病。</p>
+<h3 id="SYN攻击是什么？"><a href="#SYN攻击是什么？" class="headerlink" title="SYN攻击是什么？"></a>SYN攻击是什么？</h3><p>服务器端的资源分配是在二次握手时分配的，而客户端的资源是在完成三次握手时分配的，所以服务器容易受到SYN洪泛攻击。SYN攻击就是Client在短时间内伪造大量不存在的IP地址，并向Server不断地发送SYN包，Server则回复确认包，并等待Client确认，由于源地址不存在，因此Server需要不断重发直至超时，这些伪造的SYN包将长时间占用未连接队列，导致正常的SYN请求因为队列满而被丢弃，从而引起网络拥塞甚至系统瘫痪。SYN 攻击是一种典型的 DoS/DDoS 攻击。</p>
+<p>检测 SYN 攻击非常的方便，当你在服务器上看到大量的半连接状态时，特别是源IP地址是随机的，基本上可以断定这是一次SYN攻击。在 Linux/Unix 上可以使用系统自带的 netstat 命令来检测 SYN 攻击。</p>
+<h3 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h3><p>建立一个连接需要三次握手，而终止一个连接要经过四次挥手（也有将四次挥手叫做四次握手的）。这由TCP的半关闭（half-close）造成的。所谓的半关闭，其实就是TCP提供了连接的一端在结束它的发送后还能接收来自另一端数据的能力。</p>
+<p>TCP 连接的拆除需要发送四个包，因此称为四次挥手(Four-way handshake)，客户端或服务端均可主动发起挥手动作。</p>
+<p>刚开始双方都处于ESTABLISHED 状态，假如是客户端先发起关闭请求。四次挥手的过程如下：</p>
+<p>第一次挥手：客户端发送一个 FIN 报文，报文中会指定一个序列号。此时客户端处于 FIN_WAIT1 状态。<br>即发出连接释放报文段（FIN=1，序号seq=u），并停止再发送数据，主动关闭TCP连接，进入FIN_WAIT1（终止等待1）状态，等待服务端的确认。<br>第二次挥手：服务端收到 FIN 之后，会发送 ACK 报文，且把客户端的序列号值 +1 作为 ACK 报文的序列号值，表明已经收到客户端的报文了，此时服务端处于 CLOSE_WAIT 状态。<br>即服务端收到连接释放报文段后即发出确认报文段（ACK=1，确认号ack=u+1，序号seq=v），服务端进入CLOSE_WAIT（关闭等待）状态，此时的TCP处于半关闭状态，客户端到服务端的连接释放。客户端收到服务端的确认后，进入FIN_WAIT2（终止等待2）状态，等待服务端发出的连接释放报文段。<br>第三次挥手：如果服务端也想断开连接了，和客户端的第一次挥手一样，发给 FIN 报文，且指定一个序列号。此时服务端处于 LAST_ACK 的状态。<br>即服务端没有要向客户端发出的数据，服务端发出连接释放报文段（FIN=1，ACK=1，序号seq=w，确认号ack=u+1），服务端进入LAST_ACK（最后确认）状态，等待客户端的确认。<br>第四次挥手：客户端收到 FIN 之后，一样发送一个 ACK 报文作为应答，且把服务端的序列号值 +1 作为自己 ACK 报文的序列号值，此时客户端处于 TIME_WAIT 状态。需要过一阵子以确保服务端收到自己的 ACK 报文之后才会进入 CLOSED 状态，服务端收到 ACK 报文之后，就处于关闭连接了，处于 CLOSED 状态。<br>即客户端收到服务端的连接释放报文段后，对此发出确认报文段（ACK=1，seq=u+1，ack=w+1），客户端进入TIME_WAIT（时间等待）状态。此时TCP未释放掉，需要经过时间等待计时器设置的时间2MSL后，客户端才进入CLOSED状态。<br>收到一个FIN只意味着在这一方向上没有数据流动。客户端执行主动关闭并进入TIME_WAIT是正常的，服务端通常执行被动关闭，不会进入TIME_WAIT状态。</p>
+<p>在socket编程中，任何一方执行close()操作即可产生挥手操作。</p>
+<h3 id="挥手为什么需要四次？"><a href="#挥手为什么需要四次？" class="headerlink" title="挥手为什么需要四次？"></a>挥手为什么需要四次？</h3><p>因为当服务端收到客户端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当服务端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉客户端，“你发的FIN报文我收到了”。只有等到我服务端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四次挥手。</p>
+<h3 id="四次挥手释放连接时，等待2MSL的意义"><a href="#四次挥手释放连接时，等待2MSL的意义" class="headerlink" title="四次挥手释放连接时，等待2MSL的意义?"></a>四次挥手释放连接时，等待2MSL的意义?</h3><p>MSL是Maximum Segment Lifetime的英文缩写，可译为“最长报文段寿命”，它是任何报文在网络上存在的最长时间，超过这个时间报文将被丢弃。</p>
+<p>为了保证客户端发送的最后一个ACK报文段能够到达服务器。因为这个ACK有可能丢失，从而导致处在LAST-ACK状态的服务器收不到对FIN-ACK的确认报文。服务器会超时重传这个FIN-ACK，接着客户端再重传一次确认，重新启动时间等待计时器。最后客户端和服务器都能正常的关闭。假设客户端不等待2MSL，而是在发送完ACK之后直接释放关闭，一但这个ACK丢失的话，服务器就无法正常的进入关闭连接状态。</p>
+<h3 id="为什么TIME-WAIT状态需要经过2MSL才能返回到CLOSE状态？"><a href="#为什么TIME-WAIT状态需要经过2MSL才能返回到CLOSE状态？" class="headerlink" title="为什么TIME_WAIT状态需要经过2MSL才能返回到CLOSE状态？"></a>为什么TIME_WAIT状态需要经过2MSL才能返回到CLOSE状态？</h3><p>理论上，四个报文都发送完毕，就可以直接进入CLOSE状态了，但是可能网络是不可靠的，有可能最后一个ACK丢失。所以<strong>TIME_WAIT状态就是用来重发可能丢失的ACK报文</strong>。</p>
+<h3 id="为什么mysql底层用b-tree"><a href="#为什么mysql底层用b-tree" class="headerlink" title="为什么mysql底层用b+tree"></a>为什么mysql底层用b+tree</h3><p>1.文件很大，不可能全部存储在内存中，故要存储到磁盘上</p>
+<p>2.索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数（为什么使用B-/+Tree，还跟磁盘存取原理有关。）</p>
+<p>3.局部性原理与磁盘预读，预读的长度一般为页（page）的整倍数，（在许多操作系统中，页得大小通常为4k）</p>
+<p>4.数据库系统巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入，(由于节点中有两个数组，所以地址连续)。而红黑树这种结构，h明显要深的多。由于逻辑上很近的节点（父子）物理上可能很远，无法利用局部性</p>
+<p>二叉查找树进化品种的红黑树等数据结构也可以用来实现索引，但是文件系统及数据库系统普遍采用B-/+Tree作为索引结构。</p>
+<p>一般来说，索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数。为什么使用B-/+Tree，还跟磁盘存取原理有关。</p>
+<p><strong>局部性原理与磁盘预读</strong></p>
+<p>由于存储介质的特性，磁盘本身存取就比主存慢很多，再加上机械运动耗费，磁盘的存取速度往往是主存的几百分分之一，因此为了提高效率，要尽量减少磁盘I/O。为了达到这个目的，磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存。这样做的理论依据是计算机科学中著名的局部性原理：</p>
+<p>当一个数据被用到时，其附近的数据也通常会马上被使用。</p>
+<p>程序运行期间所需要的数据通常比较集中。</p>
+<p>由于磁盘顺序读取的效率很高（不需要寻道时间，只需很少的旋转时间），因此对于具有局部性的程序来说，预读可以提高I/O效率。</p>
+<p>预读的长度一般为页（page）的整倍数。页是计算机管理存储器的逻辑块，硬件及操作系统往往将主存和磁盘存储区分割为连续的大小相等的块，每个存储块称为一页（在许多操作系统中，页得大小通常为4k），主存和磁盘以页为单位交换数据。当程序要读取的数据不在主存中时，会触发一个缺页异常，此时系统会向磁盘发出读盘信号，磁盘会找到数据的起始位置并向后连续读取一页或几页载入内存中，然后异常返回，程序继续运行。</p>
+<p>我们上面分析B-/+Tree检索一次最多需要访问节点：</p>
+<p><strong>h =</strong></p>
+<p><img src="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/v2-2d184b41c05347fda86c5fc52ab8b9b3_1440w.jpeg" alt="img"></p>
+<p>一个为m阶的B-Tree，设其索引N个key。</p>
+<p>数据库系统巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入。为了达到这个目的，在实际实现B- Tree还需要使用如下技巧：</p>
+<p>每次新建节点时，直接申请一个页的空间，这样就保证一个节点物理上也存储在一个页里，加之计算机存储分配都是按页对齐的，就实现了一个node只需一次I/O。</p>
+<p>B-Tree中一次检索最多需要h-1次I/O（根节点常驻内存），渐进复杂度为O（h）=O（logmN）。一般实际应用中，m是非常大的数字，通常超过100，因此h非常小（通常不超过3）。</p>
+<p>综上所述，用B-Tree作为索引结构效率是非常高的。</p>
+<p>而红黑树这种结构，<strong>h</strong>明显要深的多。由于逻辑上很近的节点（父子）物理上可能很远，无法利用局部性，所以红黑树的I/O渐进复杂度也为O（h），效率明显比B-Tree差很多。</p>
+<h3 id="用spark求一下dau"><a href="#用spark求一下dau" class="headerlink" title="用spark求一下dau"></a>用spark求一下dau</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">substr</span>(dt, <span class="number">1</span>, <span class="number">10</span>) <span class="keyword">as</span> dtt, <span class="keyword">count</span>(<span class="keyword">distinct</span> uid ) <span class="keyword">as</span> DAU <span class="keyword">from</span> SC <span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">substr</span>(dt, <span class="number">1</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<p>类似，group by + count</p>
+<h3 id="说一下Hadoop吧"><a href="#说一下Hadoop吧" class="headerlink" title="说一下Hadoop吧"></a>说一下Hadoop吧</h3><h4 id="hadoop是什么？"><a href="#hadoop是什么？" class="headerlink" title="hadoop是什么？"></a>hadoop是什么？</h4><p>(1)Hadoop是一个开源的框架，可编写和运行分布式应用处理大规模数据，是专为离线和大规模数据分析而设计的，并不适合那种对几个记录随机读写的在线事务处理模式。Hadoop=HDFS（文件系统，数据存储技术相关）+ Mapreduce（数据处理），Hadoop的数据来源可以是任何形式，在处理半结构化和非结构化数据上与关系型数据库相比有更好的性能，具有更灵活的处理能力，不管任何数据形式最终会转化为key/value，key/value是基本数据单元。用函数式变成Mapreduce代替SQL，SQL是查询语句，而Mapreduce则是使用脚本和代码，而对于适用于关系型数据库，习惯SQL的Hadoop有开源工具hive代替。</p>
+<p>(2)Hadoop就是一个分布式计算的解决方案.</p>
+<h4 id="hadoop能做什么？"><a href="#hadoop能做什么？" class="headerlink" title="hadoop能做什么？"></a>hadoop能做什么？</h4><p> hadoop擅长日志分析，facebook就用Hive来进行日志分析，2009年时facebook就有非编程人员的30%的人使用HiveQL进行数据分析；淘宝搜索中的自定义筛选也使用的Hive；利用Pig还可以做高级的数据处理，包括Twitter、LinkedIn 上用于发现您可能认识的人，可以实现类似Amazon.com的协同过滤的推荐效果。淘宝的商品推荐也是！在Yahoo！的40%的Hadoop作业是用pig运行的，包括垃圾邮件的识别和过滤，还有用户特征建模。（2012年8月25新更新，天猫的推荐系统是hive，少量尝试mahout！）</p>
+<h4 id="hadoop能为我公司做什么？"><a href="#hadoop能为我公司做什么？" class="headerlink" title="hadoop能为我公司做什么？"></a>hadoop能为我公司做什么？</h4><ul>
+<li>零数据基础，零数据平台，一切起点都是0</li>
+<li>日志处理</li>
+<li>用户细分特征建模</li>
+<li>个性化广告推荐</li>
+<li>智能仪器推荐</li>
+<li>一切以增加企业的商业价值为核心目的、最终目的</li>
+</ul>
+<h4 id="怎么用hadoop？"><a href="#怎么用hadoop？" class="headerlink" title="怎么用hadoop？"></a>怎么用hadoop？</h4><p>hadoop的应用的在我司还属于研发型项目，拟用日志的分析来走通一次流程，因为此阶段目前来说还不需要数据挖掘的专业人员，在数据分析阶段即可，而系统有数据库工程师，Mapreduce有java开发工程师，而分析由我本人介入，而可视化暂时可由前端JS实现，本来我的调研方案，针对大数据的解决方案是hadoop+R的，但是对于R我们是完全不懂，在公司还没有大量投入人员的情况下，只有日志分析目前看来是最容易出成果的，也是可以通过较少人员能出一定成果的，所以选取了这个方向作为试点。</p>
+<h3 id="Spark任务执行流程"><a href="#Spark任务执行流程" class="headerlink" title="Spark任务执行流程"></a>Spark任务执行流程</h3><p>Yarn-client:</p>
+<p>1.client向ResouceManager申请启动ApplicationMaster，同时在SparkContext初始化中创建DAGScheduler和TaskScheduler</p>
+<p>2.ResouceManager收到请求后，在一台NodeManager中启动第一个Container运行ApplicationMaster</p>
+<p>3.Dirver中的SparkContext初始化完成后与ApplicationMaster建立通讯，ApplicationMaster向ResourceManager申请Application的资源</p>
+<p>4.一旦ApplicationMaster申请到资源，便与之对应的NodeManager通讯，启动Executor，并把Executor信息反向注册给Dirver</p>
+<p>5.Dirver分发task，并监控Executor的运行状态，负责重试失败的task</p>
+<p>6.运行完成后，Client的SparkContext向ResourceManager申请注销并关闭自己</p>
+<p>Yarn-cluster:</p>
+<p>yarn-cluster模式中，当用户向yarn提交应用程序后，yarn将分为两阶段运行该应用程序：</p>
+<p>第一个阶段是把Spark的Dirver作为一个ApplicationMaster在yarn中启动；</p>
+<p>第二个阶段是ApplicationMaster向ResourceManager申请资源，并启动Executor来运行task，同时监控task整个运行流程并重试失败的task；</p>
+<h3 id="了解yarn吗？"><a href="#了解yarn吗？" class="headerlink" title="了解yarn吗？"></a>了解yarn吗？</h3><p>YARN 是hadoop 的集群资源管理器。Yarn 在Hadoop2 中被引入，是为了要改善MapReduce1 的实现，但它具有足够的通用性，同样也支持其他的分布式计算模式。</p>
+<p><strong>MapReduce1 的实现机制</strong></p>
+<p>MapReduce 包括几个高级组件。主进程JobTracker是所有MapReduce 作业的信息交流中心。每个节点都有一个TaskTracker进程，管理相应节点的任务。TaskTracker 与JobTracker 通信，并受其控制。</p>
+<p><strong>yarn 应用运行机制</strong></p>
+<p>YARN 的基本思想就是将JobTracker 的两大主要职能：资源管理、作业的调度监控分为两个独立的进程。一个是全局的ResourceManager,另一个是每一个应用对应的ApplicationMaster。</p>
+<p>ResourceManager 是一个纯粹的调度器，它根据应用程序的资源请求严格限制系统的可用资源。在保证容量、公平性及服务器等级的前提下，优化集群资源利用率，即让所有的资源都能被充分利用。</p>
+<p>ApplicationMaster 负责与ResourceManager 协商资源，并和NodeManager 进行协同工作来执行容器和监控容器的状态。</p>
+<p>NodeManager 是YARN 节点上的工作进程，管理集群中独立的计算节点。其职责包括启动应用程序的容器，监控它们的资源使用情况，并且报告给ResourceManager。</p>
+<h3 id="了解zookeeper"><a href="#了解zookeeper" class="headerlink" title="了解zookeeper"></a>了解zookeeper</h3><h4 id="zk是什么："><a href="#zk是什么：" class="headerlink" title="zk是什么："></a>zk是什么：</h4><p>1、个人理解zk=文件系统+通知机制。</p>
+<p>2、zk是一个分布式的应用程序协调服务，我理解的就是有两台集器A、B，A对一个数据进行了操作，B是如何知道的，这个就需要zk的支持。</p>
+<p>3、 分布式应用程序可以基于 ZooKeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、配置维护，名字服务、分布式同步、分布式锁和分布式队列 等功能。</p>
+<h4 id="zk的初始化选举机制："><a href="#zk的初始化选举机制：" class="headerlink" title="zk的初始化选举机制："></a>zk的初始化选举机制：</h4><p>1、首先一般选举里面都有2N+1台集器，如果是三台机器的A、B、C，A和B都会选举自己，每次投票会包括推举的服务器的myid和zxid，使用（myid，zxid）来表示。</p>
+<p>2、集群中的服务器都接受到投票时，首先判断投票的有效性，如检查是不是本轮的投票，是否是looking状态的机器。</p>
+<p>3、处理投票，比较zxid大小，越大权重越大，如果相同再比较myid。</p>
+<p>4、统计投票。</p>
+<p>5、改变服务器的状态。</p>
+<p>ps：注意：在这个过程中，有个重要的数据结构，electionEpoch即逻辑时钟，用来判断是否在同一轮选举周期中，每次进入新的一轮投票都会自增，还有一个state，表示当前服务器的状态。</p>
+<h4 id="zk的运行过程中leader崩溃选举机制："><a href="#zk的运行过程中leader崩溃选举机制：" class="headerlink" title="zk的运行过程中leader崩溃选举机制："></a>zk的运行过程中leader崩溃选举机制：</h4><p>1、状态变更，余下所有的observing服务器都会将自己的服务器状态变成looking状态。</p>
+<p>2、每个server会发起投票。</p>
+<p>3、接受各个服务器的投票。</p>
+<p>4、处理投票。</p>
+<p>5、统计投票。</p>
+<p>6、改变服务器的状态。</p>
+<p>注意：其实崩溃选举机制和初始化差不多，但是值得注意一点是每个机器中的electionEpoch，也就是逻辑时钟，如果有机器宕机的话，这个数值是和正常的机器不一样的，所以需要判断这个值不是正常值的机器投票数据是否是正常的。</p>
+<h4 id="zk中的znode节点："><a href="#zk中的znode节点：" class="headerlink" title="zk中的znode节点："></a>zk中的znode节点：</h4><p>1、四种类型：</p>
+<p>（1）持久化目录节点。</p>
+<p>（2）持久化顺序编号目录节点。</p>
+<p>（3）临时目录节点。</p>
+<p>（4）临时顺序编号目录节点。</p>
+<h4 id="zk中的监控原理："><a href="#zk中的监控原理：" class="headerlink" title="zk中的监控原理："></a>zk中的监控原理：</h4><p>1、zk类似于linux中的目录节点树方式的数据存储，即分层命名空间，zk并不是专门存储数据的，它的作用是主要是维护和监控存储数据的状态变化，通过监控这些数据状态的变化，从而可以达到基于数据的集群管理，zk中的杰点的数据上限时1M。</p>
+<p>2、zk中的wathc机制：client端会对某个znode建立一个watcher事件，当该znode发生变化时，这些client会收到zk的通知，然后client可以根据znode变化来做出业务上的改变等。</p>
+<p>3、main方法会创建zkClient，在创建zkClient的时候，会创建出listener进程和connect进程。一个是监控进程一个是网络连接进程。当zkClient调用getChildren等方法注册监听器的时候，connect进程向zk注册监听器，注册后的缉监听器位于zk的监听器列表中，监听器列表中记录了zkClient的ip地址，端口号，要监控的目录，一旦目标文件发生了改变，zk就会把这条消息发送给对应的zkClient的listener进程，listener进程接受到后，就会执行process方法。在process方法中针对发生的事件进行处理。</p>
+<h4 id="zk的职责："><a href="#zk的职责：" class="headerlink" title="zk的职责："></a>zk的职责：</h4><p>1、命名服务：命名服务是指通过指定的名字来获取资源或者服务的地址，利用zk创建一个全局的路径，即是唯一的路径，这个路径就可以作为一个名字，指向集群中的集群，提供的服务的地址，或者一个远程的对象等等。</p>
+<p>2、配置管理（文件系统、通知机制）：程序分布式的部署在不同的机器上，将程序的配置信息放在zk的znode下，当有配置发生改变时，也就是znode发生变化时，可以通过改变zk中某个目录节点的内容，利用watcher通知给各个客户端，从而更改配置。</p>
+<p>3、集群管理：是否有机器退出和加入、选举master。对于机器的退出，所有机器约定在父目录下创建临时目录，对于新机器的加入，所有机器创建临时顺序编号目录节点。</p>
+<p>4、分布式锁：分为两类，一个是保持独占：客户端需要的时候，就去通过createznode的方式实现，所有客户端都去创建/distribute_lock节点，用完就删除节点就行了。一个是控制时序，/distribute_lock已经预先存在，所有客户端在它下面创建临时顺序编号目录节点。主要流程是：客户端在获取分布式锁的时候在locker节点下创建临时顺序节点，释放锁的时候就删除，客户端首先调用createZnode放在在locker创建临时顺序节点，然后调用getChildren来获取locker下面的所有子节点，此时不用设置watch，客户端获取了所有子节点的path之后，反正最后要找到最小序号的那个节点，调用exist方法，同时对其注册事件监听器</p>
+<p>5、队列管理：两种类型的队列，一种是同步队列，一个是按照FIFO方式进行入队和出队，第二种保证了队列消息的不会丢失，因为会在特定的目录下创建一个persistent_sequential节点，创建成功时watcher通知等待的队列，队列删除序列号最小的节点，此场景下，zk中的znode用于消息存储，znode存储的数据就是消息队列中的消息内容，sequential序列号就是消息的编号，按序列取出即可。</p>
+<h4 id="zk中的数据复制："><a href="#zk中的数据复制：" class="headerlink" title="zk中的数据复制："></a>zk中的数据复制：</h4><p>1、作用：（1）容错。（2）提高系统的扩展功能。（3）提高性能。</p>
+<p>2、数据复制分为两种：</p>
+<p>（1）、写主，对数据的修改提交给指定节点，读没有限制，可以在任意的节点读取数据。</p>
+<p>（2）、写任意：对数据的修改提交给任意的节点，读也是任意节点。</p>
+<h4 id="zk的工作原理："><a href="#zk的工作原理：" class="headerlink" title="zk的工作原理："></a>zk的工作原理：</h4><p>1、核心就是原子广播。在ZooKeeper中所有的事务请求都由一个主服务器也就是Leader来处理，其他服务器为Follower，Leader将客户端的事务请求转换为事务Proposal，并且将Proposal分发给集群中其他所有的Follower，然后Leader等待Follwer反馈，当有 过半数（&gt;=N/2+1） 的Follower反馈信息后，Leader将再次向集群内Follower广播Commit信息，Commit为将之前的Proposal提交。</p>
+<p>2、保证数据的一致性：</p>
+<p>（1）、顺序的一致性。</p>
+<p>（2）、原子性。</p>
+<p>（3）、单一的系统映像。</p>
+<p>（4）、持久性。</p>
+<p>3、ZAB协议的两种实现方式：</p>
+<p>（1）、恢复模式：当服务启动或在leader崩溃后，ZAB就进入了恢复模式，在leader选举出来之前，且大多数server完成和leader的状态同步以后，恢复模式就结束了。在这个过程中，要保证被leader提交的proposal最终被所有的follower执行，确保那些只在leader提出的proposal被丢弃。</p>
+<p>（2）、广播模式：即leader提出一个决议，由follower进行投票，leader对投票结果进行计算决定是否通过决议，如果通过执行该决议，否则什么都不做。</p>
+<h4 id="zk的watch机制："><a href="#zk的watch机制：" class="headerlink" title="zk的watch机制："></a>zk的watch机制：</h4><p>1、一次性触发数据改变时，一个watch event会被发送到client，但是client只会接收到一次这样的消息。</p>
+<p>2、watch event异步发送到watcher的通知事件从server发送到client是异步的，但是可能由于网络延迟原因，所有导致客户端在不同时刻监听到事件，zk只保证最终的一致性，而无法保证强一致性。</p>
+<p>3、数据监视由getData和exists方法，getchildren设置了子节点监视。</p>
+<p>4、注册watcher：getData、exists、getChildren。</p>
+<p>5、触发wathcer：create、delete、setData。</p>
+<h3 id="hive的作用"><a href="#hive的作用" class="headerlink" title="hive的作用"></a>hive的作用</h3><h4 id="Hive是什么"><a href="#Hive是什么" class="headerlink" title="Hive是什么"></a>Hive是什么</h4><p>1）Hive 是建立在Hadoop (HDFS/MR)上的用于管理和查询结果化/非结构化的数据仓库；<br>2）一种可以存储、查询和分析存储在Hadoop 中的大规模数据的机制；<br>3）Hive 定义了简单的类SQL 查询语言，称为HQL，它允许熟悉SQL 的用户查询数据；<br>4）允许用Java开发自定义的函数UDF来处理内置无法完成的复杂的分析工作；<br>5）Hive没有专门的数据格式（分隔符等可以自己灵活的设定）；<br>ETL的流程（Extraction-Transformate-Loading）：将关系型数据库的数据抽取到HDFS上，hive作为数据仓库，经过hive的计算分析后，将结果再导入到关系型数据库的过程。</p>
+<h4 id="Hive是构建在Hadoop之上的数据仓库"><a href="#Hive是构建在Hadoop之上的数据仓库" class="headerlink" title="Hive是构建在Hadoop之上的数据仓库"></a>Hive是构建在Hadoop之上的数据仓库</h4><p>1）使用HQL作为查询接口；<br>2）使用HDFS作为存储；<br>3）使用MapReduce作为计算；</p>
+<h5 id="Hive应用场景"><a href="#Hive应用场景" class="headerlink" title="Hive应用场景"></a>Hive应用场景</h5><p>数据源：<br>1）文件数据，如中国移动某设备每天产生大量固定格式的文件；<br>2）数据库</p>
+<p>以上两种不同的数据源有个共同点：要使用hive，那么必须要将数据放到hive中；通常采用如下两种方式：<br>1）文件数据：load到hive<br>2）数据库: sqoop到hive<br>数据的离线处理；<br>hive的执行延迟比较高，因为hive常用于数据分析的，对实时性要求不高；<br>hive优势在于处理大数据，对于处理小数据没有优势，因为hive的执行延迟比较高。<br>处理数据存放在hive表中，那么前台系统怎么去访问hive的数据呢？<br>先将hive的处理结果数据转移到关系型数据库中才可以，sqoop就是执行导入导出的操作</p>
+<h3 id="数据库你都了解哪些内容"><a href="#数据库你都了解哪些内容" class="headerlink" title="数据库你都了解哪些内容"></a>数据库你都了解哪些内容</h3><h4 id="什么是存储过程？有哪些优缺点？"><a href="#什么是存储过程？有哪些优缺点？" class="headerlink" title="什么是存储过程？有哪些优缺点？"></a>什么是存储过程？有哪些优缺点？</h4><p>存储过程是一些预编译的SQL语句。</p>
+<p>更加直白的理解：存储过程可以说是一个记录集，它是由一些T-SQL语句组成的代码块，这些T-SQL语句代码像一个方法一样实现一些功能（对单表或多表的增删改查），然后再给这个代码块取一个名字，在用到这个功能的时候调用他就行了。</p>
+<ul>
+<li>存储过程是一个预编译的代码块，执行效率比较高</li>
+<li>一个存储过程替代大量T_SQL语句 ，可以降低网络通信量，提高通信速率</li>
+<li>可以一定程度上确保数据安全</li>
+</ul>
+<h4 id="索引是什么？有什么作用以及优缺点？"><a href="#索引是什么？有什么作用以及优缺点？" class="headerlink" title="索引是什么？有什么作用以及优缺点？"></a>索引是什么？有什么作用以及优缺点？</h4><p>索引是对数据库表中一或多个列的值进行排序的结构，是帮助MySQL高效获取数据的数据结构</p>
+<p>你也可以这样理解：索引就是加快检索表中数据的方法。数据库的索引类似于书籍的索引。在书籍中，索引允许用户不必翻阅完整个书就能迅速地找到所需要的信息。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库。</p>
+<p>MySQL数据库几个基本的索引类型：普通索引、唯一索引、主键索引、全文索引</p>
+<p>索引加快数据库的检索速度<br>索引降低了插入、删除、修改等维护任务的速度<br>唯一索引可以确保每一行数据的唯一性<br>通过使用索引，可以在查询的过程中使用优化隐藏器，提高系统的性能<br>索引需要占物理和数据空间</p>
+<h4 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h4><p>事务（Transaction）是并发控制的基本单位。所谓的事务，它是一个操作序列，这些操作要么都执行，要么都不执行，它是一个不可分割的工作单位。事务是数据库维护数据一致性的单位，在每个事务结束时，都能保持数据一致性。</p>
+<h4 id="数据库的乐观锁和悲观锁是什么？"><a href="#数据库的乐观锁和悲观锁是什么？" class="headerlink" title="数据库的乐观锁和悲观锁是什么？"></a>数据库的乐观锁和悲观锁是什么？</h4><p>数据库管理系统（DBMS）中的并发控制的任务是确保在多个事务同时存取数据库中同一数据时不破坏事务的隔离性和统一性以及数据库的统一性。</p>
+<p>乐观并发控制(乐观锁)和悲观并发控制（悲观锁）是并发控制主要采用的技术手段。</p>
+<ul>
+<li>悲观锁：假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作</li>
+<li>乐观锁：假设不会发生并发冲突，只在提交操作时检查是否违反数据完整性。</li>
+</ul>
+<h4 id="使用索引查询一定能提高查询的性能吗？为什么"><a href="#使用索引查询一定能提高查询的性能吗？为什么" class="headerlink" title="使用索引查询一定能提高查询的性能吗？为什么"></a>使用索引查询一定能提高查询的性能吗？为什么</h4><p>通常,通过索引查询数据比全表扫描要快.但是我们也必须注意到它的代价.</p>
+<p>索引需要空间来存储,也需要定期维护, 每当有记录在表中增减或索引列被修改时,索引本身也会被修改. 这意味着每条记录的INSERT,DELETE,UPDATE将为此多付出4,5 次的磁盘I/O. 因为索引需要额外的存储空间和处理,那些不必要的索引反而会使查询反应时间变慢.使用索引查询不一定能提高查询性能,索引范围查询(INDEX RANGE SCAN)适用于两种情况:</p>
+<ul>
+<li>基于一个范围的检索,一般查询返回结果集小于表中记录数的30%</li>
+<li>基于非唯一性索引的检索</li>
+</ul>
+<h4 id="简单说一说drop、delete与truncate的区别"><a href="#简单说一说drop、delete与truncate的区别" class="headerlink" title="简单说一说drop、delete与truncate的区别"></a>简单说一说drop、delete与truncate的区别</h4><p>SQL中的drop、delete、truncate都表示删除，但是三者有一些差别</p>
+<p>delete和truncate只删除表的数据不删除表的结构<br>速度,一般来说: drop&gt; truncate &gt;delete<br>delete语句是dml,这个操作会放到rollback segement中,事务提交之后才生效;<br>如果有相应的trigger,执行的时候将被触发. truncate,drop是ddl, 操作立即生效,原数据不放到rollback segment中,不能回滚. 操作不触发trigger.</p>
+<h4 id="drop、delete与truncate分别在什么场景之下使用？"><a href="#drop、delete与truncate分别在什么场景之下使用？" class="headerlink" title="drop、delete与truncate分别在什么场景之下使用？"></a>drop、delete与truncate分别在什么场景之下使用？</h4><p>不再需要一张表的时候，用drop<br>想删除部分数据行时候，用delete，并且带上where子句<br>保留表而删除所有数据的时候用truncate</p>
+<h4 id="超键、候选键、主键、外键分别是什么？"><a href="#超键、候选键、主键、外键分别是什么？" class="headerlink" title="超键、候选键、主键、外键分别是什么？"></a>超键、候选键、主键、外键分别是什么？</h4><p>超键：在关系中能唯一标识元组的属性集称为关系模式的超键。一个属性可以为作为一个超键，多个属性组合在一起也可以作为一个超键。超键包含候选键和主键。</p>
+<p>候选键：是最小超键，即没有冗余元素的超键。</p>
+<p>主键：数据库表中对储存数据对象予以唯一和完整标识的数据列或属性的组合。一个数据列只能有一个主键，且主键的取值不能缺失，即不能为空值（Null）。</p>
+<p>外键：在一个表中存在的另一个表的主键称此表的外键。</p>
+<h4 id="什么是视图？以及视图的使用场景有哪些？"><a href="#什么是视图？以及视图的使用场景有哪些？" class="headerlink" title="什么是视图？以及视图的使用场景有哪些？"></a>什么是视图？以及视图的使用场景有哪些？</h4><p>视图是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，试图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。</p>
+<ul>
+<li>只暴露部分字段给访问者，所以就建一个虚表，就是视图。</li>
+<li>查询的数据来源于不同的表，而查询者希望以统一的方式查询，这样也可以建立一个视图，把多个表查询结果联合起来，查询者只需要直接从视图中获取数据，不必考虑数据来源于不同表所带来的差异</li>
+</ul>
+<p>说一说三个范式。</p>
+<p>第一范式（1NF）：数据库表中的字段都是单一属性的，不可再分。这个单一属性由基本类型构成，包括整型、实数、字符型、逻辑型、日期型等。</p>
+<p>第二范式（2NF）：数据库表中不存在非关键字段对任一候选关键字段的部分函数依赖（部分函数依赖指的是存在组合关键字中的某些字段决定非关键字段的情况），也即所有非关键字段都完全依赖于任意一组候选关键字。</p>
+<p>第三范式（3NF）：在第二范式的基础上，数据表中如果不存在非关键字段对任一候选关键字段的传递函数依赖则符合第三范式。所谓传递函数依赖，指的是如 果存在”A → B → C”的决定关系，则C传递函数依赖于A。因此，满足第三范式的数据库表应该不存在如下依赖关系： 关键字段 → 非关键字段 x → 非关键字段y</p>
+<h3 id="1G文件，每行是一个词，内存1M，求词频最大的前100个词"><a href="#1G文件，每行是一个词，内存1M，求词频最大的前100个词" class="headerlink" title="1G文件，每行是一个词，内存1M，求词频最大的前100个词"></a>1G文件，每行是一个词，内存1M，求词频最大的前100个词</h3><ul>
+<li><p>分而治之 + hash统计 + 堆/快速排序</p>
+<p>分而治之/hash映射：顺序读文件中，对于每个词x，取hash(x)%5000，然后按照该值存到5000个小文件（记为x0,x1,…x4999）中。这样每个文件大概是200k左右。如果其中的有的文件超过了1M大小，还可以按照类似的方法继续往下分，直到分解得到的小文件的大小都不超过1M。<br>hash_map统计：对每个小文件，采用trie树/hash_map等统计每个文件中出现的词以及相应的频率。<br>堆/归并排序：取出出现频率最大的100个词（可以用含100个结点的最小堆）后，再把100个词及相应的频率存入文件，这样又得到了5000个文件。最后就是把这5000个文件进行归并（类似于归并排序）的过程了。</p>
+</li>
+</ul>
+<h3 id="求前K大的数"><a href="#求前K大的数" class="headerlink" title="求前K大的数"></a>求前K大的数</h3><p>解题思路：一般思路就是将N个数排序后，取前k个数就ok。但是如果N个数是几十亿个数，加载不到内存怎么办？这时候就需要利用堆来解决这个问题</p>
+<p>具体的思路是：先建一个k个数的小堆，然后从k+1个数往后的值与堆顶元素比较，若此数比堆顶元素大，就将堆顶元素用这个数替换，然后重新调整堆，以此向后重复上述过程，直到将N个数比较完成，那么此时组成这个堆的k个元素就是前k个大的数。</p>
+<h3 id="抽象类和接口的区别"><a href="#抽象类和接口的区别" class="headerlink" title="抽象类和接口的区别"></a>抽象类和接口的区别</h3><p>1、抽象类可以提供成员方法的实现细节，而接口中只能存在public abstract 方法；<br>2、抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是public static final类型的；<br>3、一个类只能继承一个抽象类，而一个类却可以实现多个接口。</p>
+<h3 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h3><p>数据倾斜是大数据领域绕不开的拦路虎，当你所需处理的数据量到达了上亿甚至是千亿条的时候，数据倾斜将是横在你面前一道巨大的坎。很可能有几周甚至几月都要头疼于数据倾斜导致的各类诡异的问题。</p>
+<p>数据倾斜是指：mapreduce程序执行时，reduce节点大部分执行完毕，但是有一个或者几个reduce节点运行很慢，导致整个程序的处理时间很长，这是因为某一个key的条数比其他key多很多（有时是百倍或者千倍之多），这条key所在的reduce节点所处理的数据量比其他节点就大很多，从而导致某几个节点迟迟运行不完。Hive的执行是分阶段的，map处理数据量的差异取决于上一个stage的reduce输出，所以如何将数据均匀的分配到各个reduce中，就是解决数据倾斜的根本所在。</p>
+<p><img src="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/20200720171238287.jpeg" alt></p>
+<h4 id="Group-by-倾斜"><a href="#Group-by-倾斜" class="headerlink" title="Group by 倾斜"></a>Group by 倾斜</h4><p>group by造成的倾斜相对来说比较容易解决。hive提供两个参数可以解决：</p>
+<p>1.1 hive.map.aggr</p>
+<p>一个是hive.map.aggr，默认值已经为true，他的意思是做map aggregation，也就是在mapper里面做聚合。这个方法不同于直接写mapreduce的时候可以实现的combiner，但是却实现了类似combiner的效果。事实上各种基于mr的框架如pig，cascading等等用的都是map aggregation（或者叫partial aggregation）而非combiner的策略，也就是在mapper里面直接做聚合操作而不是输出到buffer给combiner做聚合。对于map aggregation，hive还会做检查，如果aggregation的效果不好，那么hive会自动放弃map aggregation。判断效果的依据就是经过一小批数据的处理之后，检查聚合后的数据量是否减小到一定的比例，默认是0.5，由hive.map.aggr.hash.min.reduction这个参数控制。所以如果确认数据里面确实有个别取值倾斜，但是大部分值是比较稀疏的，这个时候可以把比例强制设为1，避免极端情况下map aggr失效。hive.map.aggr还有一些相关参数，比如map aggr的内存占用等，具体可以参考<a href="http://dev.bizo.com/2013/02/map-side-aggregations-in-apache-hive.html" target="_blank" rel="noopener">这篇文章</a>。</p>
+<p>1.2 hive.groupby.skewindata</p>
+<p>另一个参数是hive.groupby.skewindata。这个参数的意思是做reduce操作的时候，拿到的key并不是所有相同值给同一个reduce，而是随机分发，然后reduce做聚合，做完之后再做一轮MR，拿前面聚合过的数据再算结果。所以这个参数其实跟hive.map.aggr做的是类似的事情，只是拿到reduce端来做，而且要额外启动一轮job，所以其实不怎么推荐用，效果不明显。</p>
+<p>1.3 count distinct 改写</p>
+<p>另外需要注意的是count distinct操作往往需要改写SQL，可以按照下面这么做：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*改写前*/</span></span><br><span class="line"><span class="keyword">select</span> a, <span class="keyword">count</span>(<span class="keyword">distinct</span> b) <span class="keyword">as</span> c <span class="keyword">from</span> tbl <span class="keyword">group</span> <span class="keyword">by</span> a;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/*改写后*/</span></span><br><span class="line"><span class="keyword">select</span> a, <span class="keyword">count</span>(*) <span class="keyword">as</span> c <span class="keyword">from</span> (<span class="keyword">select</span> a, b <span class="keyword">from</span> tbl <span class="keyword">group</span> <span class="keyword">by</span> a, b) <span class="keyword">group</span> <span class="keyword">by</span> a;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Join倾斜"><a href="#Join倾斜" class="headerlink" title="Join倾斜"></a>Join倾斜</h4><p>2.1 skew join<br>join造成的倾斜，常见情况是不能做map join的两个表(能做map join的话基本上可以避免倾斜)，其中一个是行为表，另一个应该是属性表。比如我们有三个表，一个用户属性表users，一个商品属性表items，还有一个用户对商品的操作行为表日志表logs。假设现在需要将行为表关联用户表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">logs</span> a <span class="keyword">join</span> <span class="keyword">users</span> b <span class="keyword">on</span> a.user_id = b.user_id;</span><br></pre></td></tr></table></figure>
+
+<p>其中logs表里面会有一个特殊用户user_id = 0，代表未登录用户，假如这种用户占了相当的比例，那么个别reduce会收到比其他reduce多得多的数据，因为它要接收所有user_id = 0的记录进行处理，使得其处理效果会非常差，其他reduce都跑完很久了它还在运行。</p>
+<p>hive给出的解决方案叫skew join，其原理把这种user_id = 0的特殊值先不在reduce端计算掉，而是先写入hdfs，然后启动一轮map join专门做这个特殊值的计算，期望能提高计算这部分值的处理速度。当然你要告诉hive这个join是个skew join，即：set</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hive.optimize.skewjoin = true;</span><br></pre></td></tr></table></figure>
+
+<p>还有要告诉hive如何判断特殊值，根据hive.skewjoin.key设置的数量hive可以知道，比如默认值是100000，那么超过100000条记录的值就是特殊值。</p>
+<h4 id="特殊值分开处理法"><a href="#特殊值分开处理法" class="headerlink" title="特殊值分开处理法"></a>特殊值分开处理法</h4><p>不过，上述方法还要去考虑阈值之类的情况，其实也不够通用。所以针对join倾斜的问题，一般都是通过改写sql解决。对于上面这个问题，我们已经知道user_id = 0是一个特殊key，那么可以把特殊值隔离开来单独做join，这样特殊值肯定会转化成map join，非特殊值就是没有倾斜的普通join了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	*</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	(</span><br><span class="line">		<span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">logs</span> <span class="keyword">where</span> user_id = <span class="number">0</span></span><br><span class="line">	)</span><br><span class="line">	a</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">	(</span><br><span class="line">		<span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> user_id = <span class="number">0</span></span><br><span class="line">	)</span><br><span class="line">	b</span><br><span class="line"><span class="keyword">on</span></span><br><span class="line">	a.user_id = b.user_id</span><br><span class="line"> </span><br><span class="line"><span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">logs</span> a <span class="keyword">join</span> <span class="keyword">users</span> b <span class="keyword">on</span> a.user_id &lt;&gt; <span class="number">0</span> <span class="keyword">and</span> a.user_id = b.user_id;</span><br></pre></td></tr></table></figure>
+
+<h4 id="随机数分配法"><a href="#随机数分配法" class="headerlink" title="随机数分配法"></a>随机数分配法</h4><p>上面这种个别key倾斜的情况只是一种倾斜情况。最常见的倾斜是因为数据分布本身就具有长尾性质，比如我们将日志表和商品表关联：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">logs</span> a <span class="keyword">join</span> items b <span class="keyword">on</span> a.item_id = b.item_id;</span><br></pre></td></tr></table></figure>
+
+<p>这个时候，分配到热门商品的reducer就会很慢，因为热门商品的行为日志肯定是最多的，而且我们也很难像上面处理特殊user那样去处理item。这个时候就会用到加随机数的方法，也就是在join的时候增加一个随机数，随机数的取值范围n相当于将item给分散到n个reducer：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	a.*,</span><br><span class="line">	b.*</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	(</span><br><span class="line">		<span class="keyword">select</span> *, <span class="keyword">cast</span>(<span class="keyword">rand</span>() * <span class="number">10</span> <span class="keyword">as</span> <span class="built_in">int</span>) <span class="keyword">as</span> r_id <span class="keyword">from</span> <span class="keyword">logs</span></span><br><span class="line">	)</span><br><span class="line">	a</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">	(</span><br><span class="line">		<span class="keyword">select</span> *, r_id <span class="keyword">from</span> items <span class="keyword">lateral</span> <span class="keyword">view</span> <span class="keyword">explode</span>(range_list(<span class="number">1</span>, <span class="number">10</span>)) rl <span class="keyword">as</span> r_id</span><br><span class="line">	)</span><br><span class="line">	b</span><br><span class="line"><span class="keyword">on</span></span><br><span class="line">	a.item_id = b.item_id</span><br><span class="line">	<span class="keyword">and</span> a.r_id = b.r_id</span><br></pre></td></tr></table></figure>
+
+<p>上面的写法里，对行为表的每条记录生成一个1-10的随机整数，对于item属性表，每个item生成10条记录，随机key分别也是1-10，这样就能保证行为表关联上属性表。其中range_list(1,10)代表用udf实现的一个返回1-10整数序列的方法。这个做法是一个解决join倾斜比较根本性的通用思路，就是如何用随机数将key进行分散。当然，可以根据具体的业务场景做实现上的简化或变化。</p>
+<h4 id="2-4-业务设计"><a href="#2-4-业务设计" class="headerlink" title="2.4 业务设计"></a>2.4 业务设计</h4><p>除了上面两类情况，还有一类情况是因为业务设计导致的问题，也就是说即使行为日志里面join key的数据分布本身并不明显倾斜，但是业务设计导致其倾斜。比如对于商品item_id的编码，除了本身的id序列，还人为的把item的类型也作为编码放在最后两位，这样如果类型1（电子产品）的编码是00，类型2（家居产品）的编码是01，并且类型1是主要商品类，将会造成以00为结尾的商品整体倾斜。这时，如果reduce的数量恰好是100的整数倍，会造成partitioner把00结尾的item_id都hash到同一个reducer，引爆问题。这种特殊情况可以简单的设置合适的reduce值来解决，但是这种坑对于不了解业务的情况下就会比较隐蔽。</p>
+<h4 id="3-1-空值产生的数据倾斜"><a href="#3-1-空值产生的数据倾斜" class="headerlink" title="3.1 空值产生的数据倾斜"></a>3.1 空值产生的数据倾斜</h4><p>场景：如日志中，常会有信息丢失的问题，比如日志中的 user_id，如果取其中的 user_id 和 用户表中的user_id 关联，会碰到数据倾斜的问题。</p>
+<ul>
+<li>解决方法1： user_id为空的不参与关联</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	*</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	<span class="keyword">log</span> a</span><br><span class="line"><span class="keyword">join</span> <span class="keyword">users</span> b</span><br><span class="line"><span class="keyword">on</span></span><br><span class="line">	a.user_id <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">	<span class="keyword">and</span> a.user_id = b.user_id</span><br><span class="line"> </span><br><span class="line"><span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> a <span class="keyword">where</span> a.user_id <span class="keyword">is</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>解决方法2 ：赋与空值分新的key值</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	*</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	<span class="keyword">log</span> a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> <span class="keyword">users</span> b</span><br><span class="line"><span class="keyword">on</span></span><br><span class="line">	<span class="keyword">case</span></span><br><span class="line">		<span class="keyword">when</span> a.user_id <span class="keyword">is</span> <span class="literal">null</span></span><br><span class="line">		<span class="keyword">then</span> <span class="keyword">concat</span>(‘hive’, <span class="keyword">rand</span>())</span><br><span class="line">		<span class="keyword">else</span> a.user_id</span><br><span class="line">	<span class="keyword">end</span> = b.user_id;</span><br></pre></td></tr></table></figure>
+
+<p>结论：方法2比方法1效率更好，不但io少了，而且作业数也少了。解决方法1中 log读取两次，jobs是2。解决方法2 job数是1 。这个优化适合无效 id (比如 -99 , ’’, null 等) 产生的倾斜问题。把空值的 key 变成一个字符串加上随机数，就能把倾斜的数据分到不同的reduce上 ,解决数据倾斜问题。</p>
+<h4 id="3-2-不同数据类型关联产生数据倾斜"><a href="#3-2-不同数据类型关联产生数据倾斜" class="headerlink" title="3.2 不同数据类型关联产生数据倾斜"></a>3.2 不同数据类型关联产生数据倾斜</h4><p>场景：用户表中user_id字段为int，log表中user_id字段既有string类型也有int类型。当按照user_id进行两个表的Join操作时，默认的Hash操作会按int型的id来进行分配，这样会导致所有string类型id的记录都分配到一个Reducer中。</p>
+<p>解决方法：把数字类型转换成字符串类型</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	*</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	<span class="keyword">users</span> a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> <span class="keyword">logs</span> b</span><br><span class="line"><span class="keyword">on</span></span><br><span class="line">	a.usr_id = <span class="keyword">cast</span>(b.user_id <span class="keyword">as</span> <span class="keyword">string</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-小表不小不大，怎么用map-join解决倾斜问题"><a href="#3-3-小表不小不大，怎么用map-join解决倾斜问题" class="headerlink" title="3.3 小表不小不大，怎么用map join解决倾斜问题"></a>3.3 小表不小不大，怎么用map join解决倾斜问题</h4><p>使用 map join 解决小表(记录数少)关联大表的数据倾斜问题，这个方法使用的频率非常高，但如果小表很大，大到map join会出现bug或异常，这时就需要特别的处理。 以下例子:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">log</span> a <span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span> <span class="keyword">users</span> b <span class="keyword">on</span> a.user_id = b.user_id;</span><br></pre></td></tr></table></figure>
+
+<p>users 表有 600w+ 的记录，把 users 分发到所有的 map 上也是个不小的开销，而且 map join 不支持这么大的小表。如果用普通的 join，又会碰到数据倾斜的问题。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	<span class="comment">/*+mapjoin(x)*/</span></span><br><span class="line">	*</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">	<span class="keyword">log</span> a</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">outer</span> <span class="keyword">join</span></span><br><span class="line">	(</span><br><span class="line">		<span class="keyword">select</span></span><br><span class="line">			<span class="comment">/*+mapjoin(c)*/</span></span><br><span class="line">			d.*</span><br><span class="line">		<span class="keyword">from</span></span><br><span class="line">			(</span><br><span class="line">				<span class="keyword">select</span> <span class="keyword">distinct</span> user_id <span class="keyword">from</span> <span class="keyword">log</span></span><br><span class="line">			)</span><br><span class="line">			c</span><br><span class="line">		<span class="keyword">join</span> <span class="keyword">users</span> d</span><br><span class="line">		<span class="keyword">on</span></span><br><span class="line">			c.user_id = d.user_id</span><br><span class="line">	)</span><br><span class="line">	x <span class="keyword">on</span> a.user_id = b.user_id;</span><br></pre></td></tr></table></figure>
+
+<h3 id="从输入URL到页面展示完整流程"><a href="#从输入URL到页面展示完整流程" class="headerlink" title="从输入URL到页面展示完整流程"></a>从输入URL到页面展示完整流程</h3><p>介绍完前面所需要的三个基本知识背景后（HTTP 请求流程包括了TCP连接），现在只需要将其串起来就能回答从输入 URL 到页面展示完整流程。<br>同样，先给出从输入 URL 到页面展示完整流程示意图：</p>
+<p><img src="https://lixiangbetter.github.io/2021/03/24/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-25/20200809162028289.png" alt></p>
+<p>由图中不难发现，最外层是三种Chrome进程，而网络进程所执行的操作就是HTTP 请求流程并且渲染进程所执行的操作就是渲染流程。<br>下面，先给出此流程图精简版的描述：</p>
+<ul>
+<li>首先，浏览器进程接收到用户输入的 URL 请求，浏览器进程便将该 URL 转发给网络进程。</li>
+<li>然后，在网络进程中发起真正的 URL 请求。</li>
+<li>接着网络进程接收到了响应头数据，便解析响应头数据，并将数据转发给浏览器进程。</li>
+<li>浏览器进程接收到网络进程的响应头数据之后，发送“提交导航 (CommitNavigation)”消息到渲染进程。</li>
+<li>渲染进程接收到“提交导航”的消息之后，便开始准备接收 HTML 数据，接收数据的方式是直接和网络进程建立数据管道。</li>
+<li>最后渲染进程会向浏览器进程“确认提交”，这是告诉浏览器进程：“已经准备好接受和解析页面数据了”。</li>
+<li>浏览器进程接收到渲染进程“提交文档”的消息之后，便开始移除之前旧的文档，然后更新浏览器进程中的页面状态。</li>
+</ul>
+<h3 id="多核CPU和多CPU区别"><a href="#多核CPU和多CPU区别" class="headerlink" title="多核CPU和多CPU区别"></a>多核CPU和多CPU区别</h3><p>多核cpu是单颗cpu里边有多个核心，可以多线程工作。<br>多颗cpu是物理上就有多个。</p>
+
       
     </div>
     
@@ -380,6 +676,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
       
 
       
@@ -455,8 +757,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -495,7 +806,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -528,6 +839,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题随笔-21-3-25"><span class="nav-number">1.</span> <span class="nav-text">面试题随笔-21-3-25</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DAGscheduler干了什么活"><span class="nav-number">1.1.</span> <span class="nav-text">DAGscheduler干了什么活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp四次挥手介绍一下-为什么会有第二次、第三次、第四次？"><span class="nav-number">1.2.</span> <span class="nav-text">tcp四次挥手介绍一下 为什么会有第二次、第三次、第四次？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-number">1.3.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要三次握手，两次不行吗？"><span class="nav-number">1.4.</span> <span class="nav-text">为什么需要三次握手，两次不行吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是半连接队列？"><span class="nav-number">1.5.</span> <span class="nav-text">什么是半连接队列？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ISN-Initial-Sequence-Number-是固定的吗？"><span class="nav-number">1.6.</span> <span class="nav-text">ISN(Initial Sequence Number)是固定的吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手过程中可以携带数据吗？"><span class="nav-number">1.7.</span> <span class="nav-text">三次握手过程中可以携带数据吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SYN攻击是什么？"><span class="nav-number">1.8.</span> <span class="nav-text">SYN攻击是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-number">1.9.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挥手为什么需要四次？"><span class="nav-number">1.10.</span> <span class="nav-text">挥手为什么需要四次？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手释放连接时，等待2MSL的意义"><span class="nav-number">1.11.</span> <span class="nav-text">四次挥手释放连接时，等待2MSL的意义?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么TIME-WAIT状态需要经过2MSL才能返回到CLOSE状态？"><span class="nav-number">1.12.</span> <span class="nav-text">为什么TIME_WAIT状态需要经过2MSL才能返回到CLOSE状态？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么mysql底层用b-tree"><span class="nav-number">1.13.</span> <span class="nav-text">为什么mysql底层用b+tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用spark求一下dau"><span class="nav-number">1.14.</span> <span class="nav-text">用spark求一下dau</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说一下Hadoop吧"><span class="nav-number">1.15.</span> <span class="nav-text">说一下Hadoop吧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hadoop是什么？"><span class="nav-number">1.15.1.</span> <span class="nav-text">hadoop是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hadoop能做什么？"><span class="nav-number">1.15.2.</span> <span class="nav-text">hadoop能做什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hadoop能为我公司做什么？"><span class="nav-number">1.15.3.</span> <span class="nav-text">hadoop能为我公司做什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么用hadoop？"><span class="nav-number">1.15.4.</span> <span class="nav-text">怎么用hadoop？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark任务执行流程"><span class="nav-number">1.16.</span> <span class="nav-text">Spark任务执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解yarn吗？"><span class="nav-number">1.17.</span> <span class="nav-text">了解yarn吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解zookeeper"><span class="nav-number">1.18.</span> <span class="nav-text">了解zookeeper</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zk是什么："><span class="nav-number">1.18.1.</span> <span class="nav-text">zk是什么：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk的初始化选举机制："><span class="nav-number">1.18.2.</span> <span class="nav-text">zk的初始化选举机制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk的运行过程中leader崩溃选举机制："><span class="nav-number">1.18.3.</span> <span class="nav-text">zk的运行过程中leader崩溃选举机制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk中的znode节点："><span class="nav-number">1.18.4.</span> <span class="nav-text">zk中的znode节点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk中的监控原理："><span class="nav-number">1.18.5.</span> <span class="nav-text">zk中的监控原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk的职责："><span class="nav-number">1.18.6.</span> <span class="nav-text">zk的职责：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk中的数据复制："><span class="nav-number">1.18.7.</span> <span class="nav-text">zk中的数据复制：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk的工作原理："><span class="nav-number">1.18.8.</span> <span class="nav-text">zk的工作原理：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zk的watch机制："><span class="nav-number">1.18.9.</span> <span class="nav-text">zk的watch机制：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hive的作用"><span class="nav-number">1.19.</span> <span class="nav-text">hive的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hive是什么"><span class="nav-number">1.19.1.</span> <span class="nav-text">Hive是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hive是构建在Hadoop之上的数据仓库"><span class="nav-number">1.19.2.</span> <span class="nav-text">Hive是构建在Hadoop之上的数据仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Hive应用场景"><span class="nav-number">1.19.2.1.</span> <span class="nav-text">Hive应用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库你都了解哪些内容"><span class="nav-number">1.20.</span> <span class="nav-text">数据库你都了解哪些内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是存储过程？有哪些优缺点？"><span class="nav-number">1.20.1.</span> <span class="nav-text">什么是存储过程？有哪些优缺点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引是什么？有什么作用以及优缺点？"><span class="nav-number">1.20.2.</span> <span class="nav-text">索引是什么？有什么作用以及优缺点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是事务？"><span class="nav-number">1.20.3.</span> <span class="nav-text">什么是事务？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库的乐观锁和悲观锁是什么？"><span class="nav-number">1.20.4.</span> <span class="nav-text">数据库的乐观锁和悲观锁是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用索引查询一定能提高查询的性能吗？为什么"><span class="nav-number">1.20.5.</span> <span class="nav-text">使用索引查询一定能提高查询的性能吗？为什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单说一说drop、delete与truncate的区别"><span class="nav-number">1.20.6.</span> <span class="nav-text">简单说一说drop、delete与truncate的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#drop、delete与truncate分别在什么场景之下使用？"><span class="nav-number">1.20.7.</span> <span class="nav-text">drop、delete与truncate分别在什么场景之下使用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#超键、候选键、主键、外键分别是什么？"><span class="nav-number">1.20.8.</span> <span class="nav-text">超键、候选键、主键、外键分别是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是视图？以及视图的使用场景有哪些？"><span class="nav-number">1.20.9.</span> <span class="nav-text">什么是视图？以及视图的使用场景有哪些？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1G文件，每行是一个词，内存1M，求词频最大的前100个词"><span class="nav-number">1.21.</span> <span class="nav-text">1G文件，每行是一个词，内存1M，求词频最大的前100个词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求前K大的数"><span class="nav-number">1.22.</span> <span class="nav-text">求前K大的数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类和接口的区别"><span class="nav-number">1.23.</span> <span class="nav-text">抽象类和接口的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据倾斜"><span class="nav-number">1.24.</span> <span class="nav-text">数据倾斜</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Group-by-倾斜"><span class="nav-number">1.24.1.</span> <span class="nav-text">Group by 倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Join倾斜"><span class="nav-number">1.24.2.</span> <span class="nav-text">Join倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊值分开处理法"><span class="nav-number">1.24.3.</span> <span class="nav-text">特殊值分开处理法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#随机数分配法"><span class="nav-number">1.24.4.</span> <span class="nav-text">随机数分配法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-业务设计"><span class="nav-number">1.24.5.</span> <span class="nav-text">2.4 业务设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-空值产生的数据倾斜"><span class="nav-number">1.24.6.</span> <span class="nav-text">3.1 空值产生的数据倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-不同数据类型关联产生数据倾斜"><span class="nav-number">1.24.7.</span> <span class="nav-text">3.2 不同数据类型关联产生数据倾斜</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-小表不小不大，怎么用map-join解决倾斜问题"><span class="nav-number">1.24.8.</span> <span class="nav-text">3.3 小表不小不大，怎么用map join解决倾斜问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从输入URL到页面展示完整流程"><span class="nav-number">1.25.</span> <span class="nav-text">从输入URL到页面展示完整流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多核CPU和多CPU区别"><span class="nav-number">1.26.</span> <span class="nav-text">多核CPU和多CPU区别</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
