@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="面试题随笔-21/3/26寄存器和存储器区别寄存器是中央处理器内的组成部份。它跟CPU有关。寄存器是有限存贮容量的高速存贮部件，它们可用来暂存指令、数据和位址。在中央处理器的控制部件中，包含的寄存器有指令寄存器(IR)和程序计数器(PC)。在中央处理器的算术及逻辑部件中，包含的寄存器有累加器(ACC)。 存储器范围最大，它几乎涵盖了所有关于存储的范畴。你所说的寄存器，内存，都是存储器里面的一种。凡">
+<meta name="keywords" content="面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题随笔-21&#x2F;3&#x2F;26">
+<meta property="og:url" content="http://yoursite.com/2021/03/26/面试题随笔-21-3-26/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="面试题随笔-21/3/26寄存器和存储器区别寄存器是中央处理器内的组成部份。它跟CPU有关。寄存器是有限存贮容量的高速存贮部件，它们可用来暂存指令、数据和位址。在中央处理器的控制部件中，包含的寄存器有指令寄存器(IR)和程序计数器(PC)。在中央处理器的算术及逻辑部件中，包含的寄存器有累加器(ACC)。 存储器范围最大，它几乎涵盖了所有关于存储的范畴。你所说的寄存器，内存，都是存储器里面的一种。凡">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/7875120-5801f9c53bee98e3.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/3.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/7875120-1f82e76d451038f7.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/1.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/4.jpeg">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/5.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84.png">
+<meta property="og:updated_time" content="2021-03-26T14:12:34.956Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题随笔-21&#x2F;3&#x2F;26">
+<meta name="twitter:description" content="面试题随笔-21/3/26寄存器和存储器区别寄存器是中央处理器内的组成部份。它跟CPU有关。寄存器是有限存贮容量的高速存贮部件，它们可用来暂存指令、数据和位址。在中央处理器的控制部件中，包含的寄存器有指令寄存器(IR)和程序计数器(PC)。在中央处理器的算术及逻辑部件中，包含的寄存器有累加器(ACC)。 存储器范围最大，它几乎涵盖了所有关于存储的范畴。你所说的寄存器，内存，都是存储器里面的一种。凡">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/7875120-5801f9c53bee98e3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/03/26/面试题随笔-21-3-26/">
+
+
+
+
+
+  <title>面试题随笔-21/3/26 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/26/面试题随笔-21-3-26/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题随笔-21/3/26</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-26T09:20:05+08:00">
+                2021-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="面试题随笔-21-3-26"><a href="#面试题随笔-21-3-26" class="headerlink" title="面试题随笔-21/3/26"></a>面试题随笔-21/3/26</h2><h3 id="寄存器和存储器区别"><a href="#寄存器和存储器区别" class="headerlink" title="寄存器和存储器区别"></a>寄存器和存储器区别</h3><p>寄存器是中央处理器内的组成部份。它跟CPU有关。寄存器是有限存贮容量的高速存贮部件，它们可用来暂存指令、数据和位址。在中央处理器的控制部件中，包含的寄存器有指令寄存器(IR)和程序计数器(PC)。在中央处理器的算术及逻辑部件中，包含的寄存器有累加器(ACC)。</p>
+<p>存储器范围最大，它几乎涵盖了所有关于存储的范畴。你所说的寄存器，内存，都是存储器里面的一种。凡是有存储能力的硬件，都可以称之为存储器，这是自然，硬盘更加明显了，它归入外存储器行列，由此可见。</p>
+<p><strong>主要区别</strong></p>
+<p>1、寄存器存在于CPU中，速度很快，数目有限；<br>存储器就是内存，速度稍慢，但数量很大；<br>计算机做运算时，必须将数据读入寄存器才能运算。<br>2、存储器包括寄存器,<br>存储器有ROM和RAM</p>
+<h3 id="kafka在什么地方需要用到zookeeper"><a href="#kafka在什么地方需要用到zookeeper" class="headerlink" title="kafka在什么地方需要用到zookeeper"></a>kafka在什么地方需要用到zookeeper</h3><p>kafka使用ZooKeeper用于管理、协调代理。每个Kafka代理通过Zookeeper协调其他Kafka代理。</p>
+<p>当Kafka系统中新增了代理或某个代理失效时，Zookeeper服务将通知生产者和消费者。生产者与消费者据此开始与其他代理协调工作。</p>
+<p>Zookeeper在Kakfa中扮演的角色：Kafka将元数据信息保存在Zookeeper中，但是发送给Topic本身的数据是不会发到Zk上的。</p>
+<h3 id="了解HBase吗？"><a href="#了解HBase吗？" class="headerlink" title="了解HBase吗？"></a>了解HBase吗？</h3><h4 id="HBase-概述"><a href="#HBase-概述" class="headerlink" title="HBase 概述"></a>HBase 概述</h4><p>HBase是Hadoop的生态系统，是建立在Hadoop文件系统（HDFS）之上的分布式、面向列的数据库，通过利用Hadoop的文件系统提供容错能力。如果你需要进行实时读写或者随机访问大规模的数据集的时候，请考虑使用HBase！</p>
+<p>HBase作为Google Bigtable的开源实现，Google Bigtable利用GFS作为其文件存储系统类似，则HBase利用Hadoop HDFS作为其文件存储系统；Google通过运行MapReduce来处理Bigtable中的海量数据，同样，HBase利用Hadoop MapReduce来处理HBase中的海量数据；Google Bigtable利用Chubby作为协同服务，HBase利用 Zookeeper 作为对应。</p>
+<h4 id="HBase处理数据"><a href="#HBase处理数据" class="headerlink" title="HBase处理数据"></a>HBase处理数据</h4><p>虽然Hadoop是一个高容错、高延时的分布式文件系统和高并发的批处理系统，但是它不适用于提供实时计算；HBase是可以提供实时计算的分布式数据库，数据被保存在HDFS分布式文件系统上，由HDFS保证期高容错性，但是再生产环境中，HBase是如何基于hadoop提供实时性呢？ HBase上的数据是以StoreFile(HFile)二进制流的形式存储在HDFS上block块儿中；但是HDFS并不知道的HBase用于存储什么，它只把存储文件认为是二进制文件，也就是说，HBase的存储数据对于HDFS文件系统是透明的。</p>
+<p>HBase与HDFS<br>在下面的表格中，我们对HDFS与HBase进行比较：</p>
+<table>
+<thead>
+<tr>
+<th>HDFS</th>
+<th>HBase</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HDFS适于存储大容量文件的分布式文件系统。</td>
+<td>HBase是建立在HDFS之上的数据库。</td>
+</tr>
+<tr>
+<td>HDFS不支持快速单独记录查找。</td>
+<td>HBase提供在较大的表快速查找</td>
+</tr>
+<tr>
+<td>HDFS提供了高延迟批量处理;没有批处理概念。</td>
+<td>HBase提供了数十亿条记录低延迟访问单个行记录（随机存取）。</td>
+</tr>
+<tr>
+<td>HDFS提供的数据只能顺序访问。</td>
+<td>HBase内部使用哈希表和提供随机接入，并且其存储索引，可将在HDFS文件中的数据进行快速查找。</td>
+</tr>
+</tbody></table>
+<h4 id="HBase-数据模型"><a href="#HBase-数据模型" class="headerlink" title="HBase 数据模型"></a>HBase 数据模型</h4><p>HBase通过表格的模式存储数据，每个表格由列和行组成，其中，每个列又被划分为若干个列族（row family），请参考下面的图：</p>
+<p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/7875120-5801f9c53bee98e3.png" alt></p>
+<p>现在我们来看看HBase的逻辑数据模型与物理数据模型（实际存储的数据模型）：</p>
+<p>逻辑数据模型：</p>
+<p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/3.png" alt></p>
+<p>物理数据模型：</p>
+<p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/7875120-1f82e76d451038f7.png" alt></p>
+<p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/1.png" alt></p>
+<h4 id="HBase-架构"><a href="#HBase-架构" class="headerlink" title="HBase 架构"></a>HBase 架构</h4><p>下图显示了HBase的组成结构：</p>
+<p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/4.jpeg" alt></p>
+<p>HBase<br>通过上图我们可以得出Hbase中的每张表都按照一定的范围被分割成多个子表（HRegion），默认一个HRegion超过 256M 就要被分割成两个，由 HRegionServer管理，管理哪些HRegion由HMaster分配。</p>
+<p>现在我们来介绍一下HBase中的一些组成部件以及它们起到的作用：</p>
+<p>Client：包含访问HBase的接口，并维护cache来加快对HBase的访问。</p>
+<p>Zookeeper：HBase依赖Zookeeper，默认情况下HBase管理Zookeeper实例（启动或关闭Zookeeper），Master与RegionServers启动时会向Zookeeper注册。Zookeeper的作用如下：</p>
+<ul>
+<li>保证任何时候，集群中只有一个master</li>
+<li>存储所有Region的寻址入口</li>
+<li>实时监控Region server的上线和下线信息。并实时通知给master</li>
+<li>存储HBase的schema和table元数据</li>
+</ul>
+<p>HRegionServer：用来维护master分配给他的region，处理对这些region的io请求；负责切分正在运行过程中变的过大的region。</p>
+<p>HRegion：HBase表在行的方向上分隔为多个Region。Region是HBase中分布式存储和负载均衡的最小单元，即不同的region可以分别在不同的Region Server上，但同一个Region是不会拆分到多个server上。Region按大小分隔，每个表一般是只有一个region，当region的某个列族达到一个阈值（默认256M）时就会分成两个新的region。</p>
+<p>Store：每一个Region由一个或多个Store组成，至少是一个Store，HBase会把一起访问的数据放在一个Store里面，即为每个ColumnFamily建一个Store，如果有几个ColumnFamily，也就有几个Store。一个Store由一个memStore和0或者多个StoreFile组成。Store的大小被HBase用来判断是否需要切分Region。</p>
+<p>StoreFile：memStore内存中的数据写到文件后就是StoreFile，StoreFile底层是以HFile的格式保存。</p>
+<p>HLog：HLog记录数据的所有变更，可以用来恢复文件，一旦region server 宕机，就可以从log中进行恢复。</p>
+<p>LogFlusher：一个LogFlusher的类是用来调用HLog.optionalSync()的。</p>
+<h4 id="HBase-的应用"><a href="#HBase-的应用" class="headerlink" title="HBase 的应用"></a>HBase 的应用</h4><ul>
+<li>HBase是用来当有需要写重的应用程序。</li>
+<li>HBase可以帮助快速随机访问数据。</li>
+<li>HBase被许多公司所采纳，例如，Facebook、Twitter、Yahoo!、Adobe、OpenPlaces、WorldLingo等等。</li>
+</ul>
+<h3 id="说下spark中的transform和action"><a href="#说下spark中的transform和action" class="headerlink" title="说下spark中的transform和action"></a>说下spark中的transform和action</h3><p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/5.png" alt></p>
+<h3 id="spark中有了RDD，为什么还要有Dataframe和DataSet？"><a href="#spark中有了RDD，为什么还要有Dataframe和DataSet？" class="headerlink" title="spark中有了RDD，为什么还要有Dataframe和DataSet？"></a>spark中有了RDD，为什么还要有Dataframe和DataSet？</h3><p><strong>RDD</strong><br>RDD(Resilient Distributed Datasets)叫做弹性分布式数据集，是Spark中最基本的数据抽象，源码中是一个抽象类，代表一个不可变、可分区、里面的元素可并行计算的集合。编译时类型安全，但是无论是集群间的通信，还是IO操作都需要对对象的结构和数据进行序列化和反序列化，还存在较大的GC的性能开销，会频繁的创建和销毁对象。RDD也不支持SparkSQL操作。</p>
+<p><strong>DataFrame</strong><br>与RDD类似，DataFrame是一个分布式数据容器，不过它更像数据库中的二维表格，除了数据之外，还记录这数据的结构信息（即schema）。DataFrame也是懒执行的，性能上要比RDD高（主要因为执行计划得到了优化）。由于RDD每一行的数据结构一样，且存在schema中，Spark通过schema就能读懂数据，因此在通信和IO时只需要序列化和反序列化数据，而结构部分不用。Spark能够以二进制的形式序列化数据到JVM堆以外（off-heap：非堆）的内存，这些内存直接受操作系统管理，也就不再受JVM的限制和GC的困扰了。但是DataFrame不是类型安全的。</p>
+<p><strong>DataSet</strong><br>DataSet是DataFrame API的一个扩展，是Spark最新的数据抽象，结合了RDD和DataFrame的优点。DataFrame=DataSet[Row]（Row表示表结构信息的类型），DataFrame只知道字段，但是不知道字段类型，而DataSet是强类型的，不仅仅知道字段，而且知道字段类型。样例类被用来在DataSet中定义数据的结构信息，样例类中的每个属性名称直接对应到DataSet中的字段名称。DataSet具有类型安全检查，也具有DataFrame的查询优化特性，还支持编解码器，当需要访问非堆上的数据时可以避免反序列化整个对象，提高了效率。</p>
+<h3 id="了解函数式编程吗？说下c-c-和scala这种函数式编程语言的区别"><a href="#了解函数式编程吗？说下c-c-和scala这种函数式编程语言的区别" class="headerlink" title="了解函数式编程吗？说下c/c++和scala这种函数式编程语言的区别"></a>了解函数式编程吗？说下c/<a href="https://www.nowcoder.com/jump/super-jump/word?word=c%2B%2B" target="_blank" rel="noopener">c++</a>和scala这种函数式编程语言的区别</h3><p>简单说，”函数式编程”是一种”编程范式”（programming paradigm），也就是如何编写程序的方法论。</p>
+<p>它属于”结构化编程”的一种，主要思想是把运算过程尽量写成一系列嵌套的函数调用。</p>
+<p>特点</p>
+<ol>
+<li>函数是”第一等公民”</li>
+</ol>
+<p>所谓”第一等公民”（first class），指的是函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值。</p>
+<p>举例来说，下面代码中的print变量就是一个函数，可以作为另一个函数的参数。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> print = function(i)&#123; console.log(i);&#125;;</span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].forEach(print);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>只用”表达式”，不用”语句”</li>
+</ol>
+<p>“表达式”（expression）是一个单纯的运算过程，总是有返回值；”语句”（statement）是执行某种操作，没有返回值。函数式编程要求，只使用表达式，不使用语句。也就是说，每一步都是单纯的运算，而且都有返回值。</p>
+<p>原因是函数式编程的开发动机，一开始就是为了处理运算（computation），不考虑系统的读写（I/O）。”语句”属于对系统的读写操作，所以就被排斥在外。</p>
+<p>当然，实际应用中，不做I/O是不可能的。因此，编程过程中，函数式编程只要求把I/O限制到最小，不要有不必要的读写行为，保持计算过程的单纯性。</p>
+<ol start="3">
+<li>没有”副作用”</li>
+</ol>
+<p>所谓”副作用”（side effect），指的是函数内部与外部互动（最典型的情况，就是修改全局变量的值），产生运算以外的其他结果。</p>
+<p>函数式编程强调没有”副作用”，意味着函数要保持独立，所有功能就是返回一个新的值，没有其他行为，尤其是不得修改外部变量的值。</p>
+<ol start="4">
+<li>不修改状态</li>
+</ol>
+<p>上一点已经提到，函数式编程只是返回新的值，不修改系统变量。因此，不修改变量，也是它的一个重要特点。</p>
+<p>在其他类型的语言中，变量往往用来保存”状态”（state）。不修改变量，意味着状态不能保存在变量中。函数式编程使用参数保存状态，最好的例子就是递归。下面的代码是一个将字符串逆序排列的函数，它演示了不同的参数如何决定了运算所处的”状态”。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function reverse(string) &#123;</span><br><span class="line">  <span class="keyword">if</span>(string.length == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> string;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> reverse(string.substring(<span class="number">1</span>, string.length)) + string.substring(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于使用了递归，函数式语言的运行速度比较慢，这是它长期不能在业界推广的主要原因。</p>
+<ol start="5">
+<li>引用透明</li>
+</ol>
+<p>引用透明（Referential transparency），指的是函数的运行不依赖于外部变量或”状态”，只依赖于输入的参数，任何时候只要参数相同，引用函数所得到的返回值总是相同的。</p>
+<p>有了前面的第三点和第四点，这点是很显然的。其他类型的语言，函数的返回值往往与系统状态有关，不同的状态之下，返回值是不一样的。这就叫”引用不透明”，很不利于观察和理解程序的行为。</p>
+<ul>
+<li>面向过程：根据业务逻辑从上到下写垒代码</li>
+<li>函数式：将某功能代码封装到函数中，日后便无需重复编写，仅调用函数即可</li>
+<li>面向对象：以对象为核心，该方法认为程序由一系列对象组成。类是对现实世界的抽象，包括表示静态属性的数据和对数据的操作，对象是类的实例化。对象间通过消息传递相互通信，来模拟现实世界中不同实体间的联系。在面向对象的程序设计中，对象是组成程序的基本模块。</li>
+</ul>
+<h3 id="了解GC吗？说说"><a href="#了解GC吗？说说" class="headerlink" title="了解GC吗？说说"></a>了解GC吗？说说</h3><p>自动垃圾回收机制，简单来说就是寻觅 Java堆中的无用对象，GC是JVM对内存（实际上就是对象）进行管理的方式。</p>
+<p>JVM 的区域分为两类 堆、非堆（Perm Gen 永久代 / Java 8 改为 元空间 Metaspace）。</p>
+<p>堆区：Eden Space（伊甸园）、Survivor Space(幸存者区 0/1)、Tenured Gen（养老区）</p>
+<p>新生代：Eden Space（伊甸园）+ Survivor Space 0 + Survivor Space 1 </p>
+<p>养老代：Tenured Gen</p>
+<p>a) 一个对象被创建后，就会出现在 Eden 区，每过一段时间 GC 就会过来进行回收，当对象没有引会被回收，有引用就会进入 Survivor Space 幸存者区</p>
+<p>b) 在幸存者区里面有两个区域，一个是有对象的区域，另外一个是没对象的区域，有且仅有一个区域有对象。当 GC 到来时，有引用的对象都会转移到另外一个幸存者区，剩下没有引用的全部回收，当达对象到 16 次的没回收时候进入养老区</p>
+<p>c) 在养老区内，GC 来的次数比较少，但是当 GC 来的时候，没有引用的对象一样会被清除。</p>
+<p>d) 总结：新生代空间比较小，GC 频率高，养老代空间比较大，GC 频率低</p>
+<h3 id="项目中kafka怎么使用的"><a href="#项目中kafka怎么使用的" class="headerlink" title="项目中kafka怎么使用的"></a>项目中kafka怎么使用的</h3><p><img src="https://lixiangbetter.github.io/2021/03/26/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-3-26/%E5%AE%9E%E6%97%B6%E6%95%B0%E4%BB%93%E6%9E%B6%E6%9E%84.png" alt="实时数仓架构"></p>
+<p>日志数据和业务数据，采集发送至kafka。再供离线和实时进行消费，进行统计分析。</p>
+<p>该过程中：</p>
+<p>Kafka的高吞吐能力、缓存机制能有效的解决高峰流量冲击问题。实践表明，在未将kafka引入系统前，当互联网关发送的数据量较大时，往往会挂起关系数据库，数据常常丢失。在引入kafka后，更新程序能够结合能力自主处理消息，不会引起数据丢失，关系型数据库的压力波动不会发生过于显著的变化，不会出现数据库挂起锁死现象。</p>
+<p>依靠kafka的订阅分发机制，实现了一次发布，各分支依据需求自主订阅的功能。避免了各分支机构直接向数据中心请求数据，或者数据中心依次批量向分支机构传输数据以致实时性不足的情况。kafka提高了实时性，减轻了数据中心的压力，提高了效率。</p>
+<h3 id="双层Flume的好处："><a href="#双层Flume的好处：" class="headerlink" title="双层Flume的好处："></a>双层Flume的好处：</h3><p>解耦，hdfs或者kafka需要升级时，第二层flume可以进行缓冲，不会影响第一层。<br>安全，hdfs或者kafka直接暴露给第一层不安全（第一层很多flume来自其他部门，第二层在本地）。<br>利于业务的分组管理，将第一组的繁杂业务在第二层可以进行分组。<br>小文件的数量会大大减少。<br>外部某个类型的业务日志数据节点需要扩容，直接在L1层将数据流指向数据平台内部与之相对应的L2层Flume Agent节点组即可。</p>
+<h3 id="了解nginx"><a href="#了解nginx" class="headerlink" title="了解nginx"></a>了解nginx</h3><p>Nginx 是一款自由的、开源的、高性能的 HTTP 服务器和反向代理服务器；同时也是一个 IMAP、POP3、SMTP 代理服务器。</p>
+<p>Nginx 可以作为一个 HTTP 服务器进行网站的发布处理，另外 Nginx 可以作为反向代理进行负载均衡的实现。</p>
+<p>由于以下这几点，所以，Nginx 火了：</p>
+<ul>
+<li>Nginx 使用基于事件驱动架构，使得其可以支持数以百万级别的 TCP 连接。</li>
+<li>高度的模块化和自由软件许可证使得第三方模块层出不穷（这是个开源的时代啊）。</li>
+<li>Nginx 是一个跨平台服务器，可以运行在 Linux、Windows、FreeBSD、Solaris、AIX、Mac OS 等操作系统上。</li>
+</ul>
+<p><strong>nginx事件驱动架构</strong></p>
+<p>由一些事件发生源来产生事件，由一个或多个事件收集器来收集、分发事件，然后许多事件处理器会注册自己感兴趣的事件，同时会消费这些事件。对于Nginx Web服务器而言，一般会由网卡、磁盘产生事件，事件模块将负责事件的收集、分发操作，而所有的模块都可能是事件消费者，它们首先需要向事件模块注册感兴趣的事件类型，在有事件产生时，事件模块会把事件分发到相应的模块中进行处理。</p>
+<p>传统Web服务器，采用的事件驱动往往局限在TCP连接建立、关闭事件上，一个连接建立后，在其关闭之前所有的操作都不再是事件驱动，这时就会退化成按序执行每个操作的批处理模式，这样每个请求在连接建立后都将始终占用着系统资源，直到连接关闭才会释放资源。如果整个事件消费者进程只是等待某个条件而已，则会造成服务器资源的极大浪费，影响了系统可以处理的并发连接数。</p>
+<p>Nginx不会使用进程或线程来作为事件消费者，所谓的事件消费者只能是某个模块。只有事件收集、分发器才会占用进程资源，在分发某个事件时调用事件消费者模块使用当前占用的进程资源。</p>
+<p>传统的Web服务器与Nginx间的重要差别：前者是每个事件的消费者独占一个进程资源，后者的事件消费者只是被事件分发者进程短期调用而已。Nginx的处理事件的架构设计使得网络性能、用户感知的请求时延都得到了提升。但是这要求每个事件的消费者都不能有阻塞行为，否则会长事件占用事件分发者进程而导致其他事件得不到及时响应。</p>
+<p><strong>Nginx事件驱动处理库：多路IO复用</strong></p>
+<p><strong>select库</strong></p>
+<p>各个版本的linux和windows都支持的基本事件驱动模型库。<br>使用select的一般步骤：</p>
+<p>创建所关注事件的描述符集合。对于每个描述符，可以关注其上的读（Read）事件、写（Write）事件、异常发生（Exception）事件，所以要创建三类描述符集合。分别用来收集读事件的描述符、写事件的描述符、异常发生事件的描述符。<br>调用底层提供的select()函数，等待事件发生。<br>轮询所有事件描述符集合中的每一个描述符，检查是否有相应的事件发生，然后处理事件。<br>nginx默认会在编译阶段将select库编译到基本http模块中去，可以使用–without-select_module来选择不编译该库。</p>
+<p><strong>poll库</strong><br>仅linux支持，windows不支持。<br>其与select的基本实现方式相同，只不过创建关注的描述符集合时，不分成三个集合，而是一个集合包括所有描述符。<br>也会被默认编译进基本HTTP模块中。</p>
+<p><strong>epoll库</strong><br>是poll库的一个变种，仅linux支持，效率比select高很多。</p>
+<p>当描述符比较多时，遍历描述符集合、然后查找每个描述符是否有相应事件发生这一过程会效率较低。</p>
+<p>epoll选择将描述符列表的管理交给内核复制，一旦有事件发生，内核会将有事件发生的描述符列表通知给进程，这样避免了应用程序轮询整个描述符列表。</p>
+<p>epoll会通过相关调用，通知内核创建一个N个描述符的事件列表，然后给这些描述符设置所关注的事件，并把他添加到内核的事件列表中，在编码过程中也可以通过相关调用对事件列表中的描述符进行动态地删除和修改。</p>
+<h3 id="数据库的锁了解哪些，说说"><a href="#数据库的锁了解哪些，说说" class="headerlink" title="数据库的锁了解哪些，说说"></a>数据库的锁了解哪些，说说</h3><p>MySQL大致可归纳为以下3种锁：</p>
+<p>表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。<br>行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。<br>页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般</p>
+<p>在使用MyIsam时，我们只可以使用表级锁，而MySQL的表级锁有两种模式：</p>
+<p>表共享锁（Table Read Lock）和表独占写锁（Table Write Lock），他们在工作时表现如下：</p>
+<ul>
+<li>对某一个表的读操作，不会阻塞其他用户对同一表请求，但会阻塞对同一表的写请求；</li>
+<li>对MyISAM的写操作，则会阻塞其他用户对同一表的读和写操作；</li>
+<li>MyISAM表的读操作和写操作之间，以及写操作之间是串行的。</li>
+</ul>
+<p>当一个线程获得对一个表的写锁后，只有持有锁的线程可以对表进行更新操作。其他线程的读、写操作都会等待，直到锁被释放为止。</p>
+<p>InnoDB实现了以下两种类型的行锁。</p>
+<ul>
+<li>共享锁（s）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。</li>
+<li>排他锁（Ｘ）：允许获取排他锁的事务更新数据，阻止其他事务取得相同的数据集共享读锁和排他写锁。</li>
+</ul>
+<p>另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是表锁。</p>
+<p>意向共享锁（IS）：事务打算给数据行共享锁，事务在给一个数据行加共享锁前必须先取得该表的IS锁。</p>
+<p>意向排他锁（IX）：事务打算给数据行加排他锁，事务在给一个数据行加排他锁前必须先取得该表的IX锁。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/24/面试题随笔-21-3-25/" rel="next" title="面试题随笔-21/3/25">
+                <i class="fa fa-chevron-left"></i> 面试题随笔-21/3/25
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/27/面试题随笔-21-3-27/" rel="prev" title="面试题随笔-21/3/27">
+                面试题随笔-21/3/27 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题随笔-21-3-26"><span class="nav-number">1.</span> <span class="nav-text">面试题随笔-21/3/26</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寄存器和存储器区别"><span class="nav-number">1.1.</span> <span class="nav-text">寄存器和存储器区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka在什么地方需要用到zookeeper"><span class="nav-number">1.2.</span> <span class="nav-text">kafka在什么地方需要用到zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解HBase吗？"><span class="nav-number">1.3.</span> <span class="nav-text">了解HBase吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HBase-概述"><span class="nav-number">1.3.1.</span> <span class="nav-text">HBase 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HBase处理数据"><span class="nav-number">1.3.2.</span> <span class="nav-text">HBase处理数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HBase-数据模型"><span class="nav-number">1.3.3.</span> <span class="nav-text">HBase 数据模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HBase-架构"><span class="nav-number">1.3.4.</span> <span class="nav-text">HBase 架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HBase-的应用"><span class="nav-number">1.3.5.</span> <span class="nav-text">HBase 的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#说下spark中的transform和action"><span class="nav-number">1.4.</span> <span class="nav-text">说下spark中的transform和action</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark中有了RDD，为什么还要有Dataframe和DataSet？"><span class="nav-number">1.5.</span> <span class="nav-text">spark中有了RDD，为什么还要有Dataframe和DataSet？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解函数式编程吗？说下c-c-和scala这种函数式编程语言的区别"><span class="nav-number">1.6.</span> <span class="nav-text">了解函数式编程吗？说下c/c++和scala这种函数式编程语言的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解GC吗？说说"><span class="nav-number">1.7.</span> <span class="nav-text">了解GC吗？说说</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目中kafka怎么使用的"><span class="nav-number">1.8.</span> <span class="nav-text">项目中kafka怎么使用的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双层Flume的好处："><span class="nav-number">1.9.</span> <span class="nav-text">双层Flume的好处：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解nginx"><span class="nav-number">1.10.</span> <span class="nav-text">了解nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的锁了解哪些，说说"><span class="nav-number">1.11.</span> <span class="nav-text">数据库的锁了解哪些，说说</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
