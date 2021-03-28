@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="面试题,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="dreamer">
+<meta name="description" content="面试题随笔-21/3/27应用层协议域名系统DNS协议、FTP文件传输协议、、telnet远程终端协议、HTTP超文本传送协议、SMTP电子邮件协议、POP3邮件读取协议、Telnet远程登录协议、SNMP简单网络管理协议等。 1、DNS：域名系统DNS是因特网使用的命名系统，用来把便于人们使用的机器名字转换为IP地址。 现在顶级域名TLD分为三大类：国家顶级域名nTLD；通用顶级域名gTLD;基">
+<meta name="keywords" content="面试题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="面试题随笔-21&#x2F;3&#x2F;27">
 <meta property="og:url" content="http://yoursite.com/2021/03/27/面试题随笔-21-3-27/index.html">
 <meta property="og:site_name" content="Thinking">
-<meta property="og:description" content="dreamer">
+<meta property="og:description" content="面试题随笔-21/3/27应用层协议域名系统DNS协议、FTP文件传输协议、、telnet远程终端协议、HTTP超文本传送协议、SMTP电子邮件协议、POP3邮件读取协议、Telnet远程登录协议、SNMP简单网络管理协议等。 1、DNS：域名系统DNS是因特网使用的命名系统，用来把便于人们使用的机器名字转换为IP地址。 现在顶级域名TLD分为三大类：国家顶级域名nTLD；通用顶级域名gTLD;基">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-27T01:16:43.308Z">
+<meta property="og:updated_time" content="2021-03-27T14:07:12.240Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;3&#x2F;27">
-<meta name="twitter:description" content="dreamer">
+<meta name="twitter:description" content="面试题随笔-21/3/27应用层协议域名系统DNS协议、FTP文件传输协议、、telnet远程终端协议、HTTP超文本传送协议、SMTP电子邮件协议、POP3邮件读取协议、Telnet远程登录协议、SNMP简单网络管理协议等。 1、DNS：域名系统DNS是因特网使用的命名系统，用来把便于人们使用的机器名字转换为IP地址。 现在顶级域名TLD分为三大类：国家顶级域名nTLD；通用顶级域名gTLD;基">
 
 
 
@@ -334,6 +335,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -366,7 +389,320 @@
       
 
       
-        
+        <h2 id="面试题随笔-21-3-27"><a href="#面试题随笔-21-3-27" class="headerlink" title="面试题随笔-21/3/27"></a>面试题随笔-21/3/27</h2><h3 id="应用层协议"><a href="#应用层协议" class="headerlink" title="应用层协议"></a>应用层协议</h3><p>域名系统DNS协议、FTP文件传输协议、、telnet远程终端协议、HTTP超文本传送协议、SMTP电子邮件协议、POP3邮件读取协议、Telnet远程登录协议、SNMP简单网络管理协议等。</p>
+<p>1、DNS：域名系统DNS是因特网使用的命名系统，用来把便于人们使用的机器名字转换为IP地址。</p>
+<p>现在顶级域名TLD分为三大类：国家顶级域名nTLD；通用顶级域名gTLD;基础结构域名</p>
+<p>域名服务器分为四种类型：根域名服务器；顶级域名服务器；本地域名服务器；权限域名服务器。</p>
+<p>2、FTP：文件传输协议FTP是因特网上使用得最广泛的文件传送协议。FTP提供交互式的访问，允许客户指明文件类型与格式，并允许文件具有存取权限。FTP其于TCP。</p>
+<p>3、telnet远程终端协议：telnet是一个简单的远程终端协议，它也是因特网的正式标准。又称为终端仿真协议。</p>
+<p>4、HTTP：超文本传送协议，是面向事务的应用层协议，它是万维网上能够可靠地交换文件的重要基础。http使用面向连接的TCP作为运输层协议，保证了数据的可靠传输。</p>
+<h3 id="什么场景用TCP，什么场景用UDP"><a href="#什么场景用TCP，什么场景用UDP" class="headerlink" title="什么场景用TCP，什么场景用UDP"></a>什么场景用TCP，什么场景用UDP</h3><p>TCP应用场景：<br>效率要求相对低，但对准确性要求相对高的场景。因为传输中需要对数据确认、重发、排序等操作，相比之下效率没有UDP高。举几个例子：文件传输（准确高要求高、但是速度可以相对慢）、接受邮件、远程登录。</p>
+<p>UDP应用场景：<br>效率要求相对高，对准确性要求相对低的场景。举几个例子：QQ聊天、在线视频、网络语音电话（即时通讯，速度要求高，但是出现偶尔断续不是太大问题，并且此处完全不可以使用重发机制）、广播通信（广播、多播）。</p>
+<h3 id="HTTP状态码都有哪些，具体说一下"><a href="#HTTP状态码都有哪些，具体说一下" class="headerlink" title="HTTP状态码都有哪些，具体说一下"></a>HTTP状态码都有哪些，具体说一下</h3><p>下面是常见的HTTP状态码：</p>
+<p>200 - 请求成功<br>301 - 资源（网页等）被永久转移到其它URL<br>404 - 请求的资源（网页等）不存在<br>500 - 内部服务器错误</p>
+<h3 id="HTTP长连接和短连接"><a href="#HTTP长连接和短连接" class="headerlink" title="HTTP长连接和短连接"></a>HTTP长连接和短连接</h3><p>长连接：client方与server方先建立连接，连接建立后不断开，然后再进行报文发送和接收。这种方式下由于通讯连接一直存在。此种方式常用于P2P通信。</p>
+<p>短连接：Client方与server每进行一次报文收发交易时才进行通讯连接，交易完毕后立即断开连接。此方式常用于一点对多点通讯。C/S通信。</p>
+<p><strong>长连接与短连接的操作过程</strong></p>
+<p>短连接的操作步骤是：</p>
+<p>建立连接——数据传输——关闭连接…建立连接——数据传输——关闭连接</p>
+<p>长连接的操作步骤是：</p>
+<p>建立连接——数据传输…（保持连接）…数据传输——关闭连接</p>
+<h3 id="url和uri的区别"><a href="#url和uri的区别" class="headerlink" title="url和uri的区别"></a>url和uri的区别</h3><p>URI(Uniform Resource Identifier) = URL(Uniform Resource Locator)+URN(Uniform Resource Name)</p>
+<p>1、作用的区别</p>
+<p>URL（统一资源定位符）主要用于链接网页，网页组件或网页上的程序，借助访问方法（http，ftp，mailto等协议）来检索位置资源。</p>
+<p>URI（统一资源标识符）用于定义项目的标识，此处单词标识符表示无论使用的方法是什么（URL或URN），都要将一个资源与其他资源区分开来。</p>
+<h3 id="http请求头的一些字段内容"><a href="#http请求头的一些字段内容" class="headerlink" title="http请求头的一些字段内容"></a>http请求头的一些字段内容</h3><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>意思</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>这个头信息指定浏览器或其他客户端可以处理的 MIME 类型。有text/html,image/，/等几种常用类型。/*可以简单的概括为告诉服务器，客户端什么数据类型都支持</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>这个头信息指定浏览器可以用来显示信息的字符集。例如 ISO-8859-1</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>这个头信息指定浏览器知道如何处理的编码类型。值 gzip 或 compress 是最常见的两种可能值</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>这个头信息指定客户端的首选语言，在这种情况下，Servlet 会产生多种语言的结果。例如，en、en-us、ru 等。</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>这个头信息用于客户端在访问受密码保护的网页时识别自己的身份。</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>这个头信息指示客户端是否可以处理持久 HTTP 连接。持久连接允许客户端或其他浏览器通过单个请求来检索多个文件。值 Keep-Alive 意味着使用了持续连接。</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>这个头信息只适用于 POST 请求，并给出 POST 数据的大小（以字节为单位）。</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>这个头信息把之前发送到浏览器的 cookies 返回到服务器。</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>这个头信息指定原始的 URL 中的主机和端口。</td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>这个头信息表示只有当页面在指定的日期后已更改时，客户端想要的页面。如果没有新的结果可以使用，服务器会发送一个 304 代码，表示 Not Modified 头信息。 Last-Modified 与If-Modified-Since都是用来记录页面的最后修改时间。当客户端访问页面时，服务器会将页面最后修改时间通过 Last-Modified 标识由服务器发往客户端，客户端记录修改时间，再次请求本地存在的cache页面时，客户端会通过 If-Modified-Since 头将先前服务器端发过来的最后修改时间戳发送回去，服务器端通过这个时间戳判断客户端的页面是否是最新的，如果不是最新的，则返回新的内容，如果是最新的，则 返回 304 告诉客户端其本地 cache 的页面是最新的，于是客户端就可以直接从本地加载页面了，这样在网络上传输的数据就会大大减少，同时也减轻了服务器的负担</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>这个头信息是 If-Modified-Since 的对立面，它指定只有当文档早于指定日期时，操作才会成功。</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>这个头信息指示所指向的 Web 页的 URL。例如，如果您在网页 1，点击一个链接到网页 2，当浏览器请求网页 2 时，网页 1 的 URL 就会包含在 Referer 头信息中。</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>这个头信息识别发出请求的浏览器或其他客户端，并可以向不同类型的浏览器返回不同的内容。</td>
+</tr>
+</tbody></table>
+<h3 id="hashmap的实现"><a href="#hashmap的实现" class="headerlink" title="hashmap的实现"></a>hashmap的实现</h3><p>HashMap基于Map接口实现，元素以键值对的方式存储，并且允许使用null键和null值，因为key不允许重复，因此只能有一个键为null,另外HashMap不能保证放入元素的顺序，它是无序的，和放入的顺序并不能相同。HashMap是线程不安全的。</p>
+<p>1.HashMap由数组和链表来实现对数据的存储</p>
+<p>HashMap采用Entry数组来存储key-value对，每一个键值对组成了一个Entry实体，Entry类实际上是一个单向的链表结构，它具有Next指针，可以连接下一个Entry实体，以此来解决Hash冲突的问题。</p>
+<p>数组存储区间是连续的，占用内存严重，故空间复杂的很大。但数组的二分查找时间复杂度小，为O(1)；数组的特点是：寻址容易，插入和删除困难；</p>
+<p>链表存储区间离散，占用内存比较宽松，故空间复杂度很小，但时间复杂度很大，达O（N）。链表的特点是：寻址困难，插入和删除容易。</p>
+<p>2.HashMap采用数组+链表+红黑树实现。</p>
+<p>在Jdk1.8中HashMap的实现方式做了一些改变，但是基本思想还是没有变得，只是在一些地方做了优化，下面来看一下这些改变的地方,数据结构的存储由数组+链表的方式，变化为数组+链表+红黑树的存储方式，当链表长度超过阈值（8）时，将链表转换为红黑树。在性能上进一步得到提升。</p>
+<h3 id="Hashmap扩容"><a href="#Hashmap扩容" class="headerlink" title="Hashmap扩容"></a>Hashmap扩容</h3><h4 id="hashmap的loadfactory是干嘛的"><a href="#hashmap的loadfactory是干嘛的" class="headerlink" title="hashmap的loadfactory是干嘛的"></a>hashmap的loadfactory是干嘛的</h4><ul>
+<li>capacity 即容量，默认16。</li>
+<li>loadFactor 加载因子，默认是0.75</li>
+<li>threshold 阈值。阈值=容量*加载因子。默认12。当元素数量超过阈值时便会触发扩容。</li>
+</ul>
+<h4 id="hashmap的扩容"><a href="#hashmap的扩容" class="headerlink" title="hashmap的扩容"></a>hashmap的扩容</h4><p>一般情况下，当元素数量超过阈值时便会触发扩容。每次扩容的容量都是之前容量的2倍。</p>
+<p>HashMap的容量是有上限的，必须小于1&lt;&lt;30，即1073741824。如果容量超出了这个数，则不再增长，且阈值会被设置为Integer.MAX_VALUE（ [公式] ，即永远不会超出阈值了）。</p>
+<h4 id="为什么每次扩容都是翻倍，增加1-5倍不行吗；扩容的时候为啥不多扩一点，比如4倍"><a href="#为什么每次扩容都是翻倍，增加1-5倍不行吗；扩容的时候为啥不多扩一点，比如4倍" class="headerlink" title="为什么每次扩容都是翻倍，增加1.5倍不行吗；扩容的时候为啥不多扩一点，比如4倍"></a>为什么每次扩容都是翻倍，增加1.5倍不行吗；扩容的时候为啥不多扩一点，比如4倍</h4><p>理论上，扩容倍数用多少都行，1.5， 2.5 ，3.5都可以的，都能实现HashMap。</p>
+<p>实际上，HashMap选用了2倍，是为了做一个优化。回头看下HashMap的原理，它是用Key的哈希值，对应存放到数组的“指定位置”。就是在计算这个指定位置的时候，为了使得节点能够尽可能均匀地分布在数组上，会用Key的哈希值对数组长度取模来作为这个“目标位置”。比如一个Key的 hashCode() 是 1029991，而这个时候HashMap内部的数组长度是16，那么这个Key 会被存放在数组的第 1029991 % 16 = 7 位上。而取模运算本身是有一定的优化空间的，它可以在桶是2^n 的时候用位运算来代替，而位运算的性能则要好很多</p>
+<p>（详情可以看下：【Java】使用位运算(&amp;)代替取模运算(%) - 后端）。</p>
+<p>所以，HashMap的开发者想要优化下这个取模运算的速度，那么他就需要把HashMap内部的数组长度固定为 2^n 的长度了，也就是说HashMap里面的数组的长度，始终都是2的n次幂。为了实现这个效果，它的扩容因子很自然就是2倍了。</p>
+<p>当然，把扩容因子设置成4倍、8倍、16倍等等也是一样可以实现的。或者假如不想要这个优化，就想自己搞一个按照  1.5 倍速度扩容的HashMap的话，完全重写一个HashMap也是OK的，这个只是为了性能优化，而不是一定要这么做的。以上。</p>
+<h3 id="进程的用户栈和内核栈"><a href="#进程的用户栈和内核栈" class="headerlink" title="进程的用户栈和内核栈"></a>进程的用户栈和内核栈</h3><p>linux下的cpu有两个状态：内核态和用户态，内核态的cpu的权限高于用户态下的cpu。</p>
+<p>linux下的内存分为用户态内存和内核态内存，一般4个G内存，3个G的分给用户态，1个G分给内核态。<br>linux进程有时需要调用内核资源时，如读写文件，io读写等，这时候是通过系统调用实现对内核资源的访问的，在访问内核资源前是用户栈，经过系统调用进入到内核态时，cpu的状态也由用户态变为内核态，访问的内存就是内核态下管理的内存了-内核栈，对内核里的资源访问完返回，内存又回到了用户栈，cpu也回到用户态。</p>
+<h3 id="同步IO和异步IO"><a href="#同步IO和异步IO" class="headerlink" title="同步IO和异步IO"></a>同步IO和异步IO</h3><p>同步<br>发送一个请求，等待返回，再发送下一个请求，同步可以避免出现死锁，脏读的发生。</p>
+<p>异步<br>发送一个请求，不等待返回，随时可以再发送下一个请求，可以提高效率，保证并发。</p>
+<h3 id="先进先出分页置换算法"><a href="#先进先出分页置换算法" class="headerlink" title="先进先出分页置换算法"></a>先进先出分页置换算法</h3><p>先进先出算法是最简单的分页替换算法，是指每次有新的<a href="https://baike.baidu.com/item/分页/2888444" target="_blank" rel="noopener">分页</a>需要调入时，会选择调入内存时间最久的分页换出。它简单，容易实现，但这种绝对的公平方式容易导致效率的降低。</p>
+<p>特点：</p>
+<p><strong>优点</strong></p>
+<p>简单，且容易实现。</p>
+<p><strong>缺点</strong></p>
+<p>这种绝对的公平方式容易导致效率的降低。例如，如果最先加载进来的页面是经常被访问的页面，这样做很可能造成常被访问的页面替换到磁盘上，导致很快就需要再次发生缺页中断，从而降低效率。</p>
+<h3 id="同步-异步-谈谈你的理解"><a href="#同步-异步-谈谈你的理解" class="headerlink" title="同步 异步 谈谈你的理解"></a>同步 异步 谈谈你的理解</h3><p>在Java语言中，一共提供了三种IO模型，分别是阻塞IO（BIO）、非阻塞IO（NIO）、异步IO（AIO）。</p>
+<p>这里面的BIO和NIO都是同步的IO模型，即同步阻塞IO和同步非阻塞IO，异步IO指的是异步非阻塞IO。</p>
+<p>BIO （Blocking I/O）：同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。</p>
+<p>NIO （New I/O）：同时支持阻塞与非阻塞模式，但主要是使用同步非阻塞IO。</p>
+<p>AIO （Asynchronous I/O）：异步非阻塞I/O模型。</p>
+<p>可以拿烧水的例子来解释这三种I/O模型</p>
+<p>BIO （Blocking I/O）：有一排水壶在烧开水，BIO的工作模式就是，叫一个线程停留在一个水壶那，直到这个水壶烧开，才去处理下一个水壶。但是实际上线程在等待水壶烧开的时间段什么都没有做。</p>
+<p>NIO （New I/O）：NIO的做法是叫一个线程不断的轮询每个水壶的状态，看看是否有水壶的状态发生了改变，从而进行下一步的操作。</p>
+<p>AIO （ Asynchronous I/O）：为每个水壶上面装了一个开关，水烧开之后，水壶会自动通知我水烧开了。</p>
+<h3 id="java锁的理解"><a href="#java锁的理解" class="headerlink" title="java锁的理解"></a>java锁的理解</h3><p>一段synchronized的代码被一个线程执行之前，他要先拿到执行这段代码的权限，在Java里边就是拿到某个同步对象的锁（一个对象只有一把锁）； </p>
+<p>如果这个时候同步对象的锁被其他线程拿走了，他（这个线程）就只能等了（线程阻塞在锁池等待队列中）。</p>
+<p>取到锁后，他就开始执行同步代码(被synchronized修饰的代码）；</p>
+<p>线程执行完同步代码后马上就把锁还给同步对象，其他在锁池中等待的某个线程就可以拿到锁执行同步代码了。</p>
+<p>这样就保证了同步代码在统一时刻只有一个线程在执行。</p>
+<p>Java 中的锁有很多，可以按照不同的功能、种类进行分类，下面是我对 Java 中一些常用锁的分类，包括一些基本的概述。</p>
+<ul>
+<li>从线程是否需要对资源加锁可以分为 悲观锁 和 乐观锁</li>
+<li>从资源已被锁定，线程是否阻塞可以分为 自旋锁</li>
+<li>从多个线程并发访问资源，也就是 Synchronized 可以分为 无锁、偏向锁、 轻量级锁 和 重量级锁</li>
+<li>从锁的公平性进行区分，可以分为公平锁 和 非公平锁</li>
+<li>从根据锁是否重复获取可以分为 可重入锁 和 不可重入锁</li>
+<li>从那个多个线程能否获取同一把锁分为 共享锁 和 排他锁</li>
+</ul>
+<p>乐观锁：</p>
+<p>CAS 即 compare and swap（比较与交换），是一种有名的无锁算法。</p>
+<p>CAS 中涉及三个要素：</p>
+<ul>
+<li>需要读写的内存值 V</li>
+<li>进行比较的值 A</li>
+<li>拟写入的新值 B</li>
+</ul>
+<p><strong>循环开销大</strong><br>我们知道乐观锁在进行写操作的时候会判断是否能够写入成功，如果写入不成功将触发等待 -&gt; 重试机制，这种情况是一个自旋锁，简单来说就是适用于短期内获取不到，进行等待重试的锁，它不适用于长期获取不到锁的情况，另外，自旋循环对于性能开销比较大。</p>
+<p><strong>CAS与synchronized的使用情景</strong><br>简单的来说 CAS 适用于写比较少的情况下（多读场景，冲突一般较少），synchronized 适用于写比较多的情况下（多写场景，冲突一般较多）</p>
+<p>对于资源竞争较少（线程冲突较轻）的情况，使用 Synchronized 同步锁进行线程阻塞和唤醒切换以及用户态内核态间的切换操作额外浪费消耗 cpu 资源；</p>
+<p>而 CAS 基于硬件实现，不需要进入内核，不需要切换线程，操作自旋几率较少，因此可以获得更高的性能。</p>
+<p>对于资源竞争严重（线程冲突严重）的情况，CAS自旋的概率会比较大，从而浪费更多的 CPU 资源，效率低于 synchronized。</p>
+<p><strong>什么是自旋锁</strong></p>
+<p>自旋锁的定义：当一个线程尝试去获取某一把锁的时候，如果这个锁此时已经被别人获取(占用)，那么此线程就无法获取到这把锁，该线程将会等待，间隔一段时间后会再次尝试获取。这种采用循环加锁 -&gt; 等待的机制被称为自旋锁(spinlock)。</p>
+<p><strong>自旋锁的原理</strong></p>
+<p>自旋锁的原理比较简单，如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，它们只需要等一等(自旋)，等到持有锁的线程释放锁之后即可获取，这样就避免了用户进程和内核切换的消耗。</p>
+<p><strong>多个线程并发访问资源    锁状态的分类</strong><br>Java 语言专门针对 synchronized 关键字设置了四种状态，它们分别是：无锁、偏向锁、轻量级锁和重量级锁，但是在了解这些锁之前还需要先了解一下 Java 对象头和 Monitor。</p>
+<p><strong>无锁</strong><br>无锁状态，无锁即没有对资源进行锁定，所有的线程都可以对同一个资源进行访问，但是只有一个线程能够成功修改资源。</p>
+<p>无锁的特点就是在循环内进行修改操作，线程会不断的尝试修改共享资源，直到能够成功修改资源并退出，在此过程中没有出现冲突的发生，这很像我们在之前文章中介绍的 CAS 实现，CAS 的原理和应用就是无锁的实现。无锁无法全面代替有锁，但无锁在某些场合下的性能是非常高的。</p>
+<p><strong>偏向锁</strong><br>HotSpot 的作者经过研究发现，大多数情况下，锁不仅不存在多线程竞争，还存在锁由同一线程多次获得的情况，偏向锁就是在这种情况下出现的，它的出现是为了解决只有在一个线程执行同步时提高性能。</p>
+<p>可以从对象头的分配中看到，偏向锁要比无锁多了线程ID 和 epoch，下面我们就来描述一下偏向锁的获取过程</p>
+<p><strong>轻量级锁</strong><br>轻量级锁是指当前锁是偏向锁的时候，资源被另外的线程所访问，那么偏向锁就会升级为轻量级锁，其他线程会通过自旋的形式尝试获取锁，不会阻塞，从而提高性能，下面是详细的获取过程。</p>
+<p><strong>重量级锁</strong></p>
+<p>当前线程没有使用 CAS 成功获取锁，就会自旋一会儿，再次尝试获取，如果在多次自旋到达上限后还没有获取到锁，那么轻量级锁就会升级为 重量级锁。</p>
+<h3 id="进程通信和线程通信"><a href="#进程通信和线程通信" class="headerlink" title="进程通信和线程通信"></a>进程通信和线程通信</h3><p>对于进程来说，子进程是父进程的复制品，从父进程那里获得父进程的数据空间，堆和栈的复制品。</p>
+<p>而线程，相对于进程而言，是一个更加接近于执行体的概念，可以和同进程的其他线程之间直接共享数据，而且拥有自己的栈空间，拥有独立序列。</p>
+<p>共同点： 它们都能提高程序的并发度，提高程序运行效率和响应时间。线程和进程在使用上各有优缺点。 线程执行开销比较小，但不利于资源的管理和保护，而进程相反。同时，线程适合在SMP机器上运行，而进程可以跨机器迁移。</p>
+<p>他们之间根本区别在于：多进程中每个进程有自己的地址空间，线程则共享地址空间。所有其他区别都是因为这个区别产生的。比如说：</p>
+<p>　　1、速度。线程产生的速度快，通讯快，切换快，因为他们处于同一地址空间。</p>
+<p>　　2、线程的资源利用率好。</p>
+<p>　　3、线程使用公共变量或者内存的时候需要同步机制，但进程不用。</p>
+<p>　　而他们通信方式的差异也仍然是由于这个根本原因造成的。</p>
+<h3 id="hadoop生态圈"><a href="#hadoop生态圈" class="headerlink" title="hadoop生态圈"></a>hadoop生态圈</h3><p>1，HDFS（hadoop分布式文件系统）</p>
+<p>是hadoop体系中数据存储管理的基础。他是一个高度容错的系统，能检测和应对硬件故障。</p>
+<p>client：切分文件，访问HDFS，与namenode交互，获取文件位置信息，与DataNode交互，读取和写入数据。</p>
+<p> namenode：master节点，在hadoop1.x中只有一个，管理HDFS的名称空间和数据块映射信息，配置副本策略，处理客户端请求。</p>
+<p> DataNode：slave节点，存储实际的数据，汇报存储信息给namenode。</p>
+<p> secondary namenode：辅助namenode，分担其工作量：定期合并fsimage和fsedits，推送给namenode；紧急情况下和辅助恢复namenode，但其并非namenode的热备。</p>
+<p>2，mapreduce（分布式计算框架）</p>
+<p>mapreduce是一种计算模型，用于处理大数据量的计算。其中map对应数据集上的独立元素进行指定的操作，生成键-值对形式中间，reduce则对中间结果中相同的键的所有值进行规约，以得到最终结果。</p>
+<p>jobtracker：master节点，只有一个，管理所有作业，任务/作业的监控，错误处理等，将任务分解成一系列任务，并分派给tasktracker。</p>
+<p>tacktracker：slave节点，运行 map task和reducetask；并与jobtracker交互，汇报任务状态。</p>
+<p>map task：解析每条数据记录，传递给用户编写的map（）并执行，将输出结果写入到本地磁盘（如果为map—only作业，则直接写入HDFS）。</p>
+<p>reduce task：从map执行结果中，远程读取输入数据，对数据进行排序，将数据分组传递给用户编写的reduce函数执行。</p>
+<p>3， hive（基于hadoop的数据仓库）</p>
+<p>由Facebook开源，最初用于解决海量结构化的日志数据统计问题。</p>
+<p>hive定于了一种类似sql的查询语言（hql）将sql转化为mapreduce任务在hadoop上执行。</p>
+<p>4，hbase（分布式列存数据库）</p>
+<p>hbase是一个针对结构化数据的可伸缩，高可靠，高性能，分布式和面向列的动态模式数据库。和传统关系型数据库不同，hbase采用了bigtable的数据模型：增强了稀疏排序映射表（key/value）。其中，键由行关键字，列关键字和时间戳构成，hbase提供了对大规模数据的随机，实时读写访问，同时，hbase中保存的数据可以使用mapreduce来处理，它将数据存储和并行计算完美结合在一起。</p>
+<p>5，zookeeper（分布式协作服务）</p>
+<p>解决分布式环境下的数据管理问题：统一命名，状态同步，集群管理，配置同步等。</p>
+<p>6，sqoop（数据同步工具）</p>
+<p>sqoop是sql-to-hadoop的缩写，主要用于传统数据库和hadoop之间传输数据。</p>
+<p>数据的导入和导出本质上是mapreduce程序，充分利用了MR的并行化和容错性。</p>
+<p>7，pig（基于hadoop的数据流系统）</p>
+<p>定义了一种数据流语言-pig latin，将脚本转换为mapreduce任务在hadoop上执行。</p>
+<p>通常用于离线分析。</p>
+<p>8，mahout（数据挖掘算法库）</p>
+<p>mahout的主要目标是创建一些可扩展的机器学习领域经典算法的实现，旨在帮助开发人员更加方便快捷地创建只能应用程序。mahout现在已经包含了聚类，分类，推荐引擎（协同过滤）和频繁集挖掘等广泛使用的数据挖掘方法。除了算法是，mahout还包含了数据的输入/输出工具，与其他存储系统（如数据库，mongoDB或Cassandra）集成等数据挖掘支持架构。</p>
+<p>9，flume（日志收集工具）</p>
+<p>cloudera开源的日志收集系统，具有分布式，高可靠，高容错，易于定制和扩展的特点。他将数据从产生，传输，处理并写入目标的路径的过程抽象为数据流，在具体的数据流中，数据源支持在flume中定制数据发送方，从而支持收集各种不同协议数据。</p>
+<p>10，资源管理器的简单介绍（YARN和mesos）</p>
+<h3 id="你觉得spark-可以完全替代hadoop-么"><a href="#你觉得spark-可以完全替代hadoop-么" class="headerlink" title="你觉得spark 可以完全替代hadoop 么?"></a>你觉得spark 可以完全替代hadoop 么?</h3><p>Spark 会替代 MR，Spark 存储依赖 HDFS，资源调度依赖 YARN，集群管理依赖 Zookeeper。</p>
+<h3 id="Spark消费-Kafka，分布式的情况下，如何保证消息的顺序"><a href="#Spark消费-Kafka，分布式的情况下，如何保证消息的顺序" class="headerlink" title="Spark消费 Kafka，分布式的情况下，如何保证消息的顺序?"></a>Spark消费 Kafka，分布式的情况下，如何保证消息的顺序?</h3><p>Kafka 分布式的单位是 Partition。如何保证消息有序，需要分几个情况讨论。</p>
+<ul>
+<li>同一个 Partition 用一个 write ahead log 组织，所以可以保证 FIFO 的顺序。</li>
+<li>不同 Partition 之间不能保证顺序。但是绝大多数用户都可以通过 message key 来定义，因为同一个 key 的 message 可以保证只发送到同一个 Partition。比如说 key 是 user id，table row id 等等，所以同一个 user 或者同一个 record 的消息永远只会发送到同一个 Partition上，保证了同一个 user 或 record 的顺序。</li>
+<li>当然，如果你有 key skewness 就有些麻烦，需要特殊处理。</li>
+</ul>
+<p>实际情况中: （1）不关注顺序的业务大量存在；（2）队列无序不代表消息无序。</p>
+<p>第（2）条的意思是说:：我们不保证队列的全局有序，但可以保证消息的局部有序。举个例子: 保证来自同1个 order id 的消息，是有序的！</p>
+<p>Kafka 中发送1条消息的时候，可以指定(topic, partition, key) 3个参数。partiton 和 key 是可选的。如果你指定了 partition，那就是所有消息发往同1个 partition，就是有序的。并且在消费端，Kafka 保证，1个 partition 只能被1个 consumer 消费。</p>
+<p>或者你指定 key（比如 order id），具有同1个 key 的所有消息，会发往同1个 partition。也是有序的。</p>
+<h3 id="对于-Spark-中的数据倾斜问题你有什么好的方案？"><a href="#对于-Spark-中的数据倾斜问题你有什么好的方案？" class="headerlink" title="对于 Spark 中的数据倾斜问题你有什么好的方案？"></a>对于 Spark 中的数据倾斜问题你有什么好的方案？</h3><p>简单一句：Spark 数据倾斜的几种场景以及对应的解决方案，包括避免数据源倾斜，调整并行度，使用自定义 Partitioner，使用 Map 侧 Join 代替 Reduce 侧 Join（内存表合并），给倾斜 Key 加上随机前缀等。</p>
+<p>什么是数据倾斜 对 Spark/Hadoop 这样的大数据系统来讲，数据量大并不可怕，可怕的是数据倾斜。数据倾斜指的是，并行处理的数据集中，某一部分（如 Spark 或 Kafka 的一个 Partition）的数据显著多于其它部分，从而使得该部分的处理速度成为整个数据集处理的瓶颈（木桶效应）。</p>
+<p>数据倾斜是如何造成的 在 Spark 中，同一个 Stage 的不同 Partition 可以并行处理，而具有依赖关系的不同 Stage 之间是串行处理的。假设某个 Spark Job 分为 Stage 0和 Stage 1两个 Stage，且 Stage 1依赖于 Stage 0，那 Stage 0完全处理结束之前不会处理Stage 1。而 Stage 0可能包含 N 个 Task，这 N 个 Task 可以并行进行。如果其中 N-1个 Task 都在10秒内完成，而另外一个 Task 却耗时1分钟，那该 Stage 的总时间至少为1分钟。换句话说，一个 Stage 所耗费的时间，主要由最慢的那个 Task 决定。由于同一个 Stage 内的所有 Task 执行相同的计算，在排除不同计算节点计算能力差异的前提下，不同 Task 之间耗时的差异主要由该 Task 所处理的数据量决定。</p>
+<p>具体解决方案 ：</p>
+<ol>
+<li>调整并行度分散同一个 Task 的不同 Key：Spark 在做 Shuffle 时，默认使用 HashPartitioner对数据进行分区。如果并行度设置的不合适，可能造成大量不相同的 Key 对应的数据被分配到了同一个 Task 上，造成该 Task 所处理的数据远大于其它 Task，从而造成数据倾斜。如果调整 Shuffle 时的并行度，使得原本被分配到同一 Task 的不同 Key 发配到不同 Task 上处理，则可降低原 Task 所需处理的数据量，从而缓解数据倾斜问题造成的短板效应。</li>
+<li>自定义Partitioner：使用自定义的 Partitioner（默认为 HashPartitioner），将原本被分配到同一个 Task 的不同 Key 分配到不同 Task，可以拿上图继续想象一下，通过自定义 Partitioner 可以把原本分到 Task0 的 Key 分到 Task1，那么 Task0 的要处理的数据量就少了。 </li>
+<li>将 Reduce side（侧） Join 转变为 Map side（侧） Join：通过 Spark 的 Broadcast 机制，将 Reduce 侧 Join 转化为 Map 侧 Join，避免 Shuffle 从而完全消除 Shuffle 带来的数据倾斜。可以看到 RDD2 被加载到内存中了。</li>
+<li>为 skew 的 key 增加随机前/后缀：为数据量特别大的 Key 增加随机前/后缀，使得原来 Key 相同的数据变为 Key 不相同的数据，从而使倾斜的数据集分散到不同的 Task 中，彻底解决数据倾斜问题。Join 另一则的数据中，与倾斜 Key 对应的部分数据，与随机前缀集作笛卡尔乘积，从而保证无论数据倾斜侧倾斜 Key 如何加前缀，都能与之正常 Join。</li>
+<li>大表随机添加 N 种随机前缀，小表扩大 N 倍：如果出现数据倾斜的 Key 比较多，上一种方法将这些大量的倾斜 Key 分拆出来，意义不大（很难一个 Key 一个 Key 都加上后缀）。此时更适合直接对存在数据倾斜的数据集全部加上随机前缀，然后对另外一个不存在严重数据倾斜的数据集整体与随机前缀集作笛卡尔乘积（即将数据量扩大 N 倍），可以看到 RDD2 扩大了 N 倍了，再和加完前缀的大数据做笛卡尔积。</li>
+</ol>
+<h3 id="你所理解的-Spark-的-shuffle-过程？"><a href="#你所理解的-Spark-的-shuffle-过程？" class="headerlink" title="你所理解的 Spark 的 shuffle 过程？"></a>你所理解的 Spark 的 shuffle 过程？</h3><p>Spark shuffle 处于一个宽依赖，可以实现类似混洗的功能，将相同的 Key 分发至同一个 Reducer上进行处理。</p>
+<h3 id="Spark有哪些聚合类的算子-我们应该尽量避免什么类型的算子？"><a href="#Spark有哪些聚合类的算子-我们应该尽量避免什么类型的算子？" class="headerlink" title="Spark有哪些聚合类的算子,我们应该尽量避免什么类型的算子？"></a>Spark有哪些聚合类的算子,我们应该尽量避免什么类型的算子？</h3><p>在我们的开发过程中，能避免则尽可能避免使用 reduceByKey、join、distinct、repartition 等会进行 shuffle 的算子，尽量使用 map 类的非 shuffle 算子。这样的话，没有 shuffle 操作或者仅有较少 shuffle 操作的 Spark 作业，可以大大减少性能开销。</p>
+<h1 id="spark-on-yarn-作业执行流程，yarn-client-和-yarn-cluster-有什么区别"><a href="#spark-on-yarn-作业执行流程，yarn-client-和-yarn-cluster-有什么区别" class="headerlink" title="spark on yarn 作业执行流程，yarn-client 和 yarn cluster 有什么区别"></a><strong>spark on yarn 作业执行流程，yarn-client 和 yarn cluster 有什么区别</strong></h1><p>Spark On Yarn 的优势 </p>
+<p>\1.Spark 支持资源动态共享，运行于 Yarn 的框架都共享一个集中配置好的资源池 </p>
+<p>\2.可以很方便的利用 Yarn 的资源调度特性来做分类·，隔离以及优先级控制负载，拥有更灵活的调度策略 </p>
+<p>\3.Yarn 可以自由地选择 executor 数量 </p>
+<p>\4.Yarn 是唯一支持 Spark 安全的集群管理器，使用 Yarn，Spark 可以运行于 Kerberos Hadoop 之上，在它们进程之间进行安全认证</p>
+<p>yarn-client 和 yarn cluster 的异同 ：</p>
+<p>\1. 从广义上讲，yarn-cluster 适用于生产环境。而 yarn-client 适用于交互和调试，也就是希望快速地看到 application 的输出。</p>
+<p>\2.从深层次的含义讲，yarn-cluster 和 yarn-client 模式的区别其实就是 Application Master 进程的区别，yarn-cluster 模式下，driver 运行在 AM(Application Master)中，它负责向 YARN 申请资源，并监督作业的运行状况。当用户提交了作业之后，就可以关掉 Client，作业会继续在 YARN 上运行。然而 yarn-cluster 模式不适合运行交互类型的作业。而 yarn-client 模式下，Application Master 仅仅向 YARN 请求 executor，Client 会和请求的 container 通信来调度他们工作，也就是说 Client 不能离开。</p>
+<h3 id="Spark为什么快，Spark-SQL-一定比-Hive-快吗"><a href="#Spark为什么快，Spark-SQL-一定比-Hive-快吗" class="headerlink" title="Spark为什么快，Spark SQL 一定比 Hive 快吗"></a>Spark为什么快，Spark SQL 一定比 Hive 快吗</h3><p>Spark SQL 比 Hadoop Hive 快，是有一定条件的，而且不是 Spark SQL 的引擎比 Hive 的引擎快，相反，Hive 的 HQL 引擎还比 Spark SQL 的引擎更快。其实，关键还是在于 Spark 本身快。</p>
+<ol>
+<li><p>消除了冗余的 HDFS 读写：Hadoop 每次 shuffle 操作后，必须写到磁盘，而 Spark 在 shuffle 后不一定落盘，可以 cache 到内存中，以便迭代时使用。如果操作复杂，很多的 shufle 操作，那么 Hadoop 的读写 IO 时间会大大增加，也是 Hive 更慢的主要原因了。</p>
+</li>
+<li><p>消除了冗余的 MapReduce 阶段：Hadoop 的 shuffle 操作一定连着完整的 MapReduce 操作，冗余繁琐。而 Spark 基于 RDD 提供了丰富的算子操作，且 reduce 操作产生 shuffle 数据，可以缓存在内存中。</p>
+</li>
+<li><p>JVM 的优化：Hadoop 每次 MapReduce 操作，启动一个 Task 便会启动一次 JVM，基于进程的操作。而 Spark 每次 MapReduce 操作是基于线程的，只在启动 Executor 是启动一次 JVM，内存的 Task 操作是在线程复用的。每次启动 JVM 的时间可能就需要几秒甚至十几秒，那么当 Task 多了，这个时间 Hadoop 不知道比 Spark 慢了多少。</p>
+</li>
+</ol>
+<p>记住一种反例 考虑一种极端查询:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Select</span> month_id, <span class="keyword">sum</span>(sales) <span class="keyword">from</span> T <span class="keyword">group</span> <span class="keyword">by</span> month_id;</span><br></pre></td></tr></table></figure>
+
+<p>这个查询只有一次 shuffle 操作，此时，也许 Hive HQL 的运行时间也许比 Spark 还快，反正 shuffle 完了都会落一次盘，或者都不落盘。</p>
+<p>结论 Spark 快不是绝对的，但是绝大多数，Spark 都比 Hadoop 计算要快。这主要得益于其对 mapreduce 操作的优化以及对 JVM 使用的优化。</p>
+<h3 id="RDD-DAG-Stage怎么理解？"><a href="#RDD-DAG-Stage怎么理解？" class="headerlink" title="RDD, DAG, Stage怎么理解？"></a>RDD, DAG, Stage怎么理解？</h3><p>DAG：Spark 中使用 DAG 对 RDD 的关系进行建模，描述了 RDD 的依赖关系，这种关系也被称之为 lineage（血缘），RDD 的依赖关系使用 Dependency 维护。DAG 在 Spark 中的对应的实现为 DAGScheduler。</p>
+<p>RDD：RDD 是 Spark 的灵魂，也称为弹性分布式数据集。一个 RDD 代表一个可以被分区的只读数据集。RDD 内部可以有许多分区(partitions)，每个分区又拥有大量的记录(records)。</p>
+<p>Rdd的五个特征：</p>
+<ol>
+<li><p>dependencies：建立 RDD 的依赖关系，主要 RDD 之间是宽窄依赖的关系，具有窄依赖关系的 RDD 可以在同一个 stage 中进行计算。</p>
+</li>
+<li><p>partition：一个 RDD 会有若干个分区，分区的大小决定了对这个 RDD 计算的粒度，每个 RDD 的分区的计算都在一个单独的任务中进行。</p>
+</li>
+<li><p>preferedlocations：按照“移动数据不如移动计算”原则，在 Spark 进行任务调度的时候，优先将任务分配到数据块存储的位置。</p>
+</li>
+<li><p>compute：Spark 中的计算都是以分区为基本单位的，compute 函数只是对迭代器进行复合，并不保存单次计算的结果。</p>
+</li>
+<li><p>partitioner: 只存在于（K,V）类型的 RDD 中，非（K,V）类型的 partitioner 的值就是 None。</p>
+</li>
+</ol>
+<p>RDD 的算子主要分成2类，action 和 transformation。这里的算子概念，可以理解成就是对数据集的变换。action 会触发真正的作业提交，而 transformation 算子是不会立即触发作业提交的。每一个 transformation 方法返回一个新的 RDD。只是某些 transformation 比较复杂，会包含多个子 transformation，因而会生成多个 RDD。这就是实际 RDD 个数比我们想象的多一些 的原因。通常是，当遇到 action 算子时会触发一个job的提交，然后反推回去看前面的 transformation 算子，进而形成一张有向无环图。</p>
+<p>Stage 在 DAG 中又进行 stage 的划分，划分的依据是依赖是否是 shuffle 的，每个 stage 又可以划分成若干 task。接下来的事情就是 driver 发送 task 到 executor，executor 自己的线程池去执行这些 task，完成之后将结果返回给 driver。action 算子是划分不同 job 的依据。</p>
+<h3 id="RDD-如何通过记录更新的方式容错"><a href="#RDD-如何通过记录更新的方式容错" class="headerlink" title="RDD 如何通过记录更新的方式容错"></a><strong>RDD 如何通过记录更新的方式容错</strong></h3><p>RDD 的容错机制实现分布式数据集容错方法有两种：1. 数据检查点 2. 记录更新。</p>
+<p>RDD 采用记录更新的方式：记录所有更新点的成本很高。所以，RDD只支持粗颗粒变换，即只记录单个块（分区）上执行的单个操作，然后创建某个 RDD 的变换序列（血统 lineage）存储下来；变换序列指，每个 RDD 都包含了它是如何由其他 RDD 变换过来的以及如何重建某一块数据的信息。因此 RDD 的容错机制又称“血统”容错。</p>
+<h3 id="宽依赖、窄依赖怎么理解？"><a href="#宽依赖、窄依赖怎么理解？" class="headerlink" title="宽依赖、窄依赖怎么理解？"></a>宽依赖、窄依赖怎么理解？</h3><p>窄依赖指的是每一个 parent RDD 的 partition 最多被子 RDD 的一个 partition 使用（一子一亲）。</p>
+<p>宽依赖指的是多个子 RDD 的 partition 会依赖同一个 parent RDD的 partition（多子一亲）。</p>
+<p>RDD 作为数据结构，本质上是一个只读的分区记录集合。一个 RDD 可以包含多个分区，每个分区就是一个 dataset 片段。RDD 可以相互依赖。</p>
+<p>首先，窄依赖可以支持在同一个 cluster node上，以 pipeline 形式执行多条命令（也叫同一个 stage 的操作），例如在执行了 map 后，紧接着执行 filter。相反，宽依赖需要所有的父分区都是可用的，可能还需要调用类似 MapReduce 之类的操作进行跨节点传递。</p>
+<p>其次，则是从失败恢复的角度考虑。窄依赖的失败恢复更有效，因为它只需要重新计算丢失的 parent partition 即可，而且可以并行地在不同节点进行重计算（一台机器太慢就会分配到多个节点进行），相反，宽依赖牵涉 RDD 各级的多个 parent partition。</p>
+<h3 id="Job-和-Task-怎么理解"><a href="#Job-和-Task-怎么理解" class="headerlink" title="Job 和 Task 怎么理解"></a>Job 和 Task 怎么理解</h3><p>Job：Spark 的 Job 来源于用户执行 action 操作（这是 Spark 中实际意义的 Job），就是从 RDD 中获取结果的操作，而不是将一个 RDD 转换成另一个 RDD 的 transformation 操作。</p>
+<p>Task：一个 Stage 内，最终的 RDD 有多少个 partition，就会产生多少个 task。看一看图就明白了，可以数一数每个 Stage 有多少个 Task。</p>
+<h3 id="Spark-血统的概念"><a href="#Spark-血统的概念" class="headerlink" title="Spark 血统的概念"></a>Spark 血统的概念</h3><p>RDD 的 lineage 记录的是粗颗粒度的特定数据转换（transformation）操作（filter, map, join etc.)行为。当这个 RDD 的部分分区数据丢失时，它可以通过 lineage 获取足够的信息来重新运算和恢复丢失的数据分区。这种粗颗粒的数据模型，限制了 Spark 的运用场合，但同时相比细颗粒度的数据模型，也带来了性能的提升。</p>
+<h3 id="任务的概念"><a href="#任务的概念" class="headerlink" title="任务的概念"></a>任务的概念</h3><p>包含很多 task 的并行计算，可以认为是 Spark RDD 里面的 action，每个 action 的计算会生成一个 job。用户提交的 job 会提交给 DAGScheduler，job 会被分解成 Stage 和 Task。</p>
+<h3 id="容错方法"><a href="#容错方法" class="headerlink" title="容错方法"></a>容错方法</h3><p>Spark 选择记录更新的方式。但是，如果更新粒度太细太多，那么记录更新成本也不低。因此，RDD只支持粗粒度转换，即只记录单个块上执行的单个操作，然后将创建 RDD 的一系列变换序列（每个 RDD 都包含了他是如何由其他 RDD 变换过来的以及如何重建某一块数据的信息。因此 RDD 的容错机制又称血统容错）记录下来，以便恢复丢失的分区。lineage本质上很类似于数据库中的重做日志（Redo Log），只不过这个重做日志粒度很大，是对全局数据做同样的重做进而恢复数据。</p>
+<p>相比其他系统的细颗粒度的内存数据更新级别的备份或者 LOG 机制，RDD 的 lineage 记录的是粗颗粒度的特定数据 transformation 操作行为。当这个 RDD 的部分分区数据丢失时，它可以通过 lineage 获取足够的信息来重新运算和恢复丢失的数据分区。</p>
+<h3 id="Spark-粗粒度和细粒度调度"><a href="#Spark-粗粒度和细粒度调度" class="headerlink" title="Spark 粗粒度和细粒度调度"></a>Spark 粗粒度和细粒度调度</h3><p>Spark 中，每个 application 对应一个 SparkContext。对于 SparkContext 之间的调度关系，取决于 Spark 的运行模式。对 Standalone 模式而言，Spark Master 节点先计算集群内的计算资源能否满足等待队列中的应用对内存和 CPU 资源的需求，如果可以，则 Master 创建 Spark Driver，启动应用的执行。宏观上来讲，这种对应用的调度类似于 FIFO 策略。在 Mesos 和 Yarn 模式下，底层的资源调度系统的调度策略都是由 Mesos 和 Yarn 决定的。具体分类描述如下：</p>
+<ol>
+<li>Standalone 模式：默认以用户提交 Applicaiton 的顺序来调度，即 FIFO 策略。每个应用执行时独占所有资源。如果有多个用户要共享集群资源，则可以使用参数 <code>spark.cores.max</code> 来配置应用在集群中可以使用的最大 CPU 核的数量。如果不配置，则采用默认参数 <code>spark.deploy.defaultCore</code> 的值来确定。</li>
+<li>Mesos 模式：如果在 Mesos 上运行 Spark，用户想要静态配置资源的话，可以设置 <code>spark.mesos.coarse</code> 为 true，这样 Mesos 变为粗粒度调度模式。然后可以设置 <code>spark.cores.max</code> 指定集群中可以使用的最大核数，与上面 Standalone 模式类似。同时，在 Mesos 模式下，用户还可以设置参数 <code>spark.executor.memory</code> 来配置每个 executor 的内存使用量。如果想使 Mesos 在细粒度模式下运行，可以通过 <code>mesos://</code> 设置动态共享 CPU core 的执行模式。在这种模式下，应用不执行时的空闲 CPU 资源得以被其他用户使用，提升了 CPU 使用率。</li>
+</ol>
+<h3 id="Spark优越性"><a href="#Spark优越性" class="headerlink" title="Spark优越性"></a>Spark优越性</h3><p>一、Spark 的5大优势：</p>
+<ol>
+<li><p>更高的性能。因为数据被加载到集群主机的分布式内存中。数据可以被快速的转换迭代，并缓存用以后续的频繁访问需求。在数据全部加载到内存的情况下，Spark可以比Hadoop快100倍，在内存不够存放所有数据的情况下快hadoop10倍。</p>
+</li>
+<li><p>通过建立在Java,Scala,Python,SQL（应对交互式查询）的标准API以方便各行各业使用，同时还含有大量开箱即用的机器学习库。</p>
+</li>
+<li><p>与现有Hadoop 1和2.x(YARN)生态兼容，因此机构可以无缝迁移。</p>
+</li>
+<li><p>方便下载和安装。方便的shell（REPL: Read-Eval-Print-Loop）可以对API进行交互式的学习。</p>
+</li>
+<li><p>借助高等级的架构提高生产力，从而可以讲精力放到计算上。</p>
+</li>
+</ol>
+<p>二、MapReduce与Spark相比，有哪些异同点：</p>
+<p>1、基本原理上：（1） MapReduce：基于磁盘的大数据批量处理系统 （2）Spark：基于RDD(弹性分布式数据集)数据处理，显示将RDD数据存储到磁盘和内存中。</p>
+<p>2、模型上：（1） MapReduce可以处理超大规模的数据，适合日志分析挖掘等较少的迭代的长任务需求，结合了数据的分布式的计算。（2） Spark：适合数据的挖掘，机器学习等多轮迭代式计算任务。</p>
+<h3 id="Transformation和action是什么？区别？举几个常用方法"><a href="#Transformation和action是什么？区别？举几个常用方法" class="headerlink" title="Transformation和action是什么？区别？举几个常用方法"></a><strong>Transformation和action是什么？区别？举几个常用方法</strong></h3><p>RDD 创建后就可以在 RDD 上进行数据处理。RDD 支持两种操作：1. 转换（transformation）: 即从现有的数据集创建一个新的数据集 2. 动作（action）: 即在数据集上进行计算后，返回一个值给 Driver 程序</p>
+<p>RDD 的转化操作是返回一个新的 RDD 的操作，比如 map() 和 filter() ，而行动操作则是向驱动器程序返回结果或把结果写入外部系统的操作，会触发实际的计算，比如 count() 和 first() 。Spark 对待转化操作和行动操作的方式很不一样，因此理解你正在进行的操作的类型是很重要的。如果对于一个特定的函数是属于转化操作还是行动操作感到困惑，你可以看看它的返回值类型：转化操作返回的是 RDD，而行动操作返回的是其他的数据类型。</p>
+<p>RDD 中所有的 Transformation 都是惰性的，也就是说，它们并不会直接计算结果。相反的它们只是记住了这些应用到基础数据集（例如一个文件）上的转换动作。只有当发生一个要求返回结果给 Driver 的 Action 时，这些 Transformation 才会真正运行。</p>
+<p>这个设计让 Spark 更加有效的运行。</p>
+<h3 id="Spark作业提交流程是怎么样的"><a href="#Spark作业提交流程是怎么样的" class="headerlink" title="Spark作业提交流程是怎么样的"></a><strong>Spark作业提交流程是怎么样的</strong></h3><ul>
+<li><code>spark-submit</code> 提交代码，执行 <code>new SparkContext()</code>，在 SparkContext 里构造 <code>DAGScheduler</code> 和 <code>TaskScheduler</code>。</li>
+<li>TaskScheduler 会通过后台的一个进程，连接 Master，向 Master 注册 Application。</li>
+<li>Master 接收到 Application 请求后，会使用相应的资源调度算法，在 Worker 上为这个 Application 启动多个 Executer。</li>
+<li>Executor 启动后，会自己反向注册到 TaskScheduler 中。所有 Executor 都注册到 Driver 上之后，SparkContext 结束初始化，接下来往下执行我们自己的代码。</li>
+<li>每执行到一个 Action，就会创建一个 Job。Job 会提交给 DAGScheduler。</li>
+<li>DAGScheduler 会将 Job划分为多个 stage，然后每个 stage 创建一个 TaskSet。</li>
+<li>TaskScheduler 会把每一个 TaskSet 里的 Task，提交到 Executor 上执行。</li>
+<li>Executor 上有线程池，每接收到一个 Task，就用 TaskRunner 封装，然后从线程池里取出一个线程执行这个 task。(TaskRunner 将我们编写的代码，拷贝，反序列化，执行 Task，每个 Task 执行 RDD 里的一个 partition)</li>
+</ul>
+<h3 id="Spark-streamning工作流程是怎么样的，和Storm比有什么区别"><a href="#Spark-streamning工作流程是怎么样的，和Storm比有什么区别" class="headerlink" title="Spark streamning工作流程是怎么样的，和Storm比有什么区别"></a>Spark streamning工作流程是怎么样的，和Storm比有什么区别</h3><p>Spark Streaming 与 Storm 都可以用于进行实时流计算。但是他们两者的区别是非常大的。其中区别之一，就是，Spark Streaming 和 Storm 的计算模型完全不一样，Spark Streaming 是基于 RDD 的，因此需要将一小段时间内的，比如1秒内的数据，收集起来，作为一个 RDD，然后再针对这个 batch 的数据进行处理。</p>
+<p>而 Storm 却可以做到每来一条数据，都可以立即进行处理和计算。因此，Spark Streaming 实际上严格意义上来说，只能称作准实时的流计算框架；而 Storm 是真正意义上的实时计算框架。</p>
+<p>此外，Storm 支持的一项高级特性，是 Spark Streaming 暂时不具备的，即 Storm 支持在分布式流式计算程序（Topology）在运行过程中，可以动态地调整并行度，从而动态提高并发处理能力。而 Spark Streaming 是无法动态调整并行度的。</p>
+<p>但是 Spark Streaming 也有其优点，首先 Spark Streaming 由于是基于 batch 进行处理的，因此相较于 Storm 基于单条数据进行处理，具有数倍甚至数十倍的吞吐量。此外，Spark Streaming 由于也身处于 Spark 生态圈内，因此Spark Streaming可以与Spark Core、Spark SQL，甚至是Spark MLlib、Spark GraphX进行无缝整合。</p>
+<p>流式处理完的数据，可以立即进行各种map、reduce转换操作，可以立即使用sql进行查询，甚至可以立即使用machine learning或者图计算算法进行处理。这种一站式的大数据处理功能和优势，是 Storm 无法匹敌的。因此，综合上述来看，通常在对实时性要求特别高，而且实时数据量不稳定，比如在白天有高峰期的情况下，可以选择使用 Storm。但是如果是对实时性要求一般，允许1秒的准实时处理，而且不要求动态调整并行度的话，选择Spark Streaming是更好的选择。</p>
+
       
     </div>
     
@@ -380,6 +716,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试题/" rel="tag"># 面试题</a>
+          
+        </div>
       
 
       
@@ -399,6 +741,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/28/面试题随笔-21-3-28/" rel="prev" title="面试题随笔-21/3/28">
+                面试题随笔-21/3/28 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -455,8 +801,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -473,7 +828,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -528,6 +883,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题随笔-21-3-27"><span class="nav-number">1.</span> <span class="nav-text">面试题随笔-21/3/27</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用层协议"><span class="nav-number">1.1.</span> <span class="nav-text">应用层协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么场景用TCP，什么场景用UDP"><span class="nav-number">1.2.</span> <span class="nav-text">什么场景用TCP，什么场景用UDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP状态码都有哪些，具体说一下"><span class="nav-number">1.3.</span> <span class="nav-text">HTTP状态码都有哪些，具体说一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP长连接和短连接"><span class="nav-number">1.4.</span> <span class="nav-text">HTTP长连接和短连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url和uri的区别"><span class="nav-number">1.5.</span> <span class="nav-text">url和uri的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http请求头的一些字段内容"><span class="nav-number">1.6.</span> <span class="nav-text">http请求头的一些字段内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashmap的实现"><span class="nav-number">1.7.</span> <span class="nav-text">hashmap的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashmap扩容"><span class="nav-number">1.8.</span> <span class="nav-text">Hashmap扩容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hashmap的loadfactory是干嘛的"><span class="nav-number">1.8.1.</span> <span class="nav-text">hashmap的loadfactory是干嘛的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hashmap的扩容"><span class="nav-number">1.8.2.</span> <span class="nav-text">hashmap的扩容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么每次扩容都是翻倍，增加1-5倍不行吗；扩容的时候为啥不多扩一点，比如4倍"><span class="nav-number">1.8.3.</span> <span class="nav-text">为什么每次扩容都是翻倍，增加1.5倍不行吗；扩容的时候为啥不多扩一点，比如4倍</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的用户栈和内核栈"><span class="nav-number">1.9.</span> <span class="nav-text">进程的用户栈和内核栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步IO和异步IO"><span class="nav-number">1.10.</span> <span class="nav-text">同步IO和异步IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先进先出分页置换算法"><span class="nav-number">1.11.</span> <span class="nav-text">先进先出分页置换算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步-异步-谈谈你的理解"><span class="nav-number">1.12.</span> <span class="nav-text">同步 异步 谈谈你的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java锁的理解"><span class="nav-number">1.13.</span> <span class="nav-text">java锁的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程通信和线程通信"><span class="nav-number">1.14.</span> <span class="nav-text">进程通信和线程通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop生态圈"><span class="nav-number">1.15.</span> <span class="nav-text">hadoop生态圈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你觉得spark-可以完全替代hadoop-么"><span class="nav-number">1.16.</span> <span class="nav-text">你觉得spark 可以完全替代hadoop 么?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark消费-Kafka，分布式的情况下，如何保证消息的顺序"><span class="nav-number">1.17.</span> <span class="nav-text">Spark消费 Kafka，分布式的情况下，如何保证消息的顺序?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于-Spark-中的数据倾斜问题你有什么好的方案？"><span class="nav-number">1.18.</span> <span class="nav-text">对于 Spark 中的数据倾斜问题你有什么好的方案？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你所理解的-Spark-的-shuffle-过程？"><span class="nav-number">1.19.</span> <span class="nav-text">你所理解的 Spark 的 shuffle 过程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark有哪些聚合类的算子-我们应该尽量避免什么类型的算子？"><span class="nav-number">1.20.</span> <span class="nav-text">Spark有哪些聚合类的算子,我们应该尽量避免什么类型的算子？</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#spark-on-yarn-作业执行流程，yarn-client-和-yarn-cluster-有什么区别"><span class="nav-number"></span> <span class="nav-text">spark on yarn 作业执行流程，yarn-client 和 yarn cluster 有什么区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark为什么快，Spark-SQL-一定比-Hive-快吗"><span class="nav-number">0.1.</span> <span class="nav-text">Spark为什么快，Spark SQL 一定比 Hive 快吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDD-DAG-Stage怎么理解？"><span class="nav-number">0.2.</span> <span class="nav-text">RDD, DAG, Stage怎么理解？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDD-如何通过记录更新的方式容错"><span class="nav-number">0.3.</span> <span class="nav-text">RDD 如何通过记录更新的方式容错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#宽依赖、窄依赖怎么理解？"><span class="nav-number">0.4.</span> <span class="nav-text">宽依赖、窄依赖怎么理解？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Job-和-Task-怎么理解"><span class="nav-number">0.5.</span> <span class="nav-text">Job 和 Task 怎么理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-血统的概念"><span class="nav-number">0.6.</span> <span class="nav-text">Spark 血统的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务的概念"><span class="nav-number">0.7.</span> <span class="nav-text">任务的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容错方法"><span class="nav-number">0.8.</span> <span class="nav-text">容错方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-粗粒度和细粒度调度"><span class="nav-number">0.9.</span> <span class="nav-text">Spark 粗粒度和细粒度调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark优越性"><span class="nav-number">0.10.</span> <span class="nav-text">Spark优越性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformation和action是什么？区别？举几个常用方法"><span class="nav-number">0.11.</span> <span class="nav-text">Transformation和action是什么？区别？举几个常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark作业提交流程是怎么样的"><span class="nav-number">0.12.</span> <span class="nav-text">Spark作业提交流程是怎么样的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark-streamning工作流程是怎么样的，和Storm比有什么区别"><span class="nav-number">0.13.</span> <span class="nav-text">Spark streamning工作流程是怎么样的，和Storm比有什么区别</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
