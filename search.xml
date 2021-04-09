@@ -3,7 +3,37 @@
   <entry>
     <title>面试题随笔-21/4/9</title>
     <url>/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-9/</url>
-    <content><![CDATA[<h3 id="红黑树理解"><a href="#红黑树理解" class="headerlink" title="红黑树理解"></a>红黑树理解</h3>]]></content>
+    <content><![CDATA[<h3 id="红黑树理解"><a href="#红黑树理解" class="headerlink" title="红黑树理解"></a>红黑树理解</h3><p>红黑树的性质（重点）：</p>
+<ol>
+<li>每个结点不是红色就是黑色</li>
+<li>不可能有连在一起的红色结点</li>
+<li>根结点都是黑色</li>
+<li>每个红色结点的两个子结点都是黑色。叶子结点都是黑色：出度为0</li>
+</ol>
+<p>变换规则</p>
+<p>旋转和颜色的变换规则：所有插入的点默认为红色</p>
+<ol>
+<li>变颜色的情况：当前结点的父亲是红色，且它的祖父结点的另一个子结点也是红色。（叔叔结点）<ol>
+<li>把父结点设为黑色</li>
+<li>把叔叔结点设为黑色</li>
+<li>把祖父也就是父亲的父亲设为红色（爷爷）</li>
+<li>把指针定义到祖父结点设为当前要操作的。（爷爷）分析的点变换规则</li>
+</ol>
+</li>
+<li>左旋：当前父结点是红色，叔叔是黑色的时候，且当前的结点是右子树。左旋以父结点作为左旋。</li>
+<li>右旋：当前父结点是红色，叔叔是黑色的时候，且当前的结点是左子树。右旋<ol>
+<li>把父结点设为黑色</li>
+<li>把祖父结点变为红色（爷爷）</li>
+<li>以祖父结点旋转（爷爷）</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://lixiangbetter.github.io/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-9/1617936441936.jpg" alt></p>
+<p><img src="https://lixiangbetter.github.io/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-9/1617936527318.jpg" alt></p>
+<p>b站链接：<a href="https://www.bilibili.com/video/BV1tE411f7tP?p=4" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1tE411f7tP?p=4</a></p>
+<h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>记录一片博客<a href="http://www.liuzk.com/410.html" target="_blank" rel="noopener">http://www.liuzk.com/410.html</a></p>
+<p>写的比较好</p>
+]]></content>
       <categories>
         <category>算法</category>
       </categories>
