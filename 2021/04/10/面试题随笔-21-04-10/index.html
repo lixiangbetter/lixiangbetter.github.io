@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="刷题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今日面经链接：https://www.nowcoder.com/discuss/630480?source_id=profile_create_nctrack&amp;amp;channel=-1 HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序如果快速查询（从磁盘读数据），hbase是根据rowkey查询的，只要能快速的定位rowkey, 就能实现快">
+<meta name="keywords" content="刷题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题随笔-21&#x2F;04&#x2F;10">
+<meta property="og:url" content="http://yoursite.com/2021/04/10/面试题随笔-21-04-10/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="今日面经链接：https://www.nowcoder.com/discuss/630480?source_id=profile_create_nctrack&amp;amp;channel=-1 HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序如果快速查询（从磁盘读数据），hbase是根据rowkey查询的，只要能快速的定位rowkey, 就能实现快">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/04/10/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-04-10/1281680-20190117145740508-758737271.png">
+<meta property="og:updated_time" content="2021-04-10T12:51:06.960Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题随笔-21&#x2F;04&#x2F;10">
+<meta name="twitter:description" content="今日面经链接：https://www.nowcoder.com/discuss/630480?source_id=profile_create_nctrack&amp;amp;channel=-1 HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序如果快速查询（从磁盘读数据），hbase是根据rowkey查询的，只要能快速的定位rowkey, 就能实现快">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2021/04/10/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-04-10/1281680-20190117145740508-758737271.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/10/面试题随笔-21-04-10/">
+
+
+
+
+
+  <title>面试题随笔-21/04/10 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/10/面试题随笔-21-04-10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题随笔-21/04/10</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-10T16:48:00+08:00">
+                2021-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="今日面经"><a href="#今日面经" class="headerlink" title="今日面经"></a>今日面经</h2><p>链接：<a href="https://www.nowcoder.com/discuss/630480?source_id=profile_create_nctrack&amp;channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/630480?source_id=profile_create_nctrack&amp;channel=-1</a></p>
+<h3 id="HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序"><a href="#HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序" class="headerlink" title="HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序"></a>HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序</h3><p>如果快速查询（从磁盘读数据），hbase是根据rowkey查询的，只要能快速的定位rowkey, 就能实现快速的查询，主要是以下因素：<br>   1、hbase是可划分成多个region，你可以简单的理解为关系型数据库的多个分区。<br>   2、键是排好序了的<br>   3、按列存储的</p>
+<ol>
+<li><p>首先，能快速找到行所在的region(分区)，假设表有10亿条记录，占空间1TB,  分列成了500个region, 1个region占2个G. 最多读取2G的记录，就能找到对应记录； </p>
+</li>
+<li><p>其次，是按列存储的，其实是列族，假设分为3个列族，每个列族就是666M， 如果要查询的东西在其中1个列族上，1个列族包含1个或者多个 HStoreFile，假设一个HStoreFile是128M， 该列族包含5个HStoreFile在磁盘上. 剩下的在内存中。</p>
+</li>
+<li><p>再次，是排好序了的，你要的记录有可能在最前面，也有可能在最后面，假设在中间，我们只需遍历2.5个HStoreFile共300M</p>
+</li>
+<li><p>最后，每个HStoreFile(HFile的封装)，是以键值对（key-value）方式存储，只要遍历一个个数据块中的key的位置，并判断符合条 件可以了。 一般key是有限的长度，假设跟value是1:19（忽略HFile上其它块），最终只需要15M就可获取的对应的记录，按照磁盘的访问 100M/S，只需0.15秒。 加上块缓存机制（LRU原则），会取得更高的效率。</p>
+</li>
+<li><p><strong>hbase数据存储及访问</strong></p>
+</li>
+</ol>
+<p>hbase的实际存储结构是HFile，它是位于hdfs系统中的，也就是在磁盘中。而加载到内存中的数据存储在MemStore中，当MemStore中的数据达到一定数量时，它会将数据存入HFile中。</p>
+<p>​    HFIle是由一个个数据块与索引块组成，他们通常默认为64KB。hbase是通过块索引来访问这些数据块的。而索引是由每个数据块的第一行数据的rowkey组成的。当hbase打开一个HFile时，块索引信息会优先加载到内存当中。然后hbase会通过这些块索引来查询数据。</p>
+<ol start="2">
+<li><p><strong>布隆过滤器在hbase中的应用</strong></p>
+<p>当我们随机读get数据时，如果采用hbase的块索引机制，hbase会加载很多块文件。</p>
+</li>
+</ol>
+<p>​    采用布隆过滤器后，它能够准确判断该HFile的所有数据块中是否含有我们查询的数据，从而大大减少不必要的块加载，增加吞吐，降低内存消耗，提高性能</p>
+<p>​     在读取数据时，hbase会首先在布隆过滤器中查询，根据布隆过滤器的结果，再在MemStore中查询，最后再在对应的HFile中查询。</p>
+<h3 id="zookeeper的作用"><a href="#zookeeper的作用" class="headerlink" title="zookeeper的作用"></a>zookeeper的作用</h3><ol>
+<li>数据发布/订阅</li>
+</ol>
+<p>数据发布/订阅（Publish/Subscribe）系统，即所谓的配置中心，顾明思义就是发布者将数据发布到zookeeper的一个或一系列的节点上，供订阅者进行数据订阅，进而达到动态获取数据的目的，实现配置信息的集中式管理和数据的动态更新。</p>
+<ol start="2">
+<li>负载均衡</li>
+</ol>
+<p>每台服务端在启动时都会去zookeeper的servers节点下注册临时节点（注册临时节点是因为，当服务不可用时，这个临时节点会消失，客户端也就不会请求这个服务端），每台客户端在启动时都会去servers节点下取得所有可用的工作服务器列表，并通过一定的负载均衡算法计算得出应该将请求发到哪个服务器上</p>
+<ol start="3">
+<li>命名服务</li>
+</ol>
+<p>命名服务是分布式系统中比较常见的一类场景。在分布式系统中，被命名的实体通常可以是集群中的机器，提供的服务地址或远程对象等-这些我们都可以统称他们为名字，其中较为常见的就是一些分布式服务框架（如RPC，RMI）中的服务地址列表，通过命名服务，客户端应用能够根据指定名字来获取资源的实体，服务地址和提供者的信息等。</p>
+<ol start="4">
+<li>Master选举</li>
+</ol>
+<p>Master选举是一个在分布式系统中非常常见的应用场景。在分布式系统中，Master往往用来协调系统中的其他系统单元，具有对分布式系统状态变更的决定权。例如，在一些读写分离的应用场景用，客户端的写请求往往是由Master来处理的，而在另一些场景中， Master则常常负负责处理一下复杂的逻辑，并将处理结果同步给集群中其他系统单元。</p>
+<p>客户端集群往zookeeper上创建一个/master临时节点。在这个过程中，只有一个客户端能够成功创建这个节点，那么这个客户端就成了master。同时其他没有在zookeeper上成功创建节点的客户端，都会在节点/master上注册一个变更的watcher，用于监控当前的master机器是否存活，一旦发现当前的master挂了，那么其余的客户端将会重新进行master选举。</p>
+<h3 id="一个文件有上亿url，内存很小，找Top10"><a href="#一个文件有上亿url，内存很小，找Top10" class="headerlink" title="一个文件有上亿url，内存很小，找Top10"></a>一个文件有上亿url，内存很小，找Top10</h3><p>利用hash函数，划分成n个文件，再利用小根堆，求每个文件的to p10</p>
+<h3 id="每个店铺访问次数top3的访客信息，输出店铺名称，访客id，访问次数"><a href="#每个店铺访问次数top3的访客信息，输出店铺名称，访客id，访问次数" class="headerlink" title="每个店铺访问次数top3的访客信息，输出店铺名称，访客id，访问次数"></a>每个店铺访问次数top3的访客信息，输出店铺名称，访客id，访问次数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">	t2.user_id,</span><br><span class="line">	t2.shop,</span><br><span class="line">	t2.num</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">  <span class="keyword">select</span></span><br><span class="line">    t1.user_id user_id,</span><br><span class="line">    t1.shop shop,</span><br><span class="line">    t1.num,</span><br><span class="line">    <span class="keyword">rank</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> t1.user_id <span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">num</span>) con</span><br><span class="line">  <span class="keyword">from</span> </span><br><span class="line">  (</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">      user_id,</span><br><span class="line">      shop,</span><br><span class="line">      <span class="keyword">count</span>(*) <span class="keyword">num</span></span><br><span class="line">    <span class="keyword">from</span> second_visit</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> user_id,shop</span><br><span class="line">  ) t1</span><br><span class="line">) t2</span><br><span class="line"><span class="keyword">where</span> con &lt;= <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="今日面经2"><a href="#今日面经2" class="headerlink" title="今日面经2"></a>今日面经2</h2><p>链接：<a href="https://www.nowcoder.com/discuss/636761?type=post&amp;order=time&amp;pos=&amp;page=0&amp;channel=-1&amp;source_id=search_post_nctrack&amp;subType=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/636761?type=post&amp;order=time&amp;pos=&amp;page=0&amp;channel=-1&amp;source_id=search_post_nctrack&amp;subType=2</a></p>
+<h3 id="spark怎样连接MySQL"><a href="#spark怎样连接MySQL" class="headerlink" title="spark怎样连接MySQL"></a>spark怎样连接MySQL</h3><p>第一种方式</p>
+<p>spark.read.jdbc(“jdbc:mysql://192.168.126.111:3306/spark”,”person”,properties)</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">  <span class="keyword">val</span> spark: <span class="type">SparkSession</span> = <span class="type">SparkSession</span>.builder().master(<span class="string">"local"</span>).appName(<span class="string">"createdataframefrommysql"</span>)</span><br><span class="line">  .config(<span class="string">"spark.sql.shuffle.partitions"</span>, <span class="number">1</span>).getOrCreate()</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 读取mysql的第一中方式</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">  <span class="keyword">val</span> properties = <span class="keyword">new</span> <span class="type">Properties</span>()</span><br><span class="line">  properties.setProperty(<span class="string">"user"</span>,<span class="string">"root"</span>)</span><br><span class="line">  properties.setProperty(<span class="string">"password"</span>,<span class="string">"123"</span>)</span><br><span class="line">  <span class="keyword">val</span> person: <span class="type">DataFrame</span> = spark.read.jdbc(<span class="string">"jdbc:mysql://192.168.126.111:3306/spark"</span>,<span class="string">"person"</span>,properties)</span><br><span class="line"></span><br><span class="line">  person.show()</span><br><span class="line">  spark.read.jdbc(<span class="string">"jdbc:mysql://192.168.126.111:3306/spark"</span>,<span class="string">"(select person.id,person.name,person.age,score.score from person,score where person.id = score.id) T"</span>,properties).show()</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式</p>
+<p>spark.read.format(“jdbc”) + Map</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> map: <span class="type">Map</span>[<span class="type">String</span>, <span class="type">String</span>] = <span class="type">Map</span>[<span class="type">String</span>, <span class="type">String</span>](</span><br><span class="line">  elems = <span class="string">"url"</span> -&gt; <span class="string">"jdbc:mysql://192.168.126.111:3306/spark"</span>,</span><br><span class="line">  <span class="string">"driver"</span> -&gt; <span class="string">"com.mysql.jdbc.Driver"</span>,</span><br><span class="line">  <span class="string">"user"</span> -&gt; <span class="string">"root"</span>,</span><br><span class="line">  <span class="string">"password"</span> -&gt; <span class="string">"123"</span>,</span><br><span class="line">  <span class="string">"dbtable"</span> -&gt; <span class="string">"score"</span></span><br><span class="line"></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> score: <span class="type">DataFrame</span> = spark.read.format(<span class="string">"jdbc"</span>).options(map).load</span><br><span class="line"></span><br><span class="line">score.show()</span><br></pre></td></tr></table></figure>
+
+<p>第三种方式</p>
+<p>DataFrameReader</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> reader: <span class="type">DataFrameReader</span> = spark.read.format(<span class="string">"jdbc"</span>)</span><br><span class="line">.option(<span class="string">"url"</span>, <span class="string">"jdbc:mysql://192.168.126.111:3306/spark"</span>)</span><br><span class="line">.option(<span class="string">"driver"</span>, <span class="string">"com.mysql.jdbc.Driver"</span>)</span><br><span class="line">.option(<span class="string">"user"</span>, <span class="string">"root"</span>)</span><br><span class="line">.option(<span class="string">"password"</span>, <span class="string">"123"</span>)</span><br><span class="line">.option(<span class="string">"dbtable"</span>, <span class="string">"score"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> source2: <span class="type">DataFrame</span> = reader.load()</span><br><span class="line"></span><br><span class="line">source2.show()</span><br></pre></td></tr></table></figure>
+
+<p>第四种方式</p>
+<p>Sparksql</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将以上两张表注册为临时表，进行关联查询</span></span><br><span class="line">person.createOrReplaceTempView(<span class="string">"person"</span>)</span><br><span class="line">score2.createOrReplaceTempView(<span class="string">"score"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> result = spark.sql(<span class="string">"select person.id,person.name,person.age,score.score from person,score  where person.id=score.id "</span>)</span><br><span class="line"></span><br><span class="line">result.show()</span><br><span class="line"></span><br><span class="line"><span class="comment">//将查询出的结果保存到mysql表之中</span></span><br><span class="line"></span><br><span class="line">result.write.mode(<span class="type">SaveMode</span>.<span class="type">Append</span>).jdbc(<span class="string">"jdbc:mysql://192.168.126.111:3306/spark"</span>,<span class="string">"result"</span>,properties)</span><br></pre></td></tr></table></figure>
+
+<h3 id="HashMap和hashtable区别，concurrenthashmap底层"><a href="#HashMap和hashtable区别，concurrenthashmap底层" class="headerlink" title="HashMap和hashtable区别，concurrenthashmap底层"></a>HashMap和hashtable区别，concurrenthashmap底层</h3><p>①hashMap实现了Map接口，实现了将唯一隐射到特定值上。允许一个null键和多个null值。非线程安全。</p>
+<p>②hashTable：类似于HashMap，但不允许null键和null值，比HashMap慢，因为它是同步的。它是线程安全的类，它使用sysnchronized来锁住整张hash表来实现线程安全，每次锁住整张表让线程独占。</p>
+<p>③ConcurrentHashMap：允许多个修改操作并发进行，关键在于使用了锁分离技术。使用多个锁控制对哈希表的不同部分进行的修改。它内部使用段（Segment）来表示这些不同的部分，每个段其实就是一个小的Hashtable，它们有自己的锁。多个修改操作发生在不同的时段上，它们就可以并发进行。</p>
+<h3 id="为什么java类加载要使用双亲委派模型"><a href="#为什么java类加载要使用双亲委派模型" class="headerlink" title="为什么java类加载要使用双亲委派模型"></a>为什么java类加载要使用双亲委派模型</h3><p>双亲委派模型的工作过程如下：<br>（1）当前类加载器从自己已经加载的类中查询是否此类已经加载，如果已经加载则直接返回原来已经加载的类。<br>（2）如果没有找到，就去委托父类加载器去加载（如代码c = parent.loadClass(name, false)所示）。父类加载器也会采用同样的策略，查看自己已经加载过的类中是否包含这个类，有就返回，没有就委托父类的父类去加载，一直到启动类加载器。因为如果父加载器为空了，就代表使用启动类加载器作为父加载器去加载。<br>（3）如果启动类加载器加载失败（例如在$JAVA_HOME/jre/lib里未查找到该class），则会抛出一个异常ClassNotFoundException，然后再调用当前加载器的findClass()方法进行加载。 </p>
+<p>双亲委派的原因：<br>（1）主要是为了安全性，避免用户自己编写的类动态替换 Java的一些核心类，比如 String。<br>（2）同时也避免了类的重复加载，因为 JVM中区分不同类，不仅仅是根据类名，相同的 class文件被不同的 ClassLoader加载就是不同的两个类。</p>
+<h3 id="数据库四大特性"><a href="#数据库四大特性" class="headerlink" title="数据库四大特性"></a>数据库四大特性</h3><p>原子性：事务内包含的所有操作要么全部成功，要么全部失败回滚；实现：日志，将所有的更新操作全部写入日志当中，若因为一些系统奔溃/断电等原因导致事务中的部分更新操作已经执行，部分操作未执行，则通过回溯日志，将操作回滚，使系统保证原子性以及一致性；</p>
+<p>一致性：不管任何时间有少个并发的事务，系统也必须保持一致；</p>
+<p>隔离性：多个并发的事务的操作，在同一时间只能有一个事务执行（及串行的执行）；</p>
+<p>持久性：事务正确执行后，事务中对数据的操作不会回滚；</p>
+<h3 id="数据库最左匹配原则"><a href="#数据库最左匹配原则" class="headerlink" title="数据库最左匹配原则"></a>数据库最左匹配原则</h3><p>写在前面：我在上大学的时候就听说过数据库的最左匹配原则，当时是通过各大博客论坛了解的，但是这些博客的局限性在于它们对最左匹配原则的描述就像一些数学定义一样，往往都是列出123点，满足这123点就能匹配上索引，否则就不能。但是我觉得编程不是死记硬背，这个所谓最左匹配原则肯定是有他背后的原理的。所以我尝试说明一下这个原理，这样以后用上优化索引的时候就不需要去记这些像数学定理一样的东西。了解原理比记住某些表面特点，我觉得是更聪明的方式。</p>
+<ol>
+<li>简单说下什么是最左匹配原则<br>顾名思义：最左优先，以最左边的为起点任何连续的索引都能匹配上。同时遇到范围查询(&gt;、&lt;、between、like)就会停止匹配。<br>例如：b = 2 如果建立(a,b)顺序的索引，是匹配不到(a,b)索引的；但是如果查询条件是a = 1 and b = 2或者a=1(又或者是b = 2 and b = 1)就可以，因为优化器会自动调整a,b的顺序。再比如a = 1 and b = 2 and c &gt; 3 and d = 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，因为c字段是一个范围查询，它之后的字段会停止匹配。</li>
+<li>最左匹配原则的原理<br>最左匹配原则都是针对联合索引来说的，所以我们有必要了解一下联合索引的原理。了解了联合索引，那么为什么会有最左匹配原则这种说法也就理解了。</li>
+</ol>
+<p>我们都知道索引的底层是一颗B+树，那么联合索引当然还是一颗B+树，只不过联合索引的健值数量不是一个，而是多个。构建一颗B+树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建B+树。<br>例子：假如创建一个（a,b)的联合索引，那么它的索引树是这样的</p>
+<p><img src="https://lixiangbetter.github.io/2021/04/10/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-04-10/1281680-20190117145740508-758737271.png" alt></p>
+<p>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。所以b = 2这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。</p>
+<p>同时我们还可以发现在a值相等的情况下，b值又是按顺序排列的，但是这种顺序是相对的。所以最左匹配原则遇上范围查询就会停止，剩下的字段都无法使用索引。例如a = 1 and b = 2 a,b字段都可以使用索引，因为在a值确定的情况下b是相对有序的，而a&gt;1and b=2，a字段可以匹配上索引，但b值不可以，因为a的值是一个范围，在这个范围中b是无序的。</p>
+<p>链接:<a href="https://www.cnblogs.com/lanqi/p/10282279.html" target="_blank" rel="noopener">https://www.cnblogs.com/lanqi/p/10282279.html</a></p>
+<h3 id="Java里你自己怎么实现栈、队列、HashMap"><a href="#Java里你自己怎么实现栈、队列、HashMap" class="headerlink" title="Java里你自己怎么实现栈、队列、HashMap"></a>Java里你自己怎么实现栈、队列、HashMap</h3><p>（1）两个栈实现一个队列</p>
+<p>（2）两个队列实现一个栈</p>
+<h3 id="GC算法有哪些？"><a href="#GC算法有哪些？" class="headerlink" title="GC算法有哪些？"></a>GC算法有哪些？</h3><p>1：标记—清除 Mark-Sweep<br>过程：标记可回收对象，进行清除<br>缺点：标记和清除效率低，清除后会产生内存碎片</p>
+<p>2：复制算法<br>过程：将内存划分为相等的两块，将存活的对象复制到另一块内存，把已经使用的内存清理掉<br>缺点：使用的内存变为了原来的一半<br>进化：将一块内存按8:1的比例分为一块Eden区（80%）和两块Survivor区（10%）<br>每次使用Eden和一块Survivor，回收时，将存活的对象一次性复制到另一块Survivor上，如果另一块Survivor空间不足，则使用分配担保机制存入老年代</p>
+<p>3：标记—整理 Mark—Compact<br>过程：所有存活的对象向一端移动，然后清除掉端边界以外的内存</p>
+<p>4：分代收集算法<br>过程：将堆分为新生代和老年代，根据区域特点选用不同的收集算法，如果新生代朝生夕死，则采用复制算法，老年代采用标记清除，或标记整理</p>
+<ul>
+<li>对象怎样有新生代转到年老代</li>
+</ul>
+<p>大对象直接进入老年代中。-XX:+PretenuerSizeThreshold 控制”大对象的“的大小。即当创建的对象大于这个临界值时，则该对象直接进入老年代。</p>
+<p>长期存活的对象将进入老年代。虚拟机对每个对象定义了一个对象年龄（Age）计数器。当年龄增加到一定的临界值时，就会晋升到老年代中，该临界值由参数：-XX:MaxTenuringThreshold来设置。如果对象在Eden出生并在第一次发生Minor GC时仍然存活，并且能够被Survivor中所容纳的话，则该对象会被移动到Survivor中，并且设Age=1；以后每经历一次Minor GC，该对象还存活的话会被移动到另一个Survivor区中，并且Age=Age+1。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/刷题/" rel="tag"># 刷题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/09/面试题随笔-21-4-9/" rel="next" title="面试题随笔-21/4/9">
+                <i class="fa fa-chevron-left"></i> 面试题随笔-21/4/9
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序"><span class="nav-number">1.1.</span> <span class="nav-text">HBase是根据rowkey查询，当数据量相当大的时候，是怎么读的很快的，缓存、索引、布隆过滤器、有序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper的作用"><span class="nav-number">1.2.</span> <span class="nav-text">zookeeper的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个文件有上亿url，内存很小，找Top10"><span class="nav-number">1.3.</span> <span class="nav-text">一个文件有上亿url，内存很小，找Top10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#每个店铺访问次数top3的访客信息，输出店铺名称，访客id，访问次数"><span class="nav-number">1.4.</span> <span class="nav-text">每个店铺访问次数top3的访客信息，输出店铺名称，访客id，访问次数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经2"><span class="nav-number">2.</span> <span class="nav-text">今日面经2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#spark怎样连接MySQL"><span class="nav-number">2.1.</span> <span class="nav-text">spark怎样连接MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap和hashtable区别，concurrenthashmap底层"><span class="nav-number">2.2.</span> <span class="nav-text">HashMap和hashtable区别，concurrenthashmap底层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么java类加载要使用双亲委派模型"><span class="nav-number">2.3.</span> <span class="nav-text">为什么java类加载要使用双亲委派模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库四大特性"><span class="nav-number">2.4.</span> <span class="nav-text">数据库四大特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库最左匹配原则"><span class="nav-number">2.5.</span> <span class="nav-text">数据库最左匹配原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java里你自己怎么实现栈、队列、HashMap"><span class="nav-number">2.6.</span> <span class="nav-text">Java里你自己怎么实现栈、队列、HashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GC算法有哪些？"><span class="nav-number">2.7.</span> <span class="nav-text">GC算法有哪些？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
