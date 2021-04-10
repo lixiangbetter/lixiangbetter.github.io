@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://lixiangbetter.github.io/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-9/1617936441936.jpg">
 <meta property="og:image" content="https://lixiangbetter.github.io/2021/04/09/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-9/1617936527318.jpg">
-<meta property="og:updated_time" content="2021-04-09T06:13:41.101Z">
+<meta property="og:updated_time" content="2021-04-10T08:43:45.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;4&#x2F;9">
 <meta name="twitter:description" content="红黑树理解红黑树的性质（重点）：  每个结点不是红色就是黑色 不可能有连在一起的红色结点 根结点都是黑色 每个红色结点的两个子结点都是黑色。叶子结点都是黑色：出度为0  变换规则 旋转和颜色的变换规则：所有插入的点默认为红色  变颜色的情况：当前结点的父亲是红色，且它的祖父结点的另一个子结点也是红色。（叔叔结点） 把父结点设为黑色 把叔叔结点设为黑色 把祖父也就是父亲的父亲设为红色（爷爷） 把指针">
@@ -422,7 +422,177 @@
 <p>b站链接：<a href="https://www.bilibili.com/video/BV1tE411f7tP?p=4" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1tE411f7tP?p=4</a></p>
 <h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>记录一片博客<a href="http://www.liuzk.com/410.html" target="_blank" rel="noopener">http://www.liuzk.com/410.html</a></p>
 <p>写的比较好</p>
-
+<h2 id="面试模拟"><a href="#面试模拟" class="headerlink" title="面试模拟"></a>面试模拟</h2><h3 id="请你解释一下TCP为什么可靠一些"><a href="#请你解释一下TCP为什么可靠一些" class="headerlink" title="请你解释一下TCP为什么可靠一些"></a>请你解释一下TCP为什么可靠一些</h3><p>主要是tcp的三次握手、超时重传、滑动窗口、拥塞控制等决定的。</p>
+<p>TCP 连接的每一端都必须设有两个窗口——一个发送窗口和一个接收窗口。TCP 的可靠传输机制用字节的序号进行</p>
+<p>制。TCP 所有的确认都是基于序号而不是基于报文段。 发送过的数据未收到确认之前必须保留，以便超时重传时使用。</p>
+<p>发送窗口没收到确认不动，和收到新的确认后前移。 </p>
+<p>拥塞控制：当网络拥塞时，减少数据的发送。</p>
+<h3 id="请你说明一下，TCP协议的4次挥手。"><a href="#请你说明一下，TCP协议的4次挥手。" class="headerlink" title="请你说明一下，TCP协议的4次挥手。"></a>请你说明一下，TCP协议的4次挥手。</h3><p>由于TCP连接是全双工的，因此每个方向都必须单独进行关闭。这个原则是当一方完成它的数据发送任务后就能发送一个FIN来终止这个方向的连接。收到一个 FIN只意味着这一方向上没有数据流动，一个TCP连接在收到一个FIN后仍能发送数据。首先进行关闭的一方将执行主动关闭，而另一方执行被动关闭。 TCP的连接的拆除需要发送四个包，因此称为四次挥手(four-way handshake)。客户端或服务器均可主动发起挥手动作，在socket编程中，任何一方执行close()操作即可产生挥手操作。 （1）客户端A发送一个FIN，用来关闭客户A到服务器B的数据传送。 （2）服务器B收到这个FIN，它发回一个ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号。 （3）服务器B关闭与客户端A的连接，发送一个FIN给客户端A。 （4）客户端A发回ACK报文确认，并将确认序号设置为收到序号加1。</p>
+<h3 id="请你简单讲解一下，负载均衡-反向代理模式的优点、缺点"><a href="#请你简单讲解一下，负载均衡-反向代理模式的优点、缺点" class="headerlink" title="请你简单讲解一下，负载均衡 反向代理模式的优点、缺点"></a>请你简单讲解一下，负载均衡 反向代理模式的优点、缺点</h3><p>（1）反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
+<p>（2）反向代理负载均衡技术是把将来自internet上的连接请求以反向代理的方式动态地转发给内部网络上的多台服务器进行处理，从而达到负载均衡的目的。</p>
+<p>（3）反向代理负载均衡能以软件方式来实现，如apache mod_proxy、netscape proxy等，也可以在高速缓存器、负载均衡器等硬件设备上实现。反向代理负载均衡可以将优化的负载均衡策略和代理服务器的高速缓存技术结合在一起，提升静态网页的访问速度，提供有益的性能；由于网络外部用户不能直接访问真实的服务器，具备额外的安全性（同理，NAT负载均衡技术也有此优点）。 </p>
+<p>（4）其缺点主要表现在以下两个方面 反向代理是处于OSI参考模型第七层应用的，所以就必须为每一种应用服务专门开发一个反向代理服务器，这样就限制了反向代理负载均衡技术的应用范围，现在一般都用于对web服务器的负载均衡。 针对每一次代理，代理服务器就必须打开两个连接，一个对外，一个对内，因此在并发连接请求数量非常大的时候，代理服务器的负载也就非常大了，在最后代理服务器本身会成为服务的瓶颈。 一般来讲，可以用它来对连接数量不是特别大，但每次连接都需要消耗大量处理资源的站点进行负载均衡，如search等。</p>
+<h3 id="请你谈谈DNS的寻址过程。"><a href="#请你谈谈DNS的寻址过程。" class="headerlink" title="请你谈谈DNS的寻址过程。"></a>请你谈谈DNS的寻址过程。</h3><p>1、客户机发出查询请求，在本地计算机缓存查找，若没有找到，就会将请求发送给dns服务器</p>
+<p>2、先发送给本地dns服务器，本地的就会在自己的区域里面查找，若找到，根据此记录进行解析，若没有找到，就会在本地的缓存里面查找</p>
+<p>3、本地服务器没有找到客户机查询的信息，就会将此请求发送到根域名dns服务器</p>
+<p>4、根域名服务器解析客户机请求的根域部分，它把包含的下一级的dns服务器的地址返回到客户机的dns服务器地址</p>
+<p>5、客户机的dns服务器根据返回的信息接着访问下一级的dns服务器</p>
+<p>6、这样递归的方法一级一级接近查询的目标，最后在有目标域名的服务器上面得到相应的IP信息</p>
+<p>7、客户机的本地的dns服务器会将查询结果返回给我们的客户机</p>
+<p>8、客户机根据得到的ip信息访问目标主机，完成解析过程</p>
+<h3 id="什么是icmp协议，它的作用是什么？"><a href="#什么是icmp协议，它的作用是什么？" class="headerlink" title="什么是icmp协议，它的作用是什么？"></a>什么是icmp协议，它的作用是什么？</h3><p>ICMP协议（Internet Control Message Protocol 网际控制报文协议）是ip层协议；作用是 提供主机或者路由器差错报告和异常情况报告，</p>
+<p>我们经常使用的ping命令就是一种icmp报文，它用来探测两台主机之间的连通性</p>
+<h3 id="请你说明一下，SSL四次握手的过程"><a href="#请你说明一下，SSL四次握手的过程" class="headerlink" title="请你说明一下，SSL四次握手的过程"></a>请你说明一下，SSL四次握手的过程</h3><p>1.客户端请求建立SSL链接，并向服务端发送一个随机数（client random）和客户端支持的加密方法（比如RSA），此时是明文传输的。</p>
+<p>2.服务端选择客户端支持的一种加密算法并生成另一个随机数（server random），并将授信的服务端证书和公钥下发给客户端。</p>
+<p>3.客户端收到服务端的回复，会校验服务端证书的合法性，若合法，则生成一个新的随机数premaster secret并通过服务端下发的公钥及加密方法进行加密，然后发送给服务端。</p>
+<p>4.服务端收到客户端的回复，利用已知的加解密方式进行解密，同时利用client random、server random和premater secret通过一定算法生成对称加密key - session key。</p>
+<p>此后，数据传输即通过对称加密方式进行加密传输。</p>
+<p>从以上过程可以看看https实际上是用了对称加密技术和非对称加密技术，非对称加密解密速度慢，但安全性高，用来加密对称加密的密钥；而对称加密虽然安全性低，但解密速度快，可以用于传输数据的加密。</p>
+<h2 id="今日面经"><a href="#今日面经" class="headerlink" title="今日面经"></a>今日面经</h2><p>链接：<a href="https://www.nowcoder.com/discuss/624109?source_id=profile_create_nctrack&amp;channel=-1" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/624109?source_id=profile_create_nctrack&amp;channel=-1</a></p>
+<h3 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h3><p>版本一（不提项目）：你好，我叫李想，来自湖南工商大学计算机学院，**公司是我一直尊敬的公司，这一次我应聘的是大数据开发工程师，大数据开发是我一直想从事的工作。为此我在研究生阶段，很早就结合岗位的要求进行了准备，包括对各种大数据的相关知识的熟悉、大数据组件的实践等。曾经在学校自己写了三个项目，在研究生阶段我也重点选择了大数据相关的课题进行了研究，希望能够加入公司从事大数据开发的相关工作。谢谢</p>
+<p>版本二：你好，我叫李想，来自湖南工商大学计算机学院，**公司是我一直尊敬的公司，这一次我应聘的是大数据开发工程师，大数据开发是我一直想从事的工作。为此我在研究生阶段，很早就结合岗位的要求进行了准备，包括对各种大数据的相关知识的熟悉、大数据组件的实践等。曾经在学校自己写了两个项目，分别是离线电商数据仓库项目、移动应用统计分析平台项目，使用的技术大多是Springboot、Hadoop、Hive、Spark Streaming、Kafka、HBase等。做项目过程中，我也遇到很多的技术问题，基本是我自行查询解决的。在研究生阶段我也重点选择了大数据相关的课题进行了研究，希望能够加入公司从事大数据开发的相关工作。谢谢</p>
+<h3 id="哪个项目有技术含量，简单介绍下"><a href="#哪个项目有技术含量，简单介绍下" class="headerlink" title="哪个项目有技术含量，简单介绍下"></a>哪个<a href="https://www.nowcoder.com/jump/super-jump/word?word=项目" target="_blank" rel="noopener">项目</a>有技术含量，简单介绍下</h3><p>离线电商数据仓库项目</p>
+<h3 id="围绕项目，遇到的困难和挑战，数据量之类"><a href="#围绕项目，遇到的困难和挑战，数据量之类" class="headerlink" title="围绕项目，遇到的困难和挑战，数据量之类"></a>围绕项目，遇到的困难和挑战，数据量之类</h3><ol>
+<li>自定义UDF和UDTF解析和调试复杂字段</li>
+<li>Sqoop中导入导出Null存储一致性问题</li>
+<li>当Sqoop导出数据到MySql时，使用4个map怎么保证数据的一致性</li>
+<li>如何优雅的关闭SparkStreaming任务</li>
+</ol>
+<h3 id="HDFS架构流程原理（面试开发重点）"><a href="#HDFS架构流程原理（面试开发重点）" class="headerlink" title="HDFS架构流程原理（面试开发重点）"></a>HDFS架构流程原理（面试开发重点）</h3><ol>
+<li><p>HDFS定义及优缺点<br> HDFS是分布式文件管理系统，这种系统可以管理多台机器的文件，是可以分布式的存储文件，适合一次写入，多次读出的场景，但不支持文件的修改。<br> 优点：多副本提高容错，可以处理大数据，使用机器廉价。<br> 缺点：不适合实时数据，害怕小文件，只能追加不能随机修改。</p>
+</li>
+<li><p>HDFS成员及工作原理（面试开发重点）</p>
+<ul>
+<li>NameNode(nn):主管，管理数据块（block）和与客户端通信。<br> 工作机制：nn的元数据存在内存中但是会在磁盘上产生备份元数据的Fsimage，为防止断电丢数据，引入Edits文件，只记录对元数据产生的操作。断电后只需要合并Fsimage和Edits即可恢复原来操作。nn只负责第一次开启时将两个文件加载到内存中合并，后面合并任务交给2nn</li>
+<li>DataNode(dn):小弟，存储数据块，执行读写操作。<br> 工作机制：数据块在dn上以文件的形式存储在磁盘上，包括两个文件，一个是数据本身，一个是元数据包括数据块的长度，校验和，时间戳。dn启动后先向nn注册，周期性汇报块信息，心跳是每3秒一次，由dn向nn发送，返回结果带有nn命令，10分钟nn未收到心跳，该节点不可用。</li>
+<li>SecondaryNameNode(2nn):秘书，分担nn工作量，定期合并Fsimage和Edits，紧急情况下可恢复nn，2nn在合并了两个文件后将结果返回给nn。</li>
+<li>client：客户端，将文件切分为block，输入命令管理HDFS。</li>
+</ul>
+</li>
+<li><p>HDFS文件块大小（面试重点）<br> 文件在HDFS上是按块（block）存储的，在hadoop2.0后为128M，块的大小不能太大也不能太小。</p>
+</li>
+<li><p>HDFS写数据流程（面试重点）<br>1、客户端通过Distributed FileSystem向nn请求上传文件，nn检查后返回是否可以上传。<br>2、客户端请求第一个block上传到哪个dn上，nn返回dn1，dn2，dn3<br>3、客户端通过FSDataOutputStream请求dn1上传，dn1回将2和3调起，通信管道完成<br>4、客户端上传第一个block到dn1上，以packet为单位，dn1传给2和3<br>5、第一个block传完后，重复上述步骤，传第二个block</p>
+</li>
+<li><p>HDFS读数据流程<br>1、客户端通过DistributedFileSystem向nn请求下载文件，nn找到文件所在dn地址<br>2、就近挑选一台dn，请求读取数据<br>3、dn开始传输数据到客户端，以packet为单位，客户端接收后现在本地缓存，再写入目标文件</p>
+</li>
+<li><p>机架感知</p>
+<p>通常，大型Hadoop集群会分布在很多机架上。在这种情况下，</p>
+<p>  – 希望不同节点之间的通信能够尽量发生在同一个机架之内，而不是跨机架。</p>
+<p>  – 为了提高容错能力，名称节点会尽可能把数据块的副本放到多个机架上。</p>
+</li>
+</ol>
+<h3 id="MySQL统计分析的极限，数据量多少会变慢"><a href="#MySQL统计分析的极限，数据量多少会变慢" class="headerlink" title="MySQL统计分析的极限，数据量多少会变慢"></a>MySQL统计分析的极限，数据量多少会变慢</h3><p>首先是存储引擎的考虑，一般我们现在只讨论</p>
+<ul>
+<li>MyIsam</li>
+<li>InnoDB</li>
+</ul>
+<p>其次和表的索引设置也息息相关.</p>
+<p>默认采用B+ Tree.</p>
+<p>还要考虑服务器的RAM和磁盘问题。</p>
+<p>现在一般推荐一张表考虑到事物的要求，采用InnoDB, 不考虑服务器配置， 数据量保持在 1kw-2kw为最佳，主要支持</p>
+<p>来自B+ Tree的索引考虑。</p>
+<h3 id="索引有没有了解过，为什么用B-树存储，建立一个索引的时候是新建了一个b-树吗，表里有多少索引就"><a href="#索引有没有了解过，为什么用B-树存储，建立一个索引的时候是新建了一个b-树吗，表里有多少索引就" class="headerlink" title="索引有没有了解过，为什么用B+树存储，建立一个索引的时候是新建了一个b+树吗，表里有多少索引就"></a>索引有没有了解过，为什么用B+树存储，建立一个索引的时候是新建了一个b+树吗，表里有多少索引就</h3><h3 id="有多少b-树吗？"><a href="#有多少b-树吗？" class="headerlink" title="有多少b+树吗？"></a>有多少b+树吗？</h3><ul>
+<li>为什么用b树？</li>
+</ul>
+<p>文件系统和数据库的索引都是存在硬盘上的，并且如果数据量大的话，不一定能一次性加载到内存中。</p>
+<ul>
+<li>为什么用b+树？</li>
+</ul>
+<p>数据库中select数据，不一定只选一条，很多时候会选多条，比如按照id排序后选10条。</p>
+<p>如果是多条的话，B树需要做局部的中序遍历，可能要跨层访问。而B+树由于所有数据都在叶子结点，不用跨层，同时</p>
+<p>由于有链表结构，只需要找到首尾，通过链表就能把所有数据取出来了。</p>
+<p>而且数据库中的索引一般是在磁盘上，数据量大的情况可能无法一次装入内存，B+树的设计可以允许数据分批加载，同</p>
+<p>时树的高度较低，提高查找效率。</p>
+<p>链接：<a href="https://www.sohu.com/a/280609547_818692" target="_blank" rel="noopener">https://www.sohu.com/a/280609547_818692</a></p>
+<h3 id="MySQL不好的地方，应用的问题，提到了上面7说的，表大会比较慢（给自己挖坑了，不是特别了解的不要提），扯到了大表优化，水平拆分的原则，id怎么拆分比较好"><a href="#MySQL不好的地方，应用的问题，提到了上面7说的，表大会比较慢（给自己挖坑了，不是特别了解的不要提），扯到了大表优化，水平拆分的原则，id怎么拆分比较好" class="headerlink" title="MySQL不好的地方，应用的问题，提到了上面7说的，表大会比较慢（给自己挖坑了，不是特别了解的不要提），扯到了大表优化，水平拆分的原则，id怎么拆分比较好"></a>MySQL不好的地方，应用的问题，提到了上面7说的，表大会比较慢（给自己挖坑了，不是特别了解的不要提），扯到了大表优化，水平拆分的原则，id怎么拆分比较好</h3><p>在数据库表中，对字段建立索引可以大大提高查询速度。虽说使用索引有很多好处，但过多的使用索引将会造成滥用。因此索引也会有它的缺点：</p>
+<p>1.虽然索引大大提高了查询速度，同时却会降低更新表的速度，如对表进行INSERT、UPDATE和DELETE。因为更新表时，MySQL不仅要保存数据，还要保存一下索引文件。</p>
+<p>2.建立索引会占用磁盘空间的索引文件。一般情况这个问题不太严重，但如果你在一个大表上创建了多种组合索引，索引文件的会膨胀很快。</p>
+<p>索引只是提高效率的一个因素，如果你的MySQL有大数据量的表，就需要花时间研究建立最优秀的索引，或优化查询语句。</p>
+<h3 id="hash什么情况下造成冲突，hash冲突的原理是什么，算法是怎样的"><a href="#hash什么情况下造成冲突，hash冲突的原理是什么，算法是怎样的" class="headerlink" title="hash什么情况下造成冲突，hash冲突的原理是什么，算法是怎样的"></a>hash什么情况下造成冲突，hash冲突的原理是什么，算法是怎样的</h3><p>Hash也称散列、哈希，对应的英文都是Hash。基本原理就是把任意长度的输入，通过Hash算法变成固定长度的输出。这个映射的规则就是对应的Hash算法，而原始数据映射后的二进制串就是哈希值。</p>
+<p>什么情况下造成冲突？</p>
+<p>hash算法的冲突概率要小 由于hash的原理是将输入空间的值映射成hash空间内，而hash值的空间远小于输入的空间。根据抽屉原理，一定会存在不同的输入被映射成相同输出的情况。</p>
+<p>哈希是通过对数据进行再压缩，提高效率的一种解决方法。但由于通过哈希函数产生的哈希值是有限的，而数据可能比较多，导致经过哈希函数处理后仍然有不同的数据对应相同的值。这时候就产生了哈希冲突。</p>
+<p>hash冲突解决方法</p>
+<p>1.开放地址方法</p>
+<p>　　（1）线性探测</p>
+<p>　　　按顺序决定值时，如果某数据的值已经存在，则在原来值的基础上往后加一个单位，直至不发生哈希冲突。　</p>
+<p>2.链式地址法（HashMap的哈希冲突解决方法）</p>
+<p>　　对于相同的值，使用链表进行连接。使用数组存储每一个链表。</p>
+<p>优点：</p>
+<p>　　（1）拉链法处理冲突简单，且无堆积现象，即非同义词决不会发生冲突，因此平均查找长度较短；</p>
+<p>　　（2）由于拉链法中各链表上的结点空间是动态申请的，故它更适合于造表前无法确定表长的情况；</p>
+<p>　　（3）开放定址法为减少冲突，要求装填因子α较小，故当结点规模较大时会浪费很多空间。而拉链法中可取α≥1，且结点较大时，拉链法中增加的指针域可忽略不计，因此节省空间；</p>
+<p>　　（4）在用拉链法构造的散列表中，删除结点的操作易于实现。只要简单地删去链表上相应的结点即可。<br>　　缺点：</p>
+<p>　　指针占用较大空间时，会造成空间浪费，若空间用于增大散列表规模进而提高开放地址法的效率。</p>
+<p>3.建立公共溢出区</p>
+<p>　　建立公共溢出区存储所有哈希冲突的数据。</p>
+<p>4.再哈希法</p>
+<p>　　对于冲突的哈希值再次进行哈希处理，直至没有哈希冲突。</p>
+<h3 id="kafka如何保证顺序性"><a href="#kafka如何保证顺序性" class="headerlink" title="kafka如何保证顺序性"></a>kafka如何保证顺序性</h3><ul>
+<li>一个 topic，一个 partition，一个 consumer，内部单线程消费，单线程吞吐量太低，一般不会用这个。</li>
+<li>写 N 个内存 queue，具有相同 key 的数据都到同一个内存 queue；然后对于 N 个线程，每个线程分别消费一个内存 queue 即可，这样就能保证顺序性。</li>
+</ul>
+<h3 id="如何保证消息不被重复消费？（消息的幂等性）"><a href="#如何保证消息不被重复消费？（消息的幂等性）" class="headerlink" title="如何保证消息不被重复消费？（消息的幂等性）"></a>如何保证消息不被重复消费？（消息的幂等性）</h3><p>对于更新操作，天然具有幂等性。<br>对于新增操作，可以给每条消息一个唯一的id，处理前判断是否被处理过。这个id可以存储在 Redis 中，如果是写数据库可以用主键约束。</p>
+<h3 id="如何保证消息的可靠性传输？（消息丢失的问题）"><a href="#如何保证消息的可靠性传输？（消息丢失的问题）" class="headerlink" title="如何保证消息的可靠性传输？（消息丢失的问题）"></a>如何保证消息的可靠性传输？（消息丢失的问题）</h3><p>根据kafka架构，有三个地方可能丢失消息：Consumer，Producer和 Server</p>
+<ol>
+<li>消费端弄丢了数据</li>
+</ol>
+<p>当 server.properties/enable.auto.commit 设置为 true 的时候，kafka 会先 commit offset 再处理消息，如果这时候出现异常，这条消息就丢失了。</p>
+<p>因此可以关闭自动提交 offset，在处理完成后手动提交 offset，这样可以保证消息不丢失；但是如果提交 offset 失败，可能导致重复消费的问题， 这时保证幂等性即可。</p>
+<ol start="2">
+<li>Kafka弄丢了消息</li>
+</ol>
+<p>如果某个 broker 不小心挂了，此时若 replica 只有一个，broker 上的消息就丢失了；若 replica &gt; 1 ,给 leader 重新选一个 follower 作为新的 leader, 如果 follower 还有些消息没有同步，这部分消息便丢失了。</p>
+<p>可以进行如下配置，避免上面的问题：</p>
+<p>给 topic 设置 replication.factor 参数：这个值必须大于 1，要求每个 partition 必须有至少 2 个副本。<br>在 Kafka 服务端设置 min.insync.replicas 参数：这个值必须大于 1，这个是要求一个 leader 至少感知到有至少一个 follower 还跟自己保持联系，没掉队，这样才能确保 leader 挂了还有一个 follower 吧。<br>在 producer 端设置 acks=all：这个是要求每条数据，必须是写入所有 replica 之后，才能认为是写成功了。<br>在 producer 端设置 retries=MAX（很大很大很大的一个值，无限次重试的意思）：这个是要求一旦写入失败，就无限重试，卡在这里了。</p>
+<ol start="3">
+<li>Producer弄丢了消息</li>
+</ol>
+<p>在 producer 端设置 acks=all，保证所有的ISR都同步了消息才认为写入成功。</p>
+<ol start="4">
+<li>如何保证消息的顺序性？</li>
+</ol>
+<p>kafka 中 partition 上的消息是顺序的，可以将需要顺序消费的消息发送到同一个 partition 上，用单个 consumer 消费。</p>
+<h3 id="kafka消息持久化"><a href="#kafka消息持久化" class="headerlink" title="kafka消息持久化"></a>kafka消息持久化</h3><p><a href="https://www.jianshu.com/p/8a4154780204" target="_blank" rel="noopener">https://www.jianshu.com/p/8a4154780204</a></p>
+<p>一个 Topic 被分成多 Partition，每个 Partition 在存储层面是一个 append-only 日志文件，属于一个 Partition 的消息都会被直接追加到日志文件的尾部，每条消息在文件中的位置称为 offset（偏移量）。</p>
+<p><strong>写</strong></p>
+<p>日志文件允许串行附加，并且总是附加到最后一个文件。当文件达到配置指定的大小（<code>log.segment.bytes</code> = 1073741824 (bytes)）时，就会被滚动到一个新文件中（每个文件称为一个 segment file）。日志有两个配置参数：M，强制操作系统将文件刷新到磁盘之前写入的消息数；S，强制操作系统将文件刷新到磁盘之前的时间（秒）。在系统崩溃的情况下，最多会丢失M条消息或S秒的数据。</p>
+<p><strong>读</strong></p>
+<p>通过给出消息的偏移量（offset）和最大块大小（S）来读取数据。返回一个缓冲区为S大小的消息迭代器，S应该大于任何单个消息的大小，如果消息异常大，则可以多次重试读取，每次都将缓冲区大小加倍，直到成功读取消息为止。可以指定最大消息大小和缓冲区大小，以使服务器拒绝大于某个大小的消息。读取缓冲区可能以部分消息结束，这很容易被大小分隔检测到。</p>
+<p>读取指定偏移量的数据时，需要首先找到存储数据的 segment file，由全局偏移量计算 segment file 中的偏移量，然后从此位置开始读取。</p>
+<p>有了索引文件，消费者可以从 Kafka 的任意可用偏移量位置开始读取消息。索引也被分成片段，所以在删除消息时，也可以删除相应的索引。Kafka 不维护索引的校验和，如果索引出现损坏，Kafka 会通过重新读取消息来重新生成索引。<br>链接：<a href="https://www.jianshu.com/p/8a4154780204" target="_blank" rel="noopener">https://www.jianshu.com/p/8a4154780204</a><br>来源：简书</p>
+<h3 id="G1了解过吗，full-gc的过程，对系统的影响，jvm所有线程都会停顿吗"><a href="#G1了解过吗，full-gc的过程，对系统的影响，jvm所有线程都会停顿吗" class="headerlink" title="G1了解过吗，full gc的过程，对系统的影响，jvm所有线程都会停顿吗"></a>G1了解过吗，full gc的过程，对系统的影响，jvm所有线程都会停顿吗</h3><p>所有的用户线程会挂起。</p>
+<h4 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h4><p><code>G1</code>收集器与之前垃圾收集器的一个显著区别就是——之前收集器都有三个区域，新、老两代和元空间。而G1收集器只有G1区和元空间。而G1区，不像之前的收集器，分为新、老两代，而是一个一个Region，每个Region既可能包含新生代，也可能包含老年代。</p>
+<p><code>G1</code>收集器既可以提高吞吐量，又可以减少GC时间。最重要的是<strong>STW可控</strong>，增加了预测机制，让用户指定停顿时间。</p>
+<p>使用<code>-XX:+UseG1GC</code>开启，还有<code>-XX:G1HeapRegionSize=n</code>、<code>-XX:MaxGCPauseMillis=n</code>等参数可调。</p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ol>
+<li><strong>并行和并发</strong>：充分利用多核、多线程CPU，尽量缩短STW。</li>
+<li><strong>分代收集</strong>：虽然还保留着新、老两代的概念，但物理上不再隔离，而是融合在Region中。</li>
+<li><strong>空间整合</strong>：<code>G1</code>整体上看是<strong>标整</strong>算法，在局部看又是<strong>复制算法</strong>，不会产生内存碎片。</li>
+<li><strong>可预测停顿</strong>：用户可以指定一个GC停顿时间，<code>G1</code>收集器会尽量满足。</li>
+</ol>
+<h4 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h4><p>与<code>CMS</code>类似。</p>
+<ol>
+<li>初始标记。</li>
+<li>并发标记。</li>
+<li>最终标记。</li>
+<li>筛选回收。</li>
+</ol>
+<p>G1算法将堆划分为若干个区域(Region），它仍然属于分代收集器。</p>
+<ol>
+<li><p>这些Region的一部分包含新生代，新生代的垃圾收集依然采用暂停所有应用线程的方式，将存活对象拷贝到老年代或者Survivor空间。</p>
+<p>这些Region的一部分包含老年代，G1收集器通过将对象从一个区域复制到另外一个区域，完成了清理工作。这就意味着，在正常的处理过程中，G1完成了堆的压缩（至少是部分堆的压缩），这样也就不会有CMS内存碎片问题的存在了。</p>
+</li>
+<li><p>在G1中，还有一种特殊的区域，叫Humongous区域。</p>
+<p>如果一个对象占用的空间超过了分区容量50%以上，G1收集器就认为这是一个巨型对象。这些巨型对象默认直接会被分配在年老代，但是如果它是一个短期存在的巨型对象，就会对垃圾收集器造成负面影响。</p>
+<p>为了解决这个问题，G1划分了一个Humongous区，它用来专门存放巨型对象。如果一个H区装不下一个巨型对象，那么G1会寻找连续的H分区来存储。为了能找到连续的H区，有时候不得不启动Full GC。</p>
+</li>
+</ol>
+<h3 id="jdk1-8新特性"><a href="#jdk1-8新特性" class="headerlink" title="jdk1.8新特性"></a>jdk1.8新特性</h3><p>Lambda 表达式</p>
+<p>函数式编程就是一种抽象程度很高的编程范式，纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用。</p>
+<p>函数式接口</p>
+<p>定义：“函数式接口”是指仅仅只包含一个抽象方法的接口，每一个该类型的lambda表达式都会被匹配到这个抽象方法。jdk1.8提供了一个@FunctionalInterface注解来定义函数式接口，如果我们定义的接口不符合函数式的规范便会报错。</p>
+<h3 id="7的2007次方最后一位是多少"><a href="#7的2007次方最后一位是多少" class="headerlink" title="7的2007次方最后一位是多少"></a>7的2007次方最后一位是多少</h3>
       
     </div>
     
@@ -609,7 +779,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树理解"><span class="nav-number">1.</span> <span class="nav-text">红黑树理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">2.</span> <span class="nav-text">B+树</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树理解"><span class="nav-number">1.</span> <span class="nav-text">红黑树理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">2.</span> <span class="nav-text">B+树</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#面试模拟"><span class="nav-number"></span> <span class="nav-text">面试模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请你解释一下TCP为什么可靠一些"><span class="nav-number">1.</span> <span class="nav-text">请你解释一下TCP为什么可靠一些</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请你说明一下，TCP协议的4次挥手。"><span class="nav-number">2.</span> <span class="nav-text">请你说明一下，TCP协议的4次挥手。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请你简单讲解一下，负载均衡-反向代理模式的优点、缺点"><span class="nav-number">3.</span> <span class="nav-text">请你简单讲解一下，负载均衡 反向代理模式的优点、缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请你谈谈DNS的寻址过程。"><span class="nav-number">4.</span> <span class="nav-text">请你谈谈DNS的寻址过程。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是icmp协议，它的作用是什么？"><span class="nav-number">5.</span> <span class="nav-text">什么是icmp协议，它的作用是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请你说明一下，SSL四次握手的过程"><span class="nav-number">6.</span> <span class="nav-text">请你说明一下，SSL四次握手的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number"></span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自我介绍"><span class="nav-number">1.</span> <span class="nav-text">自我介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪个项目有技术含量，简单介绍下"><span class="nav-number">2.</span> <span class="nav-text">哪个项目有技术含量，简单介绍下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#围绕项目，遇到的困难和挑战，数据量之类"><span class="nav-number">3.</span> <span class="nav-text">围绕项目，遇到的困难和挑战，数据量之类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HDFS架构流程原理（面试开发重点）"><span class="nav-number">4.</span> <span class="nav-text">HDFS架构流程原理（面试开发重点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL统计分析的极限，数据量多少会变慢"><span class="nav-number">5.</span> <span class="nav-text">MySQL统计分析的极限，数据量多少会变慢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引有没有了解过，为什么用B-树存储，建立一个索引的时候是新建了一个b-树吗，表里有多少索引就"><span class="nav-number">6.</span> <span class="nav-text">索引有没有了解过，为什么用B+树存储，建立一个索引的时候是新建了一个b+树吗，表里有多少索引就</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有多少b-树吗？"><span class="nav-number">7.</span> <span class="nav-text">有多少b+树吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL不好的地方，应用的问题，提到了上面7说的，表大会比较慢（给自己挖坑了，不是特别了解的不要提），扯到了大表优化，水平拆分的原则，id怎么拆分比较好"><span class="nav-number">8.</span> <span class="nav-text">MySQL不好的地方，应用的问题，提到了上面7说的，表大会比较慢（给自己挖坑了，不是特别了解的不要提），扯到了大表优化，水平拆分的原则，id怎么拆分比较好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash什么情况下造成冲突，hash冲突的原理是什么，算法是怎样的"><span class="nav-number">9.</span> <span class="nav-text">hash什么情况下造成冲突，hash冲突的原理是什么，算法是怎样的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka如何保证顺序性"><span class="nav-number">10.</span> <span class="nav-text">kafka如何保证顺序性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何保证消息不被重复消费？（消息的幂等性）"><span class="nav-number">11.</span> <span class="nav-text">如何保证消息不被重复消费？（消息的幂等性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何保证消息的可靠性传输？（消息丢失的问题）"><span class="nav-number">12.</span> <span class="nav-text">如何保证消息的可靠性传输？（消息丢失的问题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka消息持久化"><span class="nav-number">13.</span> <span class="nav-text">kafka消息持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1了解过吗，full-gc的过程，对系统的影响，jvm所有线程都会停顿吗"><span class="nav-number">14.</span> <span class="nav-text">G1了解过吗，full gc的过程，对系统的影响，jvm所有线程都会停顿吗</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#G1收集器"><span class="nav-number">14.1.</span> <span class="nav-text">G1收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">14.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过程"><span class="nav-number">14.3.</span> <span class="nav-text">过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk1-8新特性"><span class="nav-number">15.</span> <span class="nav-text">jdk1.8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7的2007次方最后一位是多少"><span class="nav-number">16.</span> <span class="nav-text">7的2007次方最后一位是多少</span></a></li></ol></li></div>
             
 
           </div>
