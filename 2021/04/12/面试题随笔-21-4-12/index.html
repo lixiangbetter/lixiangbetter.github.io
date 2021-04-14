@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="大数据开发,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今日面经链接：https://www.nowcoder.com/discuss/636561?type=post&amp;amp;order=time&amp;amp;pos=&amp;amp;page=1&amp;amp;channel=-1&amp;amp;source_id=search_post_nctrack&amp;amp;subType=2 线程和进程的区别1、进程是一段正在执行的程序，是资源分配的基本单元，而线程是CPU调度的基">
+<meta name="keywords" content="大数据开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题随笔-21&#x2F;4&#x2F;12">
+<meta property="og:url" content="http://yoursite.com/2021/04/12/面试题随笔-21-4-12/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="今日面经链接：https://www.nowcoder.com/discuss/636561?type=post&amp;amp;order=time&amp;amp;pos=&amp;amp;page=1&amp;amp;channel=-1&amp;amp;source_id=search_post_nctrack&amp;amp;subType=2 线程和进程的区别1、进程是一段正在执行的程序，是资源分配的基本单元，而线程是CPU调度的基">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-04-13T14:06:33.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题随笔-21&#x2F;4&#x2F;12">
+<meta name="twitter:description" content="今日面经链接：https://www.nowcoder.com/discuss/636561?type=post&amp;amp;order=time&amp;amp;pos=&amp;amp;page=1&amp;amp;channel=-1&amp;amp;source_id=search_post_nctrack&amp;amp;subType=2 线程和进程的区别1、进程是一段正在执行的程序，是资源分配的基本单元，而线程是CPU调度的基">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/12/面试题随笔-21-4-12/">
+
+
+
+
+
+  <title>面试题随笔-21/4/12 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/12/面试题随笔-21-4-12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题随笔-21/4/12</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-12T14:30:54+08:00">
+                2021-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="今日面经"><a href="#今日面经" class="headerlink" title="今日面经"></a>今日面经</h2><p>链接：<a href="https://www.nowcoder.com/discuss/636561?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=-1&amp;source_id=search_post_nctrack&amp;subType=2" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/636561?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=-1&amp;source_id=search_post_nctrack&amp;subType=2</a></p>
+<h3 id="线程和进程的区别"><a href="#线程和进程的区别" class="headerlink" title="线程和进程的区别"></a>线程和进程的区别</h3><p>1、进程是一段正在执行的程序，是资源分配的基本单元，而线程是CPU调度的基本单元。<br>2、进程间相互独立进程，进程之间不能共享资源，一个进程至少有一个线程，同一进程的各线程共享整个进程的资源（寄存器、堆栈、上下文）。<br>3、线程的创建和切换开销比进程小。</p>
+<h3 id="死锁的条件"><a href="#死锁的条件" class="headerlink" title="死锁的条件"></a>死锁的条件</h3><p>互斥条件</p>
+<p>不可剥夺条件</p>
+<p>请求与保持条件</p>
+<p>循环等待条件</p>
+<h3 id="多线程和线程池的一些问题"><a href="#多线程和线程池的一些问题" class="headerlink" title="多线程和线程池的一些问题"></a>多线程和线程池的一些问题</h3><p>链接：<a href="https://blog.csdn.net/asd136912/article/details/87908629" target="_blank" rel="noopener">https://blog.csdn.net/asd136912/article/details/87908629</a></p>
+<h4 id="使用Thread弊端"><a href="#使用Thread弊端" class="headerlink" title="使用Thread弊端"></a>使用Thread弊端</h4><p>Thread的弊端如下：</p>
+<ol>
+<li>每次new Thread新建对象性能差。</li>
+<li>线程缺乏统一管理，可能无限制新建线程，相互之间竞争，及可能占用过多系统资源导致死机或oom。</li>
+<li>缺乏更多功能，如定时执行、定期执行、线程中断。</li>
+</ol>
+<h4 id="线程池背景及优势"><a href="#线程池背景及优势" class="headerlink" title="线程池背景及优势"></a>线程池背景及优势</h4><p>什么时候使用线程池？</p>
+<ul>
+<li><p>单个任务处理时间比较短</p>
+</li>
+<li><p>需要处理的任务数量很大</p>
+</li>
+</ul>
+<p>使用线程池的好处:</p>
+<ul>
+<li>降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。</li>
+<li>提高响应速度。当任务到达时，任务可以不需要的等到线程创建就能立即执行。</li>
+<li>提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。</li>
+</ul>
+<h4 id="Executor解析"><a href="#Executor解析" class="headerlink" title="Executor解析"></a>Executor解析</h4><h5 id="线程池原理"><a href="#线程池原理" class="headerlink" title="线程池原理"></a>线程池原理</h5><p>Java通过Executors提供四种线程池，分别为：</p>
+<ul>
+<li>newCachedThreadPool创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。</li>
+<li>newFixedThreadPool 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。</li>
+<li>newScheduledThreadPool 创建一个定长线程池，支持定时及周期性任务执行。</li>
+<li>newSingleThreadExecutor 创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</li>
+</ul>
+<p>核心参数的作用：</p>
+<ul>
+<li><code>corePoolSize</code> 为线程池的基本大小。</li>
+<li><code>maximumPoolSize</code> 为线程池最大线程大小。</li>
+<li><code>keepAliveTime</code> 和 <code>unit</code> 则是线程空闲后的存活时间。</li>
+<li><code>workQueue</code> 用于存放任务的阻塞队列。</li>
+<li><code>handler</code> 当队列和最大线程池都满了之后的饱和策略。</li>
+</ul>
+<p>线程池运行状态：</p>
+<ol>
+<li>RUNNING ：能接受新提交的任务，并且也能处理阻塞队列中的任务；</li>
+<li>SHUTDOWN：关闭状态，不再接受新提交的任务，但却可以继续处理阻塞队列中已保存的任务。在线程池处于 RUNNING 状态时，调用shutdown()方法会使线程池进入到该状态。（finalize() 方法在执行过程中也会调用shutdown()方法进入该状态）；</li>
+<li>STOP：不能接受新任务，也不处理队列中的任务，会中断正在处理任务的线程。在线程池处于 RUNNING 或 SHUTDOWN 状态时，调用 shutdownNow() 方法会使线程池进入到该状态；</li>
+<li>TIDYING：如果所有的任务都已终止了，workerCount (有效线程数) 为0，线程池进入该状态后会调用 terminated() 方法进入TERMINATED 状态。</li>
+<li>TERMINATED：在terminated() 方法执行完后进入该状态，默认terminated()方法中什么也没有做。</li>
+</ol>
+<p>进入TERMINATED的条件如下：</p>
+<ul>
+<li>线程池不是RUNNING状态；</li>
+<li>线程池状态不是TIDYING状态或TERMINATED状态；</li>
+<li>如果线程池状态是SHUTDOWN并且workerQueue为空；</li>
+<li>workerCount为0；</li>
+<li>设置TIDYING状态成功。</li>
+</ul>
+<h5 id="配置线程池"><a href="#配置线程池" class="headerlink" title="配置线程池"></a>配置线程池</h5><p>流程聊完了再来看看上文提到了几个核心参数应该如何配置呢？</p>
+<p>有一点是肯定的，线程池肯定是不是越大越好。</p>
+<p>通常我们是需要根据这批任务执行的性质来确定的。</p>
+<ul>
+<li>IO 密集型任务：由于线程并不是一直在运行，所以可以尽可能的多配置线程，比如 CPU 个数 * 2</li>
+<li>CPU 密集型任务（大量复杂的运算）应当分配较少的线程，比如 CPU 个数相当的大小。</li>
+</ul>
+<p>当然这些都是经验值，最好的方式还是根据实际情况测试得出最佳配置。</p>
+<h5 id="优雅关闭线程池"><a href="#优雅关闭线程池" class="headerlink" title="优雅关闭线程池"></a>优雅关闭线程池</h5><p>有运行任务自然也有关闭任务，从上文提到的 5 个状态就能看出如何来关闭线程池。</p>
+<p>其实无非就是两个方法 shutdown()/shutdownNow()。</p>
+<p>但他们有着重要的区别：</p>
+<p>shutdown() 执行后停止接受新任务，会把队列的任务执行完毕。<br>shutdownNow() 也是停止接受新任务，但会中断所有的任务，将线程池状态变为 stop。</p>
+<p><code>pool.awaitTermination(1, TimeUnit.SECONDS)</code> 会每隔一秒钟检查一次是否执行完毕（状态为 <code>TERMINATED</code>），当从 while 循环退出时就表明线程池已经完全终止了。</p>
+<h4 id="Executor存在问题"><a href="#Executor存在问题" class="headerlink" title="Executor存在问题"></a>Executor存在问题</h4><p>使用Executors创建线程池可能会导致OOM(OutOfMemory ,内存溢出)。</p>
+<p><code>newFixedThreadPool</code>中创建<code>LinkedBlockingQueue</code>时，并未指定容量。此时，<code>LinkedBlockingQueue</code>就是一个无边界队列，对于一个无边界队列来说，是可以不断的向队列中加入任务的，这种情况下就有可能因为任务过多而导致内存溢出问题。</p>
+<p>解决方法</p>
+<p>避免使用Executors创建线程池，主要是避免使用其中的默认实现，那么我们可以自己直接调用<code>ThreadPoolExecutor</code>的构造函数来自己创建线程池。</p>
+<h3 id="jvm-内存模型"><a href="#jvm-内存模型" class="headerlink" title="jvm 内存模型"></a>jvm 内存模型</h3><p><strong>程序计数器(线程私有)：</strong></p>
+<p>计数器记录的是虚拟机字节码指令的地址。存放下一条指令所在单元的地址的地方</p>
+<p><strong>java 虚拟机栈</strong><br>也是线程私有的。<br>每个方法在执行的时候也会创建一个栈帧，存储了局部变量，操作数，动态链接，方法返回地址。</p>
+<p><strong>本地方法栈（线程私有）</strong><br>和虚拟机栈类似，主要为虚拟机使用到的Native方法服务。也会抛出StackOverflowError 和OutOfMemoryError。</p>
+<p><strong>Java堆（线程共享）</strong><br>被所有线程共享的一块内存区域，在虚拟机启动的时候创建，用于存放对象实例。</p>
+<p><strong>方法区（线程共享）</strong><br>被所有方法线程共享的一块内存区域。<br>用于存储已经被虚拟机加载的类信息，常量，静态变量等。<br>这个区域的内存回收目标主要针对常量池的回收和堆类型的卸载。</p>
+<h2 id="今日面经2"><a href="#今日面经2" class="headerlink" title="今日面经2"></a>今日面经2</h2><p>链接：<a href="https://www.nowcoder.com/discuss/639062?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=-1&amp;source_id=search_post_nctrack" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/639062?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=-1&amp;source_id=search_post_nctrack</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/大数据开发/" rel="tag"># 大数据开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/11/面试题随笔-21-4-11/" rel="next" title="面试题随笔-21/4/11">
+                <i class="fa fa-chevron-left"></i> 面试题随笔-21/4/11
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和进程的区别"><span class="nav-number">1.1.</span> <span class="nav-text">线程和进程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁的条件"><span class="nav-number">1.2.</span> <span class="nav-text">死锁的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程和线程池的一些问题"><span class="nav-number">1.3.</span> <span class="nav-text">多线程和线程池的一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Thread弊端"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用Thread弊端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池背景及优势"><span class="nav-number">1.3.2.</span> <span class="nav-text">线程池背景及优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor解析"><span class="nav-number">1.3.3.</span> <span class="nav-text">Executor解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池原理"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">线程池原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置线程池"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">配置线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优雅关闭线程池"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">优雅关闭线程池</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor存在问题"><span class="nav-number">1.3.4.</span> <span class="nav-text">Executor存在问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm-内存模型"><span class="nav-number">1.4.</span> <span class="nav-text">jvm 内存模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经2"><span class="nav-number">2.</span> <span class="nav-text">今日面经2</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

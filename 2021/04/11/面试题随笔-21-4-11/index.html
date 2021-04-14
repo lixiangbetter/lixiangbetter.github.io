@@ -88,7 +88,7 @@
 <meta property="og:description" content="今日面经链接：https://www.nowcoder.com/discuss/614626?source_id=profile_create_nctrack&amp;amp;channel=-1 操作系统中线程、进程联系和区别，上下文切换时发生了什么1、首先，需要搞明白什么是上下文切换？（面试题）上下文切换就是从当前执行任务切换到另一个任务执行的过程。但是，为了确保下次能从正确的位置继续执行，在切换之前">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://lixiangbetter.github.io/2021/04/11/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-11/20191026190526122.png">
-<meta property="og:updated_time" content="2021-04-11T14:04:27.614Z">
+<meta property="og:updated_time" content="2021-04-12T06:30:18.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;4&#x2F;11">
 <meta name="twitter:description" content="今日面经链接：https://www.nowcoder.com/discuss/614626?source_id=profile_create_nctrack&amp;amp;channel=-1 操作系统中线程、进程联系和区别，上下文切换时发生了什么1、首先，需要搞明白什么是上下文切换？（面试题）上下文切换就是从当前执行任务切换到另一个任务执行的过程。但是，为了确保下次能从正确的位置继续执行，在切换之前">
@@ -677,6 +677,9 @@
 <p>8 1 6</p>
 <h3 id="给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文"><a href="#给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文" class="headerlink" title="给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文"></a>给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 回文串</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n = s.length();</span><br><span class="line">  <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(left))) &#123;</span><br><span class="line">      ++left;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right &amp;&amp; !Character.isLetterOrDigit(s.charAt(right))) &#123;</span><br><span class="line">      --right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (left &lt; right) &#123;</span><br><span class="line">      <span class="keyword">if</span> (Character.isLowerCase(s.charAt(left)) != Character.isLowerCase(s.charAt(right))) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      ++left;</span><br><span class="line">      --right;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点：愿意钻研技术，执行能力比较强。</p>
+<p>缺点：前面提到执行能力比较强，可能相反我的领导能力有欠缺。</p>
+<h3 id="任务完不成，怎么办？"><a href="#任务完不成，怎么办？" class="headerlink" title="任务完不成，怎么办？"></a>任务完不成，怎么办？</h3><p>​    遇到任务完不成，第一时间就是分析任务无法完成的原因，任务完不成造成的结果，如果有不良影响应该怎么解决。如果是由于个人原因造成，这可能是最开始工作不熟，能力不够，一定加倍努力，下次不再犯。而如果是客观原因，比如公司决策，大环境影响，竞争对手的下作手段等，那就只有尽可能想办法弥补造成的损失，随时跟踪任务进度，遇到问题及时预警及处理，尽最大的努力完成任务！</p>
 
       
     </div>
@@ -707,8 +710,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/04/10/面试题随笔-21-04-10/" rel="next" title="面试题随笔-21/04/10">
-                <i class="fa fa-chevron-left"></i> 面试题随笔-21/04/10
+              <a href="/2021/04/10/面试题随笔-21-4-10/" rel="next" title="面试题随笔-21/4/10">
+                <i class="fa fa-chevron-left"></i> 面试题随笔-21/4/10
               </a>
             
           </div>
@@ -716,6 +719,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/12/面试题随笔-21-4-12/" rel="prev" title="面试题随笔-21/4/12">
+                面试题随笔-21/4/12 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -799,7 +806,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -810,7 +817,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -821,7 +828,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -864,7 +871,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统中线程、进程联系和区别，上下文切换时发生了什么"><span class="nav-number">1.1.</span> <span class="nav-text">操作系统中线程、进程联系和区别，上下文切换时发生了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程说一下"><span class="nav-number">1.2.</span> <span class="nav-text">协程说一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select语句的执行顺序"><span class="nav-number">1.3.</span> <span class="nav-text">select语句的执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete-from-table-where-id-gt-2-执行这条语句过程中发生了什么？（胡说一通）"><span class="nav-number">1.4.</span> <span class="nav-text">Delete * from table where id&gt;2 执行这条语句过程中发生了什么？（胡说一通）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的索引"><span class="nav-number">1.5.</span> <span class="nav-text">数据库的索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库三大范式"><span class="nav-number">1.6.</span> <span class="nav-text">数据库三大范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池原理"><span class="nav-number">1.7.</span> <span class="nav-text">线程池原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap为什么线程不安全"><span class="nav-number">1.8.</span> <span class="nav-text">HashMap为什么线程不安全</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经2"><span class="nav-number">2.</span> <span class="nav-text">今日面经2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hashmap的原理"><span class="nav-number">2.1.</span> <span class="nav-text">hashmap的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的参数"><span class="nav-number">2.2.</span> <span class="nav-text">线程池的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP与TDP区别"><span class="nav-number">2.3.</span> <span class="nav-text">UDP与TDP区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie和Session"><span class="nav-number">2.4.</span> <span class="nav-text">Cookie和Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的类别"><span class="nav-number">2.5.</span> <span class="nav-text">索引的类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解MVCC吗？"><span class="nav-number">2.6.</span> <span class="nav-text">了解MVCC吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写个SQL行列转换"><span class="nav-number">2.7.</span> <span class="nav-text">写个SQL行列转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动装箱和拆箱、引用传递"><span class="nav-number">2.8.</span> <span class="nav-text">自动装箱和拆箱、引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">2.9.</span> <span class="nav-text">垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile在单例模式中的作用"><span class="nav-number">2.10.</span> <span class="nav-text">volatile在单例模式中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java序列化"><span class="nav-number">2.11.</span> <span class="nav-text">java序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9填九宫格，行列对角线和都相等"><span class="nav-number">2.12.</span> <span class="nav-text">1-9填九宫格，行列对角线和都相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文"><span class="nav-number">2.13.</span> <span class="nav-text">给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统中线程、进程联系和区别，上下文切换时发生了什么"><span class="nav-number">1.1.</span> <span class="nav-text">操作系统中线程、进程联系和区别，上下文切换时发生了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协程说一下"><span class="nav-number">1.2.</span> <span class="nav-text">协程说一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#select语句的执行顺序"><span class="nav-number">1.3.</span> <span class="nav-text">select语句的执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete-from-table-where-id-gt-2-执行这条语句过程中发生了什么？（胡说一通）"><span class="nav-number">1.4.</span> <span class="nav-text">Delete * from table where id&gt;2 执行这条语句过程中发生了什么？（胡说一通）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的索引"><span class="nav-number">1.5.</span> <span class="nav-text">数据库的索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库三大范式"><span class="nav-number">1.6.</span> <span class="nav-text">数据库三大范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池原理"><span class="nav-number">1.7.</span> <span class="nav-text">线程池原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap为什么线程不安全"><span class="nav-number">1.8.</span> <span class="nav-text">HashMap为什么线程不安全</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经2"><span class="nav-number">2.</span> <span class="nav-text">今日面经2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hashmap的原理"><span class="nav-number">2.1.</span> <span class="nav-text">hashmap的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的参数"><span class="nav-number">2.2.</span> <span class="nav-text">线程池的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP与TDP区别"><span class="nav-number">2.3.</span> <span class="nav-text">UDP与TDP区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cookie和Session"><span class="nav-number">2.4.</span> <span class="nav-text">Cookie和Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引的类别"><span class="nav-number">2.5.</span> <span class="nav-text">索引的类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解MVCC吗？"><span class="nav-number">2.6.</span> <span class="nav-text">了解MVCC吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写个SQL行列转换"><span class="nav-number">2.7.</span> <span class="nav-text">写个SQL行列转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动装箱和拆箱、引用传递"><span class="nav-number">2.8.</span> <span class="nav-text">自动装箱和拆箱、引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">2.9.</span> <span class="nav-text">垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile在单例模式中的作用"><span class="nav-number">2.10.</span> <span class="nav-text">volatile在单例模式中的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java序列化"><span class="nav-number">2.11.</span> <span class="nav-text">java序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9填九宫格，行列对角线和都相等"><span class="nav-number">2.12.</span> <span class="nav-text">1-9填九宫格，行列对角线和都相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文"><span class="nav-number">2.13.</span> <span class="nav-text">给定一句话，只考虑数字和字母（不考虑大小写），判断是否为回文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">2.14.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务完不成，怎么办？"><span class="nav-number">2.15.</span> <span class="nav-text">任务完不成，怎么办？</span></a></li></ol></li></ol></div>
             
 
           </div>
