@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="今日面经链接：https://www.nowcoder.com/discuss/636561?type=post&amp;amp;order=time&amp;amp;pos=&amp;amp;page=1&amp;amp;channel=-1&amp;amp;source_id=search_post_nctrack&amp;amp;subType=2 线程和进程的区别1、进程是一段正在执行的程序，是资源分配的基本单元，而线程是CPU调度的基">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-13T14:06:33.750Z">
+<meta property="og:updated_time" content="2021-04-14T06:35:38.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;4&#x2F;12">
 <meta name="twitter:description" content="今日面经链接：https://www.nowcoder.com/discuss/636561?type=post&amp;amp;order=time&amp;amp;pos=&amp;amp;page=1&amp;amp;channel=-1&amp;amp;source_id=search_post_nctrack&amp;amp;subType=2 线程和进程的区别1、进程是一段正在执行的程序，是资源分配的基本单元，而线程是CPU调度的基">
@@ -469,7 +469,65 @@
 <p><strong>本地方法栈（线程私有）</strong><br>和虚拟机栈类似，主要为虚拟机使用到的Native方法服务。也会抛出StackOverflowError 和OutOfMemoryError。</p>
 <p><strong>Java堆（线程共享）</strong><br>被所有线程共享的一块内存区域，在虚拟机启动的时候创建，用于存放对象实例。</p>
 <p><strong>方法区（线程共享）</strong><br>被所有方法线程共享的一块内存区域。<br>用于存储已经被虚拟机加载的类信息，常量，静态变量等。<br>这个区域的内存回收目标主要针对常量池的回收和堆类型的卸载。</p>
-<h2 id="今日面经2"><a href="#今日面经2" class="headerlink" title="今日面经2"></a>今日面经2</h2><p>链接：<a href="https://www.nowcoder.com/discuss/639062?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=-1&amp;source_id=search_post_nctrack" target="_blank" rel="noopener">https://www.nowcoder.com/discuss/639062?type=post&amp;order=time&amp;pos=&amp;page=1&amp;channel=-1&amp;source_id=search_post_nctrack</a></p>
+<h3 id="jvm调优"><a href="#jvm调优" class="headerlink" title="jvm调优"></a>jvm调优</h3><h4 id="堆大小设置"><a href="#堆大小设置" class="headerlink" title="堆大小设置"></a>堆大小设置</h4><p>年轻代的设置很关键<br>JVM中最大堆大小有三方面限制：相关操作系统的数据模型（32-bt还是64-bit）限制；系统的可用虚拟内存限制；系统的可用物理内存限制。<br>典型设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx3550m -Xms3550m -Xmn2g –Xss128k</span><br><span class="line"></span><br><span class="line">-Xmx3550m：设置JVM最大可用内存为3550M。</span><br><span class="line"></span><br><span class="line">-Xms3550m：设置JVM初始内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。</span><br><span class="line"></span><br><span class="line">-Xmn2g：设置年轻代大小为2G。整个堆大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。</span><br><span class="line"></span><br><span class="line">-Xss128k：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0</span><br><span class="line"></span><br><span class="line">-XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5</span><br><span class="line"></span><br><span class="line">-XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6</span><br><span class="line"></span><br><span class="line">-XX:MaxPermSize=16m:设置持久代大小为16m。</span><br><span class="line"></span><br><span class="line">-XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。</span><br></pre></td></tr></table></figure>
+
+<p><strong>堆设置</strong></p>
+<p>-Xms:初始堆大小<br>-Xmx:最大堆大小<br>-XX:NewSize=n:设置年轻代大小<br>-XX:NewRatio=n:设置年轻代和年老代的比值。如:为3，表示年轻代与年老代比值为1：3，年轻代占整个年轻代年老代和的1/4<br>-XX:SurvivorRatio=n:年轻代中Eden区与两个Survivor区的比值。注意Survivor区有两个。如：3，表示Eden：Survivor=3：2，一个Survivor区占整个年轻代的1/5<br>-XX:MaxPermSize=n:设置持久代大小</p>
+<p><strong>收集器设置</strong></p>
+<p>-XX:+UseSerialGC:设置串行收集器<br>-XX:+UseParallelGC:设置并行收集器<br>-XX:+UseParalledlOldGC:设置并行年老代收集器<br>-XX:+UseConcMarkSweepGC:设置并发收集器</p>
+<h3 id="http和https的主要区别"><a href="#http和https的主要区别" class="headerlink" title="http和https的主要区别"></a>http和https的主要区别</h3><p>https协议需要到CA申请证书，一般免费证书较少，因而需要一定费用。</p>
+<p>http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl/tls加密传输协议。</p>
+<h3 id="tcp协议"><a href="#tcp协议" class="headerlink" title="tcp协议"></a>tcp协议</h3><p>TCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议.</p>
+<h3 id="数组链表栈队列的区别"><a href="#数组链表栈队列的区别" class="headerlink" title="数组链表栈队列的区别"></a>数组<a href="https://www.nowcoder.com/jump/super-jump/word?word=链表" target="_blank" rel="noopener">链表</a>栈队列的区别</h3><p>联系：</p>
+<ul>
+<li>这四种数据结构都是线性表数据结构。</li>
+</ul>
+<p>区别：</p>
+<ul>
+<li>数组与链表是更加偏向数据存储方式的概念，数组在连续的空间中存储数据，随机读取效率高，但是数据添加删除的效率较低； 而链表可以在非连续的空间中存储数据，随机访问效率低，数据添加删除效率高。</li>
+<li>队列和栈是描述数据存取方式的概念，队列是先进先出，而堆栈是后进先出；队列和栈都可以使用数组或者链表实现。</li>
+</ul>
+<h3 id="如何返回链表倒数第k个元素"><a href="#如何返回链表倒数第k个元素" class="headerlink" title="如何返回链表倒数第k个元素"></a>如何返回<a href="https://www.nowcoder.com/jump/super-jump/word?word=链表" target="_blank" rel="noopener">链表</a>倒数第k个元素</h3><p>双指针法：</p>
+<p>让两个结点，同时指向首结点，其中一个结点向后移动k个位置。</p>
+<p>然后两个结点同时后移，当前一个结点到末尾时，后一个结点就是倒数第k个元素。</p>
+<h3 id="kafka的ISR机制"><a href="#kafka的ISR机制" class="headerlink" title="kafka的ISR机制"></a>kafka的ISR机制</h3><p>kafka的ISR机制被成为“不丢消息”机制。在说ISR机制前，先讲一下kafka的副本（replica）。</p>
+<p><strong>kafka的Replica</strong></p>
+<p>1.kafka的topic可以设置有N个副本（replica），副本数最好要小于broker的数量，也就是要保证一个broker上的replica最多有一个，所以可以用broker id指定Partition replica。</p>
+<p>2.创建副本的单位是topic的分区，每个分区有1个leader和0到多个follower，我们把多个replica分为Lerder replica和follower replica。</p>
+<p>3.当producer在向partition中写数据时，根据ack机制，默认ack=1，只会向leader中写入数据，然后leader中的数据会复制到其他的replica中，follower会周期性的从leader中pull数据，但是对于数据的读写操作都在leader replica中，follower副本只是当leader副本挂了后才重新选取leader，follower并不向外提供服务。</p>
+<p><strong>kafka的“同步”</strong></p>
+<p>kafka不是完全同步，也不是完全异步，是一种特殊的ISR（In Sync Replica）</p>
+<p>1.leader会维持一个与其保持同步的replica集合，该集合就是ISR，每一个partition都有一个ISR，它时有leader动态维护。</p>
+<p>2.我们要保证kafka不丢失message，就要保证ISR这组集合存活（至少有一个存活），并且消息commit成功。</p>
+<h3 id="kafka原理"><a href="#kafka原理" class="headerlink" title="kafka原理"></a>kafka原理</h3><p>Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统。</p>
+<p><strong>Kafka的特性:</strong></p>
+<p>- 高吞吐量、低延迟：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒，每个topic可以分多个partition, consumer group 对partition进行consume操作。</p>
+<p>- 可扩展性：kafka集群支持热扩展</p>
+<p>- 持久性、可靠性：消息被持久化到本地磁盘，并且支持数据备份防止数据丢失</p>
+<p>- 容错性：允许集群中节点失败（若副本数量为n,则允许n-1个节点失败）</p>
+<p>- 高并发：支持数千个客户端同时读写</p>
+<h3 id="求子数组和最大值"><a href="#求子数组和最大值" class="headerlink" title="求子数组和最大值"></a>求子数组和最大值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxSubArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            nums[i] += Math.max(nums[i - <span class="number">1</span>], <span class="number">0</span>);</span><br><span class="line">            res = Math.max(res, nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mapreduce的原理"><a href="#mapreduce的原理" class="headerlink" title="mapreduce的原理"></a>mapreduce的原理</h3><ol>
+<li><p>一个mr程序启动的时候，最先启动的是MRAppMaster，MRAppMaster启动后根据本次job的描述信息，计算出需要的maptask实例数量，然后向集群申请机器启动相应数量的maptask进程</p>
+</li>
+<li><p>maptask进程启动之后，根据给定的数据切片范围进行数据处理，主体流程为：</p>
+</li>
+</ol>
+<ul>
+<li>利用客户指定的inputformat来获取RecordReader读取数据，形成输入KV对</li>
+<li>将输入KV对传递给客户定义的map()方法，做逻辑运算，并将map()方法输出的KV对收集到缓存</li>
+<li>将缓存中的KV对按照K分区排序后不断溢写到磁盘文件</li>
+</ul>
+<ol start="3">
+<li><p>MRAppMaster监控到所有maptask进程任务完成之后，会根据客户指定的参数启动相应数量的reducetask进程，并告知reducetask进程要处理的数据范围（数据分区）</p>
+</li>
+<li><p>Reducetask进程启动之后，根据MRAppMaster告知的待处理数据所在位置，从若干台maptask运行所在机器上获取到若干个maptask输出结果文件，并在本地进行重新归并排序，然后按照相同key的KV为一个组，调用客户定义的reduce()方法进行逻辑运算，并收集运算输出的结果KV，然后调用客户指定的outputformat将结果数据输出到外部存储。</p>
+</li>
+</ol>
 
       
     </div>
@@ -509,6 +567,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/14/面试题随笔-21-4-14/" rel="prev" title="面试题随笔-21/4/14">
+                面试题随笔-21/4/14 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -592,7 +654,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -657,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和进程的区别"><span class="nav-number">1.1.</span> <span class="nav-text">线程和进程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁的条件"><span class="nav-number">1.2.</span> <span class="nav-text">死锁的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程和线程池的一些问题"><span class="nav-number">1.3.</span> <span class="nav-text">多线程和线程池的一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Thread弊端"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用Thread弊端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池背景及优势"><span class="nav-number">1.3.2.</span> <span class="nav-text">线程池背景及优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor解析"><span class="nav-number">1.3.3.</span> <span class="nav-text">Executor解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池原理"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">线程池原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置线程池"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">配置线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优雅关闭线程池"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">优雅关闭线程池</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor存在问题"><span class="nav-number">1.3.4.</span> <span class="nav-text">Executor存在问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm-内存模型"><span class="nav-number">1.4.</span> <span class="nav-text">jvm 内存模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经2"><span class="nav-number">2.</span> <span class="nav-text">今日面经2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程和进程的区别"><span class="nav-number">1.1.</span> <span class="nav-text">线程和进程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁的条件"><span class="nav-number">1.2.</span> <span class="nav-text">死锁的条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程和线程池的一些问题"><span class="nav-number">1.3.</span> <span class="nav-text">多线程和线程池的一些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Thread弊端"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用Thread弊端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池背景及优势"><span class="nav-number">1.3.2.</span> <span class="nav-text">线程池背景及优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor解析"><span class="nav-number">1.3.3.</span> <span class="nav-text">Executor解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线程池原理"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">线程池原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置线程池"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">配置线程池</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优雅关闭线程池"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">优雅关闭线程池</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Executor存在问题"><span class="nav-number">1.3.4.</span> <span class="nav-text">Executor存在问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm-内存模型"><span class="nav-number">1.4.</span> <span class="nav-text">jvm 内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm调优"><span class="nav-number">1.5.</span> <span class="nav-text">jvm调优</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#堆大小设置"><span class="nav-number">1.5.1.</span> <span class="nav-text">堆大小设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http和https的主要区别"><span class="nav-number">1.6.</span> <span class="nav-text">http和https的主要区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp协议"><span class="nav-number">1.7.</span> <span class="nav-text">tcp协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组链表栈队列的区别"><span class="nav-number">1.8.</span> <span class="nav-text">数组链表栈队列的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何返回链表倒数第k个元素"><span class="nav-number">1.9.</span> <span class="nav-text">如何返回链表倒数第k个元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka的ISR机制"><span class="nav-number">1.10.</span> <span class="nav-text">kafka的ISR机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kafka原理"><span class="nav-number">1.11.</span> <span class="nav-text">kafka原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#求子数组和最大值"><span class="nav-number">1.12.</span> <span class="nav-text">求子数组和最大值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapreduce的原理"><span class="nav-number">1.13.</span> <span class="nav-text">mapreduce的原理</span></a></li></ol></li></ol></div>
             
 
           </div>
