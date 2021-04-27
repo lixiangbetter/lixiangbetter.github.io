@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="大数据私房菜,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="字节笔试哪些排序是稳定的？（多选）冒泡排序，归并排序 不稳定：堆排序，快速排序 http和https？（多选）tls zookeeper（多选）高速缓存 命名服务 主节点选举 分布式锁 进程和线程（多选）线程有独立的地址空间 错 线程有独立的堆和栈 错 独立栈，共享堆 999个节点的二叉树的高（单选）10 大数据私房菜大数据求top n map reduce程序链接：https://blog.cs">
+<meta name="keywords" content="大数据私房菜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据私房菜-21&#x2F;4&#x2F;24">
+<meta property="og:url" content="http://yoursite.com/2021/04/24/大数据私房菜-21-4-24/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="字节笔试哪些排序是稳定的？（多选）冒泡排序，归并排序 不稳定：堆排序，快速排序 http和https？（多选）tls zookeeper（多选）高速缓存 命名服务 主节点选举 分布式锁 进程和线程（多选）线程有独立的地址空间 错 线程有独立的堆和栈 错 独立栈，共享堆 999个节点的二叉树的高（单选）10 大数据私房菜大数据求top n map reduce程序链接：https://blog.cs">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-04-27T06:22:35.082Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据私房菜-21&#x2F;4&#x2F;24">
+<meta name="twitter:description" content="字节笔试哪些排序是稳定的？（多选）冒泡排序，归并排序 不稳定：堆排序，快速排序 http和https？（多选）tls zookeeper（多选）高速缓存 命名服务 主节点选举 分布式锁 进程和线程（多选）线程有独立的地址空间 错 线程有独立的堆和栈 错 独立栈，共享堆 999个节点的二叉树的高（单选）10 大数据私房菜大数据求top n map reduce程序链接：https://blog.cs">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/04/24/大数据私房菜-21-4-24/">
+
+
+
+
+
+  <title>大数据私房菜-21/4/24 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/24/大数据私房菜-21-4-24/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">大数据私房菜-21/4/24</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-04-24T21:28:00+08:00">
+                2021-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="字节笔试"><a href="#字节笔试" class="headerlink" title="字节笔试"></a>字节笔试</h2><h3 id="哪些排序是稳定的？（多选）"><a href="#哪些排序是稳定的？（多选）" class="headerlink" title="哪些排序是稳定的？（多选）"></a>哪些排序是稳定的？（多选）</h3><p>冒泡排序，归并排序</p>
+<p>不稳定：堆排序，快速排序</p>
+<h3 id="http和https？（多选）"><a href="#http和https？（多选）" class="headerlink" title="http和https？（多选）"></a>http和https？（多选）</h3><p>tls</p>
+<h3 id="zookeeper（多选）"><a href="#zookeeper（多选）" class="headerlink" title="zookeeper（多选）"></a>zookeeper（多选）</h3><p>高速缓存 命名服务 主节点选举 分布式锁</p>
+<h3 id="进程和线程（多选）"><a href="#进程和线程（多选）" class="headerlink" title="进程和线程（多选）"></a>进程和线程（多选）</h3><p>线程有独立的地址空间 错</p>
+<p>线程有独立的堆和栈 错 独立栈，共享堆</p>
+<h3 id="999个节点的二叉树的高（单选）"><a href="#999个节点的二叉树的高（单选）" class="headerlink" title="999个节点的二叉树的高（单选）"></a>999个节点的二叉树的高（单选）</h3><p>10</p>
+<h2 id="大数据私房菜"><a href="#大数据私房菜" class="headerlink" title="大数据私房菜"></a>大数据私房菜</h2><h3 id="大数据求top-n-map-reduce程序"><a href="#大数据求top-n-map-reduce程序" class="headerlink" title="大数据求top n map reduce程序"></a>大数据求top n map reduce程序</h3><p>链接：<a href="https://blog.csdn.net/qq_43193797/article/details/86367610" target="_blank" rel="noopener">https://blog.csdn.net/qq_43193797/article/details/86367610</a></p>
+<h3 id="连续三天登陆的用户"><a href="#连续三天登陆的用户" class="headerlink" title="连续三天登陆的用户"></a>连续三天登陆的用户</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    t2.user_id <span class="keyword">as</span> user_id,</span><br><span class="line">    <span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">as</span> times,</span><br><span class="line">    <span class="keyword">min</span>(t2.login_date) <span class="keyword">as</span> start_date,</span><br><span class="line">    <span class="keyword">max</span>(t2.login_date) <span class="keyword">as</span> end_date</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        t1.user_id,</span><br><span class="line">        t1.login_date,</span><br><span class="line">        <span class="keyword">date_sub</span>(t1.login_date, rn) <span class="keyword">as</span> date_diff</span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span></span><br><span class="line">            user_id,</span><br><span class="line">            login_date,</span><br><span class="line">            row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> login_date <span class="keyword">asc</span>) <span class="keyword">as</span> rn</span><br><span class="line">        <span class="keyword">from</span></span><br><span class="line">        wedw_dw.t_login_info</span><br><span class="line">    ) t1</span><br><span class="line">) t2</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t2.user_id,t2.date_diff</span><br><span class="line"><span class="keyword">having</span> times &gt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="广告日志，求广告的曝光数和点击数"><a href="#广告日志，求广告的曝光数和点击数" class="headerlink" title="广告日志，求广告的曝光数和点击数"></a>广告日志，求广告的曝光数和点击数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">package com.lx.spark</span><br><span class="line"></span><br><span class="line">import org.apache.spark.SparkContext</span><br><span class="line">import org.apache.spark.rdd.RDD</span><br><span class="line">import org.apache.spark.sql.SparkSession</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @author lx</span></span><br><span class="line"><span class="comment"> * @date 2021/4/26 3:32 下午</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">class AddLog &#123;</span><br><span class="line"></span><br><span class="line">  def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    </span><br><span class="line">    val spark: SparkSession = SparkSession</span><br><span class="line">      .builder()</span><br><span class="line">      .master("local[2]")</span><br><span class="line">      .appName("AddLog")</span><br><span class="line">      .getOrCreate()</span><br><span class="line"></span><br><span class="line">    import spark.implicits._;</span><br><span class="line">    val sc: SparkContext = spark.sparkContext</span><br><span class="line"></span><br><span class="line">    val clickRDD: RDD[String] = sc.textFile("data/click.log")</span><br><span class="line">    val impRDD: RDD[String] = sc.textFile("data/imp.log")</span><br><span class="line"></span><br><span class="line">    val clickRes: RDD[(String, Int)] = clickRDD.map(line =&gt; &#123;</span><br><span class="line">      val arr: Array[String] = line.split("\\s+")</span><br><span class="line">      val adid: String = arr(3).substring(arr(3).lastIndexOf("=") + 1)</span><br><span class="line">      (adid, 1)</span><br><span class="line">    &#125;).reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    val impRes: RDD[(String, Int)] = impRDD.map(line =&gt; &#123;</span><br><span class="line">      val arr: Array[String] = line.split("\\s+")</span><br><span class="line">      val adid: String = arr(3).substring(arr(3).lastIndexOf("=") + 1)</span><br><span class="line">      (adid, 1)</span><br><span class="line">    &#125;).reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    // 保存至hdfs</span><br><span class="line">    clickRes.fullOuterJoin(impRes)</span><br><span class="line">      .map(x =&gt; x._1 + ","+x._2._1.getOrElse(0)+","+ x._2._2.getOrElse(0))</span><br><span class="line">      .repartition(1)</span><br><span class="line">      .saveAsTextFile("data/add_log")</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="spark应用程序的执行命令"><a href="#spark应用程序的执行命令" class="headerlink" title="spark应用程序的执行命令"></a>spark应用程序的执行命令</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spark-submit \</span><br><span class="line"><span class="comment">--class com.***.Application \</span></span><br><span class="line"><span class="comment">--master yarn \</span></span><br><span class="line"><span class="comment">--deploy-mode client \</span></span><br><span class="line"><span class="comment">--driver-memory 1g \</span></span><br><span class="line"><span class="comment">--executor-memory 2g \</span></span><br><span class="line"><span class="comment">--queue root.wedw \</span></span><br><span class="line"><span class="comment">--num-executors 200 \</span></span><br><span class="line"><span class="comment">--jars</span></span><br><span class="line">/home/lx<span class="comment">/***/</span>config-1.3.0.jar,/home/lx<span class="comment">/***/</span>elasticsearch-hadoop-hive.jar,/home/lx/sen.jar</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建rdd的方式"><a href="#创建rdd的方式" class="headerlink" title="创建rdd的方式"></a>创建rdd的方式</h3><p>1.并行化集合创建 RDD</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> arr = <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(arr)</span><br><span class="line"><span class="keyword">val</span> sum = rdd.reduce(_+_)</span><br></pre></td></tr></table></figure>
+
+<p>2.使用外界的数据源创建RDD，比如说本地文件系统，分布式文件系统HDFS等等。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> rdd = sc.textFile(<span class="string">"d://data.txt"</span>)</span><br><span class="line"><span class="keyword">val</span> wordCount = rdd.map(line =&gt; line.length).reduce(_+_)</span><br></pre></td></tr></table></figure>
+
+<p>3.通过将已有RDD使用transform算子操作产生新的RDD。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> wordsRDD = lineWordRDD.flatMap(line =&gt; line.split(<span class="string">" "</span>))</span><br><span class="line"><span class="comment">// 打印RDD的内容</span></span><br><span class="line">wordsRDD.foreach(word =&gt; println(word))</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建dataset的方式"><a href="#创建dataset的方式" class="headerlink" title="创建dataset的方式"></a>创建dataset的方式</h3><p>创建Datasets 的三种方式</p>
+<ul>
+<li>由DataFrame 转化成为 Dataset</li>
+<li>通过 SparkSession.createDataset() 直接创建</li>
+<li>通过toDS 方法意识转换</li>
+</ul>
+<h3 id="如何优雅地kill掉yarn上的application"><a href="#如何优雅地kill掉yarn上的application" class="headerlink" title="如何优雅地kill掉yarn上的application"></a>如何优雅地kill掉yarn上的application</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn application -kill &lt;applicationId&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="spark-on-yarn关键配置"><a href="#spark-on-yarn关键配置" class="headerlink" title="spark on yarn关键配置"></a>spark on yarn关键配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">./bin/spark-submit \</span><br><span class="line">		--class org.apache.spark.examples.SparkPi \</span><br><span class="line">    --master yarn \</span><br><span class="line">    --deploy-mode cluster \</span><br><span class="line">    --driver-memory 4g \</span><br><span class="line">    --executor-memory 2g \</span><br><span class="line">    --executor-cores 1 \</span><br><span class="line">    --queue thequeue \</span><br><span class="line">    examples/jars/spark-examples*.jar \</span><br><span class="line">    10</span><br></pre></td></tr></table></figure>
+
+<p>num-executors: 该参数用于设置Spark作业总共要用多少个Executor进程来执行</p>
+<p>executor-memory: 是每个节点上占用的内存。</p>
+<p>driver-memory: 实际分配的内存</p>
+<p>executor-cores: 该参数用于设置每个Executor进程的CPU core数量，这个参数决定了每个Executor进程并行执行task线程的能力。</p>
+<h3 id="partition分区的个数"><a href="#partition分区的个数" class="headerlink" title="partition分区的个数"></a>partition分区的个数</h3><p>根据 RDD 的创建方式分为两种情况：</p>
+<p>​    1、从内存中创建 RDD：sc.parallelize(…)，那么默认的分区数量为该程序所分配的资源的 CPU 数量。<br>​    2、从 HDFS 文件创建：sc.textFile(…) 或 spark.sql(…)，每个 HDFS 文件以块（Block）的形式存储，Spark 读取时会根据具体数据格式对应的 InputFormat 进行解析，例如文本格式就用 TextInputFormat 进行解析，一般是将若干个 Block 合并为一个输入分片（InputSplit），而这个 InputSplit 数就是默认的分区数。</p>
+<h3 id="scala中的函数和方法的区别"><a href="#scala中的函数和方法的区别" class="headerlink" title="scala中的函数和方法的区别"></a>scala中的函数和方法的区别</h3><p>链接：<a href="https://www.runoob.com/w3cnote/scala-different-function-method.html" target="_blank" rel="noopener">https://www.runoob.com/w3cnote/scala-different-function-method.html</a></p>
+<p>1.方法不能作为单独的表达式而存在（参数为空的方法除外），而函数可以。</p>
+<p>2.函数必须要有参数列表，而方法可以没有参数列表</p>
+<p>3.方法名是方法调用，而函数名只是代表函数对象本身</p>
+<p>4.在需要函数的地方，如果传递一个方法，会自动进行ETA展开（把方法转换为函数）</p>
+<p>5.传名参数本质上是个方法</p>
+<h3 id="如何监控spark-streaming"><a href="#如何监控spark-streaming" class="headerlink" title="如何监控spark streaming"></a>如何监控spark streaming</h3><ol>
+<li>界面监控</li>
+<li>程序监控</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// uncomment these 2 lines if you want to see only your logs</span></span><br><span class="line">  <span class="comment">// Logger.getLogger("org").setLevel(Level.OFF)</span></span><br><span class="line">  <span class="comment">// Logger.getLogger("akka").setLevel(Level.OFF)</span></span><br><span class="line"></span><br><span class="line">  <span class="type">ApplicationProperties</span>.parse(args.toList)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> sparkConf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="type">ApplicationProperties</span>.sparkMaster).setAppName(<span class="type">ApplicationProperties</span>.appName)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(sparkConf, <span class="type">Seconds</span>(<span class="type">ApplicationProperties</span>.batchInterval))</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//添加监控</span></span><br><span class="line">  ssc.addStreamingListener(<span class="keyword">new</span> <span class="type">SparkMonitoringListener</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create a DStream that will connect to hostname:port, like localhost:9999</span></span><br><span class="line">  <span class="keyword">val</span> lines = ssc.socketTextStream(<span class="type">ApplicationProperties</span>.socketStreamHost, <span class="type">ApplicationProperties</span>.socketStreamPort)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Split each line into words</span></span><br><span class="line">  <span class="keyword">val</span> words = lines.flatMap(_.split(<span class="string">" "</span>))</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Count each word in each batch</span></span><br><span class="line">  <span class="keyword">val</span> pairs = words.map(word =&gt; (word, <span class="number">1</span>))</span><br><span class="line">  <span class="keyword">val</span> wordCounts = pairs.reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Print the first ten elements of each RDD generated in this DStream to the console</span></span><br><span class="line">  wordCounts.print()</span><br><span class="line"></span><br><span class="line">  ssc.start()             <span class="comment">// Start the computation</span></span><br><span class="line">  ssc.awaitTermination()  <span class="comment">// Wait for the computation to terminate</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Listener</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">SparkMonitoringListener</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">StreamingListener</span> </span>&#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onBatchStarted</span></span>(batchStarted: <span class="type">StreamingListenerBatchStarted</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    println(<span class="string">"&gt;&gt;&gt; Batch started...records in batch = "</span> + batchStarted.batchInfo.numRecords)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onBatchCompleted</span></span>(batchCompleted: <span class="type">StreamingListenerBatchCompleted</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> start = batchCompleted.batchInfo.processingStartTime.get</span><br><span class="line">    <span class="keyword">val</span> end = batchCompleted.batchInfo.processingEndTime.get</span><br><span class="line">    <span class="keyword">val</span> batchTime = batchCompleted.batchInfo.batchTime</span><br><span class="line">    <span class="keyword">val</span> numRecords = batchCompleted.batchInfo.numRecords</span><br><span class="line">    println(<span class="string">"batch finished"</span>, start, end, end-start, batchTime.toString(), numRecords)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>API监控</li>
+</ol>
+<p>SparkStreaming restAPI监控从spark2.2.0版本开始支持，目前不支持2.1.0</p>
+<h3 id="scala多继承"><a href="#scala多继承" class="headerlink" title="scala多继承"></a>scala多继承</h3><p>通过实现trait</p>
+<h3 id="flink和spark-streaming实时处理的区别"><a href="#flink和spark-streaming实时处理的区别" class="headerlink" title="flink和spark streaming实时处理的区别"></a>flink和spark streaming实时处理的区别</h3><p>SparkStreaming是基于微批处理的,所以他采用DirectDstream的方式根据计算出的每个partition要取数据的Offset范围,拉取一批数据形成Rdd进行批量处理,而且该Rdd和kafka的分区是一一对应的;</p>
+<p>Flink是真正的流处理,他是基于事件触发机制进行处理,在KafkaConsumer拉取一批数据以后,Flink将其经过处理之后变成,逐个Record发送的事件触发式的流处理；</p>
+<ol>
+<li><p>数据模型</p>
+<ul>
+<li>spark 采用rdd，spark streaming的Stream实际上也是一组rdd的集合</li>
+<li>flink的基本数据模型是数据流，以及事件的序列</li>
+</ul>
+</li>
+<li><p>运行架构</p>
+<ul>
+<li>spark是批计算，将DAG划分为不同的stage,一个完成后才可以计算下一个</li>
+<li>Flink是标准的流执行模式，一个事件在一个节点处理完成后可以直接发往下一个节点进行处理。</li>
+</ul>
+</li>
+</ol>
+<h3 id="spark-context作用"><a href="#spark-context作用" class="headerlink" title="spark context作用"></a>spark context作用</h3><p>SparkContext是开发Spark应用的入口，它负责和整个集群的交互，包括创建RDD等。<br>从本质上来说，SparkContext是Spark的对外接口，负责向调用这提供Spark的各种功能。</p>
+<h3 id="spark-streaming读取kafka，direct-receiver两种模式，为什么选择direct-直连模式"><a href="#spark-streaming读取kafka，direct-receiver两种模式，为什么选择direct-直连模式" class="headerlink" title="spark streaming读取kafka，direct+receiver两种模式，为什么选择direct(直连模式)"></a>spark streaming读取kafka，direct+receiver两种模式，为什么选择direct(直连模式)</h3><ol>
+<li><p>receiver模式</p>
+<p>采用该模式，需要一个task一直处于接受数据的状态。spark streaming相当于kafka的消费者，接受来的数据备份到其他节点完成之后，会向zookeeper更新消费者offset。</p>
+<p>当更新完消费者偏移量后，如果driver挂掉，driver下的executor也会挂掉，就会有数据丢失的问题。</p>
+<p>如何解决？</p>
+<p>开启WAL机制，预写日志机制。将数据备份一份到HDFS上，完成之后更新zookeeper的offset。</p>
+<p>效率慢，延迟大。</p>
+<p>可以创建多个Kafka输入DStream，使用不同的consumer group和topic，来通过多个receiver并行接收数据。</p>
+</li>
+<li><p>direct模式</p>
+<p>direct模式将kafka看成存储数据的一方，spark streaming主动取数据，无需一个task一直占用接收数据。</p>
+<p>生成的Stream中的RDD的并行度与读取的kafka的topic的partition个数一致。提高了计算时的并行度。</p>
+<p>spark来管理offset，默认在内存中，可以设置checkpoint。</p>
+</li>
+</ol>
+<h3 id="spark-core和spark-sql"><a href="#spark-core和spark-sql" class="headerlink" title="spark core和spark sql"></a>spark core和spark sql</h3><p>Spark SQL在Spark Core的基础上针对结构化数据处理进行很多优化和改进:</p>
+<p>Spark SQL 支持很多种结构化数据源，可以让你跳过复杂的读取过程，轻松从各种数据源中读取数据。</p>
+<p>当你使用SQL查询这些数据源中的数据并且只用到了一部分字段时，SparkSQL可以智能地只扫描这些用到的字段，而不是像SparkContext.hadoopFile中那样简单粗暴地扫描全部数据。</p>
+<h3 id="一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。"><a href="#一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。" class="headerlink" title="一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。"></a>一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。</h3><p>方法一：哈希表法 hashtable 或者 concurrentHashmap</p>
+<p>可以用哈希表的方法对1千万条分成若干组进行边扫描边建散列表。第一次扫描，取首字节，尾字节，中间随便两字节作为Hash Code，插入到hash table中。并记录其地址和信息长度和重复次数，1千万条信息，记录这几个信息还放得下。同Hash Code且等长就疑似相同，比较一下。相同记录只加1次进hash table，但将重复次数加1。一次扫描以后，已经记录各自的重复次数，进行第二次hash table的处理。用线性时间选择可在O（n）的级别上完成前10条的寻找。分组后每份中的top10必须保证各不相同，可hash来保证，也可直接按hash值的大小来分类。</p>
+<h3 id="spark调优的8个方面"><a href="#spark调优的8个方面" class="headerlink" title="spark调优的8个方面"></a>spark调优的8个方面</h3><p>链接：<a href="https://zhuanlan.zhihu.com/p/54293797" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/54293797</a></p>
+<h3 id="yarn-client和yarn-cluster"><a href="#yarn-client和yarn-cluster" class="headerlink" title="yarn-client和yarn-cluster"></a>yarn-client和yarn-cluster</h3><p>一般yarn-client用于测试环境调试程序；yarn-cluster用于生产环境。</p>
+<p>yarn-client和yarn-cluster的区别就在于，Driver是运行在本地客户端，它的AM只是作为一个Executor启动器，并没有Driver进程。</p>
+<h3 id="spark1-x和spark2-x区别"><a href="#spark1-x和spark2-x区别" class="headerlink" title="spark1.x和spark2.x区别"></a>spark1.x和spark2.x区别</h3><p>Spark 2.x新特性<br>1）Spark Core/SQL</p>
+<p>在内存和CPU使用方面进一步优化Spark引擎性能，支持SQL 2003标准，支持子查询，对常用的SQL操作和DataFrame,性能有2-10倍的提升。</p>
+<p>2）Spark Session</p>
+<p>Spark2.0 中引入了 SparkSession 的概念，它为用户提供了一个统一的切入点来使用 Spark 的各项功能，统一了旧的SQLContext与HiveContext。用户不但可以使用 DataFrame 和Dataset 的各种 API，学习 Spark2 的难度也会大大降低。</p>
+<p>3)统一 DataFrames 和 Datasets 的 API</p>
+<p>它们都是提供给用户使用，包括各类操作接口的 API，1.3 版本引入 DataFrame，1.6版本引入Dataset，在 spark 2.0 中，把 dataframes 当作是一种特殊的 datasets，dataframes = datasets[row]，把两者统一为datasets。</p>
+<p>4) strutured Streaming</p>
+<p>Spark Streaming基于Spark SQL(DataFrame / Dataset )构建了high-level API，使得Spark Streaming充分受益Spark SQL的易用性和性能提升。</p>
+<h3 id="spark-streaming-7-24小时一直运行"><a href="#spark-streaming-7-24小时一直运行" class="headerlink" title="spark streaming 7*24小时一直运行"></a>spark streaming 7*24小时一直运行</h3><ol>
+<li><p>Driver高可用</p>
+<p>Spark Streaming HA将Driver元数据写到checkpoint目录下</p>
+</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(conf, <span class="type">Seconds</span>(<span class="number">2</span>))</span><br><span class="line">ssc.checkpoint(checkpointDirectory)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>RDD高可用</p>
+<p>为了防止Executor异常退出导致数据丢失，Spark Streaming提供了WAL(预写日志)机制。</p>
+<p>Receiver只要接收到数据，会立即将数据写入一份到高可用文件系统(一般是HDFS)上的checkpoint目录中</p>
+</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.set(<span class="string">"spark.streaming.receiver.writeAheadLog.enable "</span>,<span class="string">"true"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="spark-streaming是exactly-once-吗？"><a href="#spark-streaming是exactly-once-吗？" class="headerlink" title="spark streaming是exactly-once 吗？"></a>spark streaming是exactly-once 吗？</h3><p>基于direct stream的方法采用Kafka的简单消费者API，它的流程大大简化了。executor不再从Kafka中连续读取消息，也消除了receiver和WAL。还有一个改进就是Kafka分区与RDD分区是一一对应的，更可控。<br>driver进程只需要每次从Kafka获得批次消息的offset range，然后executor进程根据offset range去读取该批次对应的消息即可。由于offset在Kafka中能唯一确定一条消息，且在外部只能被Streaming程序本身感知到，因此消除了不一致性，达到了exactly once。<br>不过，由于它采用了简单消费者API，我们就需要自己来管理offset。否则一旦程序崩溃，整个流只能从earliest或者latest点恢复，这肯定是不稳妥的。offset管理在之前的文章中提到过，这里不再赘述。</p>
+<p>Kafka作为输入源可以保证exactly once，那么处理逻辑呢？</p>
+<p>答案是显然的，Spark Streaming的处理逻辑天生具备exactly once语义。<br>Spark RDD之所以被称为“弹性分布式数据集”，是因为它具有<strong>不可变、可分区、可并行计算、容错</strong>的特征。一个RDD只能由稳定的数据集生成，或者从其他RDD转换（transform）得来。如果在执行RDD lineage的过程中失败，那么只要源数据不发生变化，无论重新执行多少次lineage，都一定会得到同样的、确定的结果。</p>
+<p>最后，我们还需要保证输出过程也符合exactly once语义。Spark Streaming的输出一般是靠foreachRDD()算子来实现，它默认是at least once的。如果输出过程中途出错，那么就会重复执行直到写入成功。为了让它符合exactly once，可以施加两种限制之一：<strong>幂等性写入</strong>（idempotent write）、<strong>事务性写入</strong>（transactional write）。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/大数据私房菜/" rel="tag"># 大数据私房菜</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/04/19/面试题随笔-21-4-19/" rel="next" title="面试题随笔-21/4/19">
+                <i class="fa fa-chevron-left"></i> 面试题随笔-21/4/19
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/04/27/大数据私房菜-21-4-27/" rel="prev" title="大数据私房菜-21/4/27">
+                大数据私房菜-21/4/27 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字节笔试"><span class="nav-number">1.</span> <span class="nav-text">字节笔试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些排序是稳定的？（多选）"><span class="nav-number">1.1.</span> <span class="nav-text">哪些排序是稳定的？（多选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http和https？（多选）"><span class="nav-number">1.2.</span> <span class="nav-text">http和https？（多选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper（多选）"><span class="nav-number">1.3.</span> <span class="nav-text">zookeeper（多选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程（多选）"><span class="nav-number">1.4.</span> <span class="nav-text">进程和线程（多选）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#999个节点的二叉树的高（单选）"><span class="nav-number">1.5.</span> <span class="nav-text">999个节点的二叉树的高（单选）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大数据私房菜"><span class="nav-number">2.</span> <span class="nav-text">大数据私房菜</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据求top-n-map-reduce程序"><span class="nav-number">2.1.</span> <span class="nav-text">大数据求top n map reduce程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续三天登陆的用户"><span class="nav-number">2.2.</span> <span class="nav-text">连续三天登陆的用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广告日志，求广告的曝光数和点击数"><span class="nav-number">2.3.</span> <span class="nav-text">广告日志，求广告的曝光数和点击数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark应用程序的执行命令"><span class="nav-number">2.4.</span> <span class="nav-text">spark应用程序的执行命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建rdd的方式"><span class="nav-number">2.5.</span> <span class="nav-text">创建rdd的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建dataset的方式"><span class="nav-number">2.6.</span> <span class="nav-text">创建dataset的方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何优雅地kill掉yarn上的application"><span class="nav-number">2.7.</span> <span class="nav-text">如何优雅地kill掉yarn上的application</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-on-yarn关键配置"><span class="nav-number">2.8.</span> <span class="nav-text">spark on yarn关键配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#partition分区的个数"><span class="nav-number">2.9.</span> <span class="nav-text">partition分区的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scala中的函数和方法的区别"><span class="nav-number">2.10.</span> <span class="nav-text">scala中的函数和方法的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何监控spark-streaming"><span class="nav-number">2.11.</span> <span class="nav-text">如何监控spark streaming</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scala多继承"><span class="nav-number">2.12.</span> <span class="nav-text">scala多继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flink和spark-streaming实时处理的区别"><span class="nav-number">2.13.</span> <span class="nav-text">flink和spark streaming实时处理的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-context作用"><span class="nav-number">2.14.</span> <span class="nav-text">spark context作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-streaming读取kafka，direct-receiver两种模式，为什么选择direct-直连模式"><span class="nav-number">2.15.</span> <span class="nav-text">spark streaming读取kafka，direct+receiver两种模式，为什么选择direct(直连模式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-core和spark-sql"><span class="nav-number">2.16.</span> <span class="nav-text">spark core和spark sql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。"><span class="nav-number">2.17.</span> <span class="nav-text">一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark调优的8个方面"><span class="nav-number">2.18.</span> <span class="nav-text">spark调优的8个方面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yarn-client和yarn-cluster"><span class="nav-number">2.19.</span> <span class="nav-text">yarn-client和yarn-cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark1-x和spark2-x区别"><span class="nav-number">2.20.</span> <span class="nav-text">spark1.x和spark2.x区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-streaming-7-24小时一直运行"><span class="nav-number">2.21.</span> <span class="nav-text">spark streaming 7*24小时一直运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spark-streaming是exactly-once-吗？"><span class="nav-number">2.22.</span> <span class="nav-text">spark streaming是exactly-once 吗？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

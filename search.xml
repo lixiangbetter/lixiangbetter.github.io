@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>大数据私房菜-21/4/27</title>
+    <url>/2021/04/27/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%A7%81%E6%88%BF%E8%8F%9C-21-4-27/</url>
+    <content><![CDATA[<h2 id="大数据私房菜"><a href="#大数据私房菜" class="headerlink" title="大数据私房菜"></a>大数据私房菜</h2><h3 id="Kafka为什么吞吐量大、速度快？"><a href="#Kafka为什么吞吐量大、速度快？" class="headerlink" title="Kafka为什么吞吐量大、速度快？"></a>Kafka为什么吞吐量大、速度快？</h3><p>一、顺序读写</p>
+<p>Kafka就是使用了磁盘顺序读写来提升的性能。Kafka的message是不断追加到本地磁盘文件末尾的，而不是随机的写入，这使得Kafka写入吞吐量得到了显著提升 。</p>
+<p>这种方法有一个缺陷—— 没有办法删除数据 ，所以Kafka是不会删除数据的，它会把所有的数据都保留下来，每个消费者（Consumer）对每个Topic都有一个offset用来表示 读取到了第几条数据 。</p>
+<p>二、Page Cache</p>
+<p>为了优化读写性能，Kafka利用了操作系统本身的Page Cache，就是利用操作系统自身的内存而不是JVM空间内存。这样做的好处有：</p>
+<p>1避免Object消耗：如果是使用 Java 堆，Java对象的内存消耗比较大，通常是所存储数据的两倍甚至更多。</p>
+<p>2避免GC问题：随着JVM中数据不断增多，垃圾回收将会变得复杂与缓慢，使用系统缓存就不会存在GC问题</p>
+<p>相比于使用JVM或in-memory cache等数据结构，利用操作系统的Page Cache更加简单可靠。首先，操作系统层面的缓存利用率会更高，因为存储的都是紧凑的字节结构而不是独立的对象。其次，操作系统本身也对于Page Cache做了大量优化，提供了 write-behind、read-ahead以及flush等多种机制。再者，即使服务进程重启，系统缓存依然不会消失，避免了in-process cache重建缓存的过程。</p>
+<p>通过操作系统的Page Cache，Kafka的读写操作基本上是基于内存的，读写速度得到了极大的提升。</p>
+<p>三、零拷贝</p>
+<p>通过这种 “零拷贝” 的机制，Page Cache 结合 sendfile 方法，Kafka消费端的性能也大幅提升。这也是为什么有时候消费端在不断消费数据时，我们并没有看到磁盘io比较高，此刻正是操作系统缓存在提供数据。</p>
+<p>当Kafka客户端从服务器读取数据时，如果不使用零拷贝技术，那么大致需要经历这样的一个过程：</p>
+<p>1.操作系统将数据从磁盘上读入到内核空间的读缓冲区中。</p>
+<p>2.应用程序（也就是Kafka）从内核空间的读缓冲区将数据拷贝到用户空间的缓冲区中。</p>
+<p>3.应用程序将数据从用户空间的缓冲区再写回到内核空间的socket缓冲区中。</p>
+<p>4.操作系统将socket缓冲区中的数据拷贝到NIC缓冲区中，然后通过网络发送给客户端。</p>
+<h3 id="kafka与传统的消息队列有什么不同"><a href="#kafka与传统的消息队列有什么不同" class="headerlink" title="kafka与传统的消息队列有什么不同"></a>kafka与传统的消息队列有什么不同</h3><p>1.首先kafka会将接收到的消息分区（partition），每个主题（topic）的消息有不同的分区，这样一方面消息的存储就不会受到单一服务器存储空间大小的限制，另一方面消息的处理也可以在多个服务器上并行。</p>
+<p> 2.其次为了保证高可用，每个分区都会有一定数量的副本(replica)。这样如果有部分服务器不可用，副本所在的服务器就会接替上来，保证应用的持续性。</p>
+<p> 3.然后保证分区内部消息的消费有序性。</p>
+<p> 4.Kafka还具有consumer group的概念，每个分区只能被同一个group的一个consumer消费，但可以被多个group消费。</p>
+]]></content>
+      <categories>
+        <category>bigdata</category>
+      </categories>
+      <tags>
+        <tag>大数据私房菜</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>大数据私房菜-21/4/24</title>
+    <url>/2021/04/24/%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%A7%81%E6%88%BF%E8%8F%9C-21-4-24/</url>
+    <content><![CDATA[<h2 id="字节笔试"><a href="#字节笔试" class="headerlink" title="字节笔试"></a>字节笔试</h2><h3 id="哪些排序是稳定的？（多选）"><a href="#哪些排序是稳定的？（多选）" class="headerlink" title="哪些排序是稳定的？（多选）"></a>哪些排序是稳定的？（多选）</h3><p>冒泡排序，归并排序</p>
+<p>不稳定：堆排序，快速排序</p>
+<h3 id="http和https？（多选）"><a href="#http和https？（多选）" class="headerlink" title="http和https？（多选）"></a>http和https？（多选）</h3><p>tls</p>
+<h3 id="zookeeper（多选）"><a href="#zookeeper（多选）" class="headerlink" title="zookeeper（多选）"></a>zookeeper（多选）</h3><p>高速缓存 命名服务 主节点选举 分布式锁</p>
+<h3 id="进程和线程（多选）"><a href="#进程和线程（多选）" class="headerlink" title="进程和线程（多选）"></a>进程和线程（多选）</h3><p>线程有独立的地址空间 错</p>
+<p>线程有独立的堆和栈 错 独立栈，共享堆</p>
+<h3 id="999个节点的二叉树的高（单选）"><a href="#999个节点的二叉树的高（单选）" class="headerlink" title="999个节点的二叉树的高（单选）"></a>999个节点的二叉树的高（单选）</h3><p>10</p>
+<h2 id="大数据私房菜"><a href="#大数据私房菜" class="headerlink" title="大数据私房菜"></a>大数据私房菜</h2><h3 id="大数据求top-n-map-reduce程序"><a href="#大数据求top-n-map-reduce程序" class="headerlink" title="大数据求top n map reduce程序"></a>大数据求top n map reduce程序</h3><p>链接：<a href="https://blog.csdn.net/qq_43193797/article/details/86367610" target="_blank" rel="noopener">https://blog.csdn.net/qq_43193797/article/details/86367610</a></p>
+<h3 id="连续三天登陆的用户"><a href="#连续三天登陆的用户" class="headerlink" title="连续三天登陆的用户"></a>连续三天登陆的用户</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">    t2.user_id <span class="keyword">as</span> user_id,</span><br><span class="line">    <span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">as</span> times,</span><br><span class="line">    <span class="keyword">min</span>(t2.login_date) <span class="keyword">as</span> start_date,</span><br><span class="line">    <span class="keyword">max</span>(t2.login_date) <span class="keyword">as</span> end_date</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">select</span></span><br><span class="line">        t1.user_id,</span><br><span class="line">        t1.login_date,</span><br><span class="line">        <span class="keyword">date_sub</span>(t1.login_date, rn) <span class="keyword">as</span> date_diff</span><br><span class="line">    <span class="keyword">from</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">select</span></span><br><span class="line">            user_id,</span><br><span class="line">            login_date,</span><br><span class="line">            row_number() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> login_date <span class="keyword">asc</span>) <span class="keyword">as</span> rn</span><br><span class="line">        <span class="keyword">from</span></span><br><span class="line">        wedw_dw.t_login_info</span><br><span class="line">    ) t1</span><br><span class="line">) t2</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t2.user_id,t2.date_diff</span><br><span class="line"><span class="keyword">having</span> times &gt;= <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="广告日志，求广告的曝光数和点击数"><a href="#广告日志，求广告的曝光数和点击数" class="headerlink" title="广告日志，求广告的曝光数和点击数"></a>广告日志，求广告的曝光数和点击数</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">package com.lx.spark</span><br><span class="line"></span><br><span class="line">import org.apache.spark.SparkContext</span><br><span class="line">import org.apache.spark.rdd.RDD</span><br><span class="line">import org.apache.spark.sql.SparkSession</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @author lx</span></span><br><span class="line"><span class="comment"> * @date 2021/4/26 3:32 下午</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">class AddLog &#123;</span><br><span class="line"></span><br><span class="line">  def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    </span><br><span class="line">    val spark: SparkSession = SparkSession</span><br><span class="line">      .builder()</span><br><span class="line">      .master("local[2]")</span><br><span class="line">      .appName("AddLog")</span><br><span class="line">      .getOrCreate()</span><br><span class="line"></span><br><span class="line">    import spark.implicits._;</span><br><span class="line">    val sc: SparkContext = spark.sparkContext</span><br><span class="line"></span><br><span class="line">    val clickRDD: RDD[String] = sc.textFile("data/click.log")</span><br><span class="line">    val impRDD: RDD[String] = sc.textFile("data/imp.log")</span><br><span class="line"></span><br><span class="line">    val clickRes: RDD[(String, Int)] = clickRDD.map(line =&gt; &#123;</span><br><span class="line">      val arr: Array[String] = line.split("\\s+")</span><br><span class="line">      val adid: String = arr(3).substring(arr(3).lastIndexOf("=") + 1)</span><br><span class="line">      (adid, 1)</span><br><span class="line">    &#125;).reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    val impRes: RDD[(String, Int)] = impRDD.map(line =&gt; &#123;</span><br><span class="line">      val arr: Array[String] = line.split("\\s+")</span><br><span class="line">      val adid: String = arr(3).substring(arr(3).lastIndexOf("=") + 1)</span><br><span class="line">      (adid, 1)</span><br><span class="line">    &#125;).reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">    // 保存至hdfs</span><br><span class="line">    clickRes.fullOuterJoin(impRes)</span><br><span class="line">      .map(x =&gt; x._1 + ","+x._2._1.getOrElse(0)+","+ x._2._2.getOrElse(0))</span><br><span class="line">      .repartition(1)</span><br><span class="line">      .saveAsTextFile("data/add_log")</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="spark应用程序的执行命令"><a href="#spark应用程序的执行命令" class="headerlink" title="spark应用程序的执行命令"></a>spark应用程序的执行命令</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">spark-submit \</span><br><span class="line"><span class="comment">--class com.***.Application \</span></span><br><span class="line"><span class="comment">--master yarn \</span></span><br><span class="line"><span class="comment">--deploy-mode client \</span></span><br><span class="line"><span class="comment">--driver-memory 1g \</span></span><br><span class="line"><span class="comment">--executor-memory 2g \</span></span><br><span class="line"><span class="comment">--queue root.wedw \</span></span><br><span class="line"><span class="comment">--num-executors 200 \</span></span><br><span class="line"><span class="comment">--jars</span></span><br><span class="line">/home/lx<span class="comment">/***/</span>config-1.3.0.jar,/home/lx<span class="comment">/***/</span>elasticsearch-hadoop-hive.jar,/home/lx/sen.jar</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建rdd的方式"><a href="#创建rdd的方式" class="headerlink" title="创建rdd的方式"></a>创建rdd的方式</h3><p>1.并行化集合创建 RDD</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> arr = <span class="type">Array</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line"><span class="keyword">val</span> rdd = sc.parallelize(arr)</span><br><span class="line"><span class="keyword">val</span> sum = rdd.reduce(_+_)</span><br></pre></td></tr></table></figure>
+
+<p>2.使用外界的数据源创建RDD，比如说本地文件系统，分布式文件系统HDFS等等。</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> rdd = sc.textFile(<span class="string">"d://data.txt"</span>)</span><br><span class="line"><span class="keyword">val</span> wordCount = rdd.map(line =&gt; line.length).reduce(_+_)</span><br></pre></td></tr></table></figure>
+
+<p>3.通过将已有RDD使用transform算子操作产生新的RDD。</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> wordsRDD = lineWordRDD.flatMap(line =&gt; line.split(<span class="string">" "</span>))</span><br><span class="line"><span class="comment">// 打印RDD的内容</span></span><br><span class="line">wordsRDD.foreach(word =&gt; println(word))</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建dataset的方式"><a href="#创建dataset的方式" class="headerlink" title="创建dataset的方式"></a>创建dataset的方式</h3><p>创建Datasets 的三种方式</p>
+<ul>
+<li>由DataFrame 转化成为 Dataset</li>
+<li>通过 SparkSession.createDataset() 直接创建</li>
+<li>通过toDS 方法意识转换</li>
+</ul>
+<h3 id="如何优雅地kill掉yarn上的application"><a href="#如何优雅地kill掉yarn上的application" class="headerlink" title="如何优雅地kill掉yarn上的application"></a>如何优雅地kill掉yarn上的application</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yarn application -kill &lt;applicationId&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="spark-on-yarn关键配置"><a href="#spark-on-yarn关键配置" class="headerlink" title="spark on yarn关键配置"></a>spark on yarn关键配置</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./bin/spark-submit \</span><br><span class="line">		--class org.apache.spark.examples.SparkPi \</span><br><span class="line">    --master yarn \</span><br><span class="line">    --deploy-mode cluster \</span><br><span class="line">    --driver-memory 4g \</span><br><span class="line">    --executor-memory 2g \</span><br><span class="line">    --executor-cores 1 \</span><br><span class="line">    --queue thequeue \</span><br><span class="line">    examples/jars/spark-examples*.jar \</span><br><span class="line">    10</span><br></pre></td></tr></table></figure>
+
+<p>num-executors: 该参数用于设置Spark作业总共要用多少个Executor进程来执行</p>
+<p>executor-memory: 是每个节点上占用的内存。</p>
+<p>driver-memory: 实际分配的内存</p>
+<p>executor-cores: 该参数用于设置每个Executor进程的CPU core数量，这个参数决定了每个Executor进程并行执行task线程的能力。</p>
+<h3 id="partition分区的个数"><a href="#partition分区的个数" class="headerlink" title="partition分区的个数"></a>partition分区的个数</h3><p>根据 RDD 的创建方式分为两种情况：</p>
+<p>​    1、从内存中创建 RDD：sc.parallelize(…)，那么默认的分区数量为该程序所分配的资源的 CPU 数量。<br>​    2、从 HDFS 文件创建：sc.textFile(…) 或 spark.sql(…)，每个 HDFS 文件以块（Block）的形式存储，Spark 读取时会根据具体数据格式对应的 InputFormat 进行解析，例如文本格式就用 TextInputFormat 进行解析，一般是将若干个 Block 合并为一个输入分片（InputSplit），而这个 InputSplit 数就是默认的分区数。</p>
+<h3 id="scala中的函数和方法的区别"><a href="#scala中的函数和方法的区别" class="headerlink" title="scala中的函数和方法的区别"></a>scala中的函数和方法的区别</h3><p>链接：<a href="https://www.runoob.com/w3cnote/scala-different-function-method.html" target="_blank" rel="noopener">https://www.runoob.com/w3cnote/scala-different-function-method.html</a></p>
+<p>1.方法不能作为单独的表达式而存在（参数为空的方法除外），而函数可以。</p>
+<p>2.函数必须要有参数列表，而方法可以没有参数列表</p>
+<p>3.方法名是方法调用，而函数名只是代表函数对象本身</p>
+<p>4.在需要函数的地方，如果传递一个方法，会自动进行ETA展开（把方法转换为函数）</p>
+<p>5.传名参数本质上是个方法</p>
+<h3 id="如何监控spark-streaming"><a href="#如何监控spark-streaming" class="headerlink" title="如何监控spark streaming"></a>如何监控spark streaming</h3><ol>
+<li>界面监控</li>
+<li>程序监控</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// uncomment these 2 lines if you want to see only your logs</span></span><br><span class="line">  <span class="comment">// Logger.getLogger("org").setLevel(Level.OFF)</span></span><br><span class="line">  <span class="comment">// Logger.getLogger("akka").setLevel(Level.OFF)</span></span><br><span class="line"></span><br><span class="line">  <span class="type">ApplicationProperties</span>.parse(args.toList)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> sparkConf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="type">ApplicationProperties</span>.sparkMaster).setAppName(<span class="type">ApplicationProperties</span>.appName)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(sparkConf, <span class="type">Seconds</span>(<span class="type">ApplicationProperties</span>.batchInterval))</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//添加监控</span></span><br><span class="line">  ssc.addStreamingListener(<span class="keyword">new</span> <span class="type">SparkMonitoringListener</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create a DStream that will connect to hostname:port, like localhost:9999</span></span><br><span class="line">  <span class="keyword">val</span> lines = ssc.socketTextStream(<span class="type">ApplicationProperties</span>.socketStreamHost, <span class="type">ApplicationProperties</span>.socketStreamPort)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Split each line into words</span></span><br><span class="line">  <span class="keyword">val</span> words = lines.flatMap(_.split(<span class="string">" "</span>))</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Count each word in each batch</span></span><br><span class="line">  <span class="keyword">val</span> pairs = words.map(word =&gt; (word, <span class="number">1</span>))</span><br><span class="line">  <span class="keyword">val</span> wordCounts = pairs.reduceByKey(_ + _)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Print the first ten elements of each RDD generated in this DStream to the console</span></span><br><span class="line">  wordCounts.print()</span><br><span class="line"></span><br><span class="line">  ssc.start()             <span class="comment">// Start the computation</span></span><br><span class="line">  ssc.awaitTermination()  <span class="comment">// Wait for the computation to terminate</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Listener</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">SparkMonitoringListener</span>(<span class="params"></span>) <span class="keyword">extends</span> <span class="title">StreamingListener</span> </span>&#123;</span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onBatchStarted</span></span>(batchStarted: <span class="type">StreamingListenerBatchStarted</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    println(<span class="string">"&gt;&gt;&gt; Batch started...records in batch = "</span> + batchStarted.batchInfo.numRecords)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">def</span> <span class="title">onBatchCompleted</span></span>(batchCompleted: <span class="type">StreamingListenerBatchCompleted</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> start = batchCompleted.batchInfo.processingStartTime.get</span><br><span class="line">    <span class="keyword">val</span> end = batchCompleted.batchInfo.processingEndTime.get</span><br><span class="line">    <span class="keyword">val</span> batchTime = batchCompleted.batchInfo.batchTime</span><br><span class="line">    <span class="keyword">val</span> numRecords = batchCompleted.batchInfo.numRecords</span><br><span class="line">    println(<span class="string">"batch finished"</span>, start, end, end-start, batchTime.toString(), numRecords)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>API监控</li>
+</ol>
+<p>SparkStreaming restAPI监控从spark2.2.0版本开始支持，目前不支持2.1.0</p>
+<h3 id="scala多继承"><a href="#scala多继承" class="headerlink" title="scala多继承"></a>scala多继承</h3><p>通过实现trait</p>
+<h3 id="flink和spark-streaming实时处理的区别"><a href="#flink和spark-streaming实时处理的区别" class="headerlink" title="flink和spark streaming实时处理的区别"></a>flink和spark streaming实时处理的区别</h3><p>SparkStreaming是基于微批处理的,所以他采用DirectDstream的方式根据计算出的每个partition要取数据的Offset范围,拉取一批数据形成Rdd进行批量处理,而且该Rdd和kafka的分区是一一对应的;</p>
+<p>Flink是真正的流处理,他是基于事件触发机制进行处理,在KafkaConsumer拉取一批数据以后,Flink将其经过处理之后变成,逐个Record发送的事件触发式的流处理；</p>
+<ol>
+<li><p>数据模型</p>
+<ul>
+<li>spark 采用rdd，spark streaming的Stream实际上也是一组rdd的集合</li>
+<li>flink的基本数据模型是数据流，以及事件的序列</li>
+</ul>
+</li>
+<li><p>运行架构</p>
+<ul>
+<li>spark是批计算，将DAG划分为不同的stage,一个完成后才可以计算下一个</li>
+<li>Flink是标准的流执行模式，一个事件在一个节点处理完成后可以直接发往下一个节点进行处理。</li>
+</ul>
+</li>
+</ol>
+<h3 id="spark-context作用"><a href="#spark-context作用" class="headerlink" title="spark context作用"></a>spark context作用</h3><p>SparkContext是开发Spark应用的入口，它负责和整个集群的交互，包括创建RDD等。<br>从本质上来说，SparkContext是Spark的对外接口，负责向调用这提供Spark的各种功能。</p>
+<h3 id="spark-streaming读取kafka，direct-receiver两种模式，为什么选择direct-直连模式"><a href="#spark-streaming读取kafka，direct-receiver两种模式，为什么选择direct-直连模式" class="headerlink" title="spark streaming读取kafka，direct+receiver两种模式，为什么选择direct(直连模式)"></a>spark streaming读取kafka，direct+receiver两种模式，为什么选择direct(直连模式)</h3><ol>
+<li><p>receiver模式</p>
+<p>采用该模式，需要一个task一直处于接受数据的状态。spark streaming相当于kafka的消费者，接受来的数据备份到其他节点完成之后，会向zookeeper更新消费者offset。</p>
+<p>当更新完消费者偏移量后，如果driver挂掉，driver下的executor也会挂掉，就会有数据丢失的问题。</p>
+<p>如何解决？</p>
+<p>开启WAL机制，预写日志机制。将数据备份一份到HDFS上，完成之后更新zookeeper的offset。</p>
+<p>效率慢，延迟大。</p>
+<p>可以创建多个Kafka输入DStream，使用不同的consumer group和topic，来通过多个receiver并行接收数据。</p>
+</li>
+<li><p>direct模式</p>
+<p>direct模式将kafka看成存储数据的一方，spark streaming主动取数据，无需一个task一直占用接收数据。</p>
+<p>生成的Stream中的RDD的并行度与读取的kafka的topic的partition个数一致。提高了计算时的并行度。</p>
+<p>spark来管理offset，默认在内存中，可以设置checkpoint。</p>
+</li>
+</ol>
+<h3 id="spark-core和spark-sql"><a href="#spark-core和spark-sql" class="headerlink" title="spark core和spark sql"></a>spark core和spark sql</h3><p>Spark SQL在Spark Core的基础上针对结构化数据处理进行很多优化和改进:</p>
+<p>Spark SQL 支持很多种结构化数据源，可以让你跳过复杂的读取过程，轻松从各种数据源中读取数据。</p>
+<p>当你使用SQL查询这些数据源中的数据并且只用到了一部分字段时，SparkSQL可以智能地只扫描这些用到的字段，而不是像SparkContext.hadoopFile中那样简单粗暴地扫描全部数据。</p>
+<h3 id="一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。"><a href="#一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。" class="headerlink" title="一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。"></a>一千万条短信，有重复，以文本文件的形式保存，一行一条数据，请用五分钟时间，找出重复出现最多的前10条。</h3><p>方法一：哈希表法 hashtable 或者 concurrentHashmap</p>
+<p>可以用哈希表的方法对1千万条分成若干组进行边扫描边建散列表。第一次扫描，取首字节，尾字节，中间随便两字节作为Hash Code，插入到hash table中。并记录其地址和信息长度和重复次数，1千万条信息，记录这几个信息还放得下。同Hash Code且等长就疑似相同，比较一下。相同记录只加1次进hash table，但将重复次数加1。一次扫描以后，已经记录各自的重复次数，进行第二次hash table的处理。用线性时间选择可在O（n）的级别上完成前10条的寻找。分组后每份中的top10必须保证各不相同，可hash来保证，也可直接按hash值的大小来分类。</p>
+<h3 id="spark调优的8个方面"><a href="#spark调优的8个方面" class="headerlink" title="spark调优的8个方面"></a>spark调优的8个方面</h3><p>链接：<a href="https://zhuanlan.zhihu.com/p/54293797" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/54293797</a></p>
+<h3 id="yarn-client和yarn-cluster"><a href="#yarn-client和yarn-cluster" class="headerlink" title="yarn-client和yarn-cluster"></a>yarn-client和yarn-cluster</h3><p>一般yarn-client用于测试环境调试程序；yarn-cluster用于生产环境。</p>
+<p>yarn-client和yarn-cluster的区别就在于，Driver是运行在本地客户端，它的AM只是作为一个Executor启动器，并没有Driver进程。</p>
+<h3 id="spark1-x和spark2-x区别"><a href="#spark1-x和spark2-x区别" class="headerlink" title="spark1.x和spark2.x区别"></a>spark1.x和spark2.x区别</h3><p>Spark 2.x新特性<br>1）Spark Core/SQL</p>
+<p>在内存和CPU使用方面进一步优化Spark引擎性能，支持SQL 2003标准，支持子查询，对常用的SQL操作和DataFrame,性能有2-10倍的提升。</p>
+<p>2）Spark Session</p>
+<p>Spark2.0 中引入了 SparkSession 的概念，它为用户提供了一个统一的切入点来使用 Spark 的各项功能，统一了旧的SQLContext与HiveContext。用户不但可以使用 DataFrame 和Dataset 的各种 API，学习 Spark2 的难度也会大大降低。</p>
+<p>3)统一 DataFrames 和 Datasets 的 API</p>
+<p>它们都是提供给用户使用，包括各类操作接口的 API，1.3 版本引入 DataFrame，1.6版本引入Dataset，在 spark 2.0 中，把 dataframes 当作是一种特殊的 datasets，dataframes = datasets[row]，把两者统一为datasets。</p>
+<p>4) strutured Streaming</p>
+<p>Spark Streaming基于Spark SQL(DataFrame / Dataset )构建了high-level API，使得Spark Streaming充分受益Spark SQL的易用性和性能提升。</p>
+<h3 id="spark-streaming-7-24小时一直运行"><a href="#spark-streaming-7-24小时一直运行" class="headerlink" title="spark streaming 7*24小时一直运行"></a>spark streaming 7*24小时一直运行</h3><ol>
+<li><p>Driver高可用</p>
+<p>Spark Streaming HA将Driver元数据写到checkpoint目录下</p>
+</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(conf, <span class="type">Seconds</span>(<span class="number">2</span>))</span><br><span class="line">ssc.checkpoint(checkpointDirectory)</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>RDD高可用</p>
+<p>为了防止Executor异常退出导致数据丢失，Spark Streaming提供了WAL(预写日志)机制。</p>
+<p>Receiver只要接收到数据，会立即将数据写入一份到高可用文件系统(一般是HDFS)上的checkpoint目录中</p>
+</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">conf.set(<span class="string">"spark.streaming.receiver.writeAheadLog.enable "</span>,<span class="string">"true"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="spark-streaming是exactly-once-吗？"><a href="#spark-streaming是exactly-once-吗？" class="headerlink" title="spark streaming是exactly-once 吗？"></a>spark streaming是exactly-once 吗？</h3><p>基于direct stream的方法采用Kafka的简单消费者API，它的流程大大简化了。executor不再从Kafka中连续读取消息，也消除了receiver和WAL。还有一个改进就是Kafka分区与RDD分区是一一对应的，更可控。<br>driver进程只需要每次从Kafka获得批次消息的offset range，然后executor进程根据offset range去读取该批次对应的消息即可。由于offset在Kafka中能唯一确定一条消息，且在外部只能被Streaming程序本身感知到，因此消除了不一致性，达到了exactly once。<br>不过，由于它采用了简单消费者API，我们就需要自己来管理offset。否则一旦程序崩溃，整个流只能从earliest或者latest点恢复，这肯定是不稳妥的。offset管理在之前的文章中提到过，这里不再赘述。</p>
+<p>Kafka作为输入源可以保证exactly once，那么处理逻辑呢？</p>
+<p>答案是显然的，Spark Streaming的处理逻辑天生具备exactly once语义。<br>Spark RDD之所以被称为“弹性分布式数据集”，是因为它具有<strong>不可变、可分区、可并行计算、容错</strong>的特征。一个RDD只能由稳定的数据集生成，或者从其他RDD转换（transform）得来。如果在执行RDD lineage的过程中失败，那么只要源数据不发生变化，无论重新执行多少次lineage，都一定会得到同样的、确定的结果。</p>
+<p>最后，我们还需要保证输出过程也符合exactly once语义。Spark Streaming的输出一般是靠foreachRDD()算子来实现，它默认是at least once的。如果输出过程中途出错，那么就会重复执行直到写入成功。为了让它符合exactly once，可以施加两种限制之一：<strong>幂等性写入</strong>（idempotent write）、<strong>事务性写入</strong>（transactional write）。</p>
+]]></content>
+      <categories>
+        <category>bigdata</category>
+      </categories>
+      <tags>
+        <tag>大数据私房菜</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>面试题随笔-21/4/19</title>
     <url>/2021/04/19/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-4-19/</url>
     <content><![CDATA[<h2 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h2><h3 id="输入Scanner的一些总结"><a href="#输入Scanner的一些总结" class="headerlink" title="输入Scanner的一些总结"></a>输入Scanner的一些总结</h3><ol>
