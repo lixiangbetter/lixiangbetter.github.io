@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="微信点餐全局异常的处理@ControllerAdvice AOP验证微信是否登录@Aspect 定义一个切面，每一个请求调用，都需要判断是否携带有token. 分布式sessionuuid作为token存储在redis中 微信公众号授权过程通过AppId和AppSecret和code==&amp;gt;获得access_code Access_code ==&amp;gt; openId 转发到returnUrl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-06-02T17:04:12.187Z">
+<meta property="og:updated_time" content="2021-06-03T05:38:43.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信点餐项目总结">
 <meta name="twitter:description" content="微信点餐全局异常的处理@ControllerAdvice AOP验证微信是否登录@Aspect 定义一个切面，每一个请求调用，都需要判断是否携带有token. 分布式sessionuuid作为token存储在redis中 微信公众号授权过程通过AppId和AppSecret和code==&amp;gt;获得access_code Access_code ==&amp;gt; openId 转发到returnUrl">
@@ -430,6 +430,11 @@
 <p>​    10000秒</p>
 <p>​    10滚动窗口中，有7次 70%&gt;60%,会触发断路器</p>
 <p>​    60%</p>
+<h3 id="rpc框架，dubbo简单理解"><a href="#rpc框架，dubbo简单理解" class="headerlink" title="rpc框架，dubbo简单理解"></a>rpc框架，dubbo简单理解</h3><p>dubbo作为rpc框架，实现的效果就是调用远程的方法就像在本地调用一样。如何做到呢？</p>
+<p>就是本地有对远程方法的描述，包括方法名、参数、返回值，在dubbo中是远程和本地使用同样的接口；</p>
+<p>然后呢，要有对网络通信的封装，要对调用方来说通信细节是完全不可见的，网络通信要做的就是将调用方法的属性通过一定的协议（简单来说就是消息格式）传递到服务端；</p>
+<p>服务端按照协议解析出调用的信息；执行相应的方法；在将方法的返回值通过协议传递给客户端；客户端再解析；</p>
+<p>在调用方式上又可以分为同步调用和异步调用；简单来说基本就这个过程。</p>
 
       
     </div>
@@ -469,6 +474,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/03/大数据开发面试随笔记录/" rel="prev" title="大数据开发面试随笔记录">
+                大数据开发面试随笔记录 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -552,7 +561,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -574,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -617,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐"><span class="nav-number">1.</span> <span class="nav-text">微信点餐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局异常的处理"><span class="nav-number">1.1.</span> <span class="nav-text">全局异常的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP验证微信是否登录"><span class="nav-number">1.2.</span> <span class="nav-text">AOP验证微信是否登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式session"><span class="nav-number">1.3.</span> <span class="nav-text">分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信公众号授权过程"><span class="nav-number">1.4.</span> <span class="nav-text">微信公众号授权过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信支付流程"><span class="nav-number">1.5.</span> <span class="nav-text">微信支付流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis分布式锁的实现"><span class="nav-number">1.6.</span> <span class="nav-text">redis分布式锁的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis缓存"><span class="nav-number">1.7.</span> <span class="nav-text">redis缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐（微服务升级）"><span class="nav-number">2.</span> <span class="nav-text">微信点餐（微服务升级）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon-负载均衡"><span class="nav-number">2.1.</span> <span class="nav-text">Ribbon: 负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用通信"><span class="nav-number">2.2.</span> <span class="nav-text">应用通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一配置中心"><span class="nav-number">2.3.</span> <span class="nav-text">统一配置中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原始流程，下单"><span class="nav-number">2.4.</span> <span class="nav-text">原始流程，下单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步扣减库存-修改为秒杀场景的思考"><span class="nav-number">2.5.</span> <span class="nav-text">异步扣减库存(修改为秒杀场景的思考)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关服务"><span class="nav-number">2.6.</span> <span class="nav-text">网关服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务容错"><span class="nav-number">2.7.</span> <span class="nav-text">服务容错</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐"><span class="nav-number">1.</span> <span class="nav-text">微信点餐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局异常的处理"><span class="nav-number">1.1.</span> <span class="nav-text">全局异常的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP验证微信是否登录"><span class="nav-number">1.2.</span> <span class="nav-text">AOP验证微信是否登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式session"><span class="nav-number">1.3.</span> <span class="nav-text">分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信公众号授权过程"><span class="nav-number">1.4.</span> <span class="nav-text">微信公众号授权过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信支付流程"><span class="nav-number">1.5.</span> <span class="nav-text">微信支付流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis分布式锁的实现"><span class="nav-number">1.6.</span> <span class="nav-text">redis分布式锁的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis缓存"><span class="nav-number">1.7.</span> <span class="nav-text">redis缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐（微服务升级）"><span class="nav-number">2.</span> <span class="nav-text">微信点餐（微服务升级）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon-负载均衡"><span class="nav-number">2.1.</span> <span class="nav-text">Ribbon: 负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用通信"><span class="nav-number">2.2.</span> <span class="nav-text">应用通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一配置中心"><span class="nav-number">2.3.</span> <span class="nav-text">统一配置中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原始流程，下单"><span class="nav-number">2.4.</span> <span class="nav-text">原始流程，下单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步扣减库存-修改为秒杀场景的思考"><span class="nav-number">2.5.</span> <span class="nav-text">异步扣减库存(修改为秒杀场景的思考)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关服务"><span class="nav-number">2.6.</span> <span class="nav-text">网关服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务容错"><span class="nav-number">2.7.</span> <span class="nav-text">服务容错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rpc框架，dubbo简单理解"><span class="nav-number">2.8.</span> <span class="nav-text">rpc框架，dubbo简单理解</span></a></li></ol></li></ol></div>
             
 
           </div>

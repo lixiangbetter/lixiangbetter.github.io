@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="今日面经链接：https://www.nowcoder.com/discuss/642608?source_id=profile_create_nctrack&amp;amp;channel=-1 jvm内存空间 方法区 方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。类的加载中提到了类加载的五个阶段。在加载阶段，会将字节流所代表的静态存储结构转化为方法区的运行时数据结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-06-02T07:35:14.971Z">
+<meta property="og:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png">
+<meta property="og:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/4943997-fdec898f986f367d.png">
+<meta property="og:updated_time" content="2021-06-03T16:35:23.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;6&#x2F;1">
 <meta name="twitter:description" content="今日面经链接：https://www.nowcoder.com/discuss/642608?source_id=profile_create_nctrack&amp;amp;channel=-1 jvm内存空间 方法区 方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。类的加载中提到了类加载的五个阶段。在加载阶段，会将字节流所代表的静态存储结构转化为方法区的运行时数据结">
+<meta name="twitter:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png">
 
 
 
@@ -447,18 +450,36 @@
 </ul>
 </li>
 <li><p>链接是指将加载阶段已经读入内存的类的二进制数据合并到 JVM 中，使之能够执行的过程，分为验证、准备、解析三个阶段</p>
-<p>2.1 验证<br>确保class文件中的字节流包含的信息符合当前虚拟机的要求，保证这个被加载的class类的正确性，不会危害到虚拟机的安全</p>
-<p>2.2 准备<br>为类中的静态字段分配内存，并设置默认的初始值，比如 int a = 5 初始值是0。被final修饰的static字段不会设置，因为final在编译的时候就分配了</p>
-<p>2.3 解析<br>解析阶段的目的，是将常量池内的符号引用转换为直接引用的过程（将常量池内的符号引用解析成为实际引用）。如果符号引用指向一个未被加载的类，或者未被加载类的字段或方法，那么解析将触发这个类的加载（但未必触发这个类的链接以及初始化）</p>
+<p>2.1 验证</p>
+<p>​    确保class文件中的字节流包含的信息符合当前虚拟机的要求，保证这个被加载的class类的正确性，不会危害到虚拟机的安全</p>
+<p>2.2 准备<br>   为类中的静态字段分配内存，并设置默认的初始值，比如 int a = 5 初始值是0。被final修饰的static字段不会设置，因为final在编译的时候就分配了</p>
+<p>2.3 解析<br>   解析阶段的目的，是将常量池内的符号引用转换为直接引用的过程（将常量池内的符号引用解析成为实际引用）。如果符号引用指向一个未被加载的类，或者未被加载类的字段或方法，那么解析将触发这个类的加载（但未必触发这个类的链接以及初始化）</p>
 <p>事实上，解析操作往往伴随着 JVM 在执行完初始化之后再执行</p>
 <p>符号引用就是一组符号用来描述所引用的目标</p>
 <p>直接引用就是直接指向目标的指针、相对偏移量或一个间接定位到目标的句柄</p>
 </li>
-<li><p>初始化<br>初始化就是执行类的构造器方法 init() 的过程（为类的静态变量赋予指定值，如上述的a被赋予5）</p>
+<li><p>初始化</p>
+<p>初始化就是执行类的构造器方法 init() 的过程（为类的静态变量赋予指定值，如上述的a被赋予5）</p>
 <p>若该类具有父类，jvm会保证父类的 init() 先执行，然后再执行子类的 init()</p>
 <p>如果类中存在初始化语句，就依次执行这些初始化语句，初始化语句指的是static修饰的语句</p>
 </li>
 </ol>
+<h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><ol>
+<li>什么是双亲委派机制</li>
+</ol>
+<p>当某个类加载器需要加载某个<code>.class</code>文件时，它首先把这个任务委托给他的上级类加载器，递归这个操作，如果上级的类加载器没有加载，自己才会去加载这个类。</p>
+<ol start="2">
+<li>类加载器的类别</li>
+</ol>
+<p>BootstrapClassLoader（启动类加载器）</p>
+<p><code>c++</code>编写，加载<code>java</code>核心库 <code>java.*</code>,构造<code>ExtClassLoader</code>和<code>AppClassLoader</code>。由于引导类加载器涉及到虚拟机本地实现细节，开发者无法直接获取到启动类加载器的引用，所以不允许直接通过引用进行操作</p>
+<p>ExtClassLoader （标准扩展类加载器）</p>
+<p><code>java</code>编写，加载扩展库，如<code>classpath</code>中的<code>jre</code> ，<code>javax.*</code>或者<br> <code>java.ext.dir</code> 指定位置中的类，开发者可以直接使用标准扩展类加载器。</p>
+<p>AppClassLoader（系统类加载器）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java`编写，加载程序所在的目录，如`user.dir`所在的位置的`class</span><br></pre></td></tr></table></figure>
+
+<p>CustomClassLoader（用户自定义类加载器）</p>
+<p><code>java</code>编写,用户自定义的类加载器,可加载指定路径的<code>class</code>文件</p>
 <h3 id="集合，hashmap的实现，concurrenthashmap的实现"><a href="#集合，hashmap的实现，concurrenthashmap的实现" class="headerlink" title="集合，hashmap的实现，concurrenthashmap的实现"></a>集合，hashmap的实现，concurrenthashmap的实现</h3><p>HashMap：</p>
 <ul>
 <li>数据结构上的变化，数组+链表+红黑树</li>
@@ -473,7 +494,7 @@
 <p>1.8中的ConcurrentHashMap 选择了与 HashMap 相同的<strong>Node数组+链表+红黑树</strong>结构；在锁的实现上，抛弃了原有的Segment 分段锁，采用<code>CAS + synchronized</code>实现更加细粒度的锁。</p>
 <p>将锁的级别控制在了更细粒度的哈希桶数组元素级别，也就是说只需要锁住这个链表头节点（红黑树的根节点），就不会影响其他的哈希桶数组元素的读写，大大提高了并发度。</p>
 <h3 id="synchornized的实现（新旧版本），对象头。"><a href="#synchornized的实现（新旧版本），对象头。" class="headerlink" title="synchornized的实现（新旧版本），对象头。"></a>synchornized的实现（新旧版本），对象头。</h3><p>链接：<a href="https://blog.csdn.net/javazejian/article/details/72828483" target="_blank" rel="noopener">https://blog.csdn.net/javazejian/article/details/72828483</a></p>
-<h3 id="lock的实现，volatile的原理，线程不安全问题。"><a href="#lock的实现，volatile的原理，线程不安全问题。" class="headerlink" title="lock的实现，volatile的原理，线程不安全问题。"></a>lock的实现，volatile的原理，线程不安全问题。</h3><ol>
+<h3 id="lock的实现，线程不安全问题。"><a href="#lock的实现，线程不安全问题。" class="headerlink" title="lock的实现，线程不安全问题。"></a>lock的实现，线程不安全问题。</h3><ol>
 <li>ReentrantLock先通过CAS尝试获取锁;</li>
 <li>如果此时锁已经被占用，该线程加入AQS队列并wait()</li>
 <li>当前驱线程的锁被释放，挂在CLH队列为首的线程就会被notify()，然后继续CAS尝试获取锁，此时：<ul>
@@ -482,6 +503,15 @@
 </ul>
 </li>
 </ol>
+<h3 id="volatile的原理"><a href="#volatile的原理" class="headerlink" title="volatile的原理"></a>volatile的原理</h3><p>保持内存可见性</p>
+<blockquote>
+<p>内存可见性（Memory Visibility）：所有线程都能看到共享内存的最新状态。</p>
+</blockquote>
+<p>防止指令重排</p>
+<p>指令重排技术大大提高了程序执行效率，但同时也引入了一些问题。</p>
+<p>初始化一个对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">memory = allocate();	<span class="comment">//1：分配对象的内存空间</span></span><br><span class="line">initInstance(memory);	<span class="comment">//2：初始化对象</span></span><br><span class="line">instance = memory;		<span class="comment">//3：设置instance指向刚分配的内存地址</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="线程池threadpoolexecutor的使用。"><a href="#线程池threadpoolexecutor的使用。" class="headerlink" title="线程池threadpoolexecutor的使用。"></a>线程池threadpoolexecutor的使用。</h3><ol>
 <li>当线程数小于核心线程数时，创建线程。</li>
 <li>当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。</li>
@@ -695,6 +725,72 @@
 <p><strong>（1）通过Collection系列集合提供的stream()方法或者parallelStream()方法来创建Stream。</strong></p>
 <p><strong>（2）通过Arrays中的静态方法stream()获取数组流。</strong></p>
 <p><strong>（3）通过Stream类的静态方法of()获取数组流。</strong></p>
+<h3 id="指针和引用的区别"><a href="#指针和引用的区别" class="headerlink" title="指针和引用的区别"></a>指针和引用的区别</h3><p>指针：是编程语言中的一个对象，利用地址，它的值直接指向（points to）存在电脑存储器中另一个地方的值。由于通过地址能找到所需的变量单元，可以说，地址指向该变量单元。<br>引用：是某个已知变量 或对象的别名，它不是变量，自身没有值和地址，不占用内存空间。</p>
+<ol>
+<li><p>一个引用只能对应着一个变量（引用是专一的），一个指针变量却可以存放多个变量或对象的地址（指针是多变的）。<br>前面也说了，引用是一个一个变量或对象的别名。那么比如张三的别名是阿三，如果李四的别名也叫阿三，当有人叫阿三的时候，到底哪个阿三才会回应呢？这就容易引起混淆了。<br>指针是一块空间，里面的内容是可以替换的，指针里存的是a的地址，通过指针你可以访问到a，当有需要了，你把指针的值改为了b，你同意还是可以范文到b。</p>
+</li>
+<li><p>不存在空值的引用，但存在空值的指针<br>引用是一个已知对象或变量的别名，当这个变量都不存在，哪来的别名。</p>
+</li>
+<li><p>引用相对于指针更加安全<br>引用在定义的时候就被初始化了，并且引用的对象不可改变。</p>
+</li>
+</ol>
+<h3 id="http1和http2的区别"><a href="#http1和http2的区别" class="headerlink" title="http1和http2的区别"></a>http1和http2的区别</h3><p>主要区别包括</p>
+<ol>
+<li>HTTP/2采用二进制格式而非文本格式</li>
+<li>HTTP/2是完全多路复用的，而非有序并阻塞的——只需一个连接即可实现并行</li>
+<li>使用报头压缩，HTTP/2降低了开销</li>
+<li>HTTP/2让服务器可以将响应主动“推送”到客户端缓存中</li>
+</ol>
+<p>HTTP/2的新特性之一是基于流的流量控制。</p>
+<p>不同于HTTP/1.1,只要客户端可以处理，服务端就会尽可能快的发送数据，HTTP/2提供了客户端调整传输速度的能力（服务端也可以）。WINDOW_UPDATE帧用来完成这件事情，每个帧告诉对方，发送方想要接收多少字节，它将发送一个WINDOW_UPDATE帧以指示其更新后的处理字节能力。</p>
+<p>作用：防止发送方发送数据太多，耗尽接收方资源，从而使接收方来不及处理，造成数据溢出，造成丢包.</p>
+<h3 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h3><p>一、关于进程和线程，首先从定义上理解就有所不同</p>
+<p>​    1、进程是什么？<br>​      是具有一定独立功能的程序、它是系统进行资源分配和调度的一个独立单位，重点在系统调度和单独的单位，也就是说进程是可以独立运行的一段程序。<br>​    2、线程又是什么？<br>​       线程进程的一个实体，是CPU调度和分派的基本单位，他是比进程更小的能独立运行的基本单位，线程自己基本上不拥有系统资源。<br>​    在运行时，只是暂用一些计数器、寄存器和栈 。</p>
+<p>二、他们之间的关系</p>
+<p>​    1、一个线程只能属于一个进程，而一个进程可以有多个线程，但至少有一个线程（通常说的主线程）。<br>​    2、资源分配给进程，同一进程的所有线程共享该进程的所有资源。<br>​    3、线程在执行过程中，需要协作同步。不同进程的线程间要利用消息通信的办法实现同步。<br>​    4、处理机分给线程，即真正在处理机上运行的是线程。<br>​    5、线程是指进程内的一个执行单元，也是进程内的可调度实体。  </p>
+<p>三、从三个角度来剖析二者之间的区别<br>    1、调度：线程作为调度和分配的基本单位，进程作为拥有资源的基本单位。<br>    2、并发性：不仅进程之间可以并发执行，同一个进程的多个线程之间也可以并发执行。<br>    3、拥有资源：进程是拥有资源的一个独立单位，线程不拥有系统资源，但可以访问隶属于进程的资源。</p>
+<h3 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h3><ol>
+<li><p>并发当有多个线程在操作时,如果系统只有一个CPU,则它根本不可能真正同时进行一个以上的线程，它只能把CPU运行时间划分成若干个时间段,再将时间 段分配给各个线程执行，在一个时间段的线程代码运行时，其它线程处于挂起状。.这种方式我们称之为并发(Concurrent)。</p>
+</li>
+<li><p>并行：当系统有一个以上CPU时,则线程的操作有可能非并发。当一个CPU执行一个线程时，另一个CPU可以执行另一个线程，两个线程互不抢占CPU资源，可以同时进行，这种方式我们称之为并行(Parallel)。</p>
+</li>
+<li><p>区别：</p>
+<p>并发和并行是即相似又有区别的两个概念，并行是指两个或者多个事件在同一时刻发生；</p>
+<p>而并发是指两个或多个事件在同一时间间隔内发生。</p>
+<p>在多道程序环境下，并发性是指在一段时间内宏观上有多个程序在同时运行，但在单处理机系统中，每一时刻却仅能有一道程序执行，故微观上这些程序只能是分时地交替执行。</p>
+<p>倘若在计算机系统中有多个处理机，则这些可以并发执行的程序便可被分配到多个处理机上，实现并行执行，即利用每个处理机来处理一个可并发执行的程序，这样，多个程序便可以同时执行。</p>
+</li>
+</ol>
+<h2 id="小红书"><a href="#小红书" class="headerlink" title="小红书"></a>小红书</h2><h3 id="为什么索引要最左匹配原则？"><a href="#为什么索引要最左匹配原则？" class="headerlink" title="为什么索引要最左匹配原则？"></a>为什么索引要最左匹配原则？</h3><p>我们都知道索引的底层是一颗B+树，那么联合索引当然还是一颗B+树，只不过联合索引的健值数量不是一个，而是多个。构建一颗B+树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建B+树。<br>例子：假如创建一个（a,b)的联合索引，那么它的索引树是这样的</p>
+<p><img src="/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png" alt="img"><br>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。所以b = 2这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。</p>
+<p>同时我们还可以发现在a值相等的情况下，b值又是按顺序排列的，但是这种顺序是相对的。所以最左匹配原则遇上范围查询就会停止，剩下的字段都无法使用索引。例如a = 1 and b = 2 a,b字段都可以使用索引，因为在a值确定的情况下b是相对有序的，而a&gt;1and b=2，a字段可以匹配上索引，但b值不可以，因为a的值是一个范围，在这个范围中b是无序的。</p>
+<h3 id="tcp滑动窗口"><a href="#tcp滑动窗口" class="headerlink" title="tcp滑动窗口"></a>tcp滑动窗口</h3><p>首先明确：<br>1)TCP滑动窗口分为接受窗口，发送窗口</p>
+<p>滑动窗口协议是<strong>传输层进行流控</strong>的一种措施，<strong>接收方通过通告发送方自己的窗口大小</strong>，从而控制发送方的发送速度，从而达到防止发送方发送速度过快而导致自己被淹没的目的。</p>
+<p>对ACK的再认识，ack通常被理解为收到数据后给出的一个确认ACK，ACK包含两个非常重要的信息：</p>
+<ol>
+<li><p>一是期望接收到的下一字节的序号n，该n代表接收方已经接收到了前n-1字节数据，此时如果接收方收到第n+1字节数据而不是第n字节数据，接收方是不会发送序号为n+2的ACK的。</p>
+<p>举个例子，假如接收端收到1-1024字节，它会发送一个确认号为1025的ACK,但是接下来收到的是2049-3072，它是不会发送确认号为3072的ACK,而依旧发送1025的ACK。</p>
+</li>
+<li><p>二是当前的窗口大小m，如此发送方在接收到ACK包含的这两个数据后就可以计算出还可以发送多少字节的数据给对方，假定当前发送方已发送到第x字节，则可以发送的字节数就是y=m-(x-n).这就是滑动窗口控制流量的基本原理。</p>
+</li>
+</ol>
+<h3 id="spring事务是怎么设计的？"><a href="#spring事务是怎么设计的？" class="headerlink" title="spring事务是怎么设计的？"></a>spring事务是怎么设计的？</h3><p><strong>SingleThreadConnectionHolder</strong></p>
+<p><img src="/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/4943997-fdec898f986f367d.png" alt></p>
+<p>本来线程不安全的，通过ThreadLocal这么封装一下，立刻就变成了线程的局部变量，不仅仅安全了，还保证了一个线程下面的操作拿到的Connection是同一个对象！这种思想，确实非常巧妙，这也是无锁编程思想的一种方式！</p>
+<p><strong>一个线程中的一个事务的多个操作，使用的是同一个Connection！</strong></p>
+<h3 id="b-数–相关面试题"><a href="#b-数–相关面试题" class="headerlink" title="b+数–相关面试题"></a>b+数–相关面试题</h3><p><strong>问题1：MySQL中存储索引用到的数据结构是B+树，B+树的查询时间跟树的高度有关，是log(n)，如果用hash存储，那么查询时间是O(1)。既然hash比B+树更快，为什么mysql用B+树来存储索引呢？</strong></p>
+<p><strong>答：</strong>一、从内存角度上说，数据库中的索引一般时在磁盘上，数据量大的情况可能无法一次性装入内存，B+树的设计可以允许数据分批加载。</p>
+<p>二、从业务场景上说，如果只选择一个数据那确实是hash更快，但是数据库中经常会选中多条这时候由于B+树索引有序，并且又有链表相连，它的查询效率比hash就快很多了。</p>
+<p><strong>问题2：为什么不用红黑树或者二叉排序树？</strong></p>
+<p><strong>答：</strong>树的查询时间跟树的高度有关，B+树是一棵多路搜索树可以降低树的高度，提高查找效率</p>
+<p><strong>问题3：既然增加树的路数可以降低树的高度，那么无限增加树的路数是不是可以有最优的查找效率？</strong></p>
+<p><strong>答：</strong>这样会形成一个有序数组，文件系统和数据库的索引都是存在硬盘上的，并且如果数据量大的话，不一定能一次性加载到内存中。有序数组没法一次性加载进内存，这时候B+树的多路存储威力就出来了，可以每次加载B+树的一个结点，然后一步步往下找，</p>
+<p><strong>问题4：在内存中，红黑树比B树更优，但是涉及到磁盘操作B树就更优了，那么你能讲讲B+树吗？</strong></p>
+<p>B+树是在B树的基础上进行改造，它的数据都在叶子结点，同时叶子结点之间还加了指针形成链表。</p>
+<p>下面是一个4路B+树，它的数据都在叶子结点，并且有链表相连。</p>
+<p><strong>问题5：为什么B+树要这样设计？</strong></p>
+<p><strong>答：</strong>这个跟它的使用场景有关，B+树在数据库的索引中用得比较多，数据库中select数据，不一定只选一条，很多时候会选中多条，比如按照id进行排序后选100条。如果是多条的话，B树需要做局部的中序遍历，可能要跨层访问。而B+树由于所有数据都在叶子结点不用跨层，同时由于有链表结构，只需要找到首尾，通过链表就能把所有数据取出来了。</p>
+<p>比如选出7到19只需要在叶子结点中就能找到。</p>
 
       
     </div>
@@ -821,7 +917,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -843,7 +939,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -886,7 +982,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm内存空间"><span class="nav-number">1.1.</span> <span class="nav-text">jvm内存空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gc-垃圾回收器"><span class="nav-number">1.2.</span> <span class="nav-text">gc 垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的加载，双亲委派，对象的生命周期"><span class="nav-number">1.3.</span> <span class="nav-text">类的加载，双亲委派，对象的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合，hashmap的实现，concurrenthashmap的实现"><span class="nav-number">1.4.</span> <span class="nav-text">集合，hashmap的实现，concurrenthashmap的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchornized的实现（新旧版本），对象头。"><span class="nav-number">1.5.</span> <span class="nav-text">synchornized的实现（新旧版本），对象头。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lock的实现，volatile的原理，线程不安全问题。"><span class="nav-number">1.6.</span> <span class="nav-text">lock的实现，volatile的原理，线程不安全问题。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池threadpoolexecutor的使用。"><span class="nav-number">1.7.</span> <span class="nav-text">线程池threadpoolexecutor的使用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO，NIO，AIO，零拷贝的优势与应用"><span class="nav-number">1.8.</span> <span class="nav-text">IO，NIO，AIO，零拷贝的优势与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚集索引与非聚集索引"><span class="nav-number">1.9.</span> <span class="nav-text">聚集索引与非聚集索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID"><span class="nav-number">1.10.</span> <span class="nav-text">ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务隔离级别"><span class="nav-number">1.11.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和myisam的锁区别"><span class="nav-number">1.12.</span> <span class="nav-text">InnoDB和myisam的锁区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB的锁分类"><span class="nav-number">1.13.</span> <span class="nav-text">InnoDB的锁分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#next-key锁的原理"><span class="nav-number">1.14.</span> <span class="nav-text">next key锁的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大表优化"><span class="nav-number">1.15.</span> <span class="nav-text">大表优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字段"><span class="nav-number">1.15.1.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询SQL"><span class="nav-number">1.15.2.</span> <span class="nav-text">查询SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引擎"><span class="nav-number">1.15.3.</span> <span class="nav-text">引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MyISAM"><span class="nav-number">1.15.3.1.</span> <span class="nav-text">MyISAM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#InnoDB"><span class="nav-number">1.15.3.2.</span> <span class="nav-text">InnoDB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvcc"><span class="nav-number">1.16.</span> <span class="nav-text">mvcc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兴盛"><span class="nav-number">2.</span> <span class="nav-text">兴盛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R图设计"><span class="nav-number">2.1.</span> <span class="nav-text">E-R图设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式的6大原则"><span class="nav-number">2.2.</span> <span class="nav-text">设计模式的6大原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper"><span class="nav-number">2.3.</span> <span class="nav-text">zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">2.4.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explain-执行计划，参数详解"><span class="nav-number">2.5.</span> <span class="nav-text">explain 执行计划，参数详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">2.6.</span> <span class="nav-text">java8新特性</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#今日面经"><span class="nav-number">1.</span> <span class="nav-text">今日面经</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm内存空间"><span class="nav-number">1.1.</span> <span class="nav-text">jvm内存空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gc-垃圾回收器"><span class="nav-number">1.2.</span> <span class="nav-text">gc 垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类的加载，双亲委派，对象的生命周期"><span class="nav-number">1.3.</span> <span class="nav-text">类的加载，双亲委派，对象的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双亲委派机制"><span class="nav-number">1.4.</span> <span class="nav-text">双亲委派机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合，hashmap的实现，concurrenthashmap的实现"><span class="nav-number">1.5.</span> <span class="nav-text">集合，hashmap的实现，concurrenthashmap的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchornized的实现（新旧版本），对象头。"><span class="nav-number">1.6.</span> <span class="nav-text">synchornized的实现（新旧版本），对象头。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lock的实现，线程不安全问题。"><span class="nav-number">1.7.</span> <span class="nav-text">lock的实现，线程不安全问题。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile的原理"><span class="nav-number">1.8.</span> <span class="nav-text">volatile的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池threadpoolexecutor的使用。"><span class="nav-number">1.9.</span> <span class="nav-text">线程池threadpoolexecutor的使用。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IO，NIO，AIO，零拷贝的优势与应用"><span class="nav-number">1.10.</span> <span class="nav-text">IO，NIO，AIO，零拷贝的优势与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚集索引与非聚集索引"><span class="nav-number">1.11.</span> <span class="nav-text">聚集索引与非聚集索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID"><span class="nav-number">1.12.</span> <span class="nav-text">ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务隔离级别"><span class="nav-number">1.13.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB和myisam的锁区别"><span class="nav-number">1.14.</span> <span class="nav-text">InnoDB和myisam的锁区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB的锁分类"><span class="nav-number">1.15.</span> <span class="nav-text">InnoDB的锁分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#next-key锁的原理"><span class="nav-number">1.16.</span> <span class="nav-text">next key锁的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大表优化"><span class="nav-number">1.17.</span> <span class="nav-text">大表优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字段"><span class="nav-number">1.17.1.</span> <span class="nav-text">字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询SQL"><span class="nav-number">1.17.2.</span> <span class="nav-text">查询SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引擎"><span class="nav-number">1.17.3.</span> <span class="nav-text">引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MyISAM"><span class="nav-number">1.17.3.1.</span> <span class="nav-text">MyISAM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#InnoDB"><span class="nav-number">1.17.3.2.</span> <span class="nav-text">InnoDB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvcc"><span class="nav-number">1.18.</span> <span class="nav-text">mvcc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兴盛"><span class="nav-number">2.</span> <span class="nav-text">兴盛</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R图设计"><span class="nav-number">2.1.</span> <span class="nav-text">E-R图设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式的6大原则"><span class="nav-number">2.2.</span> <span class="nav-text">设计模式的6大原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zookeeper"><span class="nav-number">2.3.</span> <span class="nav-text">zookeeper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆盖索引"><span class="nav-number">2.4.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#explain-执行计划，参数详解"><span class="nav-number">2.5.</span> <span class="nav-text">explain 执行计划，参数详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java8新特性"><span class="nav-number">2.6.</span> <span class="nav-text">java8新特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指针和引用的区别"><span class="nav-number">2.7.</span> <span class="nav-text">指针和引用的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http1和http2的区别"><span class="nav-number">2.8.</span> <span class="nav-text">http1和http2的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程和线程的区别"><span class="nav-number">2.9.</span> <span class="nav-text">进程和线程的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发和并行"><span class="nav-number">2.10.</span> <span class="nav-text">并发和并行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小红书"><span class="nav-number">3.</span> <span class="nav-text">小红书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么索引要最左匹配原则？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么索引要最左匹配原则？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp滑动窗口"><span class="nav-number">3.2.</span> <span class="nav-text">tcp滑动窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#spring事务是怎么设计的？"><span class="nav-number">3.3.</span> <span class="nav-text">spring事务是怎么设计的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-数–相关面试题"><span class="nav-number">3.4.</span> <span class="nav-text">b+数–相关面试题</span></a></li></ol></li></ol></div>
             
 
           </div>
