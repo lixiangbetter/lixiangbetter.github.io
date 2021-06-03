@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="今日面经链接：https://www.nowcoder.com/discuss/642608?source_id=profile_create_nctrack&amp;amp;channel=-1 jvm内存空间 方法区 方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。类的加载中提到了类加载的五个阶段。在加载阶段，会将字节流所代表的静态存储结构转化为方法区的运行时数据结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png">
-<meta property="og:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/4943997-fdec898f986f367d.png">
-<meta property="og:updated_time" content="2021-06-03T16:35:23.034Z">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png">
+<meta property="og:image" content="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/4943997-fdec898f986f367d.png">
+<meta property="og:updated_time" content="2021-06-03T16:46:59.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试题随笔-21&#x2F;6&#x2F;1">
 <meta name="twitter:description" content="今日面经链接：https://www.nowcoder.com/discuss/642608?source_id=profile_create_nctrack&amp;amp;channel=-1 jvm内存空间 方法区 方法区用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。类的加载中提到了类加载的五个阶段。在加载阶段，会将字节流所代表的静态存储结构转化为方法区的运行时数据结">
-<meta name="twitter:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png">
+<meta name="twitter:image" content="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png">
 
 
 
@@ -762,7 +762,7 @@
 </li>
 </ol>
 <h2 id="小红书"><a href="#小红书" class="headerlink" title="小红书"></a>小红书</h2><h3 id="为什么索引要最左匹配原则？"><a href="#为什么索引要最左匹配原则？" class="headerlink" title="为什么索引要最左匹配原则？"></a>为什么索引要最左匹配原则？</h3><p>我们都知道索引的底层是一颗B+树，那么联合索引当然还是一颗B+树，只不过联合索引的健值数量不是一个，而是多个。构建一颗B+树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建B+树。<br>例子：假如创建一个（a,b)的联合索引，那么它的索引树是这样的</p>
-<p><img src="/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png" alt="img"><br>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。所以b = 2这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。</p>
+<p><img src="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png" alt="img"><br>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。所以b = 2这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。</p>
 <p>同时我们还可以发现在a值相等的情况下，b值又是按顺序排列的，但是这种顺序是相对的。所以最左匹配原则遇上范围查询就会停止，剩下的字段都无法使用索引。例如a = 1 and b = 2 a,b字段都可以使用索引，因为在a值确定的情况下b是相对有序的，而a&gt;1and b=2，a字段可以匹配上索引，但b值不可以，因为a的值是一个范围，在这个范围中b是无序的。</p>
 <h3 id="tcp滑动窗口"><a href="#tcp滑动窗口" class="headerlink" title="tcp滑动窗口"></a>tcp滑动窗口</h3><p>首先明确：<br>1)TCP滑动窗口分为接受窗口，发送窗口</p>
 <p>滑动窗口协议是<strong>传输层进行流控</strong>的一种措施，<strong>接收方通过通告发送方自己的窗口大小</strong>，从而控制发送方的发送速度，从而达到防止发送方发送速度过快而导致自己被淹没的目的。</p>
@@ -775,7 +775,7 @@
 </li>
 </ol>
 <h3 id="spring事务是怎么设计的？"><a href="#spring事务是怎么设计的？" class="headerlink" title="spring事务是怎么设计的？"></a>spring事务是怎么设计的？</h3><p><strong>SingleThreadConnectionHolder</strong></p>
-<p><img src="/Users/lx/Documents/myblog/source/_posts/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/4943997-fdec898f986f367d.png" alt></p>
+<p><img src="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/4943997-fdec898f986f367d.png" alt></p>
 <p>本来线程不安全的，通过ThreadLocal这么封装一下，立刻就变成了线程的局部变量，不仅仅安全了，还保证了一个线程下面的操作拿到的Connection是同一个对象！这种思想，确实非常巧妙，这也是无锁编程思想的一种方式！</p>
 <p><strong>一个线程中的一个事务的多个操作，使用的是同一个Connection！</strong></p>
 <h3 id="b-数–相关面试题"><a href="#b-数–相关面试题" class="headerlink" title="b+数–相关面试题"></a>b+数–相关面试题</h3><p><strong>问题1：MySQL中存储索引用到的数据结构是B+树，B+树的查询时间跟树的高度有关，是log(n)，如果用hash存储，那么查询时间是O(1)。既然hash比B+树更快，为什么mysql用B+树来存储索引呢？</strong></p>
