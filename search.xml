@@ -1,11 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>校园商铺平台总结</title>
+    <url>/2021/06/09/%E6%A0%A1%E5%9B%AD%E5%95%86%E9%93%BA%E5%B9%B3%E5%8F%B0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="校园商铺平台"><a href="#校园商铺平台" class="headerlink" title="校园商铺平台"></a>校园商铺平台</h2><h3 id="过滤器、拦截器、aop的区别"><a href="#过滤器、拦截器、aop的区别" class="headerlink" title="过滤器、拦截器、aop的区别"></a>过滤器、拦截器、aop的区别</h3><h4 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h4><p>过滤器拦截的是URL</p>
+<p>Spring中自定义过滤器（Filter）一般只有一个方法，返回值是void，当请求到达web容器时，会探测当前请求地址是否配置有过滤器，有则调用该过滤器的方法（可能会有多个过滤器），然后才调用真实的业务逻辑，至此过滤器任务完成。过滤器并没有定义业务逻辑执行前、后等，仅仅是请求到达就执行。</p>
+<h4 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h4><p>拦截器拦截的是URL</p>
+<p>拦截器有三个方法，相对于过滤器更加细致，有被拦截逻辑执行前、后等。Spring中拦截器有三个方法：preHandle，postHandle，afterCompletion。</p>
+<h4 id="AOP（面向切面）"><a href="#AOP（面向切面）" class="headerlink" title="AOP（面向切面）"></a>AOP（面向切面）</h4><p>面向切面拦截的是类的元数据（包、类、方法名、参数等）</p>
+<p>相对于拦截器更加细致，而且非常灵活，拦截器只能针对URL做拦截，而AOP针对具体的代码，能够实现更加复杂的业务逻辑。</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>项目总结</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java面试</title>
+    <url>/2021/06/07/java%E9%9D%A2%E8%AF%95/</url>
+    <content><![CDATA[<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><h3 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h3><ol>
+<li><strong>拥塞</strong></li>
+</ol>
+<p>拥塞：即对资源的需求超过了可用的资源。若网络中许多资源同时供应不足，网络的性能就要明显变坏，整个网络的吞吐量随之负荷的增大而下降。</p>
+<p>  拥塞控制：<strong>防止过多的数据注入到网络中，这样可以使网络中的路由器或链路不致过载。</strong>拥塞控制所要做的都有一个<strong>前提：网络能够承受现有的网络负荷。</strong>拥塞控制是一个<strong>全局性的过程</strong>，涉及到所有的主机、路由器，以及与降低网络传输性能有关的所有因素。</p>
+<p>  流量控制：指点对点通信量的控制，是端到端正的问题。流量控制所要做的就是抑制发送端发送数据的速率，以便使接收端来得及接收。</p>
+<ol start="2">
+<li><p><strong>几种拥塞控制方法</strong></p>
+<p>慢开始( slow-start )、拥塞避免( congestion avoidance )、快重传( fast retransmit )和快恢复( fast recovery )。</p>
+</li>
+</ol>
+<p>2.1 慢开始和拥塞避免</p>
+<p>  发送方维持一个拥塞窗口 cwnd ( congestion window )的状态变量。拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化。发送方让自己的发送窗口等于拥塞。</p>
+<p>  发送方控制拥塞窗口的原则是：只要网络没有出现拥塞，拥塞窗口就再增大一些，以便把更多的分组发送出去。但只要网络出现拥塞，拥塞窗口就减小一些，以减少注入到网络中的分组数。</p>
+<p>  慢开始算法：当主机开始发送数据时，如果立即所大量数据字节注入到网络，那么就有可能引起网络拥塞，因为现在并不清楚网络的负荷情况。因此，较好的方法是先探测一下，即由小到大逐渐增大发送窗口，也就是说，由小到大逐渐增大拥塞窗口数值。通常在刚刚开始发送报文段时，先把拥塞窗口 cwnd 设置为一个最大报文段MSS的数值。而在每收到一个对新的报文段的确认后，把拥塞窗口增加至多一个MSS的数值。用这样的方法逐步增大发送方的拥塞窗口 cwnd ，可以使分组注入到网络的速率更加合理。</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
+<li>String</li>
+</ul>
+<p>String类是是二进制安全的。意思是redis的String可以包含任何数据。比如jpg图片或者序列化的对象。</p>
+<p>String类型是Redis最基本的数据类型，一个redis中value最多可以是512M。</p>
+<ul>
+<li>List</li>
+</ul>
+<p>Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部或者尾部。它的底层是一个链表。</p>
+<p>　总结：</p>
+<p>　　　　它是一个字符串链表，left，right都可以插入添加</p>
+<p>　　　　如果键不存在，创建新的链表，如果键已经存在则新增内容</p>
+<p>　　　　如果内容全部移除。对应的键也消失。</p>
+<p>　　　　链表的操作无论是在头和尾效率都极高，但假如是对中间元素进行操作，效率就很惨淡。</p>
+<ul>
+<li>Set</li>
+</ul>
+<p>Redis的Set的histring类型的无序集合。他是通过HashTable实现的。</p>
+<ul>
+<li>Redis哈希（Hash）</li>
+</ul>
+<p>Redis hash是一个键值对集合。</p>
+<p>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。</p>
+<p>类似Java里面Map&lt;String, Object&gt;。</p>
+<ul>
+<li>Redis有序集合Zset（sorted set）</li>
+</ul>
+<p>Redis zset和set一样也是string类型元素的集合，而且不允许重复的成员。</p>
+<p>不同的是每个元素都会关联一个double类型的分数。</p>
+<p>redis正是通过分数来为集合中的成员进行从小到大的排序。zset的成员是唯一的，但分数（score）却可以重复。</p>
+<h3 id="在Redis里，如何从海量key中查询出某一个固定前缀所有的key？"><a href="#在Redis里，如何从海量key中查询出某一个固定前缀所有的key？" class="headerlink" title="在Redis里，如何从海量key中查询出某一个固定前缀所有的key？"></a>在Redis里，如何从海量key中查询出某一个固定前缀所有的key？</h3><p>每次只返回一小部分的键，这样不会阻塞服务器，一下子在网络传输大量数据</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        redisTemplate.keys(<span class="string">"cart*"</span>);</span><br><span class="line">        <span class="keyword">long</span> end = System.currentTimeMillis();</span><br><span class="line">        System.out.println(end - start);</span><br><span class="line">  </span><br><span class="line">  			<span class="comment">// 推荐的做法</span></span><br><span class="line">        RedisConnection connection = RedisConnectionUtils.getConnection(redisTemplate.getConnectionFactory());</span><br><span class="line">        Cursor&lt;<span class="keyword">byte</span>[]&gt; result = connection.scan(<span class="keyword">new</span> ScanOptions.ScanOptionsBuilder().count(<span class="number">10</span>).match(<span class="string">"cart*"</span>).build());</span><br><span class="line">        <span class="keyword">long</span> start1 = System.currentTimeMillis();</span><br><span class="line">        <span class="comment">//cursor有id和position这两个属性，id则对应 scan cursor 的cursor的值，poisition则是当前遍历到第几个</span></span><br><span class="line">        <span class="keyword">while</span> (result.hasNext()) &#123;<span class="comment">//这里可以改用for循环来获取指定数量的key</span></span><br><span class="line">            String key=<span class="keyword">new</span> String(result.next());</span><br><span class="line">            <span class="comment">//对key的操作，或者先放到一个集合里面，然后再进行后续操作</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> end1 = System.currentTimeMillis();</span><br><span class="line">        System.out.println(end1 - start1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redis持久化方式"><a href="#Redis持久化方式" class="headerlink" title="Redis持久化方式"></a>Redis持久化方式</h3><h4 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h4><p>Redis支持RDB和AOF两种持久化机制，持久化功能有效地避免因进程退出造成的数据丢失问题，当下次重启时利用之前持久化的文件即可实现数 据恢复。理解掌握持久化机制对于Redis运维非常重要</p>
+<ol>
+<li>RDB持久化<br>RDB持久化是把当前进程数据生成快照保存到硬盘的过程，触发RDB持久化过程分为手动触发和自动触发</li>
+</ol>
+<p>1）触发机制</p>
+<p>手动触发分别对应save和bgsave命令</p>
+<p>·save命令：阻塞当前Redis服务器，直到RDB过程完成为止，对于内存 比较大的实例会造成长时间阻塞，线上环境不建议使用</p>
+<p>·bgsave命令：Redis进程执行fork操作创建子进程，RDB持久化过程由子 进程负责，完成后自动结束。阻塞只发生在fork阶段，一般时间很短</p>
+<p>2）自动触发RDB的持久</p>
+<p>1）使用save相关配置，如“save m n”。表示m秒内数据集存在n次修改 时，自动触发bgsave。</p>
+<p>2）如果从节点执行全量复制操作，主节点自动执行bgsave生成RDB文件并发送给从节点，更多细节见6.3节介绍的复制原理。</p>
+<p>3）执行debug reload命令重新加载Redis时，也会自动触发save操作。</p>
+<p>4）默认情况下执行shutdown命令时，如果没有开启AOF持久化功能则 自动执行bgsave。</p>
+<h4 id="RDB的优缺点"><a href="#RDB的优缺点" class="headerlink" title="RDB的优缺点"></a>RDB的优缺点</h4><p>RDB的优点：</p>
+<ul>
+<li><p>RDB是一个紧凑压缩的二进制文件，代表Redis在某个时间点上的数据 快照。非常适用于备份，全量复制等场景。比如每6小时执行bgsave备份， 并把RDB文件拷贝到远程机器或者文件系统中（如hdfs），用于灾难恢复。</p>
+</li>
+<li><p>Redis加载RDB恢复数据远远快于AOF的方式。</p>
+</li>
+</ul>
+<p>RDB的缺点：</p>
+<ul>
+<li><p>RDB方式数据没办法做到实时持久化/秒级持久化。因为bgsave每次运 行都要执行fork操作创建子进程，属于重量级操作，频繁执行成本过高。</p>
+</li>
+<li><p>RDB文件使用特定二进制格式保存，Redis版本演进过程中有多个格式 的RDB版本，存在老版本Redis服务无法兼容新版RDB格式的问题。</p>
+</li>
+<li><p>针对RDB不适合实时持久化的问题，Redis提供了AOF持久化方式来解决。</p>
+</li>
+</ul>
+<h4 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h4><p>AOF（append only file）持久化：以独立日志的方式记录每次写命令， 重启时再重新执行AOF文件中的命令达到恢复数据的目的。AOF的主要作用 是解决了数据持久化的实时性，目前已经是Redis持久化的主流方式</p>
+<p>1）使用AOF<br>开启AOF功能需要设置配置：appendonly yes，默认不开启。AOF文件名 通过appendfilename配置设置，默认文件名是appendonly.aof。保存路径同 RDB持久化方式一致，通过dir配置指定。AOF的工作流程操作：命令写入 （append）、文件同步（sync）、文件重写（rewrite）、重启加载 （load）。</p>
+<p>AOF过程：</p>
+<p>1）所有的写入命令会追加到aof_buf（缓冲区）中。</p>
+<p>2）AOF缓冲区根据对应的策略向硬盘做同步操作。</p>
+<p>AOF为什么把命令追加到aof_buf中？Redis使用单线程响应命令，如 果每次写AOF文件命令都直接追加到硬盘，那么性能完全取决于当前硬盘负 载。先写入缓冲区aof_buf中，还有另一个好处，Redis可以提供多种缓冲区同步硬盘的策略，在性能和安全性方面做出平衡</p>
+<p>3）随着AOF文件越来越大，需要定期对AOF文件进行重写，达到压缩的目的。</p>
+<p>重写后的AOF文件为什么可以变小？有如下原因：</p>
+<p>1）进程内已经超时的数据不再写入文件。</p>
+<p>2）旧的AOF文件含有无效命令，如del key1、hdel key2、srem keys、set a111、set a222等。重写使用进程内数据直接生成，这样新的AOF文件只保留最终数据的写入命令。</p>
+<p>3）多条写命令可以合并为一个，如：lpush list a、lpush list b、lpush list c可以转化为：lpush list a b c。</p>
+<p>AOF重写降低了文件占用空间，除此之外，另一个目的是：更小的AOF 文件可以更快地被Redis加载。</p>
+<p><strong>AOF重写过程可以手动触发和自动触发</strong>：</p>
+<p>·手动触发：直接调用bgrewriteaof命令。</p>
+<p>·自动触发：根据auto-aof-rewrite-min-size和auto-aof-rewrite-percentage参数确定自动触发时机</p>
+<h4 id="加载AOF文件进行数据恢复"><a href="#加载AOF文件进行数据恢复" class="headerlink" title="加载AOF文件进行数据恢复"></a>加载AOF文件进行数据恢复</h4><p>流程说明：</p>
+<p>1）AOF持久化开启且存在AOF文件时，优先加载AOF文件，打印如下日志：</p>
+<p>* DB loaded from append only file: 5.841 seconds</p>
+<p>2）AOF关闭或者AOF文件不存在时，加载RDB文件，打印如下日志：</p>
+<p>* DB loaded from disk: 5.586 seconds</p>
+<p>3）加载AOF/RDB文件成功后，Redis启动成功。</p>
+<p>4）AOF/RDB文件存在错误时，Redis启动失败并打印错误信息。</p>
+<h3 id="Redis管道技术（pipeline）"><a href="#Redis管道技术（pipeline）" class="headerlink" title="Redis管道技术（pipeline）"></a>Redis管道技术（pipeline）</h3><p>  作用：执行命令简单的，更加快速的发送给服务器；<br>   一个client可以通过一个socket连接发起多个请求命令。每个请求命令发出后client通常会阻塞并等待redis服务处理，redis处理完后请求命令后会将结果通过响应报文返回给client。如果没有pipeline那么redis就会处理完一个请求之后返回响应报文，client再发送下一个请求。</p>
+<h4 id="Redis的同步机制"><a href="#Redis的同步机制" class="headerlink" title="Redis的同步机制"></a>Redis的同步机制</h4><p>全同步过程</p>
+<ul>
+<li>slave发送sync命令给master；</li>
+<li>master启动一个后台进程，将Redis中的数据快照保存到文件中；</li>
+<li>master将保存数据快照数据期间接收到的命令缓存起来；</li>
+<li>master完成文件写操作后，将文件发送给slave；</li>
+<li>使用新的AOF文件替换掉旧的AOF文件；</li>
+<li>master将这期间收集的增量写命令发送给slave端。</li>
+</ul>
+<p>注：全量同步操作完成后，后续所有写操作都是在master上进行，slave上进行读操作，虽然master也能进行读操作，但一般不会使用；为了提升性能，一般都将读操作放在slave上，因此用户的写操作需要及时扩散到slave上，以保证数据最大程度上的同步。</p>
+<p>增量同步过程</p>
+<ul>
+<li>master收到用户的操作指令，判断是否需要传播到slave；（一般增删改才需要）</li>
+<li>将操作记录追加到AOF文件；</li>
+<li>将操作传播到其他slave：a)对齐zhu主从库；b)往响应缓存写入指令 ;</li>
+<li>将缓存中的数据发给slave。</li>
+</ul>
+<p>Redis sentinel：解决主从同步master宕机后的主从切换问题</p>
+<p>监控：检查主从服务器是否运行正常；</p>
+<p>提醒：通过API向管理员或者其他应用程序发送故障通知；</p>
+<p>自动故障迁移：主从切换；</p>
+<h3 id="Redis-的集群原理"><a href="#Redis-的集群原理" class="headerlink" title="Redis 的集群原理"></a>Redis 的集群原理</h3><h5 id="如何从海量的数据中尽快找到所需？"><a href="#如何从海量的数据中尽快找到所需？" class="headerlink" title="如何从海量的数据中尽快找到所需？"></a>如何从海量的数据中尽快找到所需？</h5><p>  分片：按照某种规则去划分数据，分散储存在多个节点上；<br>  常规的按照哈希划分无法实现节点的动态增减</p>
+<h5 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h5><p>  <strong>对2^32取模，将哈希值空间组织成虚拟的圆环</strong></p>
+<p>将数据key使用相同的函数hash计算出哈希值</p>
+<h2 id="java常用类库与技巧"><a href="#java常用类库与技巧" class="headerlink" title="java常用类库与技巧"></a>java常用类库与技巧</h2><h3 id="Error和Exception的区别"><a href="#Error和Exception的区别" class="headerlink" title="Error和Exception的区别"></a>Error和Exception的区别</h3><p>Error: 程序无法处理的系统错误，编译器不做检查。</p>
+<p>Exception: 程序可以处理的异常，捕获后可能恢复。</p>
+<p>总结：前者是程序无法处理的错误，后者是可以处理的异常。</p>
+<p>RuntimeException: 不可预知的，应当自行避免。空指针、数据越界</p>
+<p>非RuntimeException: 可预知，从编译器校验的异常。</p>
+<h2 id="多线程与并发原理"><a href="#多线程与并发原理" class="headerlink" title="多线程与并发原理"></a>多线程与并发原理</h2><h3 id="JAVA内存模型"><a href="#JAVA内存模型" class="headerlink" title="JAVA内存模型"></a>JAVA内存模型</h3><p>JMM描述的是一组规则，围绕原子性，有序性，可见性展开</p>
+<h3 id="主内存与工作内存的数据存储类型以及操作方式归纳"><a href="#主内存与工作内存的数据存储类型以及操作方式归纳" class="headerlink" title="主内存与工作内存的数据存储类型以及操作方式归纳"></a>主内存与工作内存的数据存储类型以及操作方式归纳</h3><ul>
+<li>方法里的基本数据类型本地变量将直接存储到工作内存的栈帧结构中</li>
+<li>引用类型的本地变量：引用存储在工作内存中，实例存储在主内存中</li>
+<li>成员变量、static变量、类信息均会被存储到主内存中</li>
+<li>主内存共享的方式是线程各拷贝一份数据到工作内存，操作完成后刷新回主内存</li>
+</ul>
+<h3 id="指令重排序需要满足的条件"><a href="#指令重排序需要满足的条件" class="headerlink" title="指令重排序需要满足的条件"></a>指令重排序需要满足的条件</h3><ul>
+<li>在单线程环境下不能改变程序运行的结果</li>
+<li>存在数据依赖关系的不允许重排序</li>
+</ul>
+<h3 id="A操作的结果需要对B操作可见，则A与B存在happens-before关系"><a href="#A操作的结果需要对B操作可见，则A与B存在happens-before关系" class="headerlink" title="A操作的结果需要对B操作可见，则A与B存在happens-before关系"></a>A操作的结果需要对B操作可见，则A与B存在happens-before关系</h3><h3 id="volatile变量为何立即可见？"><a href="#volatile变量为何立即可见？" class="headerlink" title="volatile变量为何立即可见？"></a>volatile变量为何立即可见？</h3><ul>
+<li>当写一个volatile变量时，JMM会把线程对应的工作内存中的共享变量值刷新到主内存中；</li>
+<li>当读取一个volatile变量时，JMM会把线程对应的工作内存置为无效。</li>
+</ul>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><ul>
+<li>newFixedThreadPool(int nThreads)</li>
+<li>newCachedThreadPool()</li>
+</ul>
+<ol>
+<li>尝试缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程</li>
+<li>如果线程闲置超过阈值，则会终止并移出缓存</li>
+</ol>
+<ul>
+<li>newSingleThreadExecutor()</li>
+<li>newScheduledThreadPool(int corePoolSize)</li>
+<li>newWorkStealingPool()</li>
+</ul>
+<p>内建forkJoinPool(),利用work-stealing算法，并行地处理任务，不保证处理顺序。</p>
+<p>Fork/join框架</p>
+<ul>
+<li>把大任务分割成若干个小任务并行执行，最终汇总每个小任务结果后得到大任务的框架</li>
+</ul>
+<p>Work-stealing算法：某个线程从其他队列里窃取任务来执行</p>
+]]></content>
+      <categories>
+        <category>面经</category>
+      </categories>
+      <tags>
+        <tag>java开发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>大数据开发面试随笔记录</title>
     <url>/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<h2 id="大数据开发"><a href="#大数据开发" class="headerlink" title="大数据开发"></a>大数据开发</h2><h3 id="星型模型和雪花模型"><a href="#星型模型和雪花模型" class="headerlink" title="星型模型和雪花模型"></a>星型模型和雪花模型</h3><p>星型模型：是一种多维的数据关系，它由一个事实表（Fact Table）和一组维表（Dimension Table）组成。每个维表都有一个维作为主键，所有这些维的主键组合成事实表的主键。事实表的非主键属性称为事实（Fact），它们一般都是数值或其他可以进行计算的数据；</p>
 <p>雪花型模型：当有一个或多个维表没有直接连接到事实表上，而是通过其他维表连接到事实表上时，其图解就像多个雪花连接在一起，故称雪花模型。</p>
 <h3 id="google大数据论文"><a href="#google大数据论文" class="headerlink" title="google大数据论文"></a>google大数据论文</h3><p>①2003年，Google发布Google File System论文，这是一个可扩展的分布式文件系统，用于大型的、分布式的、对大量数据进行访问的应用。它运行于廉价的普通硬件上，提供容错功能。从根本上说：文件被分割成很多块，使用冗余的方式储存于商用机器集群上。<br>②紧随其后的就是2004年公布的 MapReduce论文，论文描述了大数据的分布式计算方式，主要思想是将任务分解然后在多台处理能力较弱的计算节点中同时处理，然后将结果合并从而完成大数据处理。<br>③最后就是谷歌发布于2006年的Bigtable，其启发了无数的NoSQL数据库，比如：Cassandra、HBase等等。Cassandra架构中有一半是模仿Bigtable，包括了数据模型、SSTables以及提前写日志（另一半是模仿Amazon的Dynamo数据库，使用点对点集群模式）。</p>
+<h3 id="hadoop搭建过程中遇到哪些问题"><a href="#hadoop搭建过程中遇到哪些问题" class="headerlink" title="hadoop搭建过程中遇到哪些问题"></a>hadoop搭建过程中遇到哪些问题</h3><ol>
+<li>Hadoop初始化错误</li>
+</ol>
+<p>INFO org.apache.hadoop.ipc.Client: Retryingconnect to server: uec-fe/16.157.63.10:9000. Already tried 0 time(s).</p>
+<p>这种情况对数出现在启动namenode时成功，但是运行job时就会一直连接。</p>
+<p>通过查看TaskTracker日志可以看到不停地Retryingconnect,但是一直连不上，有如下解决办法：</p>
+<ul>
+<li>在启动hadoop前没有格式化namenode，需要再每次启动前格式化namenode</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bin/hadoop namenode –format</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果格式化后还存在相同的问题：需要先停掉hadoop，hadoop默认配置把一些文件放到/tmp 下，我们需要删除所有</p>
+<p>机器上的/tmp/hadoop-roor/(你的用户名)的文件，然后重新格式化后，启动服务。</p>
+</li>
+<li><p>也可以自定义tmp文件的位置，编辑conf/core-site.xml文件</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">value</span>&gt;</span>/var/log/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>Abase for other temporary directories<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>关闭hadoop，格式化namenode之后启动hadoop</p>
+<ul>
+<li>还有种可能是由于/etc/hosts没有编辑造成的，更改后重启</li>
+</ul>
+<ol start="2">
+<li>Your DataNodes won’t start, and you seesomething like this in logs/<em>datanode</em>:</li>
+</ol>
+<p>解决办法：</p>
+<p>bin/stop-all.sh rm–fr /tmp/hadoop-用户名 bin/hadoopnamenode -format bin/start-all.sh</p>
+<ol start="3">
+<li>INFO hdfs.DFSClient: Exception increateBlockOutputStream java.io.IOException:Bad connect ack with firstBadLink192.168.30.149:50010</li>
+</ol>
+<p>原因：可能有节点的防火墙开着，尝试关闭防火墙</p>
+<p>/etc/init.d/iptables stop ###关闭防火墙</p>
+<ol start="4">
+<li>org.apache.hadoop.dfs.SafeModeException:Cannot delete …, Name node is in safe mode</li>
+</ol>
+<p>原因：hadoop的安全模式开启了，在分布式文件系统启动的时候，开始的时候会有安全模式，当分布式文件系统处于安全模式的情况下，文件系统中的内容不允许修改也不允许删除，直到安全模式结束。</p>
+<p>安全模式主要是为了系统启动的时候检查各个DataNode上数据块的有效性，同时根据策略必要的复制或者删除部分数据块。运行期通过命令也可以进入安全模式。在实践过程中，系统启动的时候去修改和删除文件也会有安全模式不允许修改的出错提示，只需要等待一会儿即可</p>
+<p>bin/hadoopd fs admin-safemode leave</p>
+<ol start="5">
+<li>File/home/hadoop/tmp/mapred/system/jobtracker.info could only be replicated to 0nodes, instead of 1最常见的错误！！我是这样，</li>
+</ol>
+<p>原因：当hadoop刚刚start-all时，datanode和namenode还没有进行连接，这个时候如果执行上传文件命令，会导致此命令，稍等一会问题就会解决，如果问题得不到解决，删除tmp/hadoop-你的用户名 文件重新格式化后启动。</p>
+<ol start="6">
+<li>ERROR org.apache.hadoop.hdfs.server.datanode.DataNode: java.net.UnknownHostException:hadoop149: hadoop149 atjava.net.InetAddress.getLocalHost(InetAddress.java:1426)。</li>
+</ol>
+<p>原因：可能防火墙原因（关闭防火墙：/etc/init.d/iptables stop），也有可能是/etc/hosts文件没有添加相关信息 例如添加：192.168.30.149 hadoop149</p>
+<p>重启hadoop</p>
+<h3 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h3><p>hadoop多台机器中执行同样的命令常用。</p>
+<p>启动zookeeper</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#! /bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">"start"</span>)&#123;</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> hadoop102 hadoop103 hadoop104</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		ssh <span class="variable">$i</span> <span class="string">"/opt/module/zookeeper-3.4.10/bin/zkServer.sh start"</span></span><br><span class="line">	<span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">"stop"</span>)&#123;</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> hadoop102 hadoop103 hadoop104</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		ssh <span class="variable">$i</span> <span class="string">"/opt/module/zookeeper-3.4.10/bin/zkServer.sh stop"</span></span><br><span class="line">	<span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">"status"</span>)&#123;</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> hadoop102 hadoop103 hadoop104</span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">		ssh <span class="variable">$i</span> <span class="string">"/opt/module/zookeeper-3.4.10/bin/zkServer.sh status"</span></span><br><span class="line">	<span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<p>用于调度执行的shell脚本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义变量方便修改</span></span><br><span class="line">APP=gmall</span><br><span class="line">hive=/opt/module/hive/bin/hive</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果是输入的日期按照取输入日期；如果没输入日期取当前时间的前一天</span></span><br><span class="line">if [ -n "$1" ] ;then</span><br><span class="line">	do_date=$1</span><br><span class="line">else </span><br><span class="line">	do_date=`date -d "-1 day" +%F`  </span><br><span class="line">fi </span><br><span class="line"></span><br><span class="line">sql="</span><br><span class="line">set hive.exec.dynamic.partition.mode=nonstrict;</span><br><span class="line"></span><br><span class="line">insert overwrite table "$APP".dwd_start_log</span><br><span class="line">PARTITION (dt='$do_date')</span><br><span class="line">select </span><br><span class="line">    get_json_object(line,'$.mid') mid_id,</span><br><span class="line">    get_json_object(line,'$.uid') user_id,</span><br><span class="line">    get_json_object(line,'$.vc') version_code,</span><br><span class="line">    get_json_object(line,'$.vn') version_name,</span><br><span class="line">    get_json_object(line,'$.l') lang,</span><br><span class="line">    get_json_object(line,'$.sr') source,</span><br><span class="line">    get_json_object(line,'$.os') os,</span><br><span class="line">    get_json_object(line,'$.ar') area,</span><br><span class="line">    get_json_object(line,'$.md') model,</span><br><span class="line">    get_json_object(line,'$.ba') brand,</span><br><span class="line">    get_json_object(line,'$.sv') sdk_version,</span><br><span class="line">    get_json_object(line,'$.g') gmail,</span><br><span class="line">    get_json_object(line,'$.hw') height_width,</span><br><span class="line">    get_json_object(line,'$.t') app_time,</span><br><span class="line">    get_json_object(line,'$.nw') network,</span><br><span class="line">    get_json_object(line,'$.ln') lng,</span><br><span class="line">    get_json_object(line,'$.la') lat,</span><br><span class="line">    get_json_object(line,'$.entry') entry,</span><br><span class="line">    get_json_object(line,'$.open_ad_type') open_ad_type,</span><br><span class="line">    get_json_object(line,'$.action') action,</span><br><span class="line">    get_json_object(line,'$.loading_time') loading_time,</span><br><span class="line">    get_json_object(line,'$.detail') detail,</span><br><span class="line">    get_json_object(line,'$.extend1') extend1</span><br><span class="line">from "$APP".ods_start_log </span><br><span class="line">where dt='$do_date';</span><br><span class="line">"</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">hive -e <span class="string">"<span class="variable">$sql</span>"</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="vim命令"><a href="#vim命令" class="headerlink" title="vim命令"></a>vim命令</h3><p>〇、显示行号<br>当前文件  命令模式输入  set nu</p>
+<p>:set nu</p>
+<p>一、跳到指定行<br>①在正常模式下输入ngg 或者 nG，n为指定的行数，如12gg或者12G 跳转到第12行.</p>
+<p>使用 gg 跳转到当前文件的第一行</p>
+<p>使用 G 跳转光标到当前文件的最后一行</p>
+<p>②在命令模式下输入行号n<br>:n</p>
+<p>③打开文件即跳转到指定行，行号n<br>vim +n FileName</p>
+<h3 id="hadoop搭建流程"><a href="#hadoop搭建流程" class="headerlink" title="hadoop搭建流程"></a>hadoop搭建流程</h3><p><a href="https://www.aboutyun.com/thread-6487-1-1.html" target="_blank" rel="noopener">https://www.aboutyun.com/thread-6487-1-1.html</a></p>
 ]]></content>
       <categories>
         <category>bigdata</category>
@@ -63,6 +318,74 @@
 <p>然后呢，要有对网络通信的封装，要对调用方来说通信细节是完全不可见的，网络通信要做的就是将调用方法的属性通过一定的协议（简单来说就是消息格式）传递到服务端；</p>
 <p>服务端按照协议解析出调用的信息；执行相应的方法；在将方法的返回值通过协议传递给客户端；客户端再解析；</p>
 <p>在调用方式上又可以分为同步调用和异步调用；简单来说基本就这个过程。</p>
+<h3 id="秒杀场景（交易性能优化）"><a href="#秒杀场景（交易性能优化）" class="headerlink" title="秒杀场景（交易性能优化）"></a>秒杀场景（交易性能优化）</h3><h4 id="性能瓶颈"><a href="#性能瓶颈" class="headerlink" title="性能瓶颈"></a>性能瓶颈</h4><ul>
+<li>交易验证完全依赖数据库</li>
+<li>库存行锁</li>
+<li>后置处理逻辑</li>
+</ul>
+<p><img src="/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623290749628.jpg" alt></p>
+<h4 id="库存行锁优化"><a href="#库存行锁优化" class="headerlink" title="库存行锁优化"></a>库存行锁优化</h4><ul>
+<li>扣减库存缓存化</li>
+<li>异步同步数据库</li>
+<li>库存数据库最终一致性保证</li>
+</ul>
+<h4 id="扣减库存缓存化"><a href="#扣减库存缓存化" class="headerlink" title="扣减库存缓存化"></a>扣减库存缓存化</h4><p>方案(1)：</p>
+<ol>
+<li>活动发布 同步库存进缓存</li>
+<li>下单交易减缓存库存</li>
+</ol>
+<p>问题：</p>
+<ol>
+<li>数据库记录不一致</li>
+</ol>
+<p>方案(2)：</p>
+<ol>
+<li>活动发布 同步库存进缓存</li>
+<li>下单交易减缓存库存</li>
+<li>异步消息扣减数据库内库存</li>
+</ol>
+<p><img src="/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623291711862.jpg" alt></p>
+<h4 id="事务型消息"><a href="#事务型消息" class="headerlink" title="事务型消息"></a>事务型消息</h4><p>投递一个prepare状态的消息</p>
+<p>问题：</p>
+<ol>
+<li>异步消息发送失败</li>
+<li>扣减操作执行失败</li>
+<li>下单失败无法正确回补库存</li>
+</ol>
+<p>本质：</p>
+<p>没有库存流水</p>
+<p>方案：</p>
+<ol>
+<li>引入库存操作流水</li>
+<li>引入事务性消息机制</li>
+</ol>
+<h3 id="rocketmq如何保证消息不丢失？"><a href="#rocketmq如何保证消息不丢失？" class="headerlink" title="rocketmq如何保证消息不丢失？"></a>rocketmq如何保证消息不丢失？</h3><p>一、大体可以从三方面来说：</p>
+<p>分别从Producer发送机制、Broker的持久化机制，以及消费者的offSet机制来最大程度保证消息不易丢失</p>
+<ol>
+<li>从Producer的视角来看：如果消息未能正确的存储在MQ中，或者消费者未能正确的消费到这条消息，都是消息丢失。</li>
+<li>从Broker的视角来看：如果消息已经存在Broker里面了，如何保证不会丢失呢（宕机、磁盘崩溃）</li>
+<li>从Consumer的视角来看：如果消息已经完成持久化了，但是Consumer取了，但是未消费成功且没有反馈，就是消息丢失</li>
+</ol>
+<p>从Producer分析：如何确保消息正确的发送到了Broker?</p>
+<ol>
+<li>默认情况下，可以通过同步的方式阻塞式的发送，check SendStatus，状态是OK，表示消息一定成功的投递到了Broker，状态超时或者失败，则会触发默认的2次重试。此方法的发送结果，可能Broker存储成功了，也可能没成功</li>
+<li>采取事务消息的投递方式，并不能保证消息100%投递成功到了Broker，但是如果消息发送Ack失败的话，此消息会存储在CommitLog当中，但是对ConsumerQueue是不可见的。可以在日志中查看到这条异常的消息，严格意义上来讲，也并没有完全丢失</li>
+<li>RocketMQ支持 日志的索引，如果一条消息发送之后超时，也可以通过查询日志的API，来check是否在Broker存储成功</li>
+</ol>
+<p>从Broker分析：如果确保接收到的消息不会丢失?</p>
+<ol>
+<li>消息支持持久化到Commitlog里面，即使宕机后重启，未消费的消息也是可以加载出来的</li>
+<li>Broker自身支持同步刷盘、异步刷盘的策略，可以保证接收到的消息一定存储在本地的内存中</li>
+<li>Broker集群支持 1主N从的策略，支持同步复制和异步复制的方式，同步复制可以保证即使Master 磁盘崩溃，消息仍然不会丢失。</li>
+</ol>
+<p>从Cunmser分析：如何确保拉取到的消息被成功消费？</p>
+<ol>
+<li>消费者可以根据自身的策略批量Pull消息</li>
+<li>Consumer自身维护一个持久化的offset（对应MessageQueue里面的min offset），标记已经成功消费或者已经成功发回到broker的消息下标</li>
+<li>如果Consumer消费失败，那么它会把这个消息发回给Broker，发回成功后，再更新自己的offset</li>
+<li>如果Consumer消费失败，发回给broker时，broker挂掉了，那么Consumer会定时重试这个操作</li>
+<li>如果Consumer和broker一起挂了，消息也不会丢失，因为consumer 里面的offset是定时持久化的，重启之后，继续拉取offset之前的消息到本地。</li>
+</ol>
 ]]></content>
       <categories>
         <category>项目总结</category>
@@ -443,6 +766,50 @@
 <p>倘若在计算机系统中有多个处理机，则这些可以并发执行的程序便可被分配到多个处理机上，实现并行执行，即利用每个处理机来处理一个可并发执行的程序，这样，多个程序便可以同时执行。</p>
 </li>
 </ol>
+<h3 id="如何理解泛型，它在底层是如何存储的？"><a href="#如何理解泛型，它在底层是如何存储的？" class="headerlink" title="如何理解泛型，它在底层是如何存储的？"></a>如何理解泛型，它在底层是如何存储的？</h3><p>自JDK 1.5 之后，Java 通过泛型解决了容器类型安全这一问题，而几乎所有人接触泛型也是通过Java的容器。那么泛型究竟是什么？<br><strong>泛型的本质是参数化类型</strong><br>也就是说，泛型就是将所操作的数据类型作为参数的一种语法。</p>
+<h4 id="泛型的作用"><a href="#泛型的作用" class="headerlink" title="泛型的作用"></a>泛型的作用</h4><ul>
+<li>使用泛型能写出更加灵活通用的代码</li>
+<li>泛型将代码安全性检查提前到编译期</li>
+<li>泛型能够省去类型强制转换</li>
+</ul>
+<p>为了实现以上功能，Java 设计者将泛型完全作为了<strong>语法糖</strong>加入了新的语法中，什么意思呢？也就是说泛型对于JVM来说是透明的，有泛型的和没有泛型的代码，通过编译器编译后所生成的二进制代码是完全相同的。</p>
+<p>这个语法糖的实现被称为<strong>擦除</strong></p>
+<h4 id="擦除的过程"><a href="#擦除的过程" class="headerlink" title="擦除的过程"></a>擦除的过程</h4><p><strong>泛型</strong>是为了将具体的类型作为参数传递给方法，类，接口。<br><strong>擦除</strong>是在代码运行过程中将具体的类型都抹除。</p>
+<p>可以看到泛型就是在使用泛型代码的时候，将<strong>类型信息</strong>传递给具体的泛型代码。而经过编译后，生成的<code>.class</code>文件和原始的代码一模一样，就好像传递过来的<strong>类型信息</strong>又被擦除了一样。</p>
+<h3 id="java是编译执行还是解释执行？"><a href="#java是编译执行还是解释执行？" class="headerlink" title="java是编译执行还是解释执行？"></a>java是编译执行还是解释执行？</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">解释执行：将编译好的字节码一行一行地翻译为机器码执行。</span><br><span class="line"></span><br><span class="line">（即时编译）编译执行：以方法为单位，将字节码一次性翻译为机器码后执行。</span><br></pre></td></tr></table></figure>
+
+<p>Java采用的是解释和编译混合的模式。它首先通过javac将源码编译成字节码文件class.然后在运行的时候通过解释器或者JIT将字节码转换成最终的机器码。</p>
+<p><strong>单独使用解释器的缺点：</strong></p>
+<p>抛弃了JIT可能带来的性能优势。如果代码没有被JIT编译的话，再次运行时需要重复解析。</p>
+<p><strong>单独使用JIT的缺点：</strong></p>
+<p>需要将全部的代码编译成本地机器码。要花更多的时间，JVM启动会变慢非常多；</p>
+<p>增加可执行代码的长度（字节码比JIT编译后的机器码小很多），这将导致页面调度，从而降低程序的速度。</p>
+<p>有些JIT编译器的优化方式，比如分支预测，如果不进行profiling，往往并不能进行有效优化。</p>
+<p>因此，HotSpot采用了惰性评估(Lazy Evaluation)的做法，根据二八定律，消耗大部分系统资源的只有那一小部分的代码（热点代码），而这也就是JIT所需要编译的部分。JVM会根据代码每次被执行的情况收集信息并相应地做出一些优化，因此执行的次数越多，它的速度就越快。</p>
+<p>JDK 9引入了一种新的编译模式AOT(Ahead of Time Compilation)，它是直接将字节码编译成机器码，这样就避免了JIT预热等各方面的开销。JDK支持分层编译和AOT协作使用。</p>
+<p>注：JIT为方法级，它会缓存编译过的字节码在CodeCache中，而不需要被重复解释。</p>
+<p><img src="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/aHR0cDovL2hpLmNzZG4ubmV0L2F0dGFjaG1lbnQvMjAxMTA5LzE2LzBfMTMxNjE1OTYwNGRTNjAuZ2lm.gif" alt></p>
+<p>Jit工作原理</p>
+<p>当JIT编译启用时（默认是启用的），JVM读入.class文件解释后，将其发给JIT编译器。JIT编译器将字节码编译成本机机器代码。 </p>
+<p>通常javac将程序源码编译，转换成java字节码，JVM通过解释字节码将其翻译成相应的机器指令，逐条读入，逐条解释翻译。非常显然，经过解释运行，其运行速度必定会比可运行的二进制字节码程序慢。为了提高运行速度，引入了JIT技术。 </p>
+<p>在执行时JIT会把翻译过的机器码保存起来，已备下次使用，因此从理论上来说，採用该JIT技术能够，能够接近曾经纯编译技术。 </p>
+<h3 id="TCP为什么是四次挥手，而不是三次？"><a href="#TCP为什么是四次挥手，而不是三次？" class="headerlink" title="TCP为什么是四次挥手，而不是三次？"></a>TCP为什么是四次挥手，而不是三次？</h3><p>因为TCP是全双工通信的</p>
+<p>   （1）第一次挥手</p>
+<p>​     因此当主动方发送断开连接的请求（即FIN报文）给被动方时，仅仅代表主动方不会再发送数据报文了，但主动方仍可以接收数据报文。</p>
+<p>​    （2）第二次挥手</p>
+<p>​     被动方此时有可能还有相应的数据报文需要发送，因此需要先发送ACK报文，告知主动方“我知道你想断开连接的请求了”。这样主动方便不会因为没有收到应答而继续发送断开连接的请求（即FIN报文）。</p>
+<p>   （3）第三次挥手</p>
+<p>​    被动方在处理完数据报文后，便发送给主动方FIN报文；这样可以保证数据通信正常可靠地完成。发送完FIN报文后，被动方进入LAST_ACK阶段（超时等待）。</p>
+<p>   （4）第四挥手</p>
+<p>​    如果主动方及时发送ACK报文进行连接中断的确认，这时被动方就直接释放连接，进入可用状态。</p>
+<p>说法二：</p>
+<p>因为TCP有个半关闭状态，假设A.B要释放连接，那么A发送一个释放连接报文给B，B收到后发送确认，这个时候A不发数据，但是B如果发数据A还是要接受，这叫半关闭。然后B还要发给A连接释放报文，然后A发确认，所以是4次。</p>
+<h3 id="为什么是三次握手？"><a href="#为什么是三次握手？" class="headerlink" title="为什么是三次握手？"></a>为什么是三次握手？</h3><h4 id="一-资源浪费观点"><a href="#一-资源浪费观点" class="headerlink" title="一.资源浪费观点"></a>一.资源浪费观点</h4><p>引自《计算机网络》释疑与习题解答 谢希仁</p>
+<p>如果只有两次握手，那么当客户端的SYN连接请求在网络中阻塞，导致客户端没有接收到ACK报文，就会重新发送SYN，由于没有第三次握手，服务器不清楚客户端是否收到了自己发送的建立连接的ACK确认信号，所以每收到一个SYN就只能主动建立一个连接，这会造成什么情况呢？如果客户端的SYN阻塞了，重复发送多次SYN报文，那么服务器在收到请求后就会建立多个冗余的无效链接，造成不必要的资源浪费。<br>即两次握手会造成消息滞留情况下，服务器重复接受无用的连接请求SYN报文，而造成重复分配资源。</p>
+<h4 id="三、初始序列号"><a href="#三、初始序列号" class="headerlink" title="三、初始序列号"></a>三、初始序列号</h4><p>三次握手的本质是为了<strong>同步双方的初始序列号</strong>：</p>
+<p>为了实现可靠数据传输，TCP 协议的通信双方，都必须维护一个序列号， 以标识发送出去的数据包中，哪些是已经被对方收到的。</p>
+<p>三次握手的过程即是通信双方相互告知序列号起始值，并确认对方已经收到了序列号起始值的必经步骤。如果只是两次握手，至多只有连接发起方的起始序列号能被确认， 另一方选择的序列号则得不到确认。TCP建立连接的握手，实质上就是建立一个双向的可靠通信连接，一边一个来回，每一边都自带超时重传来确保可靠性（而不是靠握手的次数）。 </p>
+<p>握手的作用，旨在确定两个双向的初始序列号，TCP用序列号来编址传输的字节，由于是两个方向的连接，所以需要两个序列号。</p>
 <h2 id="小红书"><a href="#小红书" class="headerlink" title="小红书"></a>小红书</h2><h3 id="为什么索引要最左匹配原则？"><a href="#为什么索引要最左匹配原则？" class="headerlink" title="为什么索引要最左匹配原则？"></a>为什么索引要最左匹配原则？</h3><p>我们都知道索引的底层是一颗B+树，那么联合索引当然还是一颗B+树，只不过联合索引的健值数量不是一个，而是多个。构建一颗B+树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建B+树。<br>例子：假如创建一个（a,b)的联合索引，那么它的索引树是这样的</p>
 <p><img src="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png" alt="img"><br>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。所以b = 2这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。</p>
 <p>同时我们还可以发现在a值相等的情况下，b值又是按顺序排列的，但是这种顺序是相对的。所以最左匹配原则遇上范围查询就会停止，剩下的字段都无法使用索引。例如a = 1 and b = 2 a,b字段都可以使用索引，因为在a值确定的情况下b是相对有序的，而a&gt;1and b=2，a字段可以匹配上索引，但b值不可以，因为a的值是一个范围，在这个范围中b是无序的。</p>
@@ -473,7 +840,64 @@
 <p><strong>问题5：为什么B+树要这样设计？</strong></p>
 <p><strong>答：</strong>这个跟它的使用场景有关，B+树在数据库的索引中用得比较多，数据库中select数据，不一定只选一条，很多时候会选中多条，比如按照id进行排序后选100条。如果是多条的话，B树需要做局部的中序遍历，可能要跨层访问。而B+树由于所有数据都在叶子结点不用跨层，同时由于有链表结构，只需要找到首尾，通过链表就能把所有数据取出来了。</p>
 <p>比如选出7到19只需要在叶子结点中就能找到。</p>
-]]></content>
+<h2 id="携程"><a href="#携程" class="headerlink" title="携程"></a>携程</h2><h3 id="java的内存模型"><a href="#java的内存模型" class="headerlink" title="java的内存模型"></a>java的内存模型</h3><p><strong>线程通信</strong>：</p>
+<p>线程的通信是指线程之间以何种机制来交换信息。在命令式编程中，线程之间的通信机制有两种共享内存和消息传递。</p>
+<p>在共享内存的并发模型里，线程之间共享程序的公共状态，线程之间通过写-读内存中的公共状态来隐式进行通信，典型的<strong>共享内存</strong>通信方式就是通过共享对象进行通信。</p>
+<p>在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过<strong>明确的发送消息</strong>来显式进行通信，在java中典型的消息传递方式就是wait()和notify()。</p>
+<p><strong>java内存模型（JMM）</strong></p>
+<p>Java线程之间的通信采用的是过共享内存模型，这里提到的共享内存模型指的就是Java内存模型(简称JMM)，JMM决定一个线程对共享变量的写入何时对另一个线程可见。从抽象的角度来看，JMM定义了线程和主内存之间的抽象关系：线程之间的共享变量存储在主内存（main memory）中，每个线程都有一个私有的本地内存（local memory），本地内存中存储了该线程以读/写共享变量的副本。</p>
+<p><img src="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYwOTIxMTgyMzM3OTA0.png" alt></p>
+<h3 id="volatile关键字不支持原子性操作"><a href="#volatile关键字不支持原子性操作" class="headerlink" title="volatile关键字不支持原子性操作"></a>volatile关键字不支持原子性操作</h3><h3 id="AtomicInteger底层原理是cas"><a href="#AtomicInteger底层原理是cas" class="headerlink" title="AtomicInteger底层原理是cas"></a>AtomicInteger底层原理是cas</h3><h3 id="producer生产者保证安全，什么情况下会丢失数据，什么情况下会多数据？"><a href="#producer生产者保证安全，什么情况下会丢失数据，什么情况下会多数据？" class="headerlink" title="producer生产者保证安全，什么情况下会丢失数据，什么情况下会多数据？"></a>producer生产者保证安全，什么情况下会丢失数据，什么情况下会多数据？</h3><h3 id="spark-streaming消费kafka的两种方式"><a href="#spark-streaming消费kafka的两种方式" class="headerlink" title="spark streaming消费kafka的两种方式"></a>spark streaming消费kafka的两种方式</h3><ol>
+<li>Receiver是使用高层次的consumer Api来实现的。</li>
+</ol>
+<p>receiver 接收的消息都是存储在spark Executor中的，然后spark启动job去处理那些消息;</p>
+<p>然而，默认情况下，这种方式会因为底层的失败丢失数据。</p>
+<p>如果要启用高可靠机制，让数据零丢失，就必须启用spark streaming的预写日志机制，（Write Ahead Log，WAL）。</p>
+<p>该机制会同步的将kafka数据写入到分布式文件系统（如hdfs上）上的预写日志中。所以，即使底层节点出现问题，也可以</p>
+<p>使用预写日志中的数据进行恢复，但是效率会下降。</p>
+<ol start="2">
+<li>direct这种方式会周期性的查询kafka，来获取每个topic+partition的每个offset,从而定义每个batch的offset的范围。</li>
+</ol>
+<p>当处理数据job启动时，就会使用简单的api来获取指定的offset范围的数据。</p>
+<p>direct方式的优点：</p>
+<p>1）简化并行读取</p>
+<p>如果要读取多个partition,不需要创建多个输入Dstream然后对他们进行union操作，spark会创建跟kafka partition一样多的rdd partition,并行的从kafka读取数据。所以在kafka partition跟rdd partition之间，有一个一对一的映射。</p>
+<p>2）高性能</p>
+<p>如果要保证零数据丢失，在基于receiver的方式中需要开启WAL机制，这种方式效率低下，因为要保存两份数据，kafka本身就有高可靠的机制，会对数据复制一份，而这里又会复制一份到WAL中。而direct方式只要kafka中复制一份，就可以通过kafka的副本进行恢复。</p>
+<p>3）一次且仅一次的事务机制</p>
+<p>基于receiver的方式，是使用高层次api在zk中保存消费过的offset这是传统的消费方式。这种方式配合WAL实现数据零丢失，但是却无法保证数据消费仅一次，可能会处理两次。因为spark和zk之间可能是不同步的。direct方式自己追踪消费的offset,并保存在checkpoint中，spark自己一定是同步的，消息仅消费一次。</p>
+<h3 id="spark-checkpoint"><a href="#spark-checkpoint" class="headerlink" title="spark checkpoint"></a>spark checkpoint</h3><ol>
+<li>引入checkpoint机制原因</li>
+</ol>
+<p>Spark 在生产环境下经常会面临 Transformation 的 RDD 非常多(例如一个Job 中包含1万个RDD) 或者是具体的 Transformation 产生的 RDD 本身计算特别复杂和耗时(例如计算时常超过1个小时) , 这个时候如果可以对计算的过程进行复用，就可以极大的提升效率，此时我们必需考虑对计算结果的持久化。<br>如果采用 persists 把数据持久化在内存中的话，虽然最快速但是也是最不可靠的（内存清理）；如果放在磁盘上也不是完全可靠的，例如磁盘会损坏，系统管理员可能会清空磁盘。<br>Checkpoint 的产生就是为了相对而言更加可靠的持久化数据，在 Checkpoint 可以指定把数据放在本地并且是多副本的方式，在正常生产环境下通常放在 HDFS 上，借助HDFS 高可靠的特征来实现更可靠的数据持久化。</p>
+<ol start="2">
+<li>checkpoint在spark的两块应用</li>
+</ol>
+<p>（1）一块是在spark core中对RDD做checkpoint，将RDD数据保存到可靠存储（如HDFS）以便数据恢复；<br>通过将计算代价较大的 RDD checkpoint 一下，当下游 RDD 计算出错时，可以直接从 checkpoint 过的 RDD 那里读取数据继续算。<br>（2）应用在spark streaming中，使用checkpoint用来保存DStreamGraph以及相关配置信息，以便在Driver崩溃重启的时候能够接着之前进度继续进行处理（如之前waiting batch的job会在重启后继续处理）。</p>
+<h3 id="垃圾回收器g1-cms"><a href="#垃圾回收器g1-cms" class="headerlink" title="垃圾回收器g1,cms"></a>垃圾回收器g1,cms</h3><h2 id="涂鸦智能一面："><a href="#涂鸦智能一面：" class="headerlink" title="涂鸦智能一面："></a>涂鸦智能一面：</h2><h3 id="kafka不丢失数据？"><a href="#kafka不丢失数据？" class="headerlink" title="kafka不丢失数据？"></a>kafka不丢失数据？</h3><p>1.生产者数据的不丢失<br>kafka的ack机制：在kafka发送数据的时候，每次发送消息都会有一个确认反馈机制，确保消息正常的能够被收到。</p>
+<p>如果是同步模式：ack机制能够保证数据的不丢失，如果ack设置为0，风险很大，一般不建议设置为0</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">producer.type=sync </span><br><span class="line">request.required.acks=1</span><br></pre></td></tr></table></figure>
+
+<p>如果是异步模式：通过buffer来进行控制数据的发送，有两个值来进行控制，时间阈值与消息的数量阈值，如果buffer满了</p>
+<p>数据还没有发送出去，如果设置的是立即清理模式，风险很大，一定要设置为阻塞模式.</p>
+<p>结论：producer有丢数据的可能，但是可以通过配置保证消息的不丢失</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">producer.type=async </span><br><span class="line">request.required.acks=1 </span><br><span class="line">queue.buffering.max.ms=5000 </span><br><span class="line">queue.buffering.max.messages=10000 </span><br><span class="line">queue.enqueue.timeout.ms = -1 </span><br><span class="line">batch.num.messages=200</span><br></pre></td></tr></table></figure>
+
+<p>2.消费者数据的不丢失</p>
+<p>通过offset commit 来保证数据的不丢失，kafka自己记录了每次消费的offset数值，下次继续消费的时候，接着上次的</p>
+<p>offset进行消费即可。</p>
+<h3 id="kafka不重复消费？（如何保证消息消费时的幂等性）"><a href="#kafka不重复消费？（如何保证消息消费时的幂等性）" class="headerlink" title="kafka不重复消费？（如何保证消息消费时的幂等性）"></a>kafka不重复消费？（如何保证消息消费时的幂等性）</h3><p>幂等性：<strong>其任意多次执行对资源本身所产生的影响均与一次执行的影响相同</strong>。</p>
+<p>（1）比如你拿个数据要写库，你先根据主键查一下，如果这数据都有了，你就别插入了，update一下好吧 </p>
+<p>（2）比如你是写redis，那没问题了，反正每次都是set，天然幂等性</p>
+<p>（3）比如你不是上面两个场景，那做的稍微复杂一点，你需要让生产者发送每条数据的时候，里面加一个全局唯一的id，类似订单id之类的东西，然后你这里消费到了之后，先根据这个id去比如redis里查一下，之前消费过吗？如果没有消费过，你就处理，然后这个id写redis。如果消费过了，那你就别处理了，保证别重复处理相同的消息即可。</p>
+<h3 id="Synchronized和ReentrantLock的区别"><a href="#Synchronized和ReentrantLock的区别" class="headerlink" title="Synchronized和ReentrantLock的区别"></a>Synchronized和ReentrantLock的区别</h3><h4 id="Synchronized原理："><a href="#Synchronized原理：" class="headerlink" title="Synchronized原理："></a>Synchronized原理：</h4><p>Synchronized进过编译，会在同步块的前后分别形成monitorenter和monitorexit这个两个字节码指令。在执行monitorenter指令时，首先要尝试获取对象锁。如果这个对象没被锁定，或者当前线程已经拥有了那个对象锁，把锁的计算器加1，相应的，在执行monitorexit指令时会将锁计算器就减1，当计算器为0时，锁就被释放了。如果获取对象锁失败，那当前线程就要阻塞，直到对象锁被另一个线程释放为止。</p>
+<h4 id="ReentrantLock"><a href="#ReentrantLock" class="headerlink" title="ReentrantLock"></a>ReentrantLock</h4><p>由于ReentrantLock是java.util.concurrent包下提供的一套互斥锁，相比Synchronized，ReentrantLock类提供了一些高级功能，主要有以下3项：</p>
+<pre><code>1.等待可中断，持有锁的线程长期不释放的时候，正在等待的线程可以选择放弃等待，这相当于Synchronized来说可以避免出现死锁的情况。通过lock.lockInterruptibly()来实现这个机制。
+
+2.公平锁，多个线程等待同一个锁时，必须按照申请锁的时间顺序获得锁，Synchronized锁非公平锁，ReentrantLock默认的构造函数是创建的非公平锁，可以通过参数true设为公平锁，但公平锁表现的性能不是很好。</code></pre><p>公平锁、非公平锁的创建方式：</p>
+<p>//创建一个非公平锁，默认是非公平锁Lock lock = new ReentrantLock();Lock lock = new ReentrantLock(false); //创建一个公平锁，构造传参trueLock lock = new ReentrantLock(true);</p>
+<pre><code>3.锁绑定多个条件，一个ReentrantLock对象可以同时绑定多个对象。ReenTrantLock提供了一个Condition（条件）类，用来实现分组唤醒需要唤醒的线程们，而不是像synchronized要么随机唤醒一个线程要么唤醒全部线程。</code></pre><p>await() 和 signal():等待和唤醒</p>
+<h3 id="内存溢出，如何去定位？"><a href="#内存溢出，如何去定位？" class="headerlink" title="内存溢出，如何去定位？"></a>内存溢出，如何去定位？</h3><h3 id="说说项目中你觉得可以体现你能力的点？"><a href="#说说项目中你觉得可以体现你能力的点？" class="headerlink" title="说说项目中你觉得可以体现你能力的点？"></a>说说项目中你觉得可以体现你能力的点？</h3><h3 id="什么是超卖？"><a href="#什么是超卖？" class="headerlink" title="什么是超卖？"></a>什么是超卖？</h3><h2 id="阿里一面"><a href="#阿里一面" class="headerlink" title="阿里一面"></a>阿里一面</h2><h3 id="你的研究方向？"><a href="#你的研究方向？" class="headerlink" title="你的研究方向？"></a>你的研究方向？</h3><h3 id="java为什么可以“一次编译，到处运行”？"><a href="#java为什么可以“一次编译，到处运行”？" class="headerlink" title="java为什么可以“一次编译，到处运行”？"></a>java为什么可以“一次编译，到处运行”？</h3><h3 id="java的数据类型有哪些？"><a href="#java的数据类型有哪些？" class="headerlink" title="java的数据类型有哪些？"></a>java的数据类型有哪些？</h3><h3 id="封装、继承、多态"><a href="#封装、继承、多态" class="headerlink" title="封装、继承、多态"></a>封装、继承、多态</h3><h3 id="类加载过程？"><a href="#类加载过程？" class="headerlink" title="类加载过程？"></a>类加载过程？</h3><h3 id="双亲委派机制？"><a href="#双亲委派机制？" class="headerlink" title="双亲委派机制？"></a>双亲委派机制？</h3><h3 id="哪里用到过线程池？"><a href="#哪里用到过线程池？" class="headerlink" title="哪里用到过线程池？"></a>哪里用到过线程池？</h3><h3 id="Thread和runnable的区别？"><a href="#Thread和runnable的区别？" class="headerlink" title="Thread和runnable的区别？"></a>Thread和runnable的区别？</h3><h3 id="数据库有哪些索引？索引的结构？为什么最左匹配？"><a href="#数据库有哪些索引？索引的结构？为什么最左匹配？" class="headerlink" title="数据库有哪些索引？索引的结构？为什么最左匹配？"></a>数据库有哪些索引？索引的结构？为什么最左匹配？</h3><h2 id="金山云一面："><a href="#金山云一面：" class="headerlink" title="金山云一面："></a>金山云一面：</h2><h3 id="vim命令相关、linux命令"><a href="#vim命令相关、linux命令" class="headerlink" title="vim命令相关、linux命令"></a>vim命令相关、linux命令</h3><h3 id="Hadoop安装中遇到哪些问题"><a href="#Hadoop安装中遇到哪些问题" class="headerlink" title="Hadoop安装中遇到哪些问题"></a>Hadoop安装中遇到哪些问题</h3><h3 id="说说项目-大数据项目-怎么做的？"><a href="#说说项目-大数据项目-怎么做的？" class="headerlink" title="说说项目(大数据项目)怎么做的？"></a>说说项目(大数据项目)怎么做的？</h3><h2 id="唯品会一面："><a href="#唯品会一面：" class="headerlink" title="唯品会一面："></a>唯品会一面：</h2><h3 id="spark的client和on-yarn方式有什么区别"><a href="#spark的client和on-yarn方式有什么区别" class="headerlink" title="spark的client和on yarn方式有什么区别"></a>spark的client和on yarn方式有什么区别</h3><h3 id="thread-local的底层"><a href="#thread-local的底层" class="headerlink" title="thread local的底层"></a>thread local的底层</h3><h3 id="红黑树删除一个节点的过程"><a href="#红黑树删除一个节点的过程" class="headerlink" title="红黑树删除一个节点的过程"></a>红黑树删除一个节点的过程</h3><h3 id="where和having的区别"><a href="#where和having的区别" class="headerlink" title="where和having的区别"></a>where和having的区别</h3><h3 id="hadoop的shuffle和spark的shuffle的区别"><a href="#hadoop的shuffle和spark的shuffle的区别" class="headerlink" title="hadoop的shuffle和spark的shuffle的区别"></a>hadoop的shuffle和spark的shuffle的区别</h3><h3 id="jvm的g1垃圾回收器"><a href="#jvm的g1垃圾回收器" class="headerlink" title="jvm的g1垃圾回收器"></a>jvm的g1垃圾回收器</h3><h3 id="你平时有用到哪些集合？concurrent-hashmap原理？"><a href="#你平时有用到哪些集合？concurrent-hashmap原理？" class="headerlink" title="你平时有用到哪些集合？concurrent hashmap原理？"></a>你平时有用到哪些集合？concurrent hashmap原理？</h3><h3 id="aop的动态代理具体怎么写的？"><a href="#aop的动态代理具体怎么写的？" class="headerlink" title="aop的动态代理具体怎么写的？"></a>aop的动态代理具体怎么写的？</h3><h3 id="mysql的事务隔离级别，默认事务隔离级别"><a href="#mysql的事务隔离级别，默认事务隔离级别" class="headerlink" title="mysql的事务隔离级别，默认事务隔离级别"></a>mysql的事务隔离级别，默认事务隔离级别</h3>]]></content>
       <categories>
         <category>面经</category>
       </categories>

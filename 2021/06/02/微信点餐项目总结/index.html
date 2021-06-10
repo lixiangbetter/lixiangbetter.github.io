@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="微信点餐全局异常的处理@ControllerAdvice AOP验证微信是否登录@Aspect 定义一个切面，每一个请求调用，都需要判断是否携带有token. 分布式sessionuuid作为token存储在redis中 微信公众号授权过程通过AppId和AppSecret和code==&amp;gt;获得access_code Access_code ==&amp;gt; openId 转发到returnUrl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-06-03T05:38:43.425Z">
+<meta property="og:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623290749628.jpg">
+<meta property="og:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623291711862.jpg">
+<meta property="og:updated_time" content="2021-06-10T03:03:13.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信点餐项目总结">
 <meta name="twitter:description" content="微信点餐全局异常的处理@ControllerAdvice AOP验证微信是否登录@Aspect 定义一个切面，每一个请求调用，都需要判断是否携带有token. 分布式sessionuuid作为token存储在redis中 微信公众号授权过程通过AppId和AppSecret和code==&amp;gt;获得access_code Access_code ==&amp;gt; openId 转发到returnUrl">
+<meta name="twitter:image" content="http://yoursite.com/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623290749628.jpg">
 
 
 
@@ -435,6 +438,74 @@
 <p>然后呢，要有对网络通信的封装，要对调用方来说通信细节是完全不可见的，网络通信要做的就是将调用方法的属性通过一定的协议（简单来说就是消息格式）传递到服务端；</p>
 <p>服务端按照协议解析出调用的信息；执行相应的方法；在将方法的返回值通过协议传递给客户端；客户端再解析；</p>
 <p>在调用方式上又可以分为同步调用和异步调用；简单来说基本就这个过程。</p>
+<h3 id="秒杀场景（交易性能优化）"><a href="#秒杀场景（交易性能优化）" class="headerlink" title="秒杀场景（交易性能优化）"></a>秒杀场景（交易性能优化）</h3><h4 id="性能瓶颈"><a href="#性能瓶颈" class="headerlink" title="性能瓶颈"></a>性能瓶颈</h4><ul>
+<li>交易验证完全依赖数据库</li>
+<li>库存行锁</li>
+<li>后置处理逻辑</li>
+</ul>
+<p><img src="/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623290749628.jpg" alt></p>
+<h4 id="库存行锁优化"><a href="#库存行锁优化" class="headerlink" title="库存行锁优化"></a>库存行锁优化</h4><ul>
+<li>扣减库存缓存化</li>
+<li>异步同步数据库</li>
+<li>库存数据库最终一致性保证</li>
+</ul>
+<h4 id="扣减库存缓存化"><a href="#扣减库存缓存化" class="headerlink" title="扣减库存缓存化"></a>扣减库存缓存化</h4><p>方案(1)：</p>
+<ol>
+<li>活动发布 同步库存进缓存</li>
+<li>下单交易减缓存库存</li>
+</ol>
+<p>问题：</p>
+<ol>
+<li>数据库记录不一致</li>
+</ol>
+<p>方案(2)：</p>
+<ol>
+<li>活动发布 同步库存进缓存</li>
+<li>下单交易减缓存库存</li>
+<li>异步消息扣减数据库内库存</li>
+</ol>
+<p><img src="/Users/lx/Documents/myblog/source/_posts/%E5%BE%AE%E4%BF%A1%E7%82%B9%E9%A4%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/1623291711862.jpg" alt></p>
+<h4 id="事务型消息"><a href="#事务型消息" class="headerlink" title="事务型消息"></a>事务型消息</h4><p>投递一个prepare状态的消息</p>
+<p>问题：</p>
+<ol>
+<li>异步消息发送失败</li>
+<li>扣减操作执行失败</li>
+<li>下单失败无法正确回补库存</li>
+</ol>
+<p>本质：</p>
+<p>没有库存流水</p>
+<p>方案：</p>
+<ol>
+<li>引入库存操作流水</li>
+<li>引入事务性消息机制</li>
+</ol>
+<h3 id="rocketmq如何保证消息不丢失？"><a href="#rocketmq如何保证消息不丢失？" class="headerlink" title="rocketmq如何保证消息不丢失？"></a>rocketmq如何保证消息不丢失？</h3><p>一、大体可以从三方面来说：</p>
+<p>分别从Producer发送机制、Broker的持久化机制，以及消费者的offSet机制来最大程度保证消息不易丢失</p>
+<ol>
+<li>从Producer的视角来看：如果消息未能正确的存储在MQ中，或者消费者未能正确的消费到这条消息，都是消息丢失。</li>
+<li>从Broker的视角来看：如果消息已经存在Broker里面了，如何保证不会丢失呢（宕机、磁盘崩溃）</li>
+<li>从Consumer的视角来看：如果消息已经完成持久化了，但是Consumer取了，但是未消费成功且没有反馈，就是消息丢失</li>
+</ol>
+<p>从Producer分析：如何确保消息正确的发送到了Broker?</p>
+<ol>
+<li>默认情况下，可以通过同步的方式阻塞式的发送，check SendStatus，状态是OK，表示消息一定成功的投递到了Broker，状态超时或者失败，则会触发默认的2次重试。此方法的发送结果，可能Broker存储成功了，也可能没成功</li>
+<li>采取事务消息的投递方式，并不能保证消息100%投递成功到了Broker，但是如果消息发送Ack失败的话，此消息会存储在CommitLog当中，但是对ConsumerQueue是不可见的。可以在日志中查看到这条异常的消息，严格意义上来讲，也并没有完全丢失</li>
+<li>RocketMQ支持 日志的索引，如果一条消息发送之后超时，也可以通过查询日志的API，来check是否在Broker存储成功</li>
+</ol>
+<p>从Broker分析：如果确保接收到的消息不会丢失?</p>
+<ol>
+<li>消息支持持久化到Commitlog里面，即使宕机后重启，未消费的消息也是可以加载出来的</li>
+<li>Broker自身支持同步刷盘、异步刷盘的策略，可以保证接收到的消息一定存储在本地的内存中</li>
+<li>Broker集群支持 1主N从的策略，支持同步复制和异步复制的方式，同步复制可以保证即使Master 磁盘崩溃，消息仍然不会丢失。</li>
+</ol>
+<p>从Cunmser分析：如何确保拉取到的消息被成功消费？</p>
+<ol>
+<li>消费者可以根据自身的策略批量Pull消息</li>
+<li>Consumer自身维护一个持久化的offset（对应MessageQueue里面的min offset），标记已经成功消费或者已经成功发回到broker的消息下标</li>
+<li>如果Consumer消费失败，那么它会把这个消息发回给Broker，发回成功后，再更新自己的offset</li>
+<li>如果Consumer消费失败，发回给broker时，broker挂掉了，那么Consumer会定时重试这个操作</li>
+<li>如果Consumer和broker一起挂了，消息也不会丢失，因为consumer 里面的offset是定时持久化的，重启之后，继续拉取offset之前的消息到本地。</li>
+</ol>
 
       
     </div>
@@ -561,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -583,7 +654,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -626,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐"><span class="nav-number">1.</span> <span class="nav-text">微信点餐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局异常的处理"><span class="nav-number">1.1.</span> <span class="nav-text">全局异常的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP验证微信是否登录"><span class="nav-number">1.2.</span> <span class="nav-text">AOP验证微信是否登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式session"><span class="nav-number">1.3.</span> <span class="nav-text">分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信公众号授权过程"><span class="nav-number">1.4.</span> <span class="nav-text">微信公众号授权过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信支付流程"><span class="nav-number">1.5.</span> <span class="nav-text">微信支付流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis分布式锁的实现"><span class="nav-number">1.6.</span> <span class="nav-text">redis分布式锁的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis缓存"><span class="nav-number">1.7.</span> <span class="nav-text">redis缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐（微服务升级）"><span class="nav-number">2.</span> <span class="nav-text">微信点餐（微服务升级）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon-负载均衡"><span class="nav-number">2.1.</span> <span class="nav-text">Ribbon: 负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用通信"><span class="nav-number">2.2.</span> <span class="nav-text">应用通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一配置中心"><span class="nav-number">2.3.</span> <span class="nav-text">统一配置中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原始流程，下单"><span class="nav-number">2.4.</span> <span class="nav-text">原始流程，下单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步扣减库存-修改为秒杀场景的思考"><span class="nav-number">2.5.</span> <span class="nav-text">异步扣减库存(修改为秒杀场景的思考)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关服务"><span class="nav-number">2.6.</span> <span class="nav-text">网关服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务容错"><span class="nav-number">2.7.</span> <span class="nav-text">服务容错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rpc框架，dubbo简单理解"><span class="nav-number">2.8.</span> <span class="nav-text">rpc框架，dubbo简单理解</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐"><span class="nav-number">1.</span> <span class="nav-text">微信点餐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全局异常的处理"><span class="nav-number">1.1.</span> <span class="nav-text">全局异常的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP验证微信是否登录"><span class="nav-number">1.2.</span> <span class="nav-text">AOP验证微信是否登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式session"><span class="nav-number">1.3.</span> <span class="nav-text">分布式session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信公众号授权过程"><span class="nav-number">1.4.</span> <span class="nav-text">微信公众号授权过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信支付流程"><span class="nav-number">1.5.</span> <span class="nav-text">微信支付流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis分布式锁的实现"><span class="nav-number">1.6.</span> <span class="nav-text">redis分布式锁的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis缓存"><span class="nav-number">1.7.</span> <span class="nav-text">redis缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微信点餐（微服务升级）"><span class="nav-number">2.</span> <span class="nav-text">微信点餐（微服务升级）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ribbon-负载均衡"><span class="nav-number">2.1.</span> <span class="nav-text">Ribbon: 负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用通信"><span class="nav-number">2.2.</span> <span class="nav-text">应用通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一配置中心"><span class="nav-number">2.3.</span> <span class="nav-text">统一配置中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原始流程，下单"><span class="nav-number">2.4.</span> <span class="nav-text">原始流程，下单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步扣减库存-修改为秒杀场景的思考"><span class="nav-number">2.5.</span> <span class="nav-text">异步扣减库存(修改为秒杀场景的思考)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关服务"><span class="nav-number">2.6.</span> <span class="nav-text">网关服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务容错"><span class="nav-number">2.7.</span> <span class="nav-text">服务容错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rpc框架，dubbo简单理解"><span class="nav-number">2.8.</span> <span class="nav-text">rpc框架，dubbo简单理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秒杀场景（交易性能优化）"><span class="nav-number">2.9.</span> <span class="nav-text">秒杀场景（交易性能优化）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性能瓶颈"><span class="nav-number">2.9.1.</span> <span class="nav-text">性能瓶颈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#库存行锁优化"><span class="nav-number">2.9.2.</span> <span class="nav-text">库存行锁优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扣减库存缓存化"><span class="nav-number">2.9.3.</span> <span class="nav-text">扣减库存缓存化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务型消息"><span class="nav-number">2.9.4.</span> <span class="nav-text">事务型消息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rocketmq如何保证消息不丢失？"><span class="nav-number">2.10.</span> <span class="nav-text">rocketmq如何保证消息不丢失？</span></a></li></ol></li></ol></div>
             
 
           </div>
