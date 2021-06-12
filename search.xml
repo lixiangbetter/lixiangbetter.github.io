@@ -35,6 +35,87 @@
 <p>  发送方维持一个拥塞窗口 cwnd ( congestion window )的状态变量。拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化。发送方让自己的发送窗口等于拥塞。</p>
 <p>  发送方控制拥塞窗口的原则是：只要网络没有出现拥塞，拥塞窗口就再增大一些，以便把更多的分组发送出去。但只要网络出现拥塞，拥塞窗口就减小一些，以减少注入到网络中的分组数。</p>
 <p>  慢开始算法：当主机开始发送数据时，如果立即所大量数据字节注入到网络，那么就有可能引起网络拥塞，因为现在并不清楚网络的负荷情况。因此，较好的方法是先探测一下，即由小到大逐渐增大发送窗口，也就是说，由小到大逐渐增大拥塞窗口数值。通常在刚刚开始发送报文段时，先把拥塞窗口 cwnd 设置为一个最大报文段MSS的数值。而在每收到一个对新的报文段的确认后，把拥塞窗口增加至多一个MSS的数值。用这样的方法逐步增大发送方的拥塞窗口 cwnd ，可以使分组注入到网络的速率更加合理。</p>
+<h2 id="数据库结构"><a href="#数据库结构" class="headerlink" title="数据库结构"></a>数据库结构</h2><h3 id="如何设计一个关系型数据库？"><a href="#如何设计一个关系型数据库？" class="headerlink" title="如何设计一个关系型数据库？"></a>如何设计一个关系型数据库？</h3><p><img src="https://lixiangbetter.github.io/2021/06/07/java%E9%9D%A2%E8%AF%95/1623466894807.jpg" alt></p>
+<h4 id="程序实例模块"><a href="#程序实例模块" class="headerlink" title="程序实例模块"></a>程序实例模块</h4><ul>
+<li>存储模块：逻辑关系转化成物理关系的存储管理</li>
+<li>缓存机制：优化执行效率</li>
+<li>SQL解析：进行SQL语句的解析</li>
+<li>日志管理：记录操作日志</li>
+<li>权限划分：进行多用户管理的权限划分</li>
+<li>容灾机制：灾难恢复模块</li>
+<li>索引管理：优化数据查询效率</li>
+<li>锁管理：使得数据库支持并发操作</li>
+</ul>
+<h4 id="存储模块（文件系统）"><a href="#存储模块（文件系统）" class="headerlink" title="存储模块（文件系统）"></a>存储模块（文件系统）</h4><ul>
+<li>磁盘或者固态硬盘存储所有数据</li>
+</ul>
+<p>链接：<a href="https://www.pianshen.com/article/65811074520/" target="_blank" rel="noopener">https://www.pianshen.com/article/65811074520/</a></p>
+<h4 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h4><ul>
+<li>生成索引，建立二叉查找树进行二分查找<ul>
+<li>时间复杂度o(logn),可能变成o(n)</li>
+<li>还要考虑io</li>
+</ul>
+</li>
+<li>生成索引，建立b-tree结构进行查找<ul>
+<li>平衡多路查找树</li>
+</ul>
+</li>
+<li>生成索引，建立b+tree结构进行查找<ul>
+<li>b树的变体</li>
+</ul>
+</li>
+<li>生成索引，建立hash结构进行查找</li>
+</ul>
+<h3 id="myisam和innodb关于锁方面的区别是什么"><a href="#myisam和innodb关于锁方面的区别是什么" class="headerlink" title="myisam和innodb关于锁方面的区别是什么"></a>myisam和innodb关于锁方面的区别是什么</h3><ul>
+<li>myisam支持表级锁，不支持行级锁</li>
+<li>innodb都支持</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 共享锁</span><br><span class="line">select * from person_info_large where id = 3 lock in share mode;</span><br><span class="line">// 排它锁</span><br><span class="line">select * from person_info_large where id = 3 for update;</span><br></pre></td></tr></table></figure>
+
+<p>Ps：</p>
+<ul>
+<li><p>innodb没有用到索引的时候，用的是表级锁</p>
+</li>
+<li><p>用到索引的时候，用的是行锁</p>
+</li>
+</ul>
+<h3 id="数据库锁的分类"><a href="#数据库锁的分类" class="headerlink" title="数据库锁的分类"></a>数据库锁的分类</h3><ul>
+<li>锁粒度划分：表级锁、行级锁、页级锁</li>
+<li>锁级别划分：共享锁、排它锁</li>
+<li>按加锁方式划分：自动锁、显式锁</li>
+<li>按操作划分：DML锁（对数据上的操作，数据的增删改查）、DDL锁（表结构，alter table）</li>
+<li>按使用方式划分：乐观锁（认为数据一般情况下，不会冲突，如果冲突则处理。实现方式：版本号、时间戳）、悲观锁（往往依赖数据库的锁机制，先取锁，再操作）</li>
+</ul>
+<h3 id="事务隔离级别以及各级别下的并发访问问题"><a href="#事务隔离级别以及各级别下的并发访问问题" class="headerlink" title="事务隔离级别以及各级别下的并发访问问题"></a>事务隔离级别以及各级别下的并发访问问题</h3><h4 id="事务并发访问引起的问题以及如何避免"><a href="#事务并发访问引起的问题以及如何避免" class="headerlink" title="事务并发访问引起的问题以及如何避免"></a>事务并发访问引起的问题以及如何避免</h4><ul>
+<li>更新丢失–mysql所有事务隔离级别在数据库层面上均可避免</li>
+<li>脏读–read-committed事务隔离级别以上可避免</li>
+<li>不可重复读–repeatable-read事务隔离级别以上可避免</li>
+<li>幻读–serializable事务隔离级别可避免</li>
+</ul>
+<h3 id="innodb可重复读隔离级别下如何避免幻读"><a href="#innodb可重复读隔离级别下如何避免幻读" class="headerlink" title="innodb可重复读隔离级别下如何避免幻读"></a>innodb可重复读隔离级别下如何避免幻读</h3><ul>
+<li>表象：快照读（非阻塞读）–伪MVCC</li>
+<li>内在：next-key锁（行锁+gap锁）</li>
+</ul>
+<p>当前读：select…lock in share mode,select…for update</p>
+<p>当前读：update, delete,insert</p>
+<h4 id="rc-rr级别下的innodb的非阻塞读如何实现"><a href="#rc-rr级别下的innodb的非阻塞读如何实现" class="headerlink" title="rc,rr级别下的innodb的非阻塞读如何实现"></a>rc,rr级别下的innodb的非阻塞读如何实现</h4><ul>
+<li>数据行里的DB_TRX_ID、DB_ROLL_PTR、DB_ROW_ID字段</li>
+<li>undo日志</li>
+<li>read view</li>
+</ul>
+<h4 id="对主键索引或者唯一索引会用gap锁吗"><a href="#对主键索引或者唯一索引会用gap锁吗" class="headerlink" title="对主键索引或者唯一索引会用gap锁吗"></a>对主键索引或者唯一索引会用gap锁吗</h4><ul>
+<li>如果where条件全部命中，则不会用gap锁，只会加记录锁</li>
+<li>如果where条件部分命中或者全不命中，则用gap锁</li>
+</ul>
+<h4 id="gap锁会用在非唯一索引或者不走索引的当前读中"><a href="#gap锁会用在非唯一索引或者不走索引的当前读中" class="headerlink" title="gap锁会用在非唯一索引或者不走索引的当前读中"></a>gap锁会用在非唯一索引或者不走索引的当前读中</h4><ul>
+<li>非唯一索引</li>
+<li>不走索引</li>
+</ul>
+<h3 id="关键语法"><a href="#关键语法" class="headerlink" title="关键语法"></a>关键语法</h3><h3 id="having"><a href="#having" class="headerlink" title="having"></a>having</h3><ul>
+<li>通常和group by 一起使用</li>
+<li>Where过滤行，having过滤组</li>
+<li>sql顺序：where&gt; group by &gt; having</li>
+</ul>
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><ul>
 <li>String</li>
 </ul>
@@ -144,7 +225,111 @@
 <h3 id="Redis-的集群原理"><a href="#Redis-的集群原理" class="headerlink" title="Redis 的集群原理"></a>Redis 的集群原理</h3><h5 id="如何从海量的数据中尽快找到所需？"><a href="#如何从海量的数据中尽快找到所需？" class="headerlink" title="如何从海量的数据中尽快找到所需？"></a>如何从海量的数据中尽快找到所需？</h5><p>  分片：按照某种规则去划分数据，分散储存在多个节点上；<br>  常规的按照哈希划分无法实现节点的动态增减</p>
 <h5 id="一致性哈希算法"><a href="#一致性哈希算法" class="headerlink" title="一致性哈希算法"></a>一致性哈希算法</h5><p>  <strong>对2^32取模，将哈希值空间组织成虚拟的圆环</strong></p>
 <p>将数据key使用相同的函数hash计算出哈希值</p>
-<h2 id="java常用类库与技巧"><a href="#java常用类库与技巧" class="headerlink" title="java常用类库与技巧"></a>java常用类库与技巧</h2><h3 id="Error和Exception的区别"><a href="#Error和Exception的区别" class="headerlink" title="Error和Exception的区别"></a>Error和Exception的区别</h3><p>Error: 程序无法处理的系统错误，编译器不做检查。</p>
+<h2 id="Linux知识考点"><a href="#Linux知识考点" class="headerlink" title="Linux知识考点"></a>Linux知识考点</h2><h3 id="Linux的体系结构"><a href="#Linux的体系结构" class="headerlink" title="Linux的体系结构"></a>Linux的体系结构</h3><ul>
+<li>体系结构主要分为用户态（用户上层活动）和内核态</li>
+<li>内核：本质是一段管理计算机硬件设备的程序</li>
+<li>系统调用：内核的访问接口，是一种能再简化的操作</li>
+<li>公用函数库：系统调用的组合拳</li>
+<li>Shell：命令解释器，可编程</li>
+</ul>
+<h3 id="查找特定文件"><a href="#查找特定文件" class="headerlink" title="查找特定文件"></a>查找特定文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">语法 find path [options] params		</span><br><span class="line">// 精确查找</span><br><span class="line">find ~ -name &quot;target.java&quot;</span><br><span class="line">// 模糊查找， 并且忽略大小写</span><br><span class="line">find ~ -iname &quot;target*&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="检索文件内容"><a href="#检索文件内容" class="headerlink" title="检索文件内容"></a>检索文件内容</h3><h4 id="grep命令"><a href="#grep命令" class="headerlink" title="grep命令"></a>grep命令</h4><p>grep [pattern] [file] </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">grep &quot;mooc&quot; target*</span><br></pre></td></tr></table></figure>
+
+<h4 id="管道操作符-｜"><a href="#管道操作符-｜" class="headerlink" title="管道操作符 ｜"></a>管道操作符 ｜</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find ~ | grep &quot;target&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>前一个命令必须正确</li>
+<li>右边必须能够接受标准输入流，否则数据会被抛弃</li>
+<li>Sed,awk,grep,cut,head,top,less,more,wc,join,sort,split等</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">查看包含某个字段--&gt; 筛选出符合正则表达式的内容</span><br><span class="line">grep &quot;pattern\[true\]&quot; test.log | grep -o &quot;engine\[[0-9a-z]*\]&quot;</span><br><span class="line">过滤掉包含字符串的内容</span><br><span class="line">grep -v &quot;grep&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对文件内容进行统计"><a href="#对文件内容进行统计" class="headerlink" title="对文件内容进行统计"></a>对文件内容进行统计</h3><h4 id="awk命令"><a href="#awk命令" class="headerlink" title="awk命令"></a>awk命令</h4><p>适合对列处理</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">语法 awk [options] &apos;cmd&apos; file</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>一次读取一行文本，按输入分隔符进行切片，切成多个组成部分</li>
+<li>将切片直接保存在内建的变量中，$1,$2…($0表示行的全部)</li>
+<li>支持对单个切片的判断，支持循环判断，默认分隔符为空格</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">文件说明：</span><br><span class="line">netstat.txt</span><br><span class="line">文本内容为格式化数据：tcp	0	48	ip:ssh	</span><br><span class="line">命令：</span><br><span class="line">// 第一列 和 第四列输出</span><br><span class="line">awk '&#123;print $1,$4&#125;' netstat.txt</span><br><span class="line">// 判断</span><br><span class="line">awk '$1=="tcp" &amp;&amp; $2==1&#123;print $0&#125;' netstat.txt</span><br><span class="line">// 表头</span><br><span class="line">awk '($1=="tcp" &amp;&amp; $2==1) || NR==1 &#123;print $0&#125;' netstat.txt</span><br><span class="line"></span><br><span class="line">文件说明：</span><br><span class="line">test.txt</span><br><span class="line">sdfsd,123</span><br><span class="line">dsfsdf,456</span><br><span class="line">// 第2列</span><br><span class="line">awk -F "," 'print&#123; $2&#125;' test.txt</span><br><span class="line">// 统计</span><br><span class="line">grep "pattern\[true\]" test.log | grep -o "engine\[[0-9a-z]*\]" | awk 'enginearr[$1++]END&#123;for(i in enginearr)print i "\t" enginearr[i]&#125;'</span><br></pre></td></tr></table></figure>
+
+<h3 id="批量替换文件中的内容"><a href="#批量替换文件中的内容" class="headerlink" title="批量替换文件中的内容"></a>批量替换文件中的内容</h3><h4 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h4><p>适合对行处理</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">语法：sed [option] &apos;sed command&apos; filename</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>全名stream editor,流编辑器</li>
+<li>适合用于对文本的行内容进行处理</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sed &apos;s/^Str/String/&apos; replace.java</span><br><span class="line">// 会修改文件</span><br><span class="line">sed -i &apos;s/^Str/String/&apos; replace.java</span><br><span class="line">// $代表以什么结尾</span><br><span class="line">sed -i &apos;s/\.$/\;/&apos; replace.java</span><br><span class="line">// 全局替换加g（默认是替换第一个）</span><br><span class="line">sed -i &apos;s/Jack/me/g&apos; replace.java</span><br><span class="line">// 删除加d 删除空行</span><br><span class="line">sed -i &apos;/^ *$/d&apos; replace.java</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java底层知识：JVM"><a href="#Java底层知识：JVM" class="headerlink" title="Java底层知识：JVM"></a>Java底层知识：JVM</h2><h3 id="谈谈对java的理解"><a href="#谈谈对java的理解" class="headerlink" title="谈谈对java的理解"></a>谈谈对java的理解</h3><ul>
+<li>平台无关性</li>
+<li>GC</li>
+<li>语言特性（泛型、反射、lambda表示）</li>
+<li>面向对象（封装、继承、多态）</li>
+<li>类库（集合库，并发库，网络库，io）</li>
+<li>异常处理</li>
+</ul>
+<h3 id="Compile-Once-Run-anyway如何实现"><a href="#Compile-Once-Run-anyway如何实现" class="headerlink" title="Compile Once,Run anyway如何实现"></a>Compile Once,Run anyway如何实现</h3><p><img src="https://lixiangbetter.github.io/2021/06/07/java%E9%9D%A2%E8%AF%95/1623488323589.jpg" alt></p>
+<h3 id="jvm如何加载-class文件"><a href="#jvm如何加载-class文件" class="headerlink" title="jvm如何加载.class文件"></a>jvm如何加载.class文件</h3><ul>
+<li>ClassLoader: 依据特定格式，加载class文件到内存；</li>
+<li>Execution Engine: 对命令进行解析；</li>
+<li>Native Interface: 融合不同开发语言的原生库为java所用；</li>
+<li>Runtime data area: Jim内存空间结构模型。</li>
+</ul>
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><p>java反射机制在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意方法和属性；这种动态获取信息以及动态调用对象方法的功能为java语言的反射机制。</p>
+<h3 id="类从编译到执行的过程"><a href="#类从编译到执行的过程" class="headerlink" title="类从编译到执行的过程"></a>类从编译到执行的过程</h3><ul>
+<li>编译器将robot.java源文件编译为robot.class字节码文件</li>
+<li>ClassLoader将字节码转换为JVM中的Class&lt;Robot&gt;对象</li>
+<li>JVM利用Class&lt;Robot&gt;对象实例化robot对象</li>
+</ul>
+<h3 id="ClassLoader"><a href="#ClassLoader" class="headerlink" title="ClassLoader"></a>ClassLoader</h3><p>ClassLoader在java中有着非常重要的作用，它主要工作在Class装载的加载阶段，其主要作用是从系统外部Class二进制数据流。它是java的核心组件，所有的Class都是由ClassLoader进行加载的，ClassLoader负责通过将Class文件中的二进制数据流装载进系统，然后交给JVM进行连接、初始化等操作。</p>
+<ul>
+<li>BootstrapClassLoader：c++编写，加载核心库java.*</li>
+<li>ExtClassLoader:java编写，加载扩展库java.ext.*</li>
+<li>AppClassLoader：java编写，加载程序所在目录</li>
+<li>自定义ClassLoader：java编写，定制化加载</li>
+</ul>
+<p>自定义ClassLoader</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String path;</span><br><span class="line">  <span class="keyword">private</span> String classloaderName;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">MyClassLoader</span><span class="params">(String path,String classloaderName)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.path = path;</span><br><span class="line">    <span class="keyword">this</span>.classloaderName = classloaderName;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 用于寻找类文件</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Class <span class="title">findClass</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">    <span class="keyword">byte</span>[] b = loadClassData(name);</span><br><span class="line">    <span class="keyword">return</span> defineClass(name, b, <span class="number">0</span>, b.length);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 用于加载类文件</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">byte</span>[] loadClassData(String name)&#123;</span><br><span class="line">    name = path + name + <span class="string">".class"</span>;</span><br><span class="line">    InputStream in = <span class="keyword">null</span>;</span><br><span class="line">    ByteArrayOutputStream out = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      in = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(name));</span><br><span class="line">      out = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">      <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">while</span>((i = in.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">        out.write(i);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">      	e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> out.toByteArray();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="为什么使用双亲委派机制去加载类"><a href="#为什么使用双亲委派机制去加载类" class="headerlink" title="为什么使用双亲委派机制去加载类"></a>为什么使用双亲委派机制去加载类</h3><p>避免多份同样字节码加载</p>
+<h3 id="loadClass和forName有什么区别"><a href="#loadClass和forName有什么区别" class="headerlink" title="loadClass和forName有什么区别"></a>loadClass和forName有什么区别</h3><h4 id="类加载方式"><a href="#类加载方式" class="headerlink" title="类加载方式"></a>类加载方式</h4><ul>
+<li>隐式加载：new</li>
+<li>显示加载：loadClass, forName等</li>
+</ul>
+<h4 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h4><p>加载–通过ClassLoader加载class文件字节码，生成class对象</p>
+<p>链接</p>
+<ul>
+<li>校验：检查加载的class的正确性与安全性</li>
+<li>准备：为类变量分配存储空间并设置类变量初始值</li>
+<li>解析：JVM将常量池内的符号引用转换为直接引用</li>
+</ul>
+<p>初始化–执行类变量赋值和静态代码块</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><ul>
+<li>Class.forName得到的class是已经初始化完成的</li>
+<li>ClassLoader.loadClass得到的class是没有链接的</li>
+</ul>
+<h3 id="java内存模型"><a href="#java内存模型" class="headerlink" title="java内存模型"></a>java内存模型</h3><p>线程私有：程序计数器、虚拟机栈、本地方法栈</p>
+<p>线程共享：MetaSpace、java堆</p>
+<p>程序计数器：存储下一条需要执行的字节码指令，地址</p>
+<p>虚拟机栈：</p>
+<ul>
+<li>java方法执行的内存模型</li>
+<li>包含多个栈帧：局部变量表、操作栈、动态连接、返回地址<ul>
+<li>局部变量表：方法执行过程中的所有变量</li>
+<li>操作栈：出栈、入栈</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://lixiangbetter.github.io/2021/06/07/java%E9%9D%A2%E8%AF%95/1623499263968.jpg" alt></p>
+<h3 id="递归为什么会引起stack-overflow异常"><a href="#递归为什么会引起stack-overflow异常" class="headerlink" title="递归为什么会引起stack overflow异常"></a>递归为什么会引起stack overflow异常</h3><ul>
+<li>递归过深，栈帧数超出虚拟机栈深度</li>
+</ul>
+<h3 id="虚拟机栈过多会引发java-lang-OutOfMemoryError异常"><a href="#虚拟机栈过多会引发java-lang-OutOfMemoryError异常" class="headerlink" title="虚拟机栈过多会引发java.lang.OutOfMemoryError异常"></a>虚拟机栈过多会引发java.lang.OutOfMemoryError异常</h3><h2 id="java常用类库与技巧"><a href="#java常用类库与技巧" class="headerlink" title="java常用类库与技巧"></a>java常用类库与技巧</h2><h3 id="Error和Exception的区别"><a href="#Error和Exception的区别" class="headerlink" title="Error和Exception的区别"></a>Error和Exception的区别</h3><p>Error: 程序无法处理的系统错误，编译器不做检查。</p>
 <p>Exception: 程序可以处理的异常，捕获后可能恢复。</p>
 <p>总结：前者是程序无法处理的错误，后者是可以处理的异常。</p>
 <p>RuntimeException: 不可预知的，应当自行避免。空指针、数据越界</p>
@@ -261,6 +446,7 @@
 <p>②在命令模式下输入行号n<br>:n</p>
 <p>③打开文件即跳转到指定行，行号n<br>vim +n FileName</p>
 <h3 id="hadoop搭建流程"><a href="#hadoop搭建流程" class="headerlink" title="hadoop搭建流程"></a>hadoop搭建流程</h3><p><a href="https://www.aboutyun.com/thread-6487-1-1.html" target="_blank" rel="noopener">https://www.aboutyun.com/thread-6487-1-1.html</a></p>
+<h3 id="mapreduce求topn的问题"><a href="#mapreduce求topn的问题" class="headerlink" title="mapreduce求topn的问题"></a>mapreduce求topn的问题</h3><p>链接：<a href="https://www.cnblogs.com/hdc520/p/12900854.html" target="_blank" rel="noopener">https://www.cnblogs.com/hdc520/p/12900854.html</a></p>
 ]]></content>
       <categories>
         <category>bigdata</category>
@@ -624,8 +810,7 @@
 <p>InnoDB为插入一行新记录，保存当前系统版本号作为行版本号，同时保存当前系统版本号到原来的行作为行删除标识。<br> 保存这两个额外系统版本号，使大多数读操作都可以不用加锁。这样设计使得读数据操作很简单，性能很好，并且也能保证只会读取到符合标准的行，不足之处是每行记录都需要额外的存储空间，需要做更多的行检查工作，以及一些额外的维护工作。</p>
 </li>
 </ul>
-<h2 id="兴盛"><a href="#兴盛" class="headerlink" title="兴盛"></a>兴盛</h2><p>如何设计数据库？合理安排他们的关联性？</p>
-<p>1.需求分析阶段（常用自顶向下）</p>
+<h2 id="兴盛"><a href="#兴盛" class="headerlink" title="兴盛"></a>兴盛</h2><h3 id="如何设计数据库？合理安排他们的关联性？"><a href="#如何设计数据库？合理安排他们的关联性？" class="headerlink" title="如何设计数据库？合理安排他们的关联性？"></a>如何设计数据库？合理安排他们的关联性？</h3><p>1.需求分析阶段（常用自顶向下）</p>
 <p>需求收集和分析，得到数据字典和数据流图。</p>
 <pre><code>进行数据库设计首先必须准确了解和分析用户需求（包括数据与处理）。需求分析是整个设计过程的基础，也是最困难，最耗时的一步。需求分析是否做得充分和准确，决定了在其上构建数据库大厦的速度与质量。需求分析做的不好，会导致整个数据库设计返工重做。
  分析方法常用SA(Structured  Analysis) 结构化分析方法，SA方法从最上层的系统组织结构入手，采用自顶向下，逐层分解的方式分析系统。</code></pre><p>2.概念结构设计阶段（常用自底向上）</p>
@@ -810,6 +995,47 @@
 <p>为了实现可靠数据传输，TCP 协议的通信双方，都必须维护一个序列号， 以标识发送出去的数据包中，哪些是已经被对方收到的。</p>
 <p>三次握手的过程即是通信双方相互告知序列号起始值，并确认对方已经收到了序列号起始值的必经步骤。如果只是两次握手，至多只有连接发起方的起始序列号能被确认， 另一方选择的序列号则得不到确认。TCP建立连接的握手，实质上就是建立一个双向的可靠通信连接，一边一个来回，每一边都自带超时重传来确保可靠性（而不是靠握手的次数）。 </p>
 <p>握手的作用，旨在确定两个双向的初始序列号，TCP用序列号来编址传输的字节，由于是两个方向的连接，所以需要两个序列号。</p>
+<h3 id="如何理解代理，代理的作用？"><a href="#如何理解代理，代理的作用？" class="headerlink" title="如何理解代理，代理的作用？"></a>如何理解代理，代理的作用？</h3><p>链接：<a href="https://blog.csdn.net/liguangix/article/details/80858807" target="_blank" rel="noopener">https://blog.csdn.net/liguangix/article/details/80858807</a></p>
+<h4 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h4><p><strong>1、静态代理</strong></p>
+<p>静态代理：由程序员创建或特定工具自动生成源代码，也就是在编译时就已经将接口，被代理类，代理类等确定下来。在程序运行之前，代理类的.class文件就已经生成。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建Person接口</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Gonjan</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="comment">//上交班费</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">giveMoney</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Student类实现Person接口。Student可以具体实施上交班费的动作。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">giveMoney</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       System.out.println(name + <span class="string">"上交班费50元"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>StudentsProxy类，这个类也实现了Person接口，但是还另外持有一个学生类对象，由于实现了Peson接口，同时持有一个学生对象，那么他可以代理学生类对象执行上交班费（执行giveMoney()方法）行为。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 学生代理类，也实现了Person接口，保存一个学生实体，这样既可以代理学生产生行为</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> Gonjan</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentsProxy</span> <span class="keyword">implements</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="comment">//被代理的学生</span></span><br><span class="line">    Student stu;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StudentsProxy</span><span class="params">(Person stu)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 只代理学生对象</span></span><br><span class="line">        <span class="keyword">if</span>(stu.getClass() == Student<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.stu = (Student)stu;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//代理上交班费，调用被代理学生的上交班费行为</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">giveMoney</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        stu.giveMoney();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如何使用代理模式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticProxyTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//被代理的学生张三，他的班费上交有代理对象monitor（班长）完成</span></span><br><span class="line">        Person zhangsan = <span class="keyword">new</span> Student(<span class="string">"张三"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//生成代理对象，并将张三传给代理对象</span></span><br><span class="line">        Person monitor = <span class="keyword">new</span> StudentsProxy(zhangsan);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//班长代理上交班费</span></span><br><span class="line">        monitor.giveMoney();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、动态代理</strong></p>
+<p>代理类在程序运行时创建的代理方式被成为动态代理。 我们上面静态代理的例子中，代理类(studentProxy)是自己定义好的，在程序运行之前就已经编译完成。然而动态代理，代理类并不是在Java代码中定义的，而是在运行时根据我们在Java代码中的“指示”动态生成的。相比于静态代理， 动态代理的优势在于可以很方便的对代理类的函数进行统一的处理，而不用修改每个代理类中的方法。 比如说，想要在每个代理的方法前都加上一个处理方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">giveMoney</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="comment">//调用被代理方法前加入处理方法</span></span><br><span class="line">   beforeMethod();</span><br><span class="line">   stu.giveMoney();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建一个InvocationHandler对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建一个与代理对象相关联的InvocationHandler</span></span><br><span class="line"> InvocationHandler stuHandler = <span class="keyword">new</span> MyInvocationHandler&lt;Person&gt;(stu);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用Proxy类的getProxyClass静态方法生成一个动态代理类stuProxyClass</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Class&lt;?&gt; stuProxyClass = Proxy.getProxyClass(Person.class.getClassLoader(), new Class&lt;?&gt;[] &#123;Person.class&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>获得stuProxyClass 中一个带InvocationHandler参数的构造器constructor</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Constructor&lt;?&gt; constructor = PersonProxy.getConstructor(InvocationHandler<span class="class">.<span class="keyword">class</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过构造器constructor来创建一个动态实例stuProxy</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Person stuProxy = (Person) cons.newInstance(stuHandler);</span><br></pre></td></tr></table></figure>
+
+<p>就此，一个动态代理对象就创建完毕，当然，上面四个步骤可以通过Proxy类的newProxyInstances方法来简化：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建一个与代理对象相关联的InvocationHandler</span></span><br><span class="line">InvocationHandler stuHandler = <span class="keyword">new</span> MyInvocationHandler&lt;Person&gt;(stu);</span><br><span class="line"><span class="comment">//创建一个代理对象stuProxy，代理对象的每个执行方法都会替换执行Invocation中的invoke方法</span></span><br><span class="line">Person stuProxy= (Person) Proxy.newProxyInstance(Person.class.getClassLoader(), new Class&lt;?&gt;[]&#123;Person.class&#125;, stuHandler)</span><br></pre></td></tr></table></figure>
+
 <h2 id="小红书"><a href="#小红书" class="headerlink" title="小红书"></a>小红书</h2><h3 id="为什么索引要最左匹配原则？"><a href="#为什么索引要最左匹配原则？" class="headerlink" title="为什么索引要最左匹配原则？"></a>为什么索引要最左匹配原则？</h3><p>我们都知道索引的底层是一颗B+树，那么联合索引当然还是一颗B+树，只不过联合索引的健值数量不是一个，而是多个。构建一颗B+树只能根据一个值来构建，因此数据库依据联合索引最左的字段来构建B+树。<br>例子：假如创建一个（a,b)的联合索引，那么它的索引树是这样的</p>
 <p><img src="https://lixiangbetter.github.io/2021/06/01/%E9%9D%A2%E8%AF%95%E9%A2%98%E9%9A%8F%E7%AC%94-21-6-1/1281680-20190117145740508-758737271.png" alt="img"><br>可以看到a的值是有顺序的，1，1，2，2，3，3，而b的值是没有顺序的1，2，1，4，1，2。所以b = 2这种查询条件没有办法利用索引，因为联合索引首先是按a排序的，b是无序的。</p>
 <p>同时我们还可以发现在a值相等的情况下，b值又是按顺序排列的，但是这种顺序是相对的。所以最左匹配原则遇上范围查询就会停止，剩下的字段都无法使用索引。例如a = 1 and b = 2 a,b字段都可以使用索引，因为在a值确定的情况下b是相对有序的，而a&gt;1and b=2，a字段可以匹配上索引，但b值不可以，因为a的值是一个范围，在这个范围中b是无序的。</p>
@@ -897,7 +1123,21 @@
 2.公平锁，多个线程等待同一个锁时，必须按照申请锁的时间顺序获得锁，Synchronized锁非公平锁，ReentrantLock默认的构造函数是创建的非公平锁，可以通过参数true设为公平锁，但公平锁表现的性能不是很好。</code></pre><p>公平锁、非公平锁的创建方式：</p>
 <p>//创建一个非公平锁，默认是非公平锁Lock lock = new ReentrantLock();Lock lock = new ReentrantLock(false); //创建一个公平锁，构造传参trueLock lock = new ReentrantLock(true);</p>
 <pre><code>3.锁绑定多个条件，一个ReentrantLock对象可以同时绑定多个对象。ReenTrantLock提供了一个Condition（条件）类，用来实现分组唤醒需要唤醒的线程们，而不是像synchronized要么随机唤醒一个线程要么唤醒全部线程。</code></pre><p>await() 和 signal():等待和唤醒</p>
-<h3 id="内存溢出，如何去定位？"><a href="#内存溢出，如何去定位？" class="headerlink" title="内存溢出，如何去定位？"></a>内存溢出，如何去定位？</h3><h3 id="说说项目中你觉得可以体现你能力的点？"><a href="#说说项目中你觉得可以体现你能力的点？" class="headerlink" title="说说项目中你觉得可以体现你能力的点？"></a>说说项目中你觉得可以体现你能力的点？</h3><h3 id="什么是超卖？"><a href="#什么是超卖？" class="headerlink" title="什么是超卖？"></a>什么是超卖？</h3><h2 id="阿里一面"><a href="#阿里一面" class="headerlink" title="阿里一面"></a>阿里一面</h2><h3 id="你的研究方向？"><a href="#你的研究方向？" class="headerlink" title="你的研究方向？"></a>你的研究方向？</h3><h3 id="java为什么可以“一次编译，到处运行”？"><a href="#java为什么可以“一次编译，到处运行”？" class="headerlink" title="java为什么可以“一次编译，到处运行”？"></a>java为什么可以“一次编译，到处运行”？</h3><h3 id="java的数据类型有哪些？"><a href="#java的数据类型有哪些？" class="headerlink" title="java的数据类型有哪些？"></a>java的数据类型有哪些？</h3><h3 id="封装、继承、多态"><a href="#封装、继承、多态" class="headerlink" title="封装、继承、多态"></a>封装、继承、多态</h3><h3 id="类加载过程？"><a href="#类加载过程？" class="headerlink" title="类加载过程？"></a>类加载过程？</h3><h3 id="双亲委派机制？"><a href="#双亲委派机制？" class="headerlink" title="双亲委派机制？"></a>双亲委派机制？</h3><h3 id="哪里用到过线程池？"><a href="#哪里用到过线程池？" class="headerlink" title="哪里用到过线程池？"></a>哪里用到过线程池？</h3><h3 id="Thread和runnable的区别？"><a href="#Thread和runnable的区别？" class="headerlink" title="Thread和runnable的区别？"></a>Thread和runnable的区别？</h3><h3 id="数据库有哪些索引？索引的结构？为什么最左匹配？"><a href="#数据库有哪些索引？索引的结构？为什么最左匹配？" class="headerlink" title="数据库有哪些索引？索引的结构？为什么最左匹配？"></a>数据库有哪些索引？索引的结构？为什么最左匹配？</h3><h2 id="金山云一面："><a href="#金山云一面：" class="headerlink" title="金山云一面："></a>金山云一面：</h2><h3 id="vim命令相关、linux命令"><a href="#vim命令相关、linux命令" class="headerlink" title="vim命令相关、linux命令"></a>vim命令相关、linux命令</h3><h3 id="Hadoop安装中遇到哪些问题"><a href="#Hadoop安装中遇到哪些问题" class="headerlink" title="Hadoop安装中遇到哪些问题"></a>Hadoop安装中遇到哪些问题</h3><h3 id="说说项目-大数据项目-怎么做的？"><a href="#说说项目-大数据项目-怎么做的？" class="headerlink" title="说说项目(大数据项目)怎么做的？"></a>说说项目(大数据项目)怎么做的？</h3><h2 id="唯品会一面："><a href="#唯品会一面：" class="headerlink" title="唯品会一面："></a>唯品会一面：</h2><h3 id="spark的client和on-yarn方式有什么区别"><a href="#spark的client和on-yarn方式有什么区别" class="headerlink" title="spark的client和on yarn方式有什么区别"></a>spark的client和on yarn方式有什么区别</h3><h3 id="thread-local的底层"><a href="#thread-local的底层" class="headerlink" title="thread local的底层"></a>thread local的底层</h3><h3 id="红黑树删除一个节点的过程"><a href="#红黑树删除一个节点的过程" class="headerlink" title="红黑树删除一个节点的过程"></a>红黑树删除一个节点的过程</h3><h3 id="where和having的区别"><a href="#where和having的区别" class="headerlink" title="where和having的区别"></a>where和having的区别</h3><h3 id="hadoop的shuffle和spark的shuffle的区别"><a href="#hadoop的shuffle和spark的shuffle的区别" class="headerlink" title="hadoop的shuffle和spark的shuffle的区别"></a>hadoop的shuffle和spark的shuffle的区别</h3><h3 id="jvm的g1垃圾回收器"><a href="#jvm的g1垃圾回收器" class="headerlink" title="jvm的g1垃圾回收器"></a>jvm的g1垃圾回收器</h3><h3 id="你平时有用到哪些集合？concurrent-hashmap原理？"><a href="#你平时有用到哪些集合？concurrent-hashmap原理？" class="headerlink" title="你平时有用到哪些集合？concurrent hashmap原理？"></a>你平时有用到哪些集合？concurrent hashmap原理？</h3><h3 id="aop的动态代理具体怎么写的？"><a href="#aop的动态代理具体怎么写的？" class="headerlink" title="aop的动态代理具体怎么写的？"></a>aop的动态代理具体怎么写的？</h3><h3 id="mysql的事务隔离级别，默认事务隔离级别"><a href="#mysql的事务隔离级别，默认事务隔离级别" class="headerlink" title="mysql的事务隔离级别，默认事务隔离级别"></a>mysql的事务隔离级别，默认事务隔离级别</h3>]]></content>
+<h3 id="内存溢出，如何去定位？"><a href="#内存溢出，如何去定位？" class="headerlink" title="内存溢出，如何去定位？"></a>内存溢出，如何去定位？</h3><h3 id="说说项目中你觉得可以体现你能力的点？"><a href="#说说项目中你觉得可以体现你能力的点？" class="headerlink" title="说说项目中你觉得可以体现你能力的点？"></a>说说项目中你觉得可以体现你能力的点？</h3><p>秒杀场景的设计</p>
+<h3 id="什么是超卖？"><a href="#什么是超卖？" class="headerlink" title="什么是超卖？"></a>什么是超卖？</h3><p>多线程扣减库存（内存中，秒杀场景）时候，线程安全问题。</p>
+<h2 id="阿里一面"><a href="#阿里一面" class="headerlink" title="阿里一面"></a>阿里一面</h2><h3 id="你的研究方向？"><a href="#你的研究方向？" class="headerlink" title="你的研究方向？"></a>你的研究方向？</h3><h3 id="java为什么可以“一次编译，到处运行”？"><a href="#java为什么可以“一次编译，到处运行”？" class="headerlink" title="java为什么可以“一次编译，到处运行”？"></a>java为什么可以“一次编译，到处运行”？</h3><h3 id="java的数据类型有哪些？"><a href="#java的数据类型有哪些？" class="headerlink" title="java的数据类型有哪些？"></a>java的数据类型有哪些？</h3><h3 id="封装、继承、多态"><a href="#封装、继承、多态" class="headerlink" title="封装、继承、多态"></a>封装、继承、多态</h3><p>链接：<a href="https://www.cnblogs.com/IzuruKamuku/p/14359762.html" target="_blank" rel="noopener">https://www.cnblogs.com/IzuruKamuku/p/14359762.html</a></p>
+<h3 id="类加载过程？"><a href="#类加载过程？" class="headerlink" title="类加载过程？"></a>类加载过程？</h3><h3 id="双亲委派机制？"><a href="#双亲委派机制？" class="headerlink" title="双亲委派机制？"></a>双亲委派机制？</h3><h3 id="哪里用到过线程池？"><a href="#哪里用到过线程池？" class="headerlink" title="哪里用到过线程池？"></a>哪里用到过线程池？</h3><p>秒杀场景（队列化泄洪）</p>
+<p>用一个newFixedThreadPool（20）</p>
+<h3 id="Thread和runnable的区别？"><a href="#Thread和runnable的区别？" class="headerlink" title="Thread和runnable的区别？"></a>Thread和runnable的区别？</h3><h3 id="数据库有哪些索引？索引的结构？为什么最左匹配？"><a href="#数据库有哪些索引？索引的结构？为什么最左匹配？" class="headerlink" title="数据库有哪些索引？索引的结构？为什么最左匹配？"></a>数据库有哪些索引？索引的结构？为什么最左匹配？</h3><h2 id="金山云一面："><a href="#金山云一面：" class="headerlink" title="金山云一面："></a>金山云一面：</h2><h3 id="vim命令相关、linux命令"><a href="#vim命令相关、linux命令" class="headerlink" title="vim命令相关、linux命令"></a>vim命令相关、linux命令</h3><p>链接：<a href="https://lixiangbetter.github.io/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" target="_blank" rel="noopener">https://lixiangbetter.github.io/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/</a></p>
+<h3 id="Hadoop安装中遇到哪些问题"><a href="#Hadoop安装中遇到哪些问题" class="headerlink" title="Hadoop安装中遇到哪些问题"></a>Hadoop安装中遇到哪些问题</h3><p>链接：<a href="https://lixiangbetter.github.io/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" target="_blank" rel="noopener">https://lixiangbetter.github.io/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/</a></p>
+<h3 id="说说项目-大数据项目-怎么做的？"><a href="#说说项目-大数据项目-怎么做的？" class="headerlink" title="说说项目(大数据项目)怎么做的？"></a>说说项目(大数据项目)怎么做的？</h3><p>链接：<a href="https://lixiangbetter.github.io/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/" target="_blank" rel="noopener">https://lixiangbetter.github.io/2021/06/03/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95%E9%9A%8F%E7%AC%94%E8%AE%B0%E5%BD%95/</a></p>
+<h2 id="唯品会一面："><a href="#唯品会一面：" class="headerlink" title="唯品会一面："></a>唯品会一面：</h2><h3 id="spark的yarn-client和yarn-cluster方式有什么区别"><a href="#spark的yarn-client和yarn-cluster方式有什么区别" class="headerlink" title="spark的yarn-client和yarn-cluster方式有什么区别"></a>spark的yarn-client和yarn-cluster方式有什么区别</h3><p>链接：<a href="https://lixiangbetter.github.io/2020/07/06/Spark笔记/" target="_blank" rel="noopener">https://lixiangbetter.github.io/2020/07/06/Spark笔记/</a></p>
+<h3 id="thread-local的底层"><a href="#thread-local的底层" class="headerlink" title="thread local的底层"></a>thread local的底层</h3><p>非常好的一篇博客：<a href="https://www.cnblogs.com/tuyang1129/p/12713815.html" target="_blank" rel="noopener">https://www.cnblogs.com/tuyang1129/p/12713815.html</a></p>
+<h3 id="线程池核心参数解释"><a href="#线程池核心参数解释" class="headerlink" title="线程池核心参数解释"></a>线程池核心参数解释</h3><h3 id="红黑树删除一个节点的过程"><a href="#红黑树删除一个节点的过程" class="headerlink" title="红黑树删除一个节点的过程"></a>红黑树删除一个节点的过程</h3><p>删除一个节点</p>
+<h3 id="红黑树的性质"><a href="#红黑树的性质" class="headerlink" title="红黑树的性质"></a>红黑树的性质</h3><h3 id="where和having的区别"><a href="#where和having的区别" class="headerlink" title="where和having的区别"></a>where和having的区别</h3><h3 id="hadoop的shuffle和spark的shuffle的区别"><a href="#hadoop的shuffle和spark的shuffle的区别" class="headerlink" title="hadoop的shuffle和spark的shuffle的区别"></a>hadoop的shuffle和spark的shuffle的区别</h3><h3 id="jvm的g1垃圾回收器"><a href="#jvm的g1垃圾回收器" class="headerlink" title="jvm的g1垃圾回收器"></a>jvm的g1垃圾回收器</h3><h3 id="你平时有用到哪些集合？concurrent-hashmap原理？"><a href="#你平时有用到哪些集合？concurrent-hashmap原理？" class="headerlink" title="你平时有用到哪些集合？concurrent hashmap原理？"></a>你平时有用到哪些集合？concurrent hashmap原理？</h3><p>链接：<a href="https://blog.csdn.net/weixin_30819085/article/details/95117136" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30819085/article/details/95117136</a></p>
+<p>链接：<a href="https://blog.csdn.net/qq_41737716/article/details/90549847" target="_blank" rel="noopener">https://blog.csdn.net/qq_41737716/article/details/90549847</a></p>
+<h3 id="aop的动态代理具体怎么写的？"><a href="#aop的动态代理具体怎么写的？" class="headerlink" title="aop的动态代理具体怎么写的？"></a>aop的动态代理具体怎么写的？</h3><p>链接：<a href="https://blog.csdn.net/liguangix/article/details/80858807" target="_blank" rel="noopener">https://blog.csdn.net/liguangix/article/details/80858807</a></p>
+<h3 id="mysql的事务隔离级别，默认事务隔离级别"><a href="#mysql的事务隔离级别，默认事务隔离级别" class="headerlink" title="mysql的事务隔离级别，默认事务隔离级别"></a>mysql的事务隔离级别，默认事务隔离级别</h3>]]></content>
       <categories>
         <category>面经</category>
       </categories>
@@ -5956,9 +6196,13 @@ kafka控制台消费者：consumer</code></pre><p>需求：最近一分钟每个
 <h2 id="48-Spark-on-Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？"><a href="#48-Spark-on-Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？" class="headerlink" title="48.Spark on Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？"></a>48.Spark on Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？</h2><p><strong>Spark on Yarn作业执行流程？</strong></p>
 <p>1.Spark Yarn Client 向 Yarn 中提交应用程序。<br>2.ResourceManager 收到请求后，在集群中选择一个 NodeManager，并为该应用程序分配一个 Container，在这个 Container 中启动应用程序的 ApplicationMaster， ApplicationMaster 进行 SparkContext 等的初始化。<br>3.ApplicationMaster 向 ResourceManager 注册，这样用户可以直接通过 ResourceManager 查看应用程序的运行状态，然后它将采用轮询的方式通过RPC协议为各个任务申请资源，并监控它们的运行状态直到运行结束。<br>4.ApplicationMaster 申请到资源（也就是Container）后，便与对应的 NodeManager 通信，并在获得的 Container 中启动 CoarseGrainedExecutorBackend，启动后会向 ApplicationMaster 中的 SparkContext 注册并申请 Task。<br>5.ApplicationMaster 中的 SparkContext 分配 Task 给 CoarseGrainedExecutorBackend 执行，CoarseGrainedExecutorBackend 运行 Task 并向ApplicationMaster 汇报运行的状态和进度，以让 ApplicationMaster 随时掌握各个任务的运行状态，从而可以在任务失败时重新启动任务。<br>6.应用程序运行完成后，ApplicationMaster 向 ResourceManager申请注销并关闭自己。</p>
 <p><strong>yarn-client和yarn-cluster有什么区别？</strong></p>
-<p>1.理解YARN-Client和YARN-Cluster深层次的区别之前先清楚一个概念：Application Master。在YARN中，每个Application实例都有一个ApplicationMaster进程，它是Application启动的第一个容器。它负责和ResourceManager打交道并请求资源，获取资源之后告诉NodeManager为其启动Container。从深层次的含义讲YARN-Cluster和YARN-Client模式的区别其实就是ApplicationMaster进程的区别</p>
+<ol>
+<li><p>理解YARN-Client和YARN-Cluster深层次的区别之前先清楚一个概念：Application Master。在YARN中，每个Application实例都有一个ApplicationMaster进程，它是Application启动的第一个容器。它负责和ResourceManager打交道并请求资源，获取资源之后告诉NodeManager为其启动Container。从深层次的含义讲YARN-Cluster和YARN-Client模式的区别其实就是ApplicationMaster进程的区别</p>
 <ol start="2">
-<li>YARN-Cluster模式下，Driver运行在AM(Application Master)中，它负责向YARN申请资源，并监督作业的运行状况。当用户提交了作业之后，就可以关掉Client，作业会继续在YARN上运行，因而YARN-Cluster模式不适合运行交互类型的作业 3. YARN-Client模式下，Application Master仅仅向YARN请求Executor，Client会和请求的Container通信来调度他们工作，也就是说Client不能离开。</li>
+<li>YARN-Cluster模式下，Driver运行在AM(Application Master)中，它负责向YARN申请资源，并监督作业的运行状况。当用户提交了作业之后，就可以关掉Client，作业会继续在YARN上运行，因而YARN-Cluster模式不适合运行交互类型的作业 </li>
+<li>YARN-Client模式下，Application Master仅仅向YARN请求Executor，Client会和请求的Container通信来调度他们工作，也就是说Client不能离开。</li>
+</ol>
+</li>
 </ol>
 <h2 id="49-Flatmap底层编码实现？"><a href="#49-Flatmap底层编码实现？" class="headerlink" title="49.Flatmap底层编码实现？"></a>49.Flatmap底层编码实现？</h2><p><strong>Spark flatMap 源码：</strong></p>
 <figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   *  Return a new RDD by first applying a function to all elements of this</span></span><br><span class="line"><span class="comment">   *  RDD, and then flattening the results.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>[<span class="type">U</span>: <span class="type">ClassTag</span>](f: <span class="type">T</span> =&gt; <span class="type">TraversableOnce</span>[<span class="type">U</span>]): <span class="type">RDD</span>[<span class="type">U</span>] = withScope &#123;</span><br><span class="line">    <span class="keyword">val</span> cleanF = sc.clean(f)</span><br><span class="line">    <span class="keyword">new</span> <span class="type">MapPartitionsRDD</span>[<span class="type">U</span>, <span class="type">T</span>](<span class="keyword">this</span>, (context, pid, iter) =&gt; iter.flatMap(cleanF))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>

@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/07/06/Spark%E7%AC%94%E8%AE%B0/20200409085324709.png">
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/07/06/Spark%E7%AC%94%E8%AE%B0/1250469-20180205010816029-1089510889.png">
 <meta property="og:image" content="https://lixiangbetter.github.io/2020/07/06/Spark%E7%AC%94%E8%AE%B0/20160617154014702.png">
-<meta property="og:updated_time" content="2020-07-10T03:38:11.825Z">
+<meta property="og:updated_time" content="2021-06-10T11:42:52.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spark笔记">
 <meta name="twitter:description" content="Spark笔记1.rdd的属性 一组分片（Partition），即数据集的基本组成单位。对于RDD来说，每个分片都会被一个计算任务处理，并决定并行计算的粒度。用户可以在创建RDD时指定RDD的分片个数，如果没有指定，那么就会采用默认值。默认值就是程序所分配到的CPU Core的数目。 一个计算每个分区的函数。Spark中RDD的计算是以分片为单位的，每个RDD都会实现compute函数以达到这个目">
@@ -660,9 +660,13 @@
 <h2 id="48-Spark-on-Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？"><a href="#48-Spark-on-Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？" class="headerlink" title="48.Spark on Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？"></a>48.Spark on Yarn作业执行流程？yarn-client和yarn-cluster有什么区别？</h2><p><strong>Spark on Yarn作业执行流程？</strong></p>
 <p>1.Spark Yarn Client 向 Yarn 中提交应用程序。<br>2.ResourceManager 收到请求后，在集群中选择一个 NodeManager，并为该应用程序分配一个 Container，在这个 Container 中启动应用程序的 ApplicationMaster， ApplicationMaster 进行 SparkContext 等的初始化。<br>3.ApplicationMaster 向 ResourceManager 注册，这样用户可以直接通过 ResourceManager 查看应用程序的运行状态，然后它将采用轮询的方式通过RPC协议为各个任务申请资源，并监控它们的运行状态直到运行结束。<br>4.ApplicationMaster 申请到资源（也就是Container）后，便与对应的 NodeManager 通信，并在获得的 Container 中启动 CoarseGrainedExecutorBackend，启动后会向 ApplicationMaster 中的 SparkContext 注册并申请 Task。<br>5.ApplicationMaster 中的 SparkContext 分配 Task 给 CoarseGrainedExecutorBackend 执行，CoarseGrainedExecutorBackend 运行 Task 并向ApplicationMaster 汇报运行的状态和进度，以让 ApplicationMaster 随时掌握各个任务的运行状态，从而可以在任务失败时重新启动任务。<br>6.应用程序运行完成后，ApplicationMaster 向 ResourceManager申请注销并关闭自己。</p>
 <p><strong>yarn-client和yarn-cluster有什么区别？</strong></p>
-<p>1.理解YARN-Client和YARN-Cluster深层次的区别之前先清楚一个概念：Application Master。在YARN中，每个Application实例都有一个ApplicationMaster进程，它是Application启动的第一个容器。它负责和ResourceManager打交道并请求资源，获取资源之后告诉NodeManager为其启动Container。从深层次的含义讲YARN-Cluster和YARN-Client模式的区别其实就是ApplicationMaster进程的区别</p>
+<ol>
+<li><p>理解YARN-Client和YARN-Cluster深层次的区别之前先清楚一个概念：Application Master。在YARN中，每个Application实例都有一个ApplicationMaster进程，它是Application启动的第一个容器。它负责和ResourceManager打交道并请求资源，获取资源之后告诉NodeManager为其启动Container。从深层次的含义讲YARN-Cluster和YARN-Client模式的区别其实就是ApplicationMaster进程的区别</p>
 <ol start="2">
-<li>YARN-Cluster模式下，Driver运行在AM(Application Master)中，它负责向YARN申请资源，并监督作业的运行状况。当用户提交了作业之后，就可以关掉Client，作业会继续在YARN上运行，因而YARN-Cluster模式不适合运行交互类型的作业 3. YARN-Client模式下，Application Master仅仅向YARN请求Executor，Client会和请求的Container通信来调度他们工作，也就是说Client不能离开。</li>
+<li>YARN-Cluster模式下，Driver运行在AM(Application Master)中，它负责向YARN申请资源，并监督作业的运行状况。当用户提交了作业之后，就可以关掉Client，作业会继续在YARN上运行，因而YARN-Cluster模式不适合运行交互类型的作业 </li>
+<li>YARN-Client模式下，Application Master仅仅向YARN请求Executor，Client会和请求的Container通信来调度他们工作，也就是说Client不能离开。</li>
+</ol>
+</li>
 </ol>
 <h2 id="49-Flatmap底层编码实现？"><a href="#49-Flatmap底层编码实现？" class="headerlink" title="49.Flatmap底层编码实现？"></a>49.Flatmap底层编码实现？</h2><p><strong>Spark flatMap 源码：</strong></p>
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   *  Return a new RDD by first applying a function to all elements of this</span></span><br><span class="line"><span class="comment">   *  RDD, and then flattening the results.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">flatMap</span></span>[<span class="type">U</span>: <span class="type">ClassTag</span>](f: <span class="type">T</span> =&gt; <span class="type">TraversableOnce</span>[<span class="type">U</span>]): <span class="type">RDD</span>[<span class="type">U</span>] = withScope &#123;</span><br><span class="line">    <span class="keyword">val</span> cleanF = sc.clean(f)</span><br><span class="line">    <span class="keyword">new</span> <span class="type">MapPartitionsRDD</span>[<span class="type">U</span>, <span class="type">T</span>](<span class="keyword">this</span>, (context, pid, iter) =&gt; iter.flatMap(cleanF))</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
