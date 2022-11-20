@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Thinking">
 <meta property="og:description" content="MYSQL实战45讲第1讲 一条SQL查询语句是如何执行的？1.Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务  功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在  这一层实现，比如存储过程、触发器、视图等。  2.而存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持InnoDB、MyISAM、  Memor">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-11-13T08:32:44.164Z">
+<meta property="og:updated_time" content="2022-11-20T07:51:53.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MYSQL实战45讲">
 <meta name="twitter:description" content="MYSQL实战45讲第1讲 一条SQL查询语句是如何执行的？1.Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务  功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在  这一层实现，比如存储过程、触发器、视图等。  2.而存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持InnoDB、MyISAM、  Memor">
@@ -395,7 +395,8 @@
 <p>2.而存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持InnoDB、MyISAM、 </p>
 <p>Memory等多个存储引擎。现在最常用的存储引擎是InnoDB，它从MySQL 5.5.5版本开始成为了 </p>
 <p>默认存储引擎。 </p>
-<h4 id="第2讲-日志系统：一条SQL更新语句是如何执行的？"><a href="#第2讲-日志系统：一条SQL更新语句是如何执行的？" class="headerlink" title="第2讲 日志系统：一条SQL更新语句是如何执行的？"></a>第2讲 日志系统：一条SQL更新语句是如何执行的？</h4><p>与查询流程不一样的是，更新流程还涉及两个重要的日志模块，redo log（重做日志）和 binlog（归档日志）。如果接触MySQL，那这两个词肯定是绕不过 的，我后面的内容里也会不断地和你强调。</p>
+<h4 id="第2讲-日志系统：一条SQL更新语句是如何执行的？"><a href="#第2讲-日志系统：一条SQL更新语句是如何执行的？" class="headerlink" title="第2讲 日志系统：一条SQL更新语句是如何执行的？"></a>第2讲 日志系统：一条SQL更新语句是如何执行的？</h4><p>WAL技术，WAL的全称是Write-Ahead Logging，它的关键点就是先写日志，再写磁盘，也就是先写粉板，等不忙的时候再写账本。</p>
+<p>与查询流程不一样的是，更新流程还涉及两个重要的日志模块，redo log（重做日志）和 binlog（归档日志）。如果接触MySQL，那这两个词肯定是绕不过 的，我后面的内容里也会不断地和你强调。</p>
 <p>Redo log和binlog的两阶段提交</p>
 <p>redo log和binlog都可以用于表示事务的提交状态，而两阶段提交就是让这两个状态保持逻辑上的一致。</p>
 <h4 id="第3讲-事务隔离：为什么你改了我还看不见？"><a href="#第3讲-事务隔离：为什么你改了我还看不见？" class="headerlink" title="第3讲 事务隔离：为什么你改了我还看不见？"></a>第3讲 事务隔离：为什么你改了我还看不见？</h4><p>查询长事务</p>
@@ -430,9 +431,119 @@
 <p>合理地设置innodb_io_capacity的值，并且平时要多关注脏页比例，不要让它经常接近75%.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select VARIABLE_VALUE into @a from global_status where VARIABLE_NAME = &apos;Innodb_buffer_pool_pages_dirty&apos;; </span><br><span class="line">select VARIABLE_VALUE into @b from global_status where VARIABLE_NAME = &apos;Innodb_buffer_pool_pages_total&apos;;</span><br><span class="line">select @a/@b;</span><br></pre></td></tr></table></figure>
 
-<h4 id="第13讲-为什么表数据删掉一半，表文件大小不变？"><a href="#第13讲-为什么表数据删掉一半，表文件大小不变？" class="headerlink" title="第13讲 为什么表数据删掉一半，表文件大小不变？"></a>第13讲 为什么表数据删掉一半，表文件大小不变？</h4><p>重建表</p>
+<h4 id="第13讲-为什么表数据删掉一半，表文件大小不变？"><a href="#第13讲-为什么表数据删掉一半，表文件大小不变？" class="headerlink" title="第13讲 为什么表数据删掉一半，表文件大小不变？"></a>第13讲 为什么表数据删掉一半，表文件大小不变？</h4><p>数据删除流程导致表数据页空洞</p>
+<p>重建表</p>
 <p>推荐用GitHub开源的gh-ost来做。 </p>
+<h4 id="第14讲-count-这么慢，我该怎么办？"><a href="#第14讲-count-这么慢，我该怎么办？" class="headerlink" title="第14讲 count(*)这么慢，我该怎么办？"></a>第14讲 count(*)这么慢，我该怎么办？</h4><p>count(字段)&lt;count(主键id)&lt;count(1)≈count(<em>)，所以我建议你，尽量使用count(\</em>)</p>
+<h4 id="第15讲-答疑文章（一）日志和索引相关问题"><a href="#第15讲-答疑文章（一）日志和索引相关问题" class="headerlink" title="第15讲 答疑文章（一）日志和索引相关问题"></a>第15讲 答疑文章（一）日志和索引相关问题</h4><p>A和B相互关注的问题</p>
+<p>比较A和B的大小，如果A&lt;B</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">begin; </span><br><span class="line">/*启动事务*/ </span><br><span class="line">insert into `like`(user_id, liker_id, relation_ship) values(A, B, 1) on duplicate key update relation_ship=relation_ship | 1;</span><br><span class="line">select relation_ship from `like` where user_id=A and liker_id=B; </span><br><span class="line">/*代码中判断返回的 relation_ship， 如果是1，事务结束，执行 commit 如果是3，则执行下面这两个语句： */ </span><br><span class="line">insert ignore into friend(friend_1_id, friend_2_id) values(A,B); </span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
 
+<p>如果A&gt;B</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">begin; </span><br><span class="line">/*启动事务*/</span><br><span class="line">insert into `like`(user_id, liker_id, relation_ship) values(B, A, 2) on duplicate key update relation_ship=relation_ship | 2;</span><br><span class="line">select relation_ship from `like` where user_id=B and liker_id=A; </span><br><span class="line">/*代码中判断返回的 relation_ship， 如果是2，事务结束，执行 commit 如果是3，则执行下面这两个语句： */</span><br><span class="line">insert ignore into friend(friend_1_id, friend_2_id) values(B,A); </span><br><span class="line">commit;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第16讲-“order-by”是怎么工作的？"><a href="#第16讲-“order-by”是怎么工作的？" class="headerlink" title="第16讲  “order by”是怎么工作的？"></a>第16讲  “order by”是怎么工作的？</h4><p>确定一个排序语句是否使用了临时文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 打开optimizer_trace，只对本线程有效 */ </span><br><span class="line">SET optimizer_trace=&apos;enabled=on&apos;;</span><br><span class="line">/* @a保存Innodb_rows_read的初始值 */ </span><br><span class="line">select VARIABLE_VALUE into @a from performance_schema.session_status where variable_name = &apos;Innodb_rows_read&apos;;</span><br><span class="line">/* 执行语句 */ </span><br><span class="line">select city, name,age from t where city=&apos;杭州&apos; order by name limit 1000; </span><br><span class="line">/* 查看 OPTIMIZER_TRACE 输出 */ </span><br><span class="line">SELECT * FROM `information_schema`.`OPTIMIZER_TRACE`\G </span><br><span class="line">/* @b保存Innodb_rows_read的当前值 */</span><br><span class="line">select VARIABLE_VALUE into @b from performance_schema.session_status where variable_name = &apos;Innodb_rows_read&apos;; </span><br><span class="line">/* 计算Innodb_rows_read差值 */</span><br><span class="line">select @b-@a;</span><br></pre></td></tr></table></figure>
+
+<p>MYSQL优先全字段排序&gt; rowid排序</p>
+<h4 id="第17讲-“order-by”是怎么工作的？"><a href="#第17讲-“order-by”是怎么工作的？" class="headerlink" title="第17讲  “order by”是怎么工作的？"></a>第17讲  “order by”是怎么工作的？</h4><p>内存临时表</p>
+<p>order by rand()使用了内存临时表，内存临时表排序的时候使用的是rowid排序方法。</p>
+<p>归并排序 =&gt; 结果全部有序</p>
+<p>磁盘临时表</p>
+<p>优先队列排序算法 =&gt; 小根堆</p>
+<p>随机排序算法</p>
+<h4 id="第18讲-为什么这些SQL语句逻辑相同，性能却差异巨大？"><a href="#第18讲-为什么这些SQL语句逻辑相同，性能却差异巨大？" class="headerlink" title="第18讲 为什么这些SQL语句逻辑相同，性能却差异巨大？"></a>第18讲 为什么这些SQL语句逻辑相同，性能却差异巨大？</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `tradelog`(</span><br><span class="line">`id` int(11) NOT NULL,</span><br><span class="line">`tradeid` varchar(32) DEFAULT NULL,</span><br><span class="line">`operator` int(11) DEFAULT NULL,</span><br><span class="line">`t_modified` datetime DEFAULT NULL,</span><br><span class="line">PRIMARY KEY (`id`),</span><br><span class="line">KEY `tradeid` (`tradeid`),</span><br><span class="line">KEY `t_modified` (`t_modified`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<p>对索引字段做函数操作，可能会破坏索引值的有序性，因此优化器就决定放弃走树搜索功能。</p>
+<h4 id="第19讲-为什么我只查一行的语句，也执行这么慢？"><a href="#第19讲-为什么我只查一行的语句，也执行这么慢？" class="headerlink" title="第19讲 为什么我只查一行的语句，也执行这么慢？"></a>第19讲 为什么我只查一行的语句，也执行这么慢？</h4><p>第一类：查询长时间不返回</p>
+<p>​    等MDL锁</p>
+<p>​        通过查询sys.schema_table_lock_waits这张表，直接找出造成阻塞的process id。</p>
+<p>​    等flush</p>
+<p>​    等行锁</p>
+<p>​     select * from t sys.innodb_lock_waits where locked_table=<code>&#39;test&#39;.&#39;t&#39;</code>\G</p>
+<h4 id="第20讲-幻读是什么，幻读有什么问题？"><a href="#第20讲-幻读是什么，幻读有什么问题？" class="headerlink" title="第20讲 幻读是什么，幻读有什么问题？"></a>第20讲 幻读是什么，幻读有什么问题？</h4><p>产生幻读的原因是，行锁只能锁住行，但是新插入记录这个动作，要更新的是记录之间的“间隙”。因此，为了解决幻读问题，InnoDB只好引入新的锁，也就是间隙锁(Gap Lock)</p>
+<h4 id="第21讲-为什么我只改一行的语句，锁这么多？"><a href="#第21讲-为什么我只改一行的语句，锁这么多？" class="headerlink" title="第21讲 为什么我只改一行的语句，锁这么多？"></a>第21讲 为什么我只改一行的语句，锁这么多？</h4><p>两个原则、两个优化、一个bug</p>
+<p>原则1：加锁的基本单位是next-key lock。希望你还记得，next-key lock是前开后闭区间。</p>
+<p>原则2：查找过程中访问到的对象才会加锁。 </p>
+<p>优化1：索引上的等值查询，给唯一索引加锁的时候，next-key lock退化为行锁。 </p>
+<p>优化2：索引上的等值查询，向右遍历时且最后一个值不满足等值条件的时候，next-key lock退化为间隙锁。 </p>
+<p>一个bug：唯一索引上的范围查询会访问到不满足条件的第一个值为止。 </p>
+<h4 id="第22讲-MYSQL有哪些“饮鸩止渴”提高性能的方法？"><a href="#第22讲-MYSQL有哪些“饮鸩止渴”提高性能的方法？" class="headerlink" title="第22讲 MYSQL有哪些“饮鸩止渴”提高性能的方法？"></a>第22讲 MYSQL有哪些“饮鸩止渴”提高性能的方法？</h4><p>慢查询</p>
+<p>存储过程实现，语句改写规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into query_rewrite.rewrite_rules(pattern, replacement, pattern_database) values (&quot;select * from t where id + 1 = ?&quot;, &quot;select * from t where id = ? - 1&quot;, &quot;db1&quot;); </span><br><span class="line"></span><br><span class="line">call query_rewrite.flush_rewrite_rules();</span><br></pre></td></tr></table></figure>
+
+<h4 id="第23讲-MySQL是怎么保证数据不丢的？"><a href="#第23讲-MySQL是怎么保证数据不丢的？" class="headerlink" title="第23讲  MySQL是怎么保证数据不丢的？"></a>第23讲  MySQL是怎么保证数据不丢的？</h4><p>只要redo log和binlog保证持久化到磁盘，就能确保MySQL异常重启后，数据可以恢复。 </p>
+<h4 id="第24讲-MySQL是怎么保证主备一致的？"><a href="#第24讲-MySQL是怎么保证主备一致的？" class="headerlink" title="第24讲 MySQL是怎么保证主备一致的？"></a>第24讲 MySQL是怎么保证主备一致的？</h4><p>mixed格式的意思是，MySQL自己会判断这条SQL语句是否可能引起主备不一致，如果有可能，就用row格式， </p>
+<p>否则就用statement格式。 </p>
+<h4 id="第25讲-MySQL是怎么保证高可用的？-浅了解"><a href="#第25讲-MySQL是怎么保证高可用的？-浅了解" class="headerlink" title="第25讲 MySQL是怎么保证高可用的？(浅了解)"></a>第25讲 MySQL是怎么保证高可用的？(浅了解)</h4><p>主备延迟：机器差、备库压力大、大事务、备库的并行复制能力</p>
+<p>数据库运维系统都有备库延迟监控，其实就是在备库上执行 showslave status，采集seconds_behind_master的值</p>
+<h4 id="第26讲-备库为什么会延迟好几个小时？-浅了解"><a href="#第26讲-备库为什么会延迟好几个小时？-浅了解" class="headerlink" title="第26讲 备库为什么会延迟好几个小时？(浅了解)"></a>第26讲 备库为什么会延迟好几个小时？(浅了解)</h4><p>从这些分析中，你也会发现大事务不仅会影响到主库，也是造成备库复制延迟的主要原因之一。 </p>
+<p>因此，在平时的开发工作中，我建议你尽量减少大事务操作，把大事务拆成小事务。 </p>
+<h4 id="第27讲-主库出问题了从库怎么办？-浅了解"><a href="#第27讲-主库出问题了从库怎么办？-浅了解" class="headerlink" title="第27讲 主库出问题了从库怎么办？(浅了解)"></a>第27讲 主库出问题了从库怎么办？(浅了解)</h4><p>如果你使用的MySQL版本支持GTID的话，我都建议你尽量使用GTID模式来做一主多从的切换。 </p>
+<h4 id="第28讲-读写分离有哪些坑？"><a href="#第28讲-读写分离有哪些坑？" class="headerlink" title="第28讲 读写分离有哪些坑？"></a>第28讲 读写分离有哪些坑？</h4><p>在实际应用中，这几个方案是可以混合使用的。 </p>
+<p>比如，先在客户端对请求做分类，区分哪些请求可以接受过期读，而哪些请求完全不能接受过期 </p>
+<p>读；然后，对于不能接受过期读的语句，再使用等GTID或等位点的方案。 </p>
+<h4 id="第29讲-如何判断一个数据库是不是出问题了？"><a href="#第29讲-如何判断一个数据库是不是出问题了？" class="headerlink" title="第29讲 如何判断一个数据库是不是出问题了？"></a>第29讲 如何判断一个数据库是不是出问题了？</h4><p>select 1这样的方法是不是已经被淘汰了呢，但实际上使用非常广泛的MHA（MasterHigh Availability），默认使用的就是这个方法。 </p>
+<p>其实，每个改进的方案，都会增加额外损耗，并不能用“对错”做直接判断，需要你根据业务实际情况去做权衡。 </p>
+<p>我个人比较倾向的方案，是优先考虑update系统表，然后再配合增加检测performance_schema 的信息。 </p>
+<h4 id="第30讲-答疑文章（二）：用动态的观点看加锁"><a href="#第30讲-答疑文章（二）：用动态的观点看加锁" class="headerlink" title="第30讲 答疑文章（二）：用动态的观点看加锁"></a>第30讲 答疑文章（二）：用动态的观点看加锁</h4><p>介绍了怎么看showengine innodb status输出结果中的事务信息和死锁信息。</p>
+<h4 id="第31讲-误删数据后除了跑路，还能怎么办？"><a href="#第31讲-误删数据后除了跑路，还能怎么办？" class="headerlink" title="第31讲 误删数据后除了跑路，还能怎么办？"></a>第31讲 误删数据后除了跑路，还能怎么办？</h4><p>删行</p>
+<p>使用delete语句误删了数据行，可以用Flashback工具通过Flashback把数据恢复回来。 </p>
+<p>Flashback恢复数据的原理，是修改binlog的内容，拿回原库重放。而能够使用这个方案的前提 </p>
+<p>是，需要确保binlog_format=row和 binlog_row_image=FULL。</p>
+<p>删库</p>
+<p>假如有人中午12点误删了一个库，恢复数据的流程如下： </p>
+<p>\1. 取最近一次全量备份，假设这个库是一天一备，上次备份是当天0点； </p>
+<p>\2. 用备份恢复出一个临时库； </p>
+<p>\3. 从日志备份里面，取出凌晨0点之后的日志； </p>
+<p>\4. 把这些日志，除了误删除数据的语句外，全部应用到临时库。 </p>
+<p>预防误删库/表</p>
+<p>账号分离、必须先对表做改名操作</p>
+<h4 id="第32讲-为什么还有kill不掉的语句？"><a href="#第32讲-为什么还有kill不掉的语句？" class="headerlink" title="第32讲 为什么还有kill不掉的语句？"></a>第32讲 为什么还有kill不掉的语句？</h4><p>客户端连接 -A关闭自动补全</p>
+<p>我们感知的慢，不是服务端慢，而是客户端慢。</p>
+<p>–quick参数的意思，是让客户端变得更快。 </p>
+<h4 id="第33讲-我查这么多数据会不会把数据库内存打爆？"><a href="#第33讲-我查这么多数据会不会把数据库内存打爆？" class="headerlink" title="第33讲 我查这么多数据会不会把数据库内存打爆？"></a>第33讲 我查这么多数据会不会把数据库内存打爆？</h4><p>MYSQL是边读边发数据给客户端。</p>
+<p>“Sending data”并不一定是指“正在发送数据”，而可能是处于执行器过程中的任意阶段。</p>
+<p>执行showengine innodb status ，可以看到“Buffer pool hit rate”字样，显示的就是当前的命中率。</p>
+<p>InnoDB内存管理用的是最近最少使用 (Least RecentlyUsed, LRU)算法，这个算法的核心就是淘汰最久未使用的数据。 </p>
+<p>LRU算法的操作逻辑： </p>
+<p>\1. 扫描过程中，需要新插入的数据页，都被放到old区域; </p>
+<p>\2. 一个数据页里面有多条记录，这个数据页会被多次访问到，但由于是顺序扫描，这个数据页第一次被访问和最后一次被访问的时间间隔不会超过1秒，因此还是会被保留在old区域； </p>
+<p>\3. 再继续扫描后续的数据，之前的这个数据页之后也不会再被访问到，于是始终没有机会移到链表头部（也就是young区域），很快就会被淘汰出去。 </p>
+<p>这个策略最大的收益，就是扫描这个大表的过程中，虽然也用到了Buffer Pool，但是对young区域完全没有影响，从而保证了Buffer Pool响应正常业务的查询命中率</p>
+<h4 id="第34讲-到底可不可以使用join？"><a href="#第34讲-到底可不可以使用join？" class="headerlink" title="第34讲 到底可不可以使用join？"></a>第34讲 到底可不可以使用join？</h4><p>这个过程就跟我们写程序时的嵌套查询类似，并且可以用上被驱动表的索引，所以我们称之为“IndexNested-Loop Join”</p>
+<p>简称NLJ。前提是“可以使用被驱动表的索引”。</p>
+<p>“Block Nested-Loop Join”，特点为被驱动表上没有可用的索引。</p>
+<p>要不要使用join语句时，就是看explain结果里面，Extra字段里面有没有出现“Block Nested Loop”字样。</p>
+<p>什么是小表？</p>
+<p>过滤条件后select的数据条数少的。</p>
+<h4 id="第35讲-join语句怎么优化？"><a href="#第35讲-join语句怎么优化？" class="headerlink" title="第35讲 join语句怎么优化？"></a>第35讲 join语句怎么优化？</h4><p>在这些优化方法中： </p>
+<p>\1. BKA优化是MySQL已经内置支持的，建议你默认使用； </p>
+<p>\2. BNL算法效率低，建议你都尽量转成BKA算法。优化的方向就是给被驱动表的关联字段加上索引； </p>
+<p>\3. 基于临时表的改进方案，对于能够提前过滤出小数据的join语句来说，效果还是很好的；4. MySQL目前的版本还不支持hash join，但你可以配合应用端自己模拟出来，理论上效果要好于临时表的方案。 </p>
+<p>哈希join 在业务端实现。</p>
+<h4 id="第36讲-为什么临时表可以重名？"><a href="#第36讲-为什么临时表可以重名？" class="headerlink" title="第36讲 为什么临时表可以重名？"></a>第36讲 为什么临时表可以重名？</h4><p>临时表一般用于处理比较复杂的计算逻辑。由于临时表是每个线程自己可见的，所以不需要考虑多个线程执行同一个处理逻辑时，临时表的重名问题。在线程退出的时候，临时表也能自动删除，省去了收尾和异常处理的工作。</p>
+<h4 id="第37讲-什么时候会使用内部临时表？"><a href="#第37讲-什么时候会使用内部临时表？" class="headerlink" title="第37讲 什么时候会使用内部临时表？"></a>第37讲 什么时候会使用内部临时表？</h4><p>了group by的几种实现算法，从中可以总结一些使用的指导原则：</p>
+<p>\1. 如果对group by语句的结果没有排序要求，要在语句后面加 order bynull； </p>
+<p>\2. 尽量让group by过程用上表的索引，确认方法是explain结果里没有Using temporary和 Using filesort； </p>
+<p>\3. 如果group by需要统计的数据量不大，尽量只使用内存临时表；也可以通过适当调大tmp_table_size参数，来避免用到磁盘临时表； </p>
+<p>\4. 如果数据量实在太大，使用SQL_BIG_RESULT这个提示，来告诉优化器直接使用排序算法得到group by的结果。 </p>
+<h4 id="第38讲-都说InnoDB好那还要不要使用Memory引擎？"><a href="#第38讲-都说InnoDB好那还要不要使用Memory引擎？" class="headerlink" title="第38讲 都说InnoDB好那还要不要使用Memory引擎？"></a>第38讲 都说InnoDB好那还要不要使用Memory引擎？</h4><p>如果一个备库重启，会导致主备同步线程停止；如果主库跟这个备库是双M架构，还可能导致主库的内存表数据被删掉。 </p>
+<p>就是内存临时表。内存表支持hash索引，这个特性利用起来，对复杂查询的加速效果还是很不错的。 </p>
+<p>主库暂时不能修改引擎，那么就把备库的内存表引擎先都改成InnoDB。</p>
+<h4 id="第39讲-自增主键为什么不是连续的？"><a href="#第39讲-自增主键为什么不是连续的？" class="headerlink" title="第39讲 自增主键为什么不是连续的？"></a>第39讲 自增主键为什么不是连续的？</h4><p>在MyISAM引擎里面，自增值是被写在数据文件上的。而在InnoDB中，自增值是被记录在内存的。MySQL直到8.0版本，才给InnoDB表的自增值加上了持久化的能力，确保重启前后一个表的自增值不变。 </p>
+<h4 id="第40讲-insert语句的锁为什么这么多？"><a href="#第40讲-insert语句的锁为什么这么多？" class="headerlink" title="第40讲 insert语句的锁为什么这么多？"></a>第40讲 insert语句的锁为什么这么多？</h4><p>insert 语句如果出现唯一键冲突，会在冲突的唯一值上加共享的next-key lock(S锁)。因此，碰到由于唯一键约束导致报错后，要尽快提交或回滚事务，避免加锁时间过长。 </p>
+<h4 id="第41讲-怎么最快地复制一张表？"><a href="#第41讲-怎么最快地复制一张表？" class="headerlink" title="第41讲 怎么最快地复制一张表？"></a>第41讲 怎么最快地复制一张表？</h4><p>物理拷贝 </p>
+<p>mysqldump</p>
+<p>select …into outfile的方法是最灵活的，支持所有的SQL写法。但，这个方法的缺点之一就 </p>
+<p>是，每次只能导出一张表的数据，而且表结构也需要另外的语句单独备份。 </p>
+<h4 id="第42讲-grant之后要跟着flush-privileges吗？"><a href="#第42讲-grant之后要跟着flush-privileges吗？" class="headerlink" title="第42讲 grant之后要跟着flush privileges吗？"></a>第42讲 grant之后要跟着flush privileges吗？</h4><p>grant语句会同时修改数据表和内存，判断权限的时候使用的是内存数据。因此，规范地使用grant和revoke语句，是不需要随后加上flush privileges语句的。 </p>
+<p>flush privileges语句本身会用数据表的数据重建一份内存权限数据，所以在权限数据可能存在不一致的情况下再使用。而这种不一致往往是由于直接用DML语句操作系统权限表导致的，所以 </p>
+<p>我们尽量不要使用这类语句。 </p>
+<h4 id="第43讲-要不要使用分区表？"><a href="#第43讲-要不要使用分区表？" class="headerlink" title="第43讲 要不要使用分区表？"></a>第43讲 要不要使用分区表？</h4><p>有两个问题需要注意：</p>
+<p>\1. 分区并不是越细越好。实际上，单表或者单分区的数据一千万行，只要没有特别大的索引，对于现在的硬件能力来说都已经是小表了。 </p>
+<p>\2. 分区也不要提前预留太多，在使用之前预先创建即可。比如，如果是按月分区，每年年底时再把下一年度的12个新分区创建上即可。对于没有数据的历史分区，要及时的drop掉。</p>
+<h4 id="第44讲-答疑文章（三）：说一说这些好问题"><a href="#第44讲-答疑文章（三）：说一说这些好问题" class="headerlink" title="第44讲 答疑文章（三）：说一说这些好问题"></a>第44讲 答疑文章（三）：说一说这些好问题</h4><h4 id="第45讲-自增id用完怎么办？"><a href="#第45讲-自增id用完怎么办？" class="headerlink" title="第45讲 自增id用完怎么办？"></a>第45讲 自增id用完怎么办？</h4>
       
     </div>
     
@@ -619,7 +730,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MYSQL实战45讲"><span class="nav-number">1.</span> <span class="nav-text">MYSQL实战45讲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第1讲-一条SQL查询语句是如何执行的？"><span class="nav-number">1.1.</span> <span class="nav-text">第1讲 一条SQL查询语句是如何执行的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第2讲-日志系统：一条SQL更新语句是如何执行的？"><span class="nav-number">1.2.</span> <span class="nav-text">第2讲 日志系统：一条SQL更新语句是如何执行的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第3讲-事务隔离：为什么你改了我还看不见？"><span class="nav-number">1.3.</span> <span class="nav-text">第3讲 事务隔离：为什么你改了我还看不见？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第4讲-深入浅出索引（上）"><span class="nav-number">1.4.</span> <span class="nav-text">第4讲 深入浅出索引（上）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第5讲-深入浅出索引（下）"><span class="nav-number">1.5.</span> <span class="nav-text">第5讲 深入浅出索引（下）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第6讲-全局锁和表锁-：给表加个字段怎么有这么多阻碍？"><span class="nav-number">1.6.</span> <span class="nav-text">第6讲 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第7讲-行锁功过：怎么减少行锁对性能的影响？"><span class="nav-number">1.7.</span> <span class="nav-text">第7讲 行锁功过：怎么减少行锁对性能的影响？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第8讲-事务到底是隔离的还是不隔离的？"><span class="nav-number">1.8.</span> <span class="nav-text">第8讲 事务到底是隔离的还是不隔离的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第9讲-普通索引和唯一索引，应该怎么选择？"><span class="nav-number">1.9.</span> <span class="nav-text">第9讲 普通索引和唯一索引，应该怎么选择？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第10讲-MYSQL为什么回选错索引？"><span class="nav-number">1.10.</span> <span class="nav-text">第10讲 MYSQL为什么回选错索引？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第11讲-怎么给字符串字段加索引？"><span class="nav-number">1.11.</span> <span class="nav-text">第11讲 怎么给字符串字段加索引？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第12讲-为什么我的MYSQL会抖一下？"><span class="nav-number">1.12.</span> <span class="nav-text">第12讲 为什么我的MYSQL会抖一下？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第13讲-为什么表数据删掉一半，表文件大小不变？"><span class="nav-number">1.13.</span> <span class="nav-text">第13讲 为什么表数据删掉一半，表文件大小不变？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MYSQL实战45讲"><span class="nav-number">1.</span> <span class="nav-text">MYSQL实战45讲</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第1讲-一条SQL查询语句是如何执行的？"><span class="nav-number">1.1.</span> <span class="nav-text">第1讲 一条SQL查询语句是如何执行的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第2讲-日志系统：一条SQL更新语句是如何执行的？"><span class="nav-number">1.2.</span> <span class="nav-text">第2讲 日志系统：一条SQL更新语句是如何执行的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第3讲-事务隔离：为什么你改了我还看不见？"><span class="nav-number">1.3.</span> <span class="nav-text">第3讲 事务隔离：为什么你改了我还看不见？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第4讲-深入浅出索引（上）"><span class="nav-number">1.4.</span> <span class="nav-text">第4讲 深入浅出索引（上）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第5讲-深入浅出索引（下）"><span class="nav-number">1.5.</span> <span class="nav-text">第5讲 深入浅出索引（下）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第6讲-全局锁和表锁-：给表加个字段怎么有这么多阻碍？"><span class="nav-number">1.6.</span> <span class="nav-text">第6讲 全局锁和表锁 ：给表加个字段怎么有这么多阻碍？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第7讲-行锁功过：怎么减少行锁对性能的影响？"><span class="nav-number">1.7.</span> <span class="nav-text">第7讲 行锁功过：怎么减少行锁对性能的影响？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第8讲-事务到底是隔离的还是不隔离的？"><span class="nav-number">1.8.</span> <span class="nav-text">第8讲 事务到底是隔离的还是不隔离的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第9讲-普通索引和唯一索引，应该怎么选择？"><span class="nav-number">1.9.</span> <span class="nav-text">第9讲 普通索引和唯一索引，应该怎么选择？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第10讲-MYSQL为什么回选错索引？"><span class="nav-number">1.10.</span> <span class="nav-text">第10讲 MYSQL为什么回选错索引？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第11讲-怎么给字符串字段加索引？"><span class="nav-number">1.11.</span> <span class="nav-text">第11讲 怎么给字符串字段加索引？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第12讲-为什么我的MYSQL会抖一下？"><span class="nav-number">1.12.</span> <span class="nav-text">第12讲 为什么我的MYSQL会抖一下？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第13讲-为什么表数据删掉一半，表文件大小不变？"><span class="nav-number">1.13.</span> <span class="nav-text">第13讲 为什么表数据删掉一半，表文件大小不变？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第14讲-count-这么慢，我该怎么办？"><span class="nav-number">1.14.</span> <span class="nav-text">第14讲 count(*)这么慢，我该怎么办？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第15讲-答疑文章（一）日志和索引相关问题"><span class="nav-number">1.15.</span> <span class="nav-text">第15讲 答疑文章（一）日志和索引相关问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第16讲-“order-by”是怎么工作的？"><span class="nav-number">1.16.</span> <span class="nav-text">第16讲  “order by”是怎么工作的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第17讲-“order-by”是怎么工作的？"><span class="nav-number">1.17.</span> <span class="nav-text">第17讲  “order by”是怎么工作的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第18讲-为什么这些SQL语句逻辑相同，性能却差异巨大？"><span class="nav-number">1.18.</span> <span class="nav-text">第18讲 为什么这些SQL语句逻辑相同，性能却差异巨大？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第19讲-为什么我只查一行的语句，也执行这么慢？"><span class="nav-number">1.19.</span> <span class="nav-text">第19讲 为什么我只查一行的语句，也执行这么慢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第20讲-幻读是什么，幻读有什么问题？"><span class="nav-number">1.20.</span> <span class="nav-text">第20讲 幻读是什么，幻读有什么问题？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第21讲-为什么我只改一行的语句，锁这么多？"><span class="nav-number">1.21.</span> <span class="nav-text">第21讲 为什么我只改一行的语句，锁这么多？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第22讲-MYSQL有哪些“饮鸩止渴”提高性能的方法？"><span class="nav-number">1.22.</span> <span class="nav-text">第22讲 MYSQL有哪些“饮鸩止渴”提高性能的方法？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第23讲-MySQL是怎么保证数据不丢的？"><span class="nav-number">1.23.</span> <span class="nav-text">第23讲  MySQL是怎么保证数据不丢的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第24讲-MySQL是怎么保证主备一致的？"><span class="nav-number">1.24.</span> <span class="nav-text">第24讲 MySQL是怎么保证主备一致的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第25讲-MySQL是怎么保证高可用的？-浅了解"><span class="nav-number">1.25.</span> <span class="nav-text">第25讲 MySQL是怎么保证高可用的？(浅了解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第26讲-备库为什么会延迟好几个小时？-浅了解"><span class="nav-number">1.26.</span> <span class="nav-text">第26讲 备库为什么会延迟好几个小时？(浅了解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第27讲-主库出问题了从库怎么办？-浅了解"><span class="nav-number">1.27.</span> <span class="nav-text">第27讲 主库出问题了从库怎么办？(浅了解)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第28讲-读写分离有哪些坑？"><span class="nav-number">1.28.</span> <span class="nav-text">第28讲 读写分离有哪些坑？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第29讲-如何判断一个数据库是不是出问题了？"><span class="nav-number">1.29.</span> <span class="nav-text">第29讲 如何判断一个数据库是不是出问题了？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第30讲-答疑文章（二）：用动态的观点看加锁"><span class="nav-number">1.30.</span> <span class="nav-text">第30讲 答疑文章（二）：用动态的观点看加锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第31讲-误删数据后除了跑路，还能怎么办？"><span class="nav-number">1.31.</span> <span class="nav-text">第31讲 误删数据后除了跑路，还能怎么办？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第32讲-为什么还有kill不掉的语句？"><span class="nav-number">1.32.</span> <span class="nav-text">第32讲 为什么还有kill不掉的语句？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第33讲-我查这么多数据会不会把数据库内存打爆？"><span class="nav-number">1.33.</span> <span class="nav-text">第33讲 我查这么多数据会不会把数据库内存打爆？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第34讲-到底可不可以使用join？"><span class="nav-number">1.34.</span> <span class="nav-text">第34讲 到底可不可以使用join？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第35讲-join语句怎么优化？"><span class="nav-number">1.35.</span> <span class="nav-text">第35讲 join语句怎么优化？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第36讲-为什么临时表可以重名？"><span class="nav-number">1.36.</span> <span class="nav-text">第36讲 为什么临时表可以重名？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第37讲-什么时候会使用内部临时表？"><span class="nav-number">1.37.</span> <span class="nav-text">第37讲 什么时候会使用内部临时表？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第38讲-都说InnoDB好那还要不要使用Memory引擎？"><span class="nav-number">1.38.</span> <span class="nav-text">第38讲 都说InnoDB好那还要不要使用Memory引擎？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第39讲-自增主键为什么不是连续的？"><span class="nav-number">1.39.</span> <span class="nav-text">第39讲 自增主键为什么不是连续的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第40讲-insert语句的锁为什么这么多？"><span class="nav-number">1.40.</span> <span class="nav-text">第40讲 insert语句的锁为什么这么多？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第41讲-怎么最快地复制一张表？"><span class="nav-number">1.41.</span> <span class="nav-text">第41讲 怎么最快地复制一张表？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第42讲-grant之后要跟着flush-privileges吗？"><span class="nav-number">1.42.</span> <span class="nav-text">第42讲 grant之后要跟着flush privileges吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第43讲-要不要使用分区表？"><span class="nav-number">1.43.</span> <span class="nav-text">第43讲 要不要使用分区表？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第44讲-答疑文章（三）：说一说这些好问题"><span class="nav-number">1.44.</span> <span class="nav-text">第44讲 答疑文章（三）：说一说这些好问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第45讲-自增id用完怎么办？"><span class="nav-number">1.45.</span> <span class="nav-text">第45讲 自增id用完怎么办？</span></a></li></ol></li></ol></div>
             
 
           </div>
