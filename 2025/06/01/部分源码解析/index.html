@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="源码解析,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1现在源码分析 MiniSpark thrift安装  1./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local --without-csharp --without-erlang --without-go --without-haskell --without-ruby --witho">
+<meta name="keywords" content="源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部分源码解析">
+<meta property="og:url" content="http://yoursite.com/2025/06/01/部分源码解析/index.html">
+<meta property="og:site_name" content="Thinking">
+<meta property="og:description" content="1现在源码分析 MiniSpark thrift安装  1./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local --without-csharp --without-erlang --without-go --without-haskell --without-ruby --witho">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2025-06-01T12:52:03.671Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部分源码解析">
+<meta name="twitter:description" content="1现在源码分析 MiniSpark thrift安装  1./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local --without-csharp --without-erlang --without-go --without-haskell --without-ruby --witho">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2025/06/01/部分源码解析/">
+
+
+
+
+
+  <title>部分源码解析 | Thinking</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Thinking</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2025/06/01/部分源码解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Thinking">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">部分源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2025-06-01T20:49:53+08:00">
+                2025-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1现在源码分析</p>
+<h3 id="MiniSpark"><a href="#MiniSpark" class="headerlink" title="MiniSpark"></a>MiniSpark</h3><ol>
+<li>thrift安装</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/ --with-boost=/usr/local --with-libevent=/usr/local --without-csharp --without-erlang --without-go --without-haskell --without-ruby --without-cpp --without-perl --without-php --without-php_extension --without-python</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>源码分析</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">总体流程</span><br><span class="line">Transform算子 action算子</span><br><span class="line">构建Rdd算子的DAG,遇到action算子，触发分发。</span><br><span class="line">SparkContext[textFile -&gt; flatMap等] -&gt; Master[assignJob] -&gt;  WorkerService.Client[doJob] -&gt; WorkerServiceHandler[doJob] -&gt; 不同算子做不同的事即可。</span><br><span class="line"></span><br><span class="line">SparkContext[textFile(根据HDFS文件的分片数作为分区数)] -&gt; Scheduler[computeRdd] -&gt; Master[assignJob] -&gt; WorkerServiceHandler[WorkerOpType.ReadHdfsSplit -&gt; FlatMap算子 -&gt; MapJob -&gt; MapPairJob -&gt; HashSplit(shuffle的过程) -&gt; reduceByKey(每个分区内进行运算) -&gt; Collect(GetSplit) 获取所有分区数据汇总]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Spark源码"><a href="#Spark源码" class="headerlink" title="Spark源码"></a>Spark源码</h3><ol>
+<li>运行流程简析</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">从WordCount看源码</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author lx</span><br><span class="line"> * @date 2020/5/28 3:49 下午</span><br><span class="line"> */</span><br><span class="line">object WordCount &#123;</span><br><span class="line">  def main(args: Array[String]): Unit = &#123;</span><br><span class="line">    System.setProperty(&quot;HADOOP_USER_NAME&quot;, &quot;hadoop&quot;)</span><br><span class="line">    val sc = new SparkContext(conf)</span><br><span class="line">    val dataRDD: RDD[String] = sc.textFile(&quot;/Users/lx/IdeaProjects/practice/interview/data/hello.txt&quot;)</span><br><span class="line">    dataRDD.flatMap(_.split(&quot;,&quot;))</span><br><span class="line">      .map(x =&gt; (x, 1))</span><br><span class="line">      .reduceByKey(_ + _)</span><br><span class="line">      .saveAsTextFile(&quot;/Users/lx/IdeaProjects/practice/interview/data/output&quot;)</span><br><span class="line">    sc.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 构建RDD跳过</span><br><span class="line">RDD[saveAsTextFile] -&gt; PairRDDFunctions[saveAsHadoopDataset] -&gt; SparkHadoopWriter[write] -&gt; </span><br><span class="line">SparkContext[runJob] -&gt; DAGScheduler[runJob -&gt; submitJob] -&gt; DAGSchedulerEventProcessLoop[post] 添加JobSubmitted消息</span><br><span class="line"></span><br><span class="line">另一个线程处理队列eventQueue消息</span><br><span class="line">DAGSchedulerEventProcessLoop[doOnReceive] -&gt; DAGScheduler[handleJobSubmitted -&gt; createResultStage -&gt; submitStage -&gt; submitMissingTasks] -&gt; TaskSchedulerImpl[submitTasks] -&gt;</span><br><span class="line"></span><br><span class="line">LocalSchedulerBackend[reviveOffers] -&gt; TaskSchedulerImpl[resourceOffers -&gt; resourceOfferSingleTaskSet] -&gt; TaskSetManager[resourceOffer] -&gt; DAGScheduler[taskStarted -&gt; handleBeginEvent] 发送BeginEvent事件 reviveOffers返回的是taskDecription作业描述</span><br><span class="line"></span><br><span class="line">LocalSchedulerBackend[reviveOffers] -&gt; Executor[launchTask] -&gt; 线程池运行TaskRunner[run] -&gt; Task[run] -&gt; ResultTask[runTask] / ShuffleMapTask[runTask]</span><br><span class="line"></span><br><span class="line">**详细流程 </span><br><span class="line">* 创建stage的流程</span><br><span class="line">DAGScheduler[createResultStage -&gt; getOrCreateParentStages -&gt; getOrCreateShuffleMapStage -&gt; createShuffleMapStage] </span><br><span class="line">创建ResultStage时候，根据Shuffle依赖发现，有parent。尝试先创建ShuffleMapStage</span><br><span class="line">最终创建一个ResultStage、一个ShuffleMapStage</span><br><span class="line"></span><br><span class="line">DAGScheduler[submitMissingTasks] -&gt; TaskSchedulerImpl[submitTasks] 提交一个taskSet集合</span><br><span class="line"></span><br><span class="line">* TaskSchedulerImpl[resourceOffers] 详解</span><br><span class="line"></span><br><span class="line">* TaskSetManager</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>分模块解析</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">1. 存储模块</span><br><span class="line">cache、persist、checkpoint</span><br><span class="line">checkpoint会切断血缘，运行完启动一个RDD重算一遍、persist不会切断血缘</span><br><span class="line">persisit源码分析</span><br><span class="line">RDD[getOrCompute] -&gt; BlockManager[getOrElseUpdate -&gt; doPutIterator] -&gt; MemoryStore[putIteratorAsValues -&gt; putIterator] =&gt; 最终保存在MemoryStore的entries里面,超越内存，则溢出到磁盘 =&gt; 插入成功最终返回new InterruptibleIterator</span><br><span class="line"></span><br><span class="line">checkpoint源码分析</span><br><span class="line">RDD[checkpoint] 设置rdd为ReliableRDDCheckpointData</span><br><span class="line">SparkContext[runJob] -&gt; RDD[doCheckpoint] -&gt; RDDCheckpointData[checkpoint] -&gt; ReliableRDDCheckpointData[doCheckpoint] -&gt; ReliableCheckpointRDD[writeRDDToCheckpointDirectory] -&gt; SparkContext[runJob] 重算在这里 -&gt; ReliableCheckpointRDD[writePartitionToCheckpointFile] -&gt; 重新返回 ReliableCheckpointRDD 赋值给 RDDCheckpointData.cpRDD属性  == RDDCheckpointData.checkpointRDD</span><br><span class="line"></span><br><span class="line">RDD 有 checkpointRDD</span><br><span class="line">RDD获取分区的时候，首选就看有没有partitions属性，没有就调用getPartitions =&gt; 对应ReliableCheckpointRDD[getPartitions]</span><br><span class="line">ReliableCheckpointRDD[compute -&gt; readCheckpointFile] 读取checkpoint中的数据</span><br><span class="line"></span><br><span class="line">2. 调度模块 -&gt; 见运行流程简析</span><br><span class="line">复杂算子了解</span><br><span class="line">reduceByKey </span><br><span class="line">	    data.combineByKey(</span><br><span class="line">      score =&gt; (1, score), // createCombiner函数 聚合初始值</span><br><span class="line">      (c: MVType, newScore) =&gt; (c._1 + 1, c._2 + newScore), // mergeValue函数 key相同的时候，触发</span><br><span class="line">      (c1: MVType, c2: MVType) =&gt; (c1._1 + c2._1, c1._2 + c2._2) // mergeCombiners函数</span><br><span class="line">    ).map &#123; case (key, value) =&gt; (key, value._2/ value._1) &#125;.foreach(println)</span><br><span class="line">aggregateByKey</span><br><span class="line">    val rs = listRDD.aggregateByKey(0)((a,b)=&gt;&#123; // 初始值</span><br><span class="line">      println(&quot;第一个&quot;+a+&quot;,&quot;+b)</span><br><span class="line">      math.max(a,b) // key相同聚合</span><br><span class="line">    &#125;,(x,y)=&gt;&#123;</span><br><span class="line">      println(&quot;第二个&quot;+x+&quot;,&quot;+y)</span><br><span class="line">      x+y   // 第一个分区处理完，取两个分区结果执行。</span><br><span class="line">    &#125;).collect().foreach(println)</span><br><span class="line">aggregate</span><br><span class="line">    val r1 = rdd1.aggregate((0, 0))(  // 第一次出现的时候，初始值</span><br><span class="line">      (u, c) =&gt; (u._1 + 1, u._2 + c._2), // 第一个分区做</span><br><span class="line">      (r1, r2) =&gt; (r1._1 + r2._1, r1._2 + r2._2) // 第二个分区做</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">闭包清理器</span><br><span class="line">找到能访问的属性，闭包父类设置为null.</span><br><span class="line"></span><br><span class="line">分区器</span><br><span class="line">HashPartitioner</span><br><span class="line">	取模</span><br><span class="line">RangePartitioner</span><br><span class="line"></span><br><span class="line">* 调度详细流程</span><br><span class="line">见1</span><br><span class="line"></span><br><span class="line">* ShuffleMapTask / ResultTask</span><br><span class="line">见3</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>shuffle相关</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">shuffle_shffleId_mapId_reduceId</span><br><span class="line"></span><br><span class="line">SortShuffleWriter[write] -&gt; ExternalSorter[insertAll] -&gt; SizeTrackingAppendOnlyMap[changeValue]</span><br><span class="line">数据长这样</span><br><span class="line">(0,hello),1</span><br><span class="line">(0,hello),1</span><br><span class="line">(0,scala),1</span><br><span class="line">ExternalSorter[insertAll -&gt; maybeSpillCollection] 可能溢写到磁盘</span><br><span class="line">ExternalSorter[insertAll -&gt; writePartitionedFile] 把shuffle数据写入到shuffle文件中了。</span><br><span class="line">-&gt; IndexShuffleBlockResolver[writeIndexFileAndCommit] 写入index索引文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">BlockStoreShuffleReader[read] -&gt; ShuffleBlockFetcherIterator[initialize -&gt; fetchLocalBlocks] -&gt; 初始化方法中获取fetchBlocks -&gt; BlockData[getBlockData] -&gt; 放入results属性中</span><br><span class="line"></span><br><span class="line">recordIter -&gt; metricIter -&gt; aggregatedIter -&gt; resultIter -&gt; ExternalSorter[insertAll] -&gt; CompletionIterator</span><br></pre></td></tr></table></figure>
+
+<p>remote shuffle service</p>
+<p>传统Shuffle存在以下问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- 本地盘依赖限制了存算分离。存算分离是近年来兴起的新型架构，它解耦了计算和存储，可以更灵活地做机型设计：计算节点强CPU弱磁盘，存储节点强磁盘强网络弱CPU。计算节点无状态，可根据负载弹性伸缩。存储端，随着对象存储(OSS, S3)+数据湖格式(Delta, Iceberg, Hudi)+本地/近地缓存等方案的成熟，可当作容量无限的存储服务。用户通过计算弹性+存储按量付费获得成本节约。然而，Shuffle对本地盘的依赖限制了存算分离。</span><br><span class="line"></span><br><span class="line">- 写放大。当Mapper Output数据量超过内存时触发外排，从而引入额外磁盘IO。</span><br><span class="line">- 大量随机读。Mapper Output属于某个Reducer的数据量很小，如Output 128M，Reducer并发2000，则每个Reducer只读64K，从而导致大量小粒度随机读。对于HDD，随机读性能极差；对于SSD，会快速消耗SSD寿命。</span><br><span class="line">- 高网络连接数，导致线程池消耗过多CPU，带来性能和稳定性问题。</span><br><span class="line">- Shuffle数据单副本，大规模集群场景坏盘/坏节点很普遍，Shuffle数据丢失引发的Stage重算带来性能和稳定性问题。</span><br><span class="line"></span><br><span class="line">shuffle过程</span><br><span class="line"></span><br><span class="line">shuffle_0_0_0(一个文件) =&gt; 000.data</span><br><span class="line">shuffle_0_0_1</span><br><span class="line"></span><br><span class="line">shuffle_0_1_0(一个文件) =&gt; 010.data</span><br><span class="line">shuffle_0_1_1</span><br><span class="line"></span><br><span class="line">Partition 0 -&gt; shuffle_0_0_0 -&gt; reduce 0 -&gt; part0000</span><br><span class="line">							 shuffle_0_1_0</span><br><span class="line"></span><br><span class="line">Partition 1 -&gt; shuffle_0_0_1 -&gt; reduce 1 -&gt; part0001</span><br><span class="line">							 shuffle_0_1_1</span><br><span class="line"></span><br><span class="line">Shuffle file:/private/var/folders/23/db9grlvx0p5fxpzh3d_s24140000gn/T/blockmgr-533bfa70-358d-429f-833e-d2ccc92cfef5/0c/shuffle_0_0_0.data</span><br><span class="line">Index file:/private/var/folders/23/db9grlvx0p5fxpzh3d_s24140000gn/T/blockmgr-533bfa70-358d-429f-833e-d2ccc92cfef5/0c/shuffle_0_0_0.index</span><br><span class="line"></span><br><span class="line">Shuffle file:/private/var/folders/23/db9grlvx0p5fxpzh3d_s24140000gn/T/blockmgr-533bfa70-358d-429f-833e-d2ccc92cfef5/0c/shuffle_0_1_0.data</span><br><span class="line">Index file:/private/var/folders/23/db9grlvx0p5fxpzh3d_s24140000gn/T/blockmgr-533bfa70-358d-429f-833e-d2ccc92cfef5/0c/shuffle_0_1_0.index</span><br><span class="line"></span><br><span class="line">remote shuffle serivce 主要思想 push shuffle + partition数据聚合</span><br></pre></td></tr></table></figure>
+
+<h4 id="Spark-SQL源码"><a href="#Spark-SQL源码" class="headerlink" title="Spark SQL源码"></a>Spark SQL源码</h4><h5 id="查hive"><a href="#查hive" class="headerlink" title="查hive"></a>查hive</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">spark.sql(&quot;select deptno,dname from default.dept_part where dt=&apos;2021-08-02&apos;&quot;).show()</span><br><span class="line"></span><br><span class="line">Dataset[showString -&gt; getRows -&gt; take -&gt; head -&gt; withAction -&gt; collectFromPlan] -&gt; </span><br><span class="line">CollectLimitExec[executeCollect] -&gt; SparkPlan[executeTake -&gt; getByteArrayRdd -&gt; execute -&gt; doExecute -&gt; executeQuery -&gt; ]</span><br><span class="line"></span><br><span class="line">ProjectExec[inputRDDs] -&gt; InputAdapter[inputRDDs] -&gt; HiveTableScanExec[doExecute] -&gt; TableReader[makeRDDForPartitionedTable -&gt; makeRDDForPartitionedTable -&gt; createHadoopRdd] -&gt; RDD[mapPartitionsWithIndexInternal]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">物理计划</span><br><span class="line">CollectLimit 21</span><br><span class="line">+- *(1) Project [cast(deptno#0 as string) AS deptno#8, dname#1]</span><br><span class="line">   +- Scan hive default.dept_part [deptno#0, dname#1], HiveTableRelation `default`.`dept_part`, org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe, [deptno#0, dname#1, loc#2], [dt#3], [isnotnull(dt#3), (dt#3 = 2021-08-02)]</span><br></pre></td></tr></table></figure>
+
+<h5 id="全阶段代码生成"><a href="#全阶段代码生成" class="headerlink" title="全阶段代码生成"></a>全阶段代码生成</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">generate</span><span class="params">(Object[] references)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> GeneratedIteratorForCodegenStage1(references);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*wsc_codegenStageId*/</span></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">GeneratedIteratorForCodegenStage1</span> <span class="keyword">extends</span> <span class="title">org</span>.<span class="title">apache</span>.<span class="title">spark</span>.<span class="title">sql</span>.<span class="title">execution</span>.<span class="title">BufferedRowIterator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object[] references;</span><br><span class="line">    <span class="keyword">private</span> scala.collection.Iterator[] inputs;</span><br><span class="line">    <span class="keyword">private</span> scala.collection.Iterator inputadapter_input_0;</span><br><span class="line">    <span class="keyword">private</span> org.apache.spark.sql.catalyst.expressions.codegen.UnsafeRowWriter[] project_mutableStateArray_0 = <span class="keyword">new</span> org.apache.spark.sql.catalyst.expressions.codegen.UnsafeRowWriter[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GeneratedIteratorForCodegenStage1</span><span class="params">(Object[] references)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.references = references;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> index, scala.collection.Iterator[] inputs)</span> </span>&#123;</span><br><span class="line">        partitionIndex = index;</span><br><span class="line">        <span class="keyword">this</span>.inputs = inputs;</span><br><span class="line">        inputadapter_input_0 = inputs[<span class="number">0</span>];</span><br><span class="line">        project_mutableStateArray_0[<span class="number">0</span>] = <span class="keyword">new</span> org.apache.spark.sql.catalyst.expressions.codegen.UnsafeRowWriter(<span class="number">2</span>, <span class="number">64</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">processNext</span><span class="params">()</span> <span class="keyword">throws</span> java.io.IOException </span>&#123;</span><br><span class="line">      	<span class="comment">// ScanExec</span></span><br><span class="line">        <span class="keyword">while</span> (inputadapter_input_0.hasNext() &amp;&amp; !stopEarly()) &#123;</span><br><span class="line">            InternalRow inputadapter_row_0 = (InternalRow) inputadapter_input_0.next();</span><br><span class="line">            <span class="comment">// ProjectExec </span></span><br><span class="line">            <span class="comment">// 两个表达式</span></span><br><span class="line">          	<span class="comment">// cast(input[0, int, true] as string) AS deptno#8</span></span><br><span class="line">          	<span class="keyword">boolean</span> inputadapter_isNull_0 = inputadapter_row_0.isNullAt(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">int</span> inputadapter_value_0 = inputadapter_isNull_0 ?</span><br><span class="line">                    -<span class="number">1</span> : (inputadapter_row_0.getInt(<span class="number">0</span>));</span><br><span class="line">            <span class="keyword">boolean</span> project_isNull_0 = inputadapter_isNull_0;</span><br><span class="line">            UTF8String project_value_0 = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (!inputadapter_isNull_0) &#123;</span><br><span class="line">                project_value_0 = UTF8String.fromString(String.valueOf(inputadapter_value_0));</span><br><span class="line">            &#125;</span><br><span class="line">          	<span class="comment">// input[1, string, true]</span></span><br><span class="line">            <span class="keyword">boolean</span> inputadapter_isNull_1 = inputadapter_row_0.isNullAt(<span class="number">1</span>);</span><br><span class="line">            UTF8String inputadapter_value_1 = inputadapter_isNull_1 ?</span><br><span class="line">                    <span class="keyword">null</span> : (inputadapter_row_0.getUTF8String(<span class="number">1</span>));</span><br><span class="line">            project_mutableStateArray_0[<span class="number">0</span>].reset();</span><br><span class="line"></span><br><span class="line">            project_mutableStateArray_0[<span class="number">0</span>].zeroOutNullBytes();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (project_isNull_0) &#123;</span><br><span class="line">                project_mutableStateArray_0[<span class="number">0</span>].setNullAt(<span class="number">0</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                project_mutableStateArray_0[<span class="number">0</span>].write(<span class="number">0</span>, project_value_0);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (inputadapter_isNull_1) &#123;</span><br><span class="line">                project_mutableStateArray_0[<span class="number">0</span>].setNullAt(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                project_mutableStateArray_0[<span class="number">0</span>].write(<span class="number">1</span>, inputadapter_value_1);</span><br><span class="line">            &#125;</span><br><span class="line">            append((project_mutableStateArray_0[<span class="number">0</span>].getRow()));</span><br><span class="line">            <span class="keyword">if</span> (shouldStop()) <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="表达式代码生成"><a href="#表达式代码生成" class="headerlink" title="表达式代码生成"></a>表达式代码生成</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.<span class="function">Object <span class="title">generate</span><span class="params">(Object[] references)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> SpecificUnsafeProjection(references);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SpecificUnsafeProjection</span> <span class="keyword">extends</span> <span class="title">org</span>.<span class="title">apache</span>.<span class="title">spark</span>.<span class="title">sql</span>.<span class="title">catalyst</span>.<span class="title">expressions</span>.<span class="title">UnsafeProjection</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object[] references;</span><br><span class="line">    <span class="keyword">private</span> org.apache.spark.sql.catalyst.expressions.codegen.UnsafeRowWriter[] mutableStateArray_0 = <span class="keyword">new</span> org.apache.spark.sql.catalyst.expressions.codegen.UnsafeRowWriter[<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SpecificUnsafeProjection</span><span class="params">(Object[] references)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.references = references;</span><br><span class="line">        mutableStateArray_0[<span class="number">0</span>] = <span class="keyword">new</span> org.apache.spark.sql.catalyst.expressions.codegen.UnsafeRowWriter(<span class="number">2</span>, <span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(<span class="keyword">int</span> partitionIndex)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Scala.Function1 need this</span></span><br><span class="line">    <span class="keyword">public</span> java.lang.<span class="function">Object <span class="title">apply</span><span class="params">(java.lang.Object row)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> apply((InternalRow) row);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> UnsafeRow <span class="title">apply</span><span class="params">(InternalRow i)</span> </span>&#123;</span><br><span class="line">        mutableStateArray_0[<span class="number">0</span>].reset();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        mutableStateArray_0[<span class="number">0</span>].zeroOutNullBytes();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> isNull_0 = i.isNullAt(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> value_0 = isNull_0 ?</span><br><span class="line">                -<span class="number">1</span> : (i.getInt(<span class="number">0</span>));</span><br><span class="line">        <span class="keyword">if</span> (isNull_0) &#123;</span><br><span class="line">            mutableStateArray_0[<span class="number">0</span>].setNullAt(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            mutableStateArray_0[<span class="number">0</span>].write(<span class="number">0</span>, value_0);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> isNull_1 = i.isNullAt(<span class="number">1</span>);</span><br><span class="line">        UTF8String value_1 = isNull_1 ?</span><br><span class="line">                <span class="keyword">null</span> : (i.getUTF8String(<span class="number">1</span>));</span><br><span class="line">        <span class="keyword">if</span> (isNull_1) &#123;</span><br><span class="line">            mutableStateArray_0[<span class="number">0</span>].setNullAt(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            mutableStateArray_0[<span class="number">0</span>].write(<span class="number">1</span>, value_1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (mutableStateArray_0[<span class="number">0</span>].getRow());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Celeborn"><a href="#Celeborn" class="headerlink" title="Celeborn"></a>Celeborn</h3><h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><h5 id="1-读写主要过程"><a href="#1-读写主要过程" class="headerlink" title="1. 读写主要过程"></a>1. 读写主要过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Shuffle Write(写)</span><br><span class="line">SortBasedShuffleWriter</span><br><span class="line">SortBasedShuffleWriter[write -&gt; write0] -&gt; SortBasedPusher[insertRecord -&gt; pushData] -&gt; DataPusher[addTask -&gt; 放入workingQueue]</span><br><span class="line"></span><br><span class="line">消费workingQueue(DataPusher-Thread)</span><br><span class="line">DataPusher[pushData] -&gt; ShuffleClientImpl[pushData -&gt; pushOrMergeData] -&gt; TransportClient[pushData -&gt; 发送netty消息]</span><br><span class="line"></span><br><span class="line">TransportChannelHandler[channelRead -&gt; handle] -&gt; PushDataHandler[receive -&gt; handleCore -&gt; handlePushData] -&gt; FileWriter[write -&gt; flush -&gt; addTask] -&gt; Flusher.scala[addTask -&gt; 放入workingQueues]</span><br><span class="line"></span><br><span class="line">消费workingQueue(Flusher-Thread)</span><br><span class="line">Flusher[init] -&gt; FlushTask[LocalFlushTask[flush]]</span><br><span class="line"></span><br><span class="line">Shuffle Read(读)</span><br><span class="line">RssShuffleReader.scala[read] -&gt; ShuffleClientImpl[readPartition] -&gt; RpcEndpointRef[askSync -&gt; ask] -&gt; NettyRpcEnv[ask -&gt; postToOutbox] -&gt; RpcOutboxMessage[sendWith] -&gt; TransportClient[sendRpc] // 返回ReduceFileGroups(partition)</span><br><span class="line">ShuffleClientImpl[readPartition]-&gt; RssInputStream[create] -&gt; return new RssInputStreamImpl</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-角色通信"><a href="#2-角色通信" class="headerlink" title="2. 角色通信"></a>2. 角色通信</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Master</span><br><span class="line">Master[main -&gt; initialize] -&gt; HttpService.scala[startHttpServer] -&gt; HttpServer[start]</span><br><span class="line"></span><br><span class="line">http的核心处理器</span><br><span class="line">HttpRequestHandler[channelRead0 -&gt; handleRequest]</span><br><span class="line"></span><br><span class="line">rpcEnv属性</span><br><span class="line">RpcEnv[create] -&gt; NettyRpcEnv.scala[create -&gt; startServer] -&gt; TransportContext.java[createServer]</span><br><span class="line"></span><br><span class="line">NettyRpcEnv.scala[startServer] -&gt; Dispatcher.scala[registerRpcEndpoint] -&gt; endpoints.putIfAbsent(name, new EndpointData(name, endpoint, endpointRef) -&gt; Inbox[messages.add(OnStart) 默认将Start命令加入处理]</span><br><span class="line"></span><br><span class="line">netty的核心处理器</span><br><span class="line">NettyRpcHandler[receive -&gt; processRpc] -&gt; Dispatcher.scala[postRemoteMessage -&gt; postMessage] -&gt; Inbox.scala[post -&gt; 放入Inbox.messages中 -&gt; 同时放入Dispatcher.receivers集合中]</span><br><span class="line">（ps Inbox属于EndPointData的属性）</span><br><span class="line"></span><br><span class="line">MessageLoop线程消费receivers集合</span><br><span class="line">MessageLoop[run] -&gt; Inbox.scala[process] -&gt; Master[receiveAndReply] -&gt; 看看Master都处理哪些请求</span><br><span class="line"></span><br><span class="line">Master[receive] -&gt; PbCheckForWorkerTimeout、CheckForApplicationTimeOut、PbWorkerLost </span><br><span class="line">(这些都是Master启动时候，启动的轮训线程)</span><br><span class="line"></span><br><span class="line">####################</span><br><span class="line">Worker</span><br><span class="line">Worker[main -&gt; initialize -&gt; registerWithMaster向Master注册] -&gt; </span><br><span class="line"></span><br><span class="line">pushDataHandler:PushDataHandler</span><br><span class="line">replicateHandler:PushDataHandler</span><br><span class="line">fetchHandler:FetchHandler</span><br><span class="line"></span><br><span class="line">####################</span><br><span class="line">LifecycleManager =&gt; application端</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-概念理解"><a href="#3-概念理解" class="headerlink" title="3. 概念理解"></a>3. 概念理解</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">TransportClient 对应客户端</span><br><span class="line">TransportChannelHandler 对应服务端</span><br><span class="line"></span><br><span class="line">BaseMessageHandler 消息处理器：</span><br><span class="line">PushDataHandler(服务于worker,对应shuffle写) 	</span><br><span class="line">NettyRpcHandler(作为rpc通信，基础通信“收件箱”)	</span><br><span class="line">FetchHandler(服务于worker,对应shuffle读)</span><br><span class="line"></span><br><span class="line">Master是一个Endpoint</span><br><span class="line"></span><br><span class="line">有RpcEndpointRef属性的，可以通过类似以下方法。向Endpoint发送请求</span><br><span class="line">endpointRef.ask(message, rpcTimeout, ClassTag$.MODULE$.apply(clz));</span><br><span class="line">endpoint.askSync</span><br><span class="line">只有这种调用方式，是走NettyRpcHandler</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-shuffle完整过程"><a href="#4-shuffle完整过程" class="headerlink" title="4. shuffle完整过程"></a>4. shuffle完整过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">Shuffle Write(写)</span><br><span class="line">RssShuffleManager[registerShuffle] -&gt;</span><br><span class="line">return new RssShuffleHandle&lt;&gt;(</span><br><span class="line">          newAppId, // 根据context生成appID</span><br><span class="line">          lifecycleManager.getRssMetaServiceHost(), // 生命周期管理器的ip</span><br><span class="line">          lifecycleManager.getRssMetaServicePort(), // 生命周期管理器的端口</span><br><span class="line">          lifecycleManager.getUserIdentifier(),	// 一个由租户id、租户名称的用户标志</span><br><span class="line">          shuffleId, // 这次shuffle的id</span><br><span class="line">          dependency.rdd().getNumPartitions(), // rdd的分区数</span><br><span class="line">          dependency);</span><br><span class="line">          </span><br><span class="line">RssShuffleManager[getWriter] -&gt;   </span><br><span class="line">return new SortBasedShuffleWriter&lt;&gt;(</span><br><span class="line">              h.dependency(),</span><br><span class="line">              h.newAppId(), </span><br><span class="line">              h.numMappers(), // 分区数和mappers相对应</span><br><span class="line">              context,</span><br><span class="line">              celebornConf,</span><br><span class="line">              client,		// ShuffleClient</span><br><span class="line">              metrics); // ShuffleWriteMetricsReporter</span><br><span class="line">              </span><br><span class="line"></span><br><span class="line">SortBasedShuffleWriter[write -&gt; write0] -&gt; SortBasedPusher[insertRecord -&gt;</span><br><span class="line">将record序列化为二进制，并写的字节数组输出流serBuffer中</span><br><span class="line">serBuffer中复制进内存</span><br><span class="line"></span><br><span class="line">pageCursor + required &gt; currentPage.getBaseOffset() + currentPage.size()</span><br><span class="line">PS: 这里注意，当页偏移量 + 需要 &gt; 再申请一页的总大小，则强制pushData。</span><br><span class="line">-&gt; pushData] -&gt; DataPusher[addTask -&gt; 放入workingQueue] </span><br><span class="line"></span><br><span class="line">消费workingQueue(DataPusher-Thread)</span><br><span class="line">DataPusher[pushData] -&gt; ShuffleClientImpl[pushData -&gt; pushOrMergeData -&gt; registerShuffle] -&gt;  </span><br><span class="line"></span><br><span class="line">// 1. 先注册shuffle</span><br><span class="line">LifecycleManager[receiveAndReply -&gt; handleRegisterShuffle]</span><br><span class="line">// 2. get slots from Master</span><br><span class="line">LifecycleManager[requestSlotsWithRetry -&gt; requestRequestSlots] -&gt; RssHARetryClient[askSync -&gt; sendMessageInner] -&gt; NettyRpcEnv.scala[ask -&gt; postToOutbox] -&gt; 1-1</span><br><span class="line">// 3. 预留Slot</span><br><span class="line">LifecycleManager[reserveSlotsWithRetry -&gt; reserveSlots -&gt; requestReserveSlots] NettyRpcEnv.scala[ask] -&gt; 发送ReserveSlots -&gt; 2-1</span><br><span class="line">注册完成 RegisterShuffleResponse(StatusCode.Success, locations.asJava)</span><br><span class="line"></span><br><span class="line">把result.put(partitionLoc.getId(), partitionLoc); 记录在reducePartitionMap中</span><br><span class="line"></span><br><span class="line">1-1:</span><br><span class="line">Master[receiveAndReply -&gt; executeWithLeaderChecker -&gt; handleRequestSlots] -&gt; MasterUtil[offerSlots -&gt; offerSlots] -&gt; HAMasterMetaManager[handleRequestSlots] -&gt; HARaftServer[submitRequest] 同步更改Master集群中的状态 -&gt; AbstractMetaManager[updateRequestSlotsMeta] -&gt; WorkInfo[allocateSlots] -&gt; 更新Master集群中的worker信息、slots信息和心跳信息。</span><br><span class="line">Master[handleRequestSlots] -&gt; NettyRpcCallContext[reply] 返回slots</span><br><span class="line"></span><br><span class="line">2-1:</span><br><span class="line">Worker[receiveAndReply -&gt; handleReserveSlots] -&gt; Worker.PartitionLocationInfo 会记录预留的分区  </span><br><span class="line">返回 ReserveSlotsResponse(StatusCode.Success)</span><br><span class="line"></span><br><span class="line">TransportClient[pushData -&gt; 发送PushData]</span><br><span class="line">TransportChannelHandler[channelRead -&gt; handle -&gt; processPushData] -&gt; PushDataHandler[receivePushData -&gt; handlePushData] -&gt; </span><br><span class="line">// 1. for master, send data to slave</span><br><span class="line">FileWriter[write -&gt; flush -&gt; addTask] -&gt; Flusher.scala[addTask -&gt; 放入workingQueues]</span><br><span class="line"></span><br><span class="line">消费workingQueue(Flusher-Thread)</span><br><span class="line">Flusher[init] -&gt; FlushTask[LocalFlushTask[flush]]</span><br><span class="line"></span><br><span class="line">SortBasedShuffleWriter[write -&gt; close] -&gt; ShuffleClientImpl[mapperEnd]</span><br><span class="line">LifecycleManager[receiveAndReply -&gt; handleMapperEnd -&gt; StageEnd]</span><br><span class="line">LifecycleManager[receive -&gt; handleStageEnd -&gt; requestCommitFiles]</span><br><span class="line">Worker[receiveAndReply -&gt; handleCommitFiles -&gt; commitFiles] -&gt; FileWriter[close -&gt; flush(最后一次) -&gt; returnBuffer 释放磁盘空间]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Shuffle Read(读)</span><br><span class="line">RssShuffleReader.scala[read] -&gt; ShuffleClientImpl[readPartition] -&gt; RpcEndpointRef[askSync -&gt; ask] -&gt; NettyRpcEnv[ask -&gt; postToOutbox] -&gt; RpcOutboxMessage[sendWith] -&gt; TransportClient[sendRpc] </span><br><span class="line"></span><br><span class="line">LifecycleManager[receiveAndReply -&gt; handleGetReducerFileGroup] // 返回partitionLocation </span><br><span class="line"></span><br><span class="line">ShuffleClientImpl[readPartition] 返回ReduceFileGroups(partitionLocation) -&gt; RssInputStream[create] -&gt; return new RssInputStreamImpl 创建流 -&gt; 返回 resultIter</span><br><span class="line"></span><br><span class="line">RssInputStream具体</span><br><span class="line">RssInputStreamImpl[moveToNextReader -&gt; createReaderWithRetry -&gt; createReader] -&gt; WorkerPartitionReader[WorkerPartitionReader] -&gt; TransportClient[sendRpcSync -&gt; sendRpc] -&gt; </span><br><span class="line">发送RpcRequest -&gt; 3-1</span><br><span class="line"></span><br><span class="line">3-1</span><br><span class="line">FetchHandler[receive -&gt; handleOpenStream] -&gt; RpcResponseCallback[onSuccess] -&gt; // flip &quot;copy&quot; to make it readable 返回的是StreamHandle(记录了流id和可读的Chunks数量)</span><br><span class="line">RssInputStreamImpl[moveToNextReader -&gt; getNextChunk (会一直fetch chunk) ] -&gt; WorkerPartitionReader[next -&gt; fetchChunks] -&gt; TransportClient[fetchChunk -&gt; ChunkFetchRequest] -&gt; 4-1</span><br><span class="line"></span><br><span class="line">4-1</span><br><span class="line">Worker[receive -&gt; handleChunkFetchRequest] -&gt; ChunkStreamManager[getChunk] -&gt; FileManagedBuffers[chunk] -&gt; TransportResponseHandler[handle] -&gt; ChunkReceivedCallback[onSuccess] =&gt; ByteBuf加入WorkerPartitionReader[results]</span><br><span class="line"></span><br><span class="line">主要重写RssInputStream的read方法 </span><br><span class="line">RssInputStream[read -&gt; fillBuffer] (read返回一个字节、read(b)读取数据到b数组中)</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-角色详细解读（涉及属性）"><a href="#5-角色详细解读（涉及属性）" class="headerlink" title="5. 角色详细解读（涉及属性）"></a>5. 角色详细解读（涉及属性）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">Master(端)</span><br><span class="line">Master.statusSystem -&gt; MetaHandler[setUpMasterRatisServer] -&gt; HARaftServer.java[newMasterRatisServer] -&gt; 最终更新到RaftServer.raftGroup中 -&gt; HARaftServer[start] </span><br><span class="line"></span><br><span class="line">另外启动scheduledRoleChecker线程 -&gt; updateServerRole -&gt; setServerRole -&gt; cachedPeerRole信息缓存起来(保存leader)</span><br><span class="line"></span><br><span class="line">StateMachine单独详解</span><br><span class="line">SimpleStateMachineStorage 这是一个简单状态机的存储</span><br><span class="line">重要的方法</span><br><span class="line">applyTransaction 执行事务log</span><br><span class="line"></span><br><span class="line">以WorkerLost命令为例，说下提交请求后，raft集群发生了什么。</span><br><span class="line">HARaftServer[submitRequest(WorkerLost)] -&gt; RaftServerProxy[submitClientRequestAsync] -&gt; StateMachine[applyTransaction -&gt; runCommand ] -&gt; MetaHandler[handleWriteRequest] -&gt; AbstractMetaManager[updateWorkerLostMeta]</span><br><span class="line"></span><br><span class="line">takeSnapshot 保证状态机快照</span><br><span class="line"></span><br><span class="line">Master.rpcEnv -&gt; 角色通信章节</span><br><span class="line">执行onStart方法 -&gt; checkForWorkerTimeOutTask(定时发送 pbCheckForWorkerTimeout 命令) -&gt; Master[receive -&gt; timeoutDeadWorkers(判断是否超时，超时就发送WorkLost命令)] </span><br><span class="line">-&gt; Master[receive -&gt; handleWorkerLost] -&gt; HAMasterMetaManager[handleWorkerLost] -&gt; HARaftServer[submitRequest(WorkerLost)] -&gt; AbstractMetaManager[updateWorkerLostMeta] -&gt; 从Master集群中的works中移除</span><br><span class="line"></span><br><span class="line">执行onStart方法 -&gt; checkForApplicationTimeOutTask (定时发送 CheckForApplicationTimeOut 命令) -&gt; </span><br><span class="line">Master[receive -&gt; timeoutDeadApplications(判断是否超时，超时就发送ApplicationLost命令)]  -&gt; Master[receive -&gt; handleApplicationLost] -&gt; HAMasterMetaManager[handleAppLost] -&gt; HARaftServer[submitRequest(handleAppLost)] -&gt; AbstractMetaManager[updateAppLostMeta] -&gt; </span><br><span class="line">1.释放WorkInfo中的slot 2. 从registeredShuffle中把shuffle移除</span><br><span class="line"></span><br><span class="line">Master.partitionSizeUpdateService单独线程定期更新 -&gt; HAMasterMetaManager[handleUpdatePartitionSize] -&gt; HARaftServer[submitRequest(UpdatePartitionSize)] -&gt; AbstractMetaManager[updatePartitionSize] -&gt; 更新Master集群中的estimatedPartitionSize估算分区大小</span><br><span class="line"></span><br><span class="line">Master的服务监控</span><br><span class="line">Master</span><br><span class="line">Master[main -&gt; initialize] -&gt; MetricsSystem.scala[start]</span><br><span class="line"></span><br><span class="line">new RPCSource -&gt; AbstractSource[addCounter -&gt; 加入到namedCounters中] -&gt; 1-1</span><br><span class="line">new MasterSource(conf) -&gt; AbstractSource[addGauge] -&gt; MetricRegistry[gauge] -&gt; 加入namedGauges中</span><br><span class="line">注册两种Source</span><br><span class="line">metricsSystem.registerSource(rpcSource)</span><br><span class="line">metricsSystem.registerSource(masterSource)</span><br><span class="line"></span><br><span class="line">1-1</span><br><span class="line">更新监控指标 -&gt; NettyRpcHandler[internalReceive] -&gt; RPCSource[updateMessageMetrics -&gt; incCounter(RPCPushDataNum)] -&gt; Counter[inc] PushData为例</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RssShuffleManager (application端)</span><br><span class="line">RssShuffleManager[registerShuffle -&gt; initializeLifecycleManager] -&gt; 初始化LifecycleManager 、初始ShuffleClient -&gt; LifecycleManager[initialize]</span><br><span class="line"></span><br><span class="line">ApplicationHeartbeater 心跳线程</span><br><span class="line">LifecycleManager[用来发送心跳] -&gt; ApplicationHeartbeater[run] -&gt; RssHARetryClient[send] -&gt;</span><br><span class="line">Master[receiveAndReply -&gt; handleHeartbeatFromApplication] -&gt; HAMasterMetaManager[handleAppHeartbeat] -&gt; HARaftServer[submitRequest] -&gt; RaftServerProxy[submitClientRequestAsync(AppHeartbeat)] -&gt; AbstractMetaManager[updateAppHeartbeatMeta] -&gt; 更新Master集群中的estimatedPartitionSize估算分区大小</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Worker(端)</span><br><span class="line">先注册到Master集群,再心跳</span><br><span class="line">Worker[initialize -&gt; registerWithMaster] -&gt; RssHARetryClient[askSync(RegisterWorker.apply -&gt; PbRegisterWorker)] -&gt; Master[receiveAndReply -&gt; executeWithLeaderChecker -&gt; handleRegisterWorker] -&gt; HAMasterMetaManager[handleRegisterWorker] -&gt; HARaftServer[submitRequest(RegisterWorker)] -&gt; AbstractMetaManager[updateRegisterWorkerMeta] -&gt; 更新Master集群中的works</span><br><span class="line"></span><br><span class="line">Worker[initialize -&gt; heartBeatToMaster] -&gt; RssHARetryClient[askSync(HeartbeatFromWorker)] -&gt; Master[receiveAndReply -&gt; executeWithLeaderChecker -&gt; handleHeartbeatFromWorker] -&gt; HAMasterMetaManager[handleWorkerHeartbeat] -&gt; HARaftServer[submitRequest(WorkerHeartbeat)]-&gt; AbstractMetaManager[updateWorkerHeartbeatMeta] -&gt; 更新Master集群中的works，更新WorkerInfo slots每个work可用的插槽</span><br></pre></td></tr></table></figure>
+
+<h3 id="Kyuubi"><a href="#Kyuubi" class="headerlink" title="Kyuubi"></a>Kyuubi</h3><h4 id="1-主流程"><a href="#1-主流程" class="headerlink" title="1.主流程"></a>1.主流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">KyuubiBeeLine入手</span><br><span class="line">1.建立连接</span><br><span class="line">KyuubiBeeLine[main -&gt; mainWithInputRedirection] -&gt; Beeline[begin] -&gt; KyuubiCommands[connect] -&gt; KyuubiDatabaseConnection[connect -&gt; getConnectionFromDefaultDriver] -&gt; KyuubiHiveDriver[connect] -&gt; KyuubiConnection[openSession] -&gt; TCLIService.Iface[OpenSession](远程调用)</span><br><span class="line"></span><br><span class="line">server端</span><br><span class="line">KyuubiTBinaryFrontendService[OpenSession] -&gt; TFrontendService[getSessionHandle] -&gt; AbstractBackendService[openSession] -&gt; KyuubiSessionManager[openSession] -&gt; SessionManager[openSession] -&gt; (初始化)KyuubiSessionImpl[open -&gt; runOperation] -&gt; AbstractSession[runOperation] -&gt; AbstractOperation[run -&gt; runInternal] -&gt; LaunchEngine[runInternal] =&gt; 提交了一个异步任务</span><br><span class="line"></span><br><span class="line">KyuubiSessionImpl[openEngineSession] -&gt; EngineRef[getOrCreate -&gt; create] -&gt; ProcBuilder[start] -&gt; ProcessBuilder[start](启动spark-submit)</span><br><span class="line"></span><br><span class="line">KyuubiSyncThriftClient[openSession (真正openSession)]</span><br><span class="line"></span><br><span class="line">2.执行sql</span><br><span class="line">KyuubiCommands[sql -&gt; execute -&gt; executeInternal] -&gt; BeeLine[createStatement] -&gt; KyuubiConnection[createStatement](初始化KyuubiStatement) -&gt; KyuubiStatement[execute -&gt; executeWithConfOverlay -&gt; runAsyncOnServer] -&gt; TCLIService.Iface[ExecuteStatement](远程调用)</span><br><span class="line"></span><br><span class="line">server端</span><br><span class="line">TFrontendService[ExecuteStatement] -&gt; AbstractBackendService[executeStatement] -&gt; AbstractSession[executeStatement] -&gt; SparkSQLOperationManager[newExecuteStatementOperation] -&gt;</span><br><span class="line">AbstractSession[runOperation] -&gt; SparkSessionImpl[runOperation] -&gt; AbstractOperation[run -&gt; runInternal] -&gt; spark.ExecuteStatement[executeStatement] -&gt; spark.sql(statement) 执行结果放入一个迭代器中</span><br><span class="line"></span><br><span class="line">=&gt; 再回到客户端</span><br><span class="line">KyuubiStatement[executeWithConfOverlay -&gt; waitForOperationToComplete(不断查询操作是否完成)] -&gt; KyuubiQueryResultSet[build](初始化KyuubiQueryResultSet) -&gt; KyuubiQueryResultSet[next] -&gt; TCLIService.Iface[FetchResults](远程调用)</span><br><span class="line"></span><br><span class="line">KyuubiCommands[executeInternal] -&gt; KyuubiStatement[getResultSet] -&gt; BeeLine[print] 打印结果</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-角色解读"><a href="#2-角色解读" class="headerlink" title="2.角色解读"></a>2.角色解读</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">KyuubiHiveDriver</span><br><span class="line">-- TODO</span><br><span class="line"></span><br><span class="line">KyuubiServer.scala</span><br><span class="line">KyuubiServer[main -&gt; startServer -&gt; initialize -&gt; addService(KinitAuxiliaryService、PeriodicGCService等等)] -&gt; Serverable[initialize -&gt; addService(AbstractBackendService、AbstractFrontendService)] -&gt; CompositeService[initialize -&gt; 初始化所有的Service]</span><br><span class="line"></span><br><span class="line">KyuubiServer[main -&gt; startServer -&gt; start]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Calcite"><a href="#Calcite" class="headerlink" title="Calcite"></a>Calcite</h3><h4 id="1-主流程-1"><a href="#1-主流程-1" class="headerlink" title="1.主流程"></a>1.主流程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">1.SqlToRelConverter</span><br><span class="line">CalciteSQLConverter[main] -&gt; SqlToRelConverter[convertQuery -&gt; convertQueryRecursive]  -&gt;</span><br><span class="line">// 以select为例</span><br><span class="line"> SqlToRelConverter[convertSelect -&gt; convertSelectImpl] -&gt;</span><br><span class="line">// from -&gt; join</span><br><span class="line"> SqlToRelConverter[convertFrom -&gt; convertJoin(递归调用convertFrom左边、convertFrom右边)] -&gt; </span><br><span class="line">// Identifier 真正的from?</span><br><span class="line"> SqlToRelConverter[convertIdentifier] -&gt;</span><br><span class="line">// on condition</span><br><span class="line"> SqlToRelConverter[convertOnCondition] -&gt; convertJoin结束 -&gt;</span><br><span class="line">// where</span><br><span class="line"> SqlToRelConverter[convertWhere]</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">2.优化器</span><br><span class="line">1.HepPlanner RBO模型</span><br><span class="line">	</span><br><span class="line">2.VolcanoPlanner CBO模型</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMU15445源码阅读"><a href="#CMU15445源码阅读" class="headerlink" title="CMU15445源码阅读"></a>CMU15445源码阅读</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1. buffer pool manager</span><br><span class="line">	extending hash table(buffer pool的核心存储)</span><br><span class="line">	K-LRU 移除的时候，该移除谁</span><br><span class="line">2. b+ tree</span><br><span class="line">	如何insert remove，存在array里面</span><br><span class="line">3. query execution</span><br><span class="line">	实现算子，火山模型</span><br><span class="line">	优化、后序遍历</span><br><span class="line">	table_page，理解表中的数据到底是怎么存储的。</span><br><span class="line">	是一个个的Tuple(4kb)</span><br><span class="line">4. concurrency control</span><br><span class="line">	两阶段锁、锁兼容、三种隔离级别</span><br></pre></td></tr></table></figure>
+
+<h3 id="Gluten源码分析"><a href="#Gluten源码分析" class="headerlink" title="Gluten源码分析"></a>Gluten源码分析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">入口</span><br><span class="line">GlutenPlugin</span><br><span class="line">-Driver Plugin</span><br><span class="line">-Executor Plugin</span><br><span class="line"></span><br><span class="line">一、 Driver Plugin</span><br><span class="line">a. 注册GlutenSQLAppStatusListener spark sql的事件监听</span><br><span class="line">- onExecutionStart</span><br><span class="line">- onExecutionEnd</span><br><span class="line"></span><br><span class="line">b. setPredefinedConfigs</span><br><span class="line">gluten driver端的配置项初始化</span><br><span class="line"></span><br><span class="line">c. GlutenDriverEndpoint 和Executor通信</span><br><span class="line">- Executor启动后，向Driver这边通知</span><br><span class="line"></span><br><span class="line">d. registerMetrics spark.gluten.ui.enabled</span><br><span class="line">- 统计指标</span><br><span class="line"></span><br><span class="line">e. BackendsApiManager的初始化 </span><br><span class="line">主要是onDriverStart- 加载native lib 暂不深入</span><br><span class="line"></span><br><span class="line">二、 Executor Plugin</span><br><span class="line">a. GlutenExecutorEndpoint 和Driver通信</span><br><span class="line">b. taskListeners 对于Task的事件监听器</span><br><span class="line">主要是onTaskStart task启动的事件处理</span><br><span class="line">BackendsApiManager初始化 </span><br><span class="line">主要是onExecutorStart</span><br><span class="line"></span><br><span class="line">三、 GlutenSessionExtensions （核心）</span><br><span class="line">    ColumnarQueryStagePrepOverrides,</span><br><span class="line">    ColumnarOverrides,</span><br><span class="line">    StrategyOverrides,</span><br><span class="line">    OthersExtensionOverrides</span><br><span class="line"> 所有的查询，都会经过这些优化</span><br><span class="line"> </span><br><span class="line"> ColumnarQueryStagePrepOverrides</span><br><span class="line"> FallbackOnANSIMode, FallbackMultiCodegens，FallbackBroadcastExchange</span><br><span class="line"> </span><br><span class="line"> 1. ColumnarOverrideRules</span><br><span class="line"> ColumnarRule</span><br><span class="line"> 	preColumnarTransitions</span><br><span class="line"> 	 preOverrides() 规则都在这里</span><br><span class="line"> 	 	FallbackOnANSIMode ansimode 则所有的算子，都不支持  =&gt; 用于回退</span><br><span class="line"> 	 	FallbackMultiCodegens 代码生成算子超过十二层，就不考虑优化了？</span><br><span class="line"> 	 	PlanOneRowRelation</span><br><span class="line"> 	 	FallbackEmptySchemaRelation</span><br><span class="line"> 	 	AddTransformHintRule 哪些算子是需要转换的 hivescan为例 =&gt; 大概率不支持</span><br><span class="line"> 	 		TransformHints.tagNotTransformable 打上不支持的标签</span><br><span class="line"> 	 	TransformPreOverrides</span><br><span class="line"> 	 		replaceWithTransformerPlan</span><br><span class="line"> 	 			applyScanNotTransformable</span><br><span class="line"> 	 			applyScanTransformer</span><br><span class="line"> 	 				BackendsApiManager.getSparkPlanExecApiInstance.genHiveTableScanExecTransformer</span><br><span class="line"> 	 				return hiveTableScanExecTransformer</span><br><span class="line"> 	 	RewriteTransformer</span><br><span class="line"> 						</span><br><span class="line">ColumnarRule</span><br><span class="line">	postColumnarTransitions</span><br><span class="line">		fallbackPolicy</span><br><span class="line">			ExpandFallbackPolicy</span><br><span class="line">				fallback</span><br><span class="line">					countStageFallbackCostInternal 对于InMemoryTableScanExec、QueryStageExec两个支持列运算的算子，fallback成本是增加的，其他的是减少的</span><br><span class="line">					countFallback 只要有列转行，成本增加</span><br><span class="line">				fallbackToRowBasedPlan</span><br><span class="line">					# 在这个地方，把不支持列的插入 row =&gt; columnar HiveTableScanExec就不支持 </span><br><span class="line">					InsertTransitions.insertTransitions (把整个计划串起来，支持列的计算，在其前后进行行列转换)</span><br><span class="line">					transformColumnarToRowExec  列转行、行转列生成都在这里</span><br><span class="line">					</span><br><span class="line">		postOverrides</span><br><span class="line">			TransformPostOverrides</span><br><span class="line">			# DataWritingCommandExec 写入hive数据，原来需要列转行，现在直接写入velox,不需要了。</span><br><span class="line">			BackendsApiManager.getSparkPlanExecApiInstance.genExtendedColumnarPostRules() </span><br><span class="line">				NativeWritePostRule (spark 在执行SQL的时候，就构建FakeRowAdaptor 把列转成行)</span><br><span class="line">					FakeRowAdaptor</span><br><span class="line">					RowToVeloxColumnarExec</span><br><span class="line">						doExecuteColumnarInternal</span><br><span class="line">							RowToVeloxColumnarExec.toColumnarBatchIterator</span><br><span class="line">								nativeConvert</span><br><span class="line"></span><br><span class="line">四、算子执行的入口</span><br><span class="line"> TakeOrderedAndProjectExecTransformer 是一个很重要的转换器  触发WholeStageTransformer</span><br><span class="line"> 	doExecuteColumnar</span><br><span class="line"> 		获取（columnarInputRDDs）</span><br><span class="line"> 		child.executeColumnar  =&gt; 拿到RDD</span><br><span class="line"> 		WholeStageTransformer</span><br><span class="line"> 			doExecuteColumnar</span><br><span class="line"> 				# 这里会</span><br><span class="line"> 				doWholeStageTransform</span><br><span class="line"> 					generateWholeStageTransformContext</span><br><span class="line"> 						child.doTransform()</span><br><span class="line"> 							# SparkPlan =&gt; Substrait Plan 这里会完成</span><br><span class="line"> 							PlanBuilder.makePlan</span><br><span class="line"> 							return WholeStageTransformContext(planNode, substraitContext)</span><br><span class="line"> 			return GlutenWholeStageColumnarRDD 最终构造为一个RDD </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">五、 不太清楚的点</span><br><span class="line">1. AQE动态分区裁剪的处理</span><br><span class="line">ExpressionConverter#transformDynamicPruningExpr</span><br><span class="line">	这块还没看懂。</span><br><span class="line">	</span><br><span class="line">六、GlutenWholeStageColumnarRDD详解</span><br><span class="line">compute方法</span><br><span class="line">	BackendsApiManager.getIteratorApiInstance.genFirstStageIterator</span><br><span class="line">		NativePlanEvaluator#createKernelWithBatchIterator</span><br><span class="line">			PlanEvaluatorJniWrapper#nativeCreateKernelWithIterator</span><br><span class="line">				1. 获取运行上下文Runtime</span><br><span class="line">				2. parsePlan 将substrait Plan解析成substrait::Plan Protobuf对象，并保存一份到文件</span><br><span class="line">				3. 最终返回一个JniColumnarBatchIterator 有next函数来返回一个ColumnarBatch</span><br><span class="line">			VeloxRuntime::createResultIterator</span><br><span class="line">				1. substrait::Plan 转成 veloxPlan</span><br><span class="line">				2. 构建 WholeStageResultIteratorFirstStage</span><br><span class="line">				3. WholeStageResultIterator.next() 函数来返回VeloxColumnarBatch，实际上并没有返回，存在了objectStore中</span><br><span class="line">				4. ColumnarBatchOutIterator#nativeNext的时候，再从objectStore中执行VeloxColumnarBatch.next() 函数返回</span><br><span class="line">			NativePlanEvaluator#createOutIterator</span><br><span class="line">				构建ColumnarBatchOutIterator</span><br><span class="line">					1. GeneralOutIterator#next =&gt; nextInternal() =&gt; nativeNext() =&gt; ColumnarBatches.create</span><br><span class="line">					2. nativeNext 具体实现</span><br><span class="line">						a. 先找到ResultIterator</span><br><span class="line">						b. 调用ResultIterator的next方法</span><br><span class="line"></span><br><span class="line">七、每个Transformer算子，详解</span><br><span class="line">HiveTableScanExecTransformer</span><br><span class="line">	如何转换成substrait的plan</span><br><span class="line"></span><br><span class="line">八、ColumnarOverrideRules</span><br><span class="line">	PlanOneRowRelation</span><br><span class="line">		处理select *** 没有from的情况</span><br><span class="line">	AddTransformHintRule</span><br><span class="line">		标识哪些算子能转。就转成对应的substrait plan</span><br><span class="line">	TransformPreOverrides</span><br><span class="line">		replaceWithTransformerPlan</span><br><span class="line">		动态分区裁剪处理</span><br><span class="line">	genFilterExec</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-824源码阅读"><a href="#6-824源码阅读" class="headerlink" title="6.824源码阅读"></a>6.824源码阅读</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lab1 mapreduce</span><br><span class="line">lab2 学习笔记（从源码角度）</span><br><span class="line">主要是学习Raft的实现</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mini-lsm源码阅读"><a href="#Mini-lsm源码阅读" class="headerlink" title="Mini-lsm源码阅读"></a>Mini-lsm源码阅读</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Week1:</span><br><span class="line">	1.实现MemTable</span><br><span class="line">	2.实现MemTableIterator (MemTable做一个范围的迭代器)</span><br><span class="line">	3.实现MergeIterator,多个MemTableIterator</span><br><span class="line">	4.</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/源码解析/" rel="tag"># 源码解析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/11/13/MYSQL实战45讲/" rel="next" title="MYSQL实战45讲">
+                <i class="fa fa-chevron-left"></i> MYSQL实战45讲
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NjYwMC8yMzExMA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="Lx">
+            
+              <p class="site-author-name" itemprop="name">Lx</p>
+              <p class="site-description motion-element" itemprop="description">dreamer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/lixiangbetter" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MiniSpark"><span class="nav-number">1.</span> <span class="nav-text">MiniSpark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spark源码"><span class="nav-number">2.</span> <span class="nav-text">Spark源码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spark-SQL源码"><span class="nav-number">2.1.</span> <span class="nav-text">Spark SQL源码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查hive"><span class="nav-number">2.1.1.</span> <span class="nav-text">查hive</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#全阶段代码生成"><span class="nav-number">2.1.2.</span> <span class="nav-text">全阶段代码生成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表达式代码生成"><span class="nav-number">2.1.3.</span> <span class="nav-text">表达式代码生成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Celeborn"><span class="nav-number">3.</span> <span class="nav-text">Celeborn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#源码分析"><span class="nav-number">3.1.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-读写主要过程"><span class="nav-number">3.1.1.</span> <span class="nav-text">1. 读写主要过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-角色通信"><span class="nav-number">3.1.2.</span> <span class="nav-text">2. 角色通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-概念理解"><span class="nav-number">3.1.3.</span> <span class="nav-text">3. 概念理解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-shuffle完整过程"><span class="nav-number">3.1.4.</span> <span class="nav-text">4. shuffle完整过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-角色详细解读（涉及属性）"><span class="nav-number">3.1.5.</span> <span class="nav-text">5. 角色详细解读（涉及属性）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kyuubi"><span class="nav-number">4.</span> <span class="nav-text">Kyuubi</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-主流程"><span class="nav-number">4.1.</span> <span class="nav-text">1.主流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-角色解读"><span class="nav-number">4.2.</span> <span class="nav-text">2.角色解读</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calcite"><span class="nav-number">5.</span> <span class="nav-text">Calcite</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-主流程-1"><span class="nav-number">5.1.</span> <span class="nav-text">1.主流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMU15445源码阅读"><span class="nav-number">6.</span> <span class="nav-text">CMU15445源码阅读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gluten源码分析"><span class="nav-number">7.</span> <span class="nav-text">Gluten源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-824源码阅读"><span class="nav-number">8.</span> <span class="nav-text">6.824源码阅读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mini-lsm源码阅读"><span class="nav-number">9.</span> <span class="nav-text">Mini-lsm源码阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 &mdash; <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <!--<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>-->
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
